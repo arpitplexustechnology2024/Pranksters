@@ -1,0 +1,6 @@
+framework module Pods_PrankstersTests {
+  umbrella header "Pods-PrankstersTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

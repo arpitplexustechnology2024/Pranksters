@@ -8,22 +8,38 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
+    
+    @IBOutlet weak var navigationbarView: UIView!
+    @IBOutlet weak var audioView: UIView!
+    @IBOutlet weak var videoView: UIView!
+    @IBOutlet weak var imageView: UIView!
+    @IBOutlet weak var premiumView: UIView!
+    @IBOutlet weak var moreAppView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.setupUI()
+        self.addBottomShadow(to: navigationbarView)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setupUI() {
+        self.audioView.layer.cornerRadius = 15
+        self.videoView.layer.cornerRadius = 15
+        self.imageView.layer.cornerRadius = 15
+        self.premiumView.layer.cornerRadius = 15
+        self.moreAppView.layer.cornerRadius = 15
     }
-    */
+
+    func addBottomShadow(to view: UIView) {
+        view.layer.masksToBounds = false
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.2
+        view.layer.shadowOffset = CGSize(width: 0, height: 7)
+        view.layer.shadowRadius = 12
+        view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
+                                                          y: view.bounds.maxY - 4,
+                                                          width: view.bounds.width,
+                                                          height: 4)).cgPath
+    }
 
 }

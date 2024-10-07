@@ -1,0 +1,6 @@
+framework module Pods_Pranksters {
+  umbrella header "Pods-Pranksters-umbrella.h"
+
+  export *
+  module * { export * }
+}
