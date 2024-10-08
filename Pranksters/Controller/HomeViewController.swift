@@ -1,14 +1,13 @@
 //
-//  HomeViewController.swift
-//  Pranksters
+//  ViewController.swift
+//  CustomSideMenuiOSExample
 //
-//  Created by Arpit iOS Dev. on 07/10/24.
+//  Created by John Codeos on 2/§/21.
 //
 
 import UIKit
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+class HomeViewController: UIViewController {
     @IBOutlet weak var navigationbarView: UIView!
     @IBOutlet weak var audioView: UIView!
     @IBOutlet weak var videoView: UIView!
@@ -17,23 +16,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var moreAppView: UIView!
     @IBOutlet weak var sideMenuButton: UIButton!
     @IBOutlet weak var spinerButton: UIButton!
-    @IBOutlet weak var sideMenuView: UIView!
-    @IBOutlet weak var sideMenuLogo: UIImageView!
-    @IBOutlet weak var sideMenuTableView: UITableView!
-    
-    var arrImg = ["More", "Fav", "premium 1", "review", "share", "privacy", "Spiner", "Link"]
-    var arrData = ["More app", "Favorite list", "Premium", "Write a app review", "Share app with a friend", "Privacy Policy", "Spinner", "View Link"]
-    
-    var backgroundOverlayView: UIView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
         self.addBottomShadow(to: navigationbarView)
-        self.setupBackgroundOverlayView()
-        self.addTapGestureToOverlay()
         
-        self.sideMenuView.frame.origin.x = -self.sideMenuView.frame.width
+        if let revealVC = self.revealViewController() {
+            self.sideMenuButton.addTarget(revealVC, action: #selector(revealVC.revealSideMenu), for: .touchUpInside)
+        }
     }
     
     func setupUI() {
@@ -43,18 +34,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.premiumView.layer.cornerRadius = 15
         self.moreAppView.layer.cornerRadius = 15
         
-        self.sideMenuTableView.delegate = self
-        self.sideMenuTableView.dataSource = self
-        
-        self.sideMenuView.isHidden = true
-    }
-    
-    func setupBackgroundOverlayView() {
-        backgroundOverlayView = UIView(frame: self.view.bounds)
-        backgroundOverlayView.backgroundColor = UIColor.black
-        backgroundOverlayView.alpha = 0.0
-        self.view.addSubview(backgroundOverlayView)
-        self.view.bringSubviewToFront(sideMenuView)
     }
     
     func addBottomShadow(to view: UIView) {
@@ -69,47 +48,4 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                                                           height: 4)).cgPath
     }
     
-    func addTapGestureToOverlay() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleOverlayTap))
-        backgroundOverlayView.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc func handleOverlayTap() {
-        hideSideMenu()
-    }
-    
-    @IBAction func btnSideMenuTapped(_ sender: UIButton) {
-        showSideMenu()
-    }
-    
-    func showSideMenu() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.sideMenuView.isHidden = false
-            self.backgroundOverlayView.alpha = 0.3
-        })
-    }
-    
-    func hideSideMenu() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.sideMenuView.isHidden = true
-            self.backgroundOverlayView.alpha = 0.0
-        })
-    }
-    
-    // MARK: - UITableView Delegate and DataSource
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "sideMenuCell") as! sideMenuCell
-        cell.sideMenuIcon.image = UIImage(named: arrImg[indexPath.row])
-        cell.sideMenuLabel.text = arrData[indexPath.row]
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
 }

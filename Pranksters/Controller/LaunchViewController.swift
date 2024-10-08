@@ -36,7 +36,7 @@ class LaunchViewController: UIViewController {
                 self.loadingView.isHidden = true
                 
                 
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "HomeViewController") as! HomeViewController
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MainViewController") as! MainViewController
                 self.navigationController?.pushViewController(vc, animated: true)
 
             }

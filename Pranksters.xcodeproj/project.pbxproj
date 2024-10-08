@@ -19,9 +19,18 @@
 		BD2F1E352CB459380017A963 /* PrankstersUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F1E322CB459380017A963 /* PrankstersUITestsLaunchTests.swift */; };
 		BD2F1E3A2CB462E00017A963 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F1E392CB462E00017A963 /* LaunchViewController.swift */; };
 		BD2F1E3C2CB470B20017A963 /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = BD2F1E3B2CB470B20017A963 /* Loading.json */; };
-		BD2F1E3E2CB49C750017A963 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F1E3D2CB49C750017A963 /* HomeViewController.swift */; };
 		BD2F1E402CB4A6870017A963 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2F1E3F2CB4A6870017A963 /* Color.xcassets */; };
-		BD3B42AC2CB4B6FD00634A2E /* sideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3B42AB2CB4B6FD00634A2E /* sideMenuCell.swift */; };
+		BDA87EB32CB5AB2E00C25C50 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EB22CB5AB2E00C25C50 /* SideMenuViewController.swift */; };
+		BDA87EB62CB5AC3B00C25C50 /* SideMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EB52CB5AC3B00C25C50 /* SideMenuModel.swift */; };
+		BDA87EBD2CB5ACFD00C25C50 /* SideMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDA87EBC2CB5ACFD00C25C50 /* SideMenuCell.xib */; };
+		BDA87EBE2CB5ACFD00C25C50 /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EBB2CB5ACFD00C25C50 /* SideMenuCell.swift */; };
+		BDA87EC92CB5C12900C25C50 /* ViewLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EC62CB5C12900C25C50 /* ViewLinkViewController.swift */; };
+		BDA87ECA2CB5C12900C25C50 /* PremiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EC72CB5C12900C25C50 /* PremiumViewController.swift */; };
+		BDA87ECB2CB5C12900C25C50 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EC32CB5C12900C25C50 /* HomeViewController.swift */; };
+		BDA87ECC2CB5C12900C25C50 /* FavoriteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EC52CB5C12900C25C50 /* FavoriteListViewController.swift */; };
+		BDA87ECD2CB5C12900C25C50 /* MoreAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EC82CB5C12900C25C50 /* MoreAppViewController.swift */; };
+		BDA87ECE2CB5C12900C25C50 /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EC42CB5C12900C25C50 /* SpinnerViewController.swift */; };
+		BDA87ED02CB5C16400C25C50 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87ECF2CB5C16400C25C50 /* MainViewController.swift */; };
 		D135A4551B8DF35C16863C46 /* Pods_Pranksters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AD0CF052AC7BC6C607194D1 /* Pods_Pranksters.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,9 +74,18 @@
 		BD2F1E322CB459380017A963 /* PrankstersUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrankstersUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BD2F1E392CB462E00017A963 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		BD2F1E3B2CB470B20017A963 /* Loading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
-		BD2F1E3D2CB49C750017A963 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		BD2F1E3F2CB4A6870017A963 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
-		BD3B42AB2CB4B6FD00634A2E /* sideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sideMenuCell.swift; sourceTree = "<group>"; };
+		BDA87EB22CB5AB2E00C25C50 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		BDA87EB52CB5AC3B00C25C50 /* SideMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuModel.swift; sourceTree = "<group>"; };
+		BDA87EBB2CB5ACFD00C25C50 /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
+		BDA87EBC2CB5ACFD00C25C50 /* SideMenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuCell.xib; sourceTree = "<group>"; };
+		BDA87EC32CB5C12900C25C50 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		BDA87EC42CB5C12900C25C50 /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
+		BDA87EC52CB5C12900C25C50 /* FavoriteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListViewController.swift; sourceTree = "<group>"; };
+		BDA87EC62CB5C12900C25C50 /* ViewLinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLinkViewController.swift; sourceTree = "<group>"; };
+		BDA87EC72CB5C12900C25C50 /* PremiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumViewController.swift; sourceTree = "<group>"; };
+		BDA87EC82CB5C12900C25C50 /* MoreAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreAppViewController.swift; sourceTree = "<group>"; };
+		BDA87ECF2CB5C16400C25C50 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E0C39A3DC80C504DEF55DCB5 /* Pods-PrankstersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrankstersTests.release.xcconfig"; path = "Target Support Files/Pods-PrankstersTests/Pods-PrankstersTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -166,6 +184,7 @@
 		BD2F1E262CB459320017A963 /* Pranksters */ = {
 			isa = PBXGroup;
 			children = (
+				BDA87EB42CB5AC2F00C25C50 /* Model */,
 				BD2F1E1D2CB459320017A963 /* Delegate */,
 				BD3B42A92CB4AD4800634A2E /* Lottie json */,
 				BD2F1E222CB459320017A963 /* View */,
@@ -198,7 +217,14 @@
 			isa = PBXGroup;
 			children = (
 				BD2F1E392CB462E00017A963 /* LaunchViewController.swift */,
-				BD2F1E3D2CB49C750017A963 /* HomeViewController.swift */,
+				BDA87EB22CB5AB2E00C25C50 /* SideMenuViewController.swift */,
+				BDA87ECF2CB5C16400C25C50 /* MainViewController.swift */,
+				BDA87EC32CB5C12900C25C50 /* HomeViewController.swift */,
+				BDA87EC42CB5C12900C25C50 /* SpinnerViewController.swift */,
+				BDA87EC52CB5C12900C25C50 /* FavoriteListViewController.swift */,
+				BDA87EC62CB5C12900C25C50 /* ViewLinkViewController.swift */,
+				BDA87EC72CB5C12900C25C50 /* PremiumViewController.swift */,
+				BDA87EC82CB5C12900C25C50 /* MoreAppViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -214,9 +240,18 @@
 		BD3B42AA2CB4B6E800634A2E /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				BD3B42AB2CB4B6FD00634A2E /* sideMenuCell.swift */,
+				BDA87EBB2CB5ACFD00C25C50 /* SideMenuCell.swift */,
+				BDA87EBC2CB5ACFD00C25C50 /* SideMenuCell.xib */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		BDA87EB42CB5AC2F00C25C50 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BDA87EB52CB5AC3B00C25C50 /* SideMenuModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,6 +368,7 @@
 				BD2F1E402CB4A6870017A963 /* Color.xcassets in Resources */,
 				BD2F1E3C2CB470B20017A963 /* Loading.json in Resources */,
 				BD2F1E2C2CB459320017A963 /* Assets.xcassets in Resources */,
+				BDA87EBD2CB5ACFD00C25C50 /* SideMenuCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,11 +496,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDA87EB62CB5AC3B00C25C50 /* SideMenuModel.swift in Sources */,
+				BDA87EBE2CB5ACFD00C25C50 /* SideMenuCell.swift in Sources */,
+				BDA87EC92CB5C12900C25C50 /* ViewLinkViewController.swift in Sources */,
+				BDA87ECA2CB5C12900C25C50 /* PremiumViewController.swift in Sources */,
+				BDA87ECB2CB5C12900C25C50 /* HomeViewController.swift in Sources */,
+				BDA87ECC2CB5C12900C25C50 /* FavoriteListViewController.swift in Sources */,
+				BDA87ECD2CB5C12900C25C50 /* MoreAppViewController.swift in Sources */,
+				BDA87ECE2CB5C12900C25C50 /* SpinnerViewController.swift in Sources */,
+				BDA87ED02CB5C16400C25C50 /* MainViewController.swift in Sources */,
 				BD2F1E272CB459320017A963 /* AppDelegate.swift in Sources */,
 				BD2F1E3A2CB462E00017A963 /* LaunchViewController.swift in Sources */,
-				BD3B42AC2CB4B6FD00634A2E /* sideMenuCell.swift in Sources */,
 				BD2F1E282CB459320017A963 /* SceneDelegate.swift in Sources */,
-				BD2F1E3E2CB49C750017A963 /* HomeViewController.swift in Sources */,
+				BDA87EB32CB5AB2E00C25C50 /* SideMenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
