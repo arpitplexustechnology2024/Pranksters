@@ -291,6 +291,9 @@
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="SideMenu"/>
+                                        <connections>
+                                            <action selector="btnSideMenuTapped:" destination="s8G-wi-Par" eventType="touchUpInside" id="dye-pd-hD9"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Fm-55-XGi">
                                         <rect key="frame" x="56" y="8" width="138.33333333333334" height="26"/>
@@ -319,6 +322,68 @@
                                     <constraint firstItem="ZSN-ka-cVG" firstAttribute="leading" secondItem="7iP-qg-6Bo" secondAttribute="leading" constant="16" id="yzV-2B-mHI"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ik8-kY-aTg">
+                                <rect key="frame" x="0.0" y="0.0" width="352" height="874"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SideMenuLogo" translatesAutoresizingMaskIntoConstraints="NO" id="MS3-SD-O1Z">
+                                        <rect key="frame" x="40" y="70" width="272" height="214"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="214" id="Z59-Dn-DJO"/>
+                                        </constraints>
+                                    </imageView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wdr-PE-lQP">
+                                        <rect key="frame" x="0.0" y="314" width="352" height="560"/>
+                                        <color key="backgroundColor" name="comman"/>
+                                        <inset key="scrollIndicatorInsets" minX="0.0" minY="16" maxX="0.0" maxY="16"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sideMenuCell" rowHeight="50" id="LjF-eg-nm2" customClass="sideMenuCell" customModule="Pranksters" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="50" width="352" height="50"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LjF-eg-nm2" id="bZl-N6-ACD">
+                                                    <rect key="frame" x="0.0" y="0.0" width="352" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="More" translatesAutoresizingMaskIntoConstraints="NO" id="afD-A7-acf">
+                                                            <rect key="frame" x="20" y="12.666666666666664" width="25" height="25"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="25" id="QiY-a1-Znu"/>
+                                                                <constraint firstAttribute="height" constant="25" id="bHC-fr-apg"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More app" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b8e-aJ-nfn">
+                                                            <rect key="frame" x="65" y="13.333333333333334" width="75.333333333333314" height="23.333333333333329"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="afD-A7-acf" firstAttribute="centerY" secondItem="bZl-N6-ACD" secondAttribute="centerY" id="9Gb-4r-265"/>
+                                                        <constraint firstItem="b8e-aJ-nfn" firstAttribute="leading" secondItem="afD-A7-acf" secondAttribute="trailing" constant="20" id="lKV-V2-EjR"/>
+                                                        <constraint firstItem="afD-A7-acf" firstAttribute="leading" secondItem="bZl-N6-ACD" secondAttribute="leading" constant="20" symbolic="YES" id="pKv-OV-7JH"/>
+                                                        <constraint firstItem="b8e-aJ-nfn" firstAttribute="centerY" secondItem="bZl-N6-ACD" secondAttribute="centerY" id="yDZ-N3-8Lv"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" name="comman"/>
+                                                <connections>
+                                                    <outlet property="sideMenuIcon" destination="afD-A7-acf" id="GKp-F0-FIU"/>
+                                                    <outlet property="sideMenuLabel" destination="b8e-aJ-nfn" id="5aw-LP-yU6"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.84705882352941175" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="MS3-SD-O1Z" secondAttribute="trailing" constant="40" id="5qf-bP-uz1"/>
+                                    <constraint firstItem="wdr-PE-lQP" firstAttribute="leading" secondItem="Ik8-kY-aTg" secondAttribute="leading" id="BN5-Jk-4t2"/>
+                                    <constraint firstItem="MS3-SD-O1Z" firstAttribute="top" secondItem="Ik8-kY-aTg" secondAttribute="top" constant="70" id="NZU-hj-wg0"/>
+                                    <constraint firstItem="MS3-SD-O1Z" firstAttribute="leading" secondItem="Ik8-kY-aTg" secondAttribute="leading" constant="40" id="h1H-VV-dE3"/>
+                                    <constraint firstAttribute="bottom" secondItem="wdr-PE-lQP" secondAttribute="bottom" id="uYt-iI-BAR"/>
+                                    <constraint firstAttribute="trailing" secondItem="wdr-PE-lQP" secondAttribute="trailing" id="v1J-nu-Qv5"/>
+                                    <constraint firstItem="wdr-PE-lQP" firstAttribute="top" secondItem="MS3-SD-O1Z" secondAttribute="bottom" constant="30" id="xro-kt-fvZ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7i2-6l-nDf"/>
                         <color key="backgroundColor" name="comman"/>
@@ -328,8 +393,12 @@
                             <constraint firstItem="7i2-6l-nDf" firstAttribute="bottom" secondItem="tca-iF-AvN" secondAttribute="bottom" id="Ihj-ZO-Uaz"/>
                             <constraint firstItem="7iP-qg-6Bo" firstAttribute="top" secondItem="7i2-6l-nDf" secondAttribute="top" id="JBB-Gk-LtP"/>
                             <constraint firstItem="tca-iF-AvN" firstAttribute="leading" secondItem="7i2-6l-nDf" secondAttribute="leading" id="Nsi-qt-18x"/>
+                            <constraint firstAttribute="bottom" secondItem="Ik8-kY-aTg" secondAttribute="bottom" id="SMn-YS-Hrd"/>
+                            <constraint firstItem="Ik8-kY-aTg" firstAttribute="leading" secondItem="7i2-6l-nDf" secondAttribute="leading" id="XRr-9i-9YJ"/>
                             <constraint firstItem="7i2-6l-nDf" firstAttribute="trailing" secondItem="tca-iF-AvN" secondAttribute="trailing" id="bAR-G0-bsr"/>
                             <constraint firstItem="7iP-qg-6Bo" firstAttribute="trailing" secondItem="7i2-6l-nDf" secondAttribute="trailing" id="qQ7-pb-iwg"/>
+                            <constraint firstItem="Ik8-kY-aTg" firstAttribute="width" secondItem="ltp-8p-fCy" secondAttribute="width" multiplier="0.875622" id="wfY-JJ-5Kj"/>
+                            <constraint firstItem="Ik8-kY-aTg" firstAttribute="top" secondItem="ltp-8p-fCy" secondAttribute="top" id="zID-3l-8dm"/>
                         </constraints>
                     </view>
                     <connections>
@@ -338,6 +407,11 @@
                         <outlet property="moreAppView" destination="pfV-mE-qc1" id="xAz-yW-qPT"/>
                         <outlet property="navigationbarView" destination="7iP-qg-6Bo" id="qmV-xf-ui7"/>
                         <outlet property="premiumView" destination="vgY-gA-mCx" id="k1r-83-xPj"/>
+                        <outlet property="sideMenuButton" destination="ZSN-ka-cVG" id="h6U-bR-UAD"/>
+                        <outlet property="sideMenuLogo" destination="MS3-SD-O1Z" id="NWY-MI-hN8"/>
+                        <outlet property="sideMenuTableView" destination="wdr-PE-lQP" id="PQ5-fx-uo7"/>
+                        <outlet property="sideMenuView" destination="Ik8-kY-aTg" id="o8c-Os-a1L"/>
+                        <outlet property="spinerButton" destination="BFj-f8-cBR" id="43P-i4-Ot8"/>
                         <outlet property="videoView" destination="xm0-gI-q6l" id="34Y-1a-GV5"/>
                     </connections>
                 </viewController>
@@ -367,9 +441,11 @@
         <image name="Audio" width="717" height="711"/>
         <image name="Image" width="953" height="949"/>
         <image name="LaunchBG-iPhone" width="3600" height="8000"/>
+        <image name="More" width="240" height="240"/>
         <image name="MoreApp" width="922" height="926"/>
         <image name="Premium" width="1006" height="886"/>
         <image name="SideMenu" width="201" height="200"/>
+        <image name="SideMenuLogo" width="2082" height="2148"/>
         <image name="Spiner" width="201" height="240"/>
         <image name="Video" width="675" height="866"/>
         <namedColor name="comman">

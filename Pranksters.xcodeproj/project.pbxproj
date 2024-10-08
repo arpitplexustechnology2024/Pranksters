@@ -21,6 +21,7 @@
 		BD2F1E3C2CB470B20017A963 /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = BD2F1E3B2CB470B20017A963 /* Loading.json */; };
 		BD2F1E3E2CB49C750017A963 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F1E3D2CB49C750017A963 /* HomeViewController.swift */; };
 		BD2F1E402CB4A6870017A963 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2F1E3F2CB4A6870017A963 /* Color.xcassets */; };
+		BD3B42AC2CB4B6FD00634A2E /* sideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3B42AB2CB4B6FD00634A2E /* sideMenuCell.swift */; };
 		D135A4551B8DF35C16863C46 /* Pods_Pranksters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AD0CF052AC7BC6C607194D1 /* Pods_Pranksters.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		BD2F1E3B2CB470B20017A963 /* Loading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
 		BD2F1E3D2CB49C750017A963 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		BD2F1E3F2CB4A6870017A963 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
+		BD3B42AB2CB4B6FD00634A2E /* sideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sideMenuCell.swift; sourceTree = "<group>"; };
 		E0C39A3DC80C504DEF55DCB5 /* Pods-PrankstersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrankstersTests.release.xcconfig"; path = "Target Support Files/Pods-PrankstersTests/Pods-PrankstersTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,6 +156,7 @@
 		BD2F1E222CB459320017A963 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BD3B42AA2CB4B6E800634A2E /* Cell */,
 				BD2F1E1F2CB459320017A963 /* LaunchScreen.storyboard */,
 				BD2F1E212CB459320017A963 /* Main.storyboard */,
 			);
@@ -164,7 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				BD2F1E1D2CB459320017A963 /* Delegate */,
-				BD2F1E3B2CB470B20017A963 /* Loading.json */,
+				BD3B42A92CB4AD4800634A2E /* Lottie json */,
 				BD2F1E222CB459320017A963 /* View */,
 				BD2F1E362CB459470017A963 /* Controller */,
 				BD2F1E232CB459320017A963 /* Assets.xcassets */,
@@ -198,6 +201,22 @@
 				BD2F1E3D2CB49C750017A963 /* HomeViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		BD3B42A92CB4AD4800634A2E /* Lottie json */ = {
+			isa = PBXGroup;
+			children = (
+				BD2F1E3B2CB470B20017A963 /* Loading.json */,
+			);
+			path = "Lottie json";
+			sourceTree = "<group>";
+		};
+		BD3B42AA2CB4B6E800634A2E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				BD3B42AB2CB4B6FD00634A2E /* sideMenuCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -443,6 +462,7 @@
 			files = (
 				BD2F1E272CB459320017A963 /* AppDelegate.swift in Sources */,
 				BD2F1E3A2CB462E00017A963 /* LaunchViewController.swift in Sources */,
+				BD3B42AC2CB4B6FD00634A2E /* sideMenuCell.swift in Sources */,
 				BD2F1E282CB459320017A963 /* SceneDelegate.swift in Sources */,
 				BD2F1E3E2CB49C750017A963 /* HomeViewController.swift in Sources */,
 			);
