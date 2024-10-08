@@ -21,8 +21,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var sideMenuLogo: UIImageView!
     @IBOutlet weak var sideMenuTableView: UITableView!
     
-    var arrImg = ["More", "Fav", "premium 1", "review", "share", "privacy"]
-    var arrData = ["More app", "Favorite list", "Premium", "Write a app review", "Share app with a friend", "Privacy Policy"]
+    var arrImg = ["More", "Fav", "premium 1", "review", "share", "privacy", "Spiner", "Link"]
+    var arrData = ["More app", "Favorite list", "Premium", "Write a app review", "Share app with a friend", "Privacy Policy", "Spinner", "View Link"]
     
     var backgroundOverlayView: UIView!
     
@@ -46,7 +46,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.sideMenuTableView.delegate = self
         self.sideMenuTableView.dataSource = self
         
-        self.sideMenuView.isHidden = false
+        self.sideMenuView.isHidden = true
     }
     
     func setupBackgroundOverlayView() {
@@ -84,15 +84,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func showSideMenu() {
         UIView.animate(withDuration: 0.3, animations: {
+            self.sideMenuView.isHidden = false
             self.backgroundOverlayView.alpha = 0.3
-            self.sideMenuView.frame.origin.x = 0
         })
     }
     
     func hideSideMenu() {
         UIView.animate(withDuration: 0.3, animations: {
+            self.sideMenuView.isHidden = true
             self.backgroundOverlayView.alpha = 0.0
-            self.sideMenuView.frame.origin.x = -self.sideMenuView.frame.width
         })
     }
     
@@ -110,6 +110,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
     }
 }

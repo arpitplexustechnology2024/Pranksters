@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bfN-cU-Drb" customClass="LottieAnimationView" customModule="Lottie">
-                                <rect key="frame" x="151" y="732" width="100" height="100"/>
+                                <rect key="frame" x="151" y="750" width="100" height="100"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="u3Y-NR-Dyc"/>
@@ -38,7 +38,7 @@
                             <constraint firstItem="bfN-cU-Drb" firstAttribute="centerX" secondItem="9S7-eH-GNy" secondAttribute="centerX" id="KKp-ff-wSQ"/>
                             <constraint firstItem="F2e-qq-IS4" firstAttribute="trailing" secondItem="1uM-Sj-3ph" secondAttribute="trailing" id="Odg-nj-TTA"/>
                             <constraint firstAttribute="bottom" secondItem="F2e-qq-IS4" secondAttribute="bottom" id="lLa-U5-p3u"/>
-                            <constraint firstItem="1uM-Sj-3ph" firstAttribute="bottom" secondItem="bfN-cU-Drb" secondAttribute="bottom" constant="8" id="vbH-Cu-Hzt"/>
+                            <constraint firstItem="1uM-Sj-3ph" firstAttribute="bottom" secondItem="bfN-cU-Drb" secondAttribute="bottom" constant="-10" id="vbH-Cu-Hzt"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PJ8-Pd-up5"/>
@@ -59,7 +59,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tca-iF-AvN">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tca-iF-AvN">
                                 <rect key="frame" x="0.0" y="102" width="402" height="738"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uag-wa-vp2">
@@ -326,13 +326,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="352" height="874"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SideMenuLogo" translatesAutoresizingMaskIntoConstraints="NO" id="MS3-SD-O1Z">
-                                        <rect key="frame" x="40" y="70" width="272" height="214"/>
+                                        <rect key="frame" x="40" y="50" width="272" height="214"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="214" id="Z59-Dn-DJO"/>
                                         </constraints>
                                     </imageView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wdr-PE-lQP">
-                                        <rect key="frame" x="0.0" y="314" width="352" height="560"/>
+                                        <rect key="frame" x="0.0" y="294" width="352" height="580"/>
                                         <color key="backgroundColor" name="comman"/>
                                         <inset key="scrollIndicatorInsets" minX="0.0" minY="16" maxX="0.0" maxY="16"/>
                                         <prototypes>
@@ -377,7 +377,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="MS3-SD-O1Z" secondAttribute="trailing" constant="40" id="5qf-bP-uz1"/>
                                     <constraint firstItem="wdr-PE-lQP" firstAttribute="leading" secondItem="Ik8-kY-aTg" secondAttribute="leading" id="BN5-Jk-4t2"/>
-                                    <constraint firstItem="MS3-SD-O1Z" firstAttribute="top" secondItem="Ik8-kY-aTg" secondAttribute="top" constant="70" id="NZU-hj-wg0"/>
+                                    <constraint firstItem="MS3-SD-O1Z" firstAttribute="top" secondItem="Ik8-kY-aTg" secondAttribute="top" constant="50" id="NZU-hj-wg0"/>
                                     <constraint firstItem="MS3-SD-O1Z" firstAttribute="leading" secondItem="Ik8-kY-aTg" secondAttribute="leading" constant="40" id="h1H-VV-dE3"/>
                                     <constraint firstAttribute="bottom" secondItem="wdr-PE-lQP" secondAttribute="bottom" id="uYt-iI-BAR"/>
                                     <constraint firstAttribute="trailing" secondItem="wdr-PE-lQP" secondAttribute="trailing" id="v1J-nu-Qv5"/>
