@@ -7,7 +7,20 @@
 
 import UIKit
 
-struct SideMenuModel {
-    var icon: UIImage!
-    var title: String
+// MARK: - MoreApp
+struct MoreApp: Codable {
+    let status: Int
+    let message: String
+    let data: [MoreData]
+}
+struct MoreData: Codable {
+    let appName: String
+    let logo: String
+    let appID, packageName: String
+    
+    enum CodingKeys: String, CodingKey {
+        case appName, logo
+        case appID = "appId"
+        case packageName
+    }
 }

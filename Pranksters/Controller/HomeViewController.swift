@@ -20,6 +20,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
+        self.seupViewAction()
         self.addBottomShadow(to: navigationbarView)
         
         if let revealVC = self.revealViewController() {
@@ -46,6 +47,43 @@ class HomeViewController: UIViewController {
                                                           y: view.bounds.maxY - 4,
                                                           width: view.bounds.width,
                                                           height: 4)).cgPath
+    }
+    
+    func seupViewAction() {
+        
+        let tapGestureActions: [(UIView, Selector)] = [
+            (audioView, #selector(btnAudioTapped)),
+            (videoView, #selector(btnVideoTapped)),
+            (imageView, #selector(btnImageTapped)),
+            (premiumView, #selector(btnPremiumTapped)),
+            (moreAppView, #selector(btnMoreAppTapped)),
+        ]
+        
+        tapGestureActions.forEach { view, action in
+            view.isUserInteractionEnabled = true
+            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: action))
+        }
+    }
+    
+    @objc func btnAudioTapped(_ sender: UITapGestureRecognizer){
+       
+    }
+    
+    @objc func btnVideoTapped(_ sender: UITapGestureRecognizer){
+       
+    }
+    
+    @objc func btnImageTapped(_ sender: UITapGestureRecognizer){
+       
+    }
+    
+    @objc func btnPremiumTapped(_ sender: UITapGestureRecognizer){
+       
+    }
+    
+    @objc func btnMoreAppTapped(_ sender: UITapGestureRecognizer){
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MoreAppViewController") as! MoreAppViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }

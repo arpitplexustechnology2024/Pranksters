@@ -8,6 +8,8 @@ target 'Pranksters' do
   # Pods for Pranksters
   pod 'lottie-ios'
   pod 'Alamofire'
+  pod "TTGSnackbar"
+  pod 'SDWebImage'
   
   target 'PrankstersTests' do
     inherit! :search_paths
