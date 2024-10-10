@@ -11,18 +11,24 @@ import TTGSnackbar
 
 class MoreAppViewController: UIViewController {
     
+    @IBOutlet weak var navigationbarView: UIView!
     @IBOutlet weak var navigationLabel: UILabel!
     @IBOutlet weak var collectionview: UICollectionView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    private var noDataView: NoDataView!
     private var noInternetView: NoInternetView!
     private let viewModel = MoreAppViewModel()
     private var moreDataArray: [MoreData] = []
     
+    var isLoading = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupNoDataView()
+        showSkeletonLoader()
         setupNoInternetView()
         checkInternetAndFetchData()
+        self.addBottomShadow(to: navigationbarView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +39,18 @@ class MoreAppViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.revealViewController()?.gestureEnabled = true
+    }
+    
+    func addBottomShadow(to view: UIView) {
+        view.layer.masksToBounds = false
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.2
+        view.layer.shadowOffset = CGSize(width: 0, height: 7)
+        view.layer.shadowRadius = 12
+        view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
+                                                          y: view.bounds.maxY - 4,
+                                                          width: view.bounds.width,
+                                                          height: 4)).cgPath
     }
     
     func checkInternetAndFetchData() {
@@ -47,8 +65,7 @@ class MoreAppViewController: UIViewController {
     func setupUI() {
         self.collectionview.delegate = self
         self.collectionview.dataSource = self
-        self.activityIndicator.style = .large
-        
+        self.collectionview.register(SkeletonCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
         if let layout = collectionview.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.minimumInteritemSpacing = 16
             layout.minimumLineSpacing = 16
@@ -58,7 +75,6 @@ class MoreAppViewController: UIViewController {
     
     private func fetchMoreData() {
         let packageName = "id553834731"
-        self.activityIndicator.startAnimating()
         viewModel.fetchMoreData(packageName: packageName) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async { [self] in
@@ -66,12 +82,14 @@ class MoreAppViewController: UIViewController {
                 case .success(let moreDataArray):
                     self.moreDataArray = moreDataArray
                     DispatchQueue.main.async {
-                        self.hideLoader()
+                        self.hideSkeletonLoader()
+                        self.noDataView.isHidden = true
                         self.collectionview.reloadData()
                     }
                 case .failure(let error):
                     print("Error: \(error.localizedDescription)")
-                    self.hideLoader()
+                    self.hideSkeletonLoader()
+                    self.noDataView.isHidden = false
                 }
             }
         }
@@ -86,6 +104,21 @@ class MoreAppViewController: UIViewController {
         if let url = URL(string: appStoreURL) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
+    }
+    
+    private func setupNoDataView() {
+        noDataView = NoDataView()
+        noDataView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        noDataView.isHidden = true
+        self.view.addSubview(noDataView)
+        
+        noDataView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            noDataView.topAnchor.constraint(equalTo: navigationLabel.bottomAnchor, constant: 10),
+            noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
     func setupNoInternetView() {
@@ -106,6 +139,7 @@ class MoreAppViewController: UIViewController {
     @objc func retryButtonTapped() {
         if isConnectedToInternet() {
             noInternetView.isHidden = true
+            noDataView.isHidden = true
             checkInternetAndFetchData()
         } else {
             let snackbar = TTGSnackbar(message: "Please turn on internet connection!", duration: .middle)
@@ -113,9 +147,14 @@ class MoreAppViewController: UIViewController {
         }
     }
     
-    func hideLoader() {
-        self.activityIndicator.stopAnimating()
-        self.activityIndicator.isHidden = true
+    func showSkeletonLoader() {
+        isLoading = true
+        collectionview.reloadData()
+    }
+    
+    func hideSkeletonLoader() {
+        isLoading = false
+        collectionview.reloadData()
     }
     
     func showNoInternetView() {
@@ -134,25 +173,31 @@ class MoreAppViewController: UIViewController {
 
 extension MoreAppViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return moreDataArray.count
+        return isLoading ? 6 : moreDataArray.count
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoreAppCollectionViewCell", for: indexPath) as! MoreAppCollectionViewCell
-        let moreData = moreDataArray[indexPath.item]
-        
-        cell.configure(with: moreData)
-        cell.More_App_DownloadButton.tag = indexPath.item
-        cell.More_App_DownloadButton.addTarget(self, action: #selector(appIDButtonClicked(_:)), for: .touchUpInside)
-        return cell
+        if isLoading {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SkeletonCell", for: indexPath) as! SkeletonCollectionViewCell
+            cell.isUserInteractionEnabled = false
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoreAppCollectionViewCell", for: indexPath) as! MoreAppCollectionViewCell
+            let moreData = moreDataArray[indexPath.item]
+            
+            cell.configure(with: moreData)
+            cell.More_App_DownloadButton.tag = indexPath.item
+            cell.More_App_DownloadButton.addTarget(self, action: #selector(appIDButtonClicked(_:)), for: .touchUpInside)
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let layout = collectionViewLayout as! UICollectionViewFlowLayout
-            let paddingSpace = layout.sectionInset.left + layout.sectionInset.right + layout.minimumInteritemSpacing * (UIDevice.current.userInterfaceIdiom == .pad ? 2 : 1)
-            let availableWidth = collectionView.frame.width - paddingSpace
-            let widthPerItem = availableWidth / (UIDevice.current.userInterfaceIdiom == .pad ? 3 : 2)
-            return CGSize(width: widthPerItem, height: 241)
-        }
-    
+        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+        let paddingSpace = layout.sectionInset.left + layout.sectionInset.right + layout.minimumInteritemSpacing * (UIDevice.current.userInterfaceIdiom == .pad ? 2 : 1)
+        let availableWidth = collectionView.frame.width - paddingSpace
+        let widthPerItem = availableWidth / (UIDevice.current.userInterfaceIdiom == .pad ? 3 : 2)
+        return CGSize(width: widthPerItem, height: 245)
+    }
 }

@@ -66,7 +66,8 @@ class HomeViewController: UIViewController {
     }
     
     @objc func btnAudioTapped(_ sender: UITapGestureRecognizer){
-       
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "CoverViewController") as! CoverViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func btnVideoTapped(_ sender: UITapGestureRecognizer){

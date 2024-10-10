@@ -4,12 +4,14 @@ PODS:
   - SDWebImage (5.19.7):
     - SDWebImage/Core (= 5.19.7)
   - SDWebImage/Core (5.19.7)
+  - SkeletonView (1.30.4)
   - TTGSnackbar (1.12.0)
 
 DEPENDENCIES:
   - Alamofire
   - lottie-ios
   - SDWebImage
+  - SkeletonView
   - TTGSnackbar
 
 SPEC REPOS:
@@ -17,14 +19,16 @@ SPEC REPOS:
     - Alamofire
     - lottie-ios
     - SDWebImage
+    - SkeletonView
     - TTGSnackbar
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   lottie-ios: a881093fab623c467d3bce374367755c272bdd59
   SDWebImage: 8a6b7b160b4d710e2a22b6900e25301075c34cb3
+  SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
   TTGSnackbar: 8e7650b9b1f5f44e40228473455986f5c12213c7
 
-PODFILE CHECKSUM: 634c276af0c46ad14616c2f5de7413665f9dada0
+PODFILE CHECKSUM: 0b7bc55be5177fdeba65966cca973f35db2a5e4e
 
 COCOAPODS: 1.15.2

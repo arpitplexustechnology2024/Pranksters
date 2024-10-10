@@ -26,7 +26,7 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No internet" translatesAutoresizingMaskIntoConstraints="NO" id="IOS-6A-kAF">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No Internet" translatesAutoresizingMaskIntoConstraints="NO" id="IOS-6A-kAF">
                     <rect key="frame" x="53" y="129" width="287" height="287"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="287" id="Efa-Ar-G26"/>
@@ -41,13 +41,13 @@ No internet connection!</string>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please turn on internet connection!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7d1-e8-eYz">
-                    <rect key="frame" x="62.666666666666657" y="537" width="267.66666666666674" height="23.333333333333371"/>
-                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
-                    <color key="textColor" systemColor="systemGray2Color"/>
+                    <rect key="frame" x="40.333333333333343" y="537" width="312.66666666666663" height="27.333333333333371"/>
+                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9AT-lE-uDB">
-                    <rect key="frame" x="171.66666666666666" y="620.33333333333337" width="50" height="50"/>
+                    <rect key="frame" x="171.66666666666666" y="624.33333333333337" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="VwC-QT-iZf"/>
                         <constraint firstAttribute="width" constant="50" id="fLn-7c-2Nc"/>
@@ -74,13 +74,10 @@ No internet connection!</string>
         </view>
     </objects>
     <resources>
-        <image name="No internet" width="2612" height="2501"/>
+        <image name="No Internet" width="2612" height="2501"/>
         <image name="restore" width="500" height="500"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray2Color">
-            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

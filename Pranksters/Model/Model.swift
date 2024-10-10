@@ -7,6 +7,12 @@
 
 import UIKit
 
+// MARK: - Registration
+struct Registration: Codable {
+    let status: Int
+    let message, token: String
+}
+
 // MARK: - MoreApp
 struct MoreApp: Codable {
     let status: Int
