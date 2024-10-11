@@ -12,7 +12,6 @@ import TTGSnackbar
 class MoreAppViewController: UIViewController {
     
     @IBOutlet weak var navigationbarView: UIView!
-    @IBOutlet weak var navigationLabel: UILabel!
     @IBOutlet weak var collectionview: UICollectionView!
     private var noDataView: NoDataView!
     private var noInternetView: NoInternetView!
@@ -116,7 +115,7 @@ class MoreAppViewController: UIViewController {
         NSLayoutConstraint.activate([
             noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noDataView.topAnchor.constraint(equalTo: navigationLabel.bottomAnchor, constant: 10),
+            noDataView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor, constant: 10),
             noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
@@ -131,7 +130,7 @@ class MoreAppViewController: UIViewController {
         NSLayoutConstraint.activate([
             noInternetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             noInternetView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noInternetView.topAnchor.constraint(equalTo: navigationLabel.bottomAnchor, constant: 10),
+            noInternetView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor, constant: 10),
             noInternetView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }

@@ -8,37 +8,45 @@
 import Foundation
 
 class RegistrationViewModel {
+    private let apiService: RegisterApiServiceProtocol
     var registrationResponse: Registration?
     var errorMessage: String?
+    
+    init(apiService: RegisterApiServiceProtocol = RegisterAPIService.shared) {
+        self.apiService = apiService
+    }
 
-    // Check if the user has already registered
     func isUserRegistered() -> Bool {
         return UserDefaults.standard.bool(forKey: "isUserRegistered")
     }
-    
-    // Mark the user as registered
+
     func markUserAsRegistered() {
         UserDefaults.standard.set(true, forKey: "isUserRegistered")
     }
 
-    // Make API call only if the user is not registered
+    func saveUserToken(token: String) {
+        UserDefaults.standard.set(token, forKey: "userToken")
+    }
+
+    func clearUserToken() {
+        UserDefaults.standard.removeObject(forKey: "userToken")
+    }
+    
     func registerUserIfNeeded(completion: @escaping (Bool) -> Void) {
         if isUserRegistered() {
-            completion(false)  // User is already registered, skip API call
+            completion(false)
             return
         }
         
-        // Call the API to register
-        APIManager.shared.registerUser(premium: false) { result in
+        RegisterAPIService.shared.registerUser(premium: false) { result in
             switch result {
             case .success(let response):
                 self.registrationResponse = response
-                // Only proceed if the status is 1
                 if response.status == 1 {
-                    self.markUserAsRegistered()  // Mark as registered on success
+                    self.saveUserToken(token: response.token)
+                    self.markUserAsRegistered()
                     completion(true)
                 } else {
-                    // Status is not 1, return false to trigger refresh button
                     completion(false)
                 }
             case .failure(let error):
@@ -46,5 +54,9 @@ class RegistrationViewModel {
                 completion(false)
             }
         }
+    }
+
+    func getUserToken() -> String? {
+        return UserDefaults.standard.string(forKey: "userToken")
     }
 }

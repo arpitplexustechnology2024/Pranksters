@@ -5,14 +5,18 @@
 //  Created by Arpit iOS Dev. on 09/10/24.
 //
 
+import Foundation
 import Alamofire
 
-class APIManager {
-    static let shared = APIManager()
+protocol RegisterApiServiceProtocol {
+    func registerUser(premium: Bool, completion: @escaping (Result<Registration, Error>) -> Void)
+}
+
+class RegisterAPIService: RegisterApiServiceProtocol {
+    static let shared = RegisterAPIService()
     
     private init() {}
     
-    // POST Request to register with Premium = false
     func registerUser(premium: Bool, completion: @escaping (Result<Registration, Error>) -> Void) {
         let url = "https://pslink.world/api/register"
         let parameters: [String: Any] = [

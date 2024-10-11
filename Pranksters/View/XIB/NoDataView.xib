@@ -4,8 +4,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -46,7 +46,7 @@ after some time.</string>
                 </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="4wa-EH-lQO"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" name="comman"/>
             <constraints>
                 <constraint firstItem="4wa-EH-lQO" firstAttribute="trailing" secondItem="lyS-Qk-089" secondAttribute="trailing" constant="53" id="9dR-vb-XQI"/>
                 <constraint firstItem="lyS-Qk-089" firstAttribute="leading" secondItem="4wa-EH-lQO" secondAttribute="leading" constant="53" id="CyS-iw-ZSu"/>
@@ -62,8 +62,8 @@ after some time.</string>
     </objects>
     <resources>
         <image name="No Data" width="2611" height="2501"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="comman">
+            <color red="0.96862745098039216" green="0.94901960784313721" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

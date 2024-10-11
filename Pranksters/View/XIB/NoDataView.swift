@@ -41,8 +41,8 @@ class NoDataView: UIView {
     }
     
     func localizeUI() {
-        titleLabel.text = NSLocalizedString("NoDataTitleKey", comment: "")
-        messageLabel.text = NSLocalizedString("NoDataDescriptionKey", comment: "")
+        titleLabel.text = NSLocalizedString("No data found.", comment: "")
+        messageLabel.text = NSLocalizedString("Request failed! Please try again \n after some time.", comment: "")
     }
     
     private func adjustConstraints() {

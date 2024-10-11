@@ -4,8 +4,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -57,7 +57,7 @@ No internet connection!</string>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" name="comman"/>
             <constraints>
                 <constraint firstItem="IOS-6A-kAF" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="70" id="3SS-LS-gWB"/>
                 <constraint firstItem="RyX-eb-ATe" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4NQ-0Z-HEL"/>
@@ -76,8 +76,8 @@ No internet connection!</string>
     <resources>
         <image name="No Internet" width="2612" height="2501"/>
         <image name="restore" width="500" height="500"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="comman">
+            <color red="0.96862745098039216" green="0.94901960784313721" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

@@ -22,22 +22,19 @@ class LaunchViewController: UIViewController {
         self.registerUserIfNeeded()
     }
     
-    // API call logic
     func registerUserIfNeeded() {
-        self.refreshButton.isHidden = true // Hide the refresh button initially
-        self.loadingView.isHidden = false  // Show loading animation
-
+        self.refreshButton.isHidden = true
+        self.loadingView.isHidden = false
+        
         viewModel.registerUserIfNeeded { [weak self] success in
             guard let self = self else { return }
-
+            
             if success {
                 if let response = self.viewModel.registrationResponse {
-                    // Check if status is 1, otherwise show refresh button
                     if response.status == 1 {
                         print("\(response.message)")
                         print("User Token :- \(response.token)")
                         
-                        // Navigate to the MainViewController after success
                         self.proceedToMainView()
                     } else {
                         self.handleFailure()
@@ -54,26 +51,24 @@ class LaunchViewController: UIViewController {
             }
         }
     }
-
-    // Handle API failure (status not 1 or error)
+    
     func handleFailure() {
-        self.loadingView.stop() // Stop loading animation
-        self.loadingView.isHidden = true // Hide the loading animation
-        self.refreshButton.isHidden = false // Show the refresh button
+        self.loadingView.stop()
+        self.loadingView.isHidden = true
+        self.refreshButton.isHidden = false
         print("API call failed or status is not 1")
     }
-
-    // Retry API call on refresh button click
+    
     @IBAction func refreshButtonTapped(_ sender: UIButton) {
-        self.refreshButton.isHidden = true // Hide the refresh button
-        self.loadingView.isHidden = false  // Show the loading animation again
+        self.refreshButton.isHidden = true
+        self.loadingView.isHidden = false
         self.loadingView.play()
-
-        // Retry API call
-        self.registerUserIfNeeded()
+        
+        DispatchQueue.main.async {
+            self.registerUserIfNeeded()
+        }
     }
     
-    // Proceed to MainViewController
     func proceedToMainView() {
         Timer.scheduledTimer(withTimeInterval: 4, repeats: false) { _ in
             self.loadingView.stop()
@@ -82,8 +77,7 @@ class LaunchViewController: UIViewController {
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
-
-    // UI setup with animations
+    
     func setupUI() {
         if UIDevice.current.userInterfaceIdiom == .phone {
             launchImageView.image = UIImage(named: "LaunchBG-iPhone")

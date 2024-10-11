@@ -13,6 +13,26 @@ struct Registration: Codable {
     let message, token: String
 }
 
+// MARK: - CoverPage
+struct CoverPage: Codable {
+    let status: Int
+    let message: String
+    let data: [CoverPageData]
+}
+struct CoverPageData: Codable {
+    let coverURL: String
+    let coverPremium: Bool
+    let itemID: Int
+    let isFavorite: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case coverURL = "CoverURL"
+        case coverPremium = "CoverPremium"
+        case itemID = "ItemId"
+        case isFavorite
+    }
+}
+
 // MARK: - MoreApp
 struct MoreApp: Codable {
     let status: Int

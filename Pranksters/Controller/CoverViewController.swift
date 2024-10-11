@@ -6,18 +6,11 @@
 //
 
 import UIKit
-import AVFoundation
-import MobileCoreServices
+import Alamofire
+import TTGSnackbar
+import SDWebImage
 
-struct FunnyAudioItem {
-    let imageName: String
-}
-
-struct UploadAudioItem {
-    let imageName: String
-}
-
-class CoverViewController: UIViewController, UIDocumentPickerDelegate {
+class CoverViewController: UIViewController {
     
     @IBOutlet weak var navigationbarView: UIView!
     @IBOutlet weak var bottomScrollView: UIScrollView!
@@ -27,29 +20,17 @@ class CoverViewController: UIViewController, UIDocumentPickerDelegate {
     
     @IBOutlet var floatingCollectionButton: [UIButton]!
     
-    @IBOutlet weak var uploadCollectionView: UICollectionView!
-    @IBOutlet weak var funnyCollectionView: UICollectionView!
-    @IBOutlet weak var AudioImage: UIImageView!
+    @IBOutlet weak var coverPage1CollectionView: UICollectionView!
+    @IBOutlet weak var coverPage2CollectionView: UICollectionView!
+    @IBOutlet weak var coverPage3CollectionView: UICollectionView!
     
-    var audioPlayer: AVPlayer?
-    var isPlaying = false
-    var currentAudio: FunnyAudioItem?
-    var timeObserver: Any?
-    var loader: UIActivityIndicatorView?
-    var overlayView: UIView?
+    @IBOutlet weak var coverImageView: UIImageView!
     
-    var funnyAudioItems = [
-        FunnyAudioItem(imageName: "ModiSinger"),
-        FunnyAudioItem(imageName: "Elvish"),
-        FunnyAudioItem(imageName: "PunitStar"),
-        FunnyAudioItem(imageName: "Bhaov"),
-        FunnyAudioItem(imageName: "PrankStarGauswami"),
-        FunnyAudioItem(imageName: "Aashish"),
-        FunnyAudioItem(imageName: "CharryMinati"),
-        FunnyAudioItem(imageName: "Sharma")
-    ]
-    
-    var uploadAudioItems: [UploadAudioItem] = []
+    var isLoading = true
+    private var noDataView: NoDataView!
+    private var noInternetView: NoInternetView!
+    let emojiViewModel = EmojiViewModel()
+    let realisticViewModel = RealisticViewModel()
     
     let plusImage = UIImage(named: "Plus")
     let cancelImage = UIImage(named: "Cancel")
@@ -66,13 +47,49 @@ class CoverViewController: UIViewController, UIDocumentPickerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.addBottomShadow(to: navigationbarView)
+        setupUI()
+        setupNoDataView()
+        showSkeletonLoader()
+        setupNoInternetView()
+        checkInternetAndFetchData()
+        
+        self.coverPage2CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
+        self.coverPage3CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
+    }
+    
+    func checkInternetAndFetchData() {
+        if isConnectedToInternet() {
+            self.fetchEmojiCoverPages()
+            self.fetchRealisticCoverPages()
+            self.noInternetView?.isHidden = true
+        } else {
+            self.showNoInternetView()
+        }
+    }
+    
+    func setupUI() {
+        addBottomShadow(to: navigationbarView)
         bottomView.layer.cornerRadius = 28
         bottomView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         bottomScrollView.layer.cornerRadius = 28
         bottomScrollView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         floatingButton.setImage(plusImage, for: .normal)
         floatingButton.layer.cornerRadius = 19
+        setupFloatingButtons()
+        coverImageView.layer.cornerRadius = 8
+        AudioShowView.layer.cornerRadius = 8
+        
+        coverPage1CollectionView.delegate = self
+        coverPage1CollectionView.dataSource = self
+        
+        coverPage2CollectionView.delegate = self
+        coverPage2CollectionView.dataSource = self
+        
+        coverPage3CollectionView.delegate = self
+        coverPage3CollectionView.dataSource = self
+    }
+    
+    private func setupFloatingButtons() {
         for button in floatingCollectionButton {
             button.layer.cornerRadius = 19
             button.clipsToBounds = true
@@ -81,19 +98,8 @@ class CoverViewController: UIViewController, UIDocumentPickerDelegate {
             button.layer.shadowOffset = CGSize(width: 0, height: 2)
             button.layer.shadowRadius = 4
             button.layer.masksToBounds = false
-        }
-        
-        AudioImage.layer.cornerRadius = 8
-        AudioShowView.layer.cornerRadius = 8
-        
-        funnyCollectionView.delegate = self
-        funnyCollectionView.dataSource = self
-        uploadCollectionView.delegate = self
-        uploadCollectionView.dataSource = self
-        
-        floatingCollectionButton.forEach { btn in
-            btn.isHidden = true
-            btn.alpha = 0
+            button.isHidden = true
+            button.alpha = 0
         }
     }
     
@@ -118,15 +124,17 @@ class CoverViewController: UIViewController, UIDocumentPickerDelegate {
         }
         
         if floatingButton.currentImage == plusImage {
-                    floatingButton.setImage(cancelImage, for: .normal)
-                } else {
-                    floatingButton.setImage(plusImage, for: .normal)
-                }
+            floatingButton.setImage(cancelImage, for: .normal)
+        } else {
+            floatingButton.setImage(plusImage, for: .normal)
+        }
     }
     
     @IBAction func btnMoreAppTapped(_ sender: UIButton) {
         animate(toggel: false)
         floatingButton.setImage(plusImage, for: .normal)
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MoreAppViewController") as! MoreAppViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func btnFavouriteTapped(_ sender: UIButton) {
@@ -138,7 +146,6 @@ class CoverViewController: UIViewController, UIDocumentPickerDelegate {
         animate(toggel: false)
         floatingButton.setImage(plusImage, for: .normal)
     }
-    
     
     func animate(toggel: Bool) {
         if toggel {
@@ -159,127 +166,153 @@ class CoverViewController: UIViewController, UIDocumentPickerDelegate {
     }
     
     @IBAction func btnDoneTapped(_ sender: UIButton) {
-        
+        // Implement your logic here
     }
     
     @IBAction func btnBackTapped(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    
-    
-    @objc func sliderValueChanged(_ sender: UISlider) {
-        guard let duration = audioPlayer?.currentItem?.duration.seconds else { return }
-        let newTime = CMTime(seconds: Double(sender.value) * duration, preferredTimescale: 600)
-        audioPlayer?.seek(to: newTime)
+    @IBAction func btnCoverPage1ShowAllTapped(_ sender: UIButton) {
+        // Implement your logic here
     }
     
-    func playAudio(from urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        
-        showLoaderAndOverlay()
-        
-        if let timeObserver = timeObserver {
-            audioPlayer?.removeTimeObserver(timeObserver)
-        }
-        
-        audioPlayer = AVPlayer(url: url)
-        audioPlayer?.play()
-        isPlaying = true
-        
-        audioPlayer?.currentItem?.asset.loadValuesAsynchronously(forKeys: ["duration"]) { [weak self] in
+    @IBAction func btnCoverPage2ShowAllTapped(_ sender: UIButton) {
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "EmojiCoverAllViewController") as! EmojiCoverAllViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func btnCoverPage3ShowAllTapped(_ sender: UIButton) {
+        // Implement your logic here
+    }
+    
+    func fetchEmojiCoverPages() {
+        emojiViewModel.resetPagination()
+        emojiViewModel.fetchEmojiCoverPages { [weak self] success in
             guard let self = self else { return }
-            
-            DispatchQueue.main.async {
-                if let duration = self.audioPlayer?.currentItem?.asset.duration.seconds, !duration.isNaN {
-                    let minutes = Int(duration) / 60
-                    let seconds = Int(duration) % 60
-                    
-                    self.removeLoaderAndOverlay()
-                }
+            if success {
+                self.hideSkeletonLoader()
+                self.noDataView.isHidden = true
+                self.coverPage2CollectionView.reloadData()
+            } else if let errorMessage = self.emojiViewModel.errorMessage {
+                self.hideSkeletonLoader()
+                self.noDataView.isHidden = false
+                print("Error fetching cover pages: \(errorMessage)")
             }
         }
-        
-        timeObserver = audioPlayer?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.1, preferredTimescale: 600), queue: .main) { [weak self] time in
-            guard let self = self,
-                  let duration = self.audioPlayer?.currentItem?.duration.seconds,
-                  !duration.isNaN,
-                  duration > 0 else { return }
-            
-            let progress = Float(time.seconds / duration)
+    }
+    
+    func fetchRealisticCoverPages() {
+        realisticViewModel.resetPagination()
+        realisticViewModel.fetchRealisticCoverPages { [weak self] success in
+            guard let self = self else { return }
+            if success {
+                self.hideSkeletonLoader()
+                self.noDataView.isHidden = true
+                self.coverPage3CollectionView.reloadData()
+            } else if let errorMessage = self.emojiViewModel.errorMessage {
+                self.hideSkeletonLoader()
+                self.noDataView.isHidden = false
+                print("Error fetching cover pages: \(errorMessage)")
+            }
         }
     }
     
-    func openMusicPicker() {
-        let documentPicker = UIDocumentPickerViewController(documentTypes: [kUTTypeAudio as String, kUTTypeMP3 as String], in: .import)
-        documentPicker.delegate = self
-        documentPicker.allowsMultipleSelection = false
-        present(documentPicker, animated: true, completion: nil)
+    private func setupNoDataView() {
+        noDataView = NoDataView()
+        noDataView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        noDataView.isHidden = true
+        self.view.addSubview(noDataView)
+        
+        noDataView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            noDataView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor),
+            noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        guard let selectedFileURL = urls.first else {
-            return
+    func setupNoInternetView() {
+        noInternetView = NoInternetView()
+        noInternetView.retryButton.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
+        noInternetView.isHidden = true
+        self.view.addSubview(noInternetView)
+        
+        noInternetView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            noInternetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            noInternetView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            noInternetView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor),
+            noInternetView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    @objc func retryButtonTapped() {
+        if isConnectedToInternet() {
+            noInternetView.isHidden = true
+            noDataView.isHidden = true
+            checkInternetAndFetchData()
+        } else {
+            let snackbar = TTGSnackbar(message: "Please turn on internet connection!", duration: .middle)
+            snackbar.show()
         }
-        let fileName = selectedFileURL.lastPathComponent
-        
-        AudioImage.image = UIImage(named: "Vijudi")
-        
-        let newAudioItem = UploadAudioItem(imageName: "Vijudi")
-        uploadAudioItems.append(newAudioItem)
-        
-        uploadCollectionView.reloadData()
-        
-        playAudio(from: selectedFileURL.absoluteString)
     }
     
-    // MARK: - Loader and Overlay Functions
-    func showLoaderAndOverlay() {
-        
-        overlayView = UIView(frame: AudioShowView.bounds)
-        overlayView?.backgroundColor = UIColor(red: 247/255, green: 242/255, blue: 250/255, alpha: 1.0)
-        AudioShowView.addSubview(overlayView!)
-        
-        loader = UIActivityIndicatorView(style: .large)
-        loader?.center = overlayView!.center
-        loader?.startAnimating()
-        overlayView?.addSubview(loader!)
+    func showSkeletonLoader() {
+        isLoading = true
+        coverPage2CollectionView.reloadData()
+        coverPage3CollectionView.reloadData()
     }
     
-    func removeLoaderAndOverlay() {
-        loader?.stopAnimating()
-        loader?.removeFromSuperview()
-        overlayView?.removeFromSuperview()
+    func hideSkeletonLoader() {
+        isLoading = false
+        coverPage2CollectionView.reloadData()
+        coverPage3CollectionView.reloadData()
+    }
+    
+    func showNoInternetView() {
+        self.noInternetView.isHidden = false
+    }
+    
+    private func isConnectedToInternet() -> Bool {
+        let networkManager = NetworkReachabilityManager()
+        return networkManager?.isReachable ?? false
     }
 }
 
-// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == funnyCollectionView {
-            return funnyAudioItems.count
-        } else if collectionView == uploadCollectionView {
-            return uploadAudioItems.count + 1
+        if collectionView == coverPage2CollectionView {
+            return isLoading ? 10 : emojiViewModel.emojiCoverPages.count
+        } else if collectionView == coverPage3CollectionView {
+            return isLoading ? 10 : realisticViewModel.realisticCoverPages.count
         }
-        return 0
+        return emojiViewModel.emojiCoverPages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == funnyCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FunnyCollectionCell", for: indexPath) as! FunnyCollectionCell
-            cell.imageView.image = UIImage(named: funnyAudioItems[indexPath.item].imageName)
-            return cell
-        } else if collectionView == uploadCollectionView {
-            if indexPath.item == 0 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAudioCollectionCell", for: indexPath) as! AddAudioCollectionCell
-                cell.imageView.image = UIImage(named: "Audio")
-                cell.AddAudioLabel.text = "Add Audio"
+        if collectionView == coverPage2CollectionView {
+            if isLoading {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SkeletonCell", for: indexPath) as! SkeletonBoxCollectionViewCell
+                cell.isUserInteractionEnabled = false
                 return cell
             } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UploadCollectionCell", for: indexPath) as! UploadCollectionCell
-                let uploadItem = uploadAudioItems[indexPath.item - 1]
-                cell.imageView.image = UIImage(named: uploadItem.imageName)
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CoverPage2CollectionCell", for: indexPath) as! CoverPage2CollectionCell
+                let coverPageData = emojiViewModel.emojiCoverPages[indexPath.row]
+                cell.configure(with: coverPageData)
+                return cell
+            }
+        } else if collectionView == coverPage3CollectionView {
+            if isLoading {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SkeletonCell", for: indexPath) as! SkeletonBoxCollectionViewCell
+                cell.isUserInteractionEnabled = false
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CoverPage3CollectionCell", for: indexPath) as! CoverPage3CollectionCell
+                let coverPageData = realisticViewModel.realisticCoverPages[indexPath.row]
+                cell.configure(with: coverPageData)
                 return cell
             }
         }
@@ -287,64 +320,36 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == funnyCollectionView {
-            let selectedAudioItem = funnyAudioItems[indexPath.item]
-            AudioImage.image = UIImage(named: selectedAudioItem.imageName)
-        } else if collectionView == uploadCollectionView {
-            if indexPath.item == 0 {
-                openMusicPicker()
-            } else {
-                let selectedAudioItem = uploadAudioItems[indexPath.item - 1]
-                AudioImage.image = UIImage(named: selectedAudioItem.imageName)
+            if collectionView == coverPage2CollectionView {
+                let coverPageData = emojiViewModel.emojiCoverPages[indexPath.row]
+                handleCellSelection(coverPageData: coverPageData)
+            } else if collectionView == coverPage3CollectionView {
+                let coverPageData = realisticViewModel.realisticCoverPages[indexPath.row]
+                handleCellSelection(coverPageData: coverPageData)
             }
         }
-    }
-}
 
-// MARK: - UICollectionViewDelegateFlowLayout
-extension CoverViewController: UICollectionViewDelegateFlowLayout {
+        private func handleCellSelection(coverPageData: CoverPageData) {
+            if coverPageData.coverPremium {
+                presentPremiumViewController()
+            } else {
+                if let imageUrl = URL(string: coverPageData.coverURL) {
+                    coverImageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "placeholder"))
+                }
+            }
+        }
+
+        private func presentPremiumViewController() {
+            let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumViewController") as! PremiumViewController
+            present(premiumVC, animated: true, completion: nil)
+        }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == uploadCollectionView {
+        if collectionView == coverPage1CollectionView {
             if indexPath.item == 0 {
                 return CGSize(width: 115, height: 125)
             }
         }
         return CGSize(width: 115, height: 125)
-    }
-}
-
-
-// MARK: - AddAudioCollectionCell
-class AddAudioCollectionCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var AddAudioLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        layer.cornerRadius = 10
-        layer.masksToBounds = true
-    }
-}
-
-// MARK: - UploadCollectionCell
-class UploadCollectionCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        layer.cornerRadius = 10
-        layer.masksToBounds = true
-    }
-}
-
-// MARK: - FunnyCollectionCell
-class FunnyCollectionCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        layer.cornerRadius = 10
-        layer.masksToBounds = true
     }
 }

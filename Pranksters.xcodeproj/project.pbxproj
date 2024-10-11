@@ -40,6 +40,11 @@
 		BDACA25D2CB7375E00B3C2E2 /* CoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDACA25C2CB7375E00B3C2E2 /* CoverViewController.swift */; };
 		BDC9ACB32CB6F89D00183146 /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9ACB12CB6F89D00183146 /* NoDataView.swift */; };
 		BDC9ACB42CB6F89D00183146 /* NoDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDC9ACB22CB6F89D00183146 /* NoDataView.xib */; };
+		BDD883A62CB8504D004C6908 /* CoverPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD883A52CB8504D004C6908 /* CoverPageCollectionViewCell.swift */; };
+		BDD883A82CB85903004C6908 /* CoverPageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD883A72CB85903004C6908 /* CoverPageAPI.swift */; };
+		BDD883AA2CB85910004C6908 /* CoverPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD883A92CB85910004C6908 /* CoverPageViewModel.swift */; };
+		BDD883AC2CB86790004C6908 /* EmojiCoverAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD883AB2CB86790004C6908 /* EmojiCoverAllViewController.swift */; };
+		BDD883AE2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD883AD2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift */; };
 		D135A4551B8DF35C16863C46 /* Pods_Pranksters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AD0CF052AC7BC6C607194D1 /* Pods_Pranksters.framework */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +109,11 @@
 		BDACA25C2CB7375E00B3C2E2 /* CoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverViewController.swift; sourceTree = "<group>"; };
 		BDC9ACB12CB6F89D00183146 /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
 		BDC9ACB22CB6F89D00183146 /* NoDataView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoDataView.xib; sourceTree = "<group>"; };
+		BDD883A52CB8504D004C6908 /* CoverPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverPageCollectionViewCell.swift; sourceTree = "<group>"; };
+		BDD883A72CB85903004C6908 /* CoverPageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverPageAPI.swift; sourceTree = "<group>"; };
+		BDD883A92CB85910004C6908 /* CoverPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverPageViewModel.swift; sourceTree = "<group>"; };
+		BDD883AB2CB86790004C6908 /* EmojiCoverAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCoverAllViewController.swift; sourceTree = "<group>"; };
+		BDD883AD2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCoverAllCollectionViewCell.swift; sourceTree = "<group>"; };
 		E0C39A3DC80C504DEF55DCB5 /* Pods-PrankstersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrankstersTests.release.xcconfig"; path = "Target Support Files/Pods-PrankstersTests/Pods-PrankstersTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -248,6 +258,7 @@
 				BDA87EC72CB5C12900C25C50 /* PremiumViewController.swift */,
 				BDA87EC82CB5C12900C25C50 /* MoreAppViewController.swift */,
 				BDACA25C2CB7375E00B3C2E2 /* CoverViewController.swift */,
+				BDD883AB2CB86790004C6908 /* EmojiCoverAllViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -264,6 +275,8 @@
 			isa = PBXGroup;
 			children = (
 				BDA87ED72CB5EAAA00C25C50 /* MoreAppCollectionViewCell.swift */,
+				BDD883A52CB8504D004C6908 /* CoverPageCollectionViewCell.swift */,
+				BDD883AD2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -281,6 +294,7 @@
 			children = (
 				BDA87ED12CB5E90500C25C50 /* MoreAppAPI.swift */,
 				BD7D62CE2CB7593800439C11 /* RegistrationAPI.swift */,
+				BDD883A72CB85903004C6908 /* CoverPageAPI.swift */,
 			);
 			path = "API Manager";
 			sourceTree = "<group>";
@@ -290,6 +304,7 @@
 			children = (
 				BDA87ED52CB5E9B100C25C50 /* MoreAppViewModel.swift */,
 				BD7D62D02CB7594B00439C11 /* RegistrationViewModel.swift */,
+				BDD883A92CB85910004C6908 /* CoverPageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -556,6 +571,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDD883AC2CB86790004C6908 /* EmojiCoverAllViewController.swift in Sources */,
 				BDA87EDC2CB5EEC100C25C50 /* NoInternetView.swift in Sources */,
 				BDA87EB62CB5AC3B00C25C50 /* Model.swift in Sources */,
 				BDA87EC92CB5C12900C25C50 /* ViewLinkViewController.swift in Sources */,
@@ -567,14 +583,18 @@
 				BDA87ECC2CB5C12900C25C50 /* FavoriteListViewController.swift in Sources */,
 				BDA87ECD2CB5C12900C25C50 /* MoreAppViewController.swift in Sources */,
 				BD7D62D12CB7594B00439C11 /* RegistrationViewModel.swift in Sources */,
+				BDD883AA2CB85910004C6908 /* CoverPageViewModel.swift in Sources */,
 				BDA87ECE2CB5C12900C25C50 /* SpinnerViewController.swift in Sources */,
+				BDD883A82CB85903004C6908 /* CoverPageAPI.swift in Sources */,
 				BDA87ED02CB5C16400C25C50 /* MainViewController.swift in Sources */,
 				BDACA25D2CB7375E00B3C2E2 /* CoverViewController.swift in Sources */,
 				BD7D62CF2CB7593800439C11 /* RegistrationAPI.swift in Sources */,
 				BD2F1E272CB459320017A963 /* AppDelegate.swift in Sources */,
 				BD2F1E3A2CB462E00017A963 /* LaunchViewController.swift in Sources */,
 				BDA87ED82CB5EAAA00C25C50 /* MoreAppCollectionViewCell.swift in Sources */,
+				BDD883AE2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift in Sources */,
 				BD2F1E282CB459320017A963 /* SceneDelegate.swift in Sources */,
+				BDD883A62CB8504D004C6908 /* CoverPageCollectionViewCell.swift in Sources */,
 				BDC9ACB32CB6F89D00183146 /* NoDataView.swift in Sources */,
 				BDA87EB32CB5AB2E00C25C50 /* SideMenuViewController.swift in Sources */,
 			);
