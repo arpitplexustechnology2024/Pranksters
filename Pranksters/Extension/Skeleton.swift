@@ -67,6 +67,7 @@ class SkeletonCollectionViewCell: UICollectionViewCell {
         buttonImageView.layer.cornerRadius = 20
         contentView.addSubview(buttonImageView)
         
+        // Constraints setup for all views
         skeletonBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             skeletonBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -76,15 +77,13 @@ class SkeletonCollectionViewCell: UICollectionViewCell {
         ])
         
         ImageView.translatesAutoresizingMaskIntoConstraints = false
+        let imageViewHeight = UIDevice.current.userInterfaceIdiom == .pad ? 174 : 119
         NSLayoutConstraint.activate([
             ImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             ImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             ImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            ImageView.heightAnchor.constraint(equalToConstant: CGFloat(imageViewHeight))
         ])
-        
-        let imageViewHeightConstraint = ImageView.heightAnchor.constraint(equalToConstant: 125)
-        imageViewHeightConstraint.priority = .defaultLow
-        imageViewHeightConstraint.isActive = true
         
         labelImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -154,8 +153,6 @@ class SkeletonCollectionViewCell: UICollectionViewCell {
         gradientLayerButton.add(createShimmerAnimation(), forKey: "shimmer")
     }
 }
-
-
 
 class SkeletonBoxCollectionViewCell: UICollectionViewCell {
     

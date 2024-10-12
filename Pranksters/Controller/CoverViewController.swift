@@ -17,14 +17,25 @@ class CoverViewController: UIViewController {
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var AudioShowView: UIView!
     @IBOutlet weak var floatingButton: UIButton!
-    
     @IBOutlet var floatingCollectionButton: [UIButton]!
+    @IBOutlet weak var coverImageView: UIImageView!
+    @IBOutlet weak var favouriteButton: UIButton!
     
+    @IBOutlet weak var coverImageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var coverImageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var coverPage1HeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var coverPage2HeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var coverPage3HeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var coverPage1CollectionView: UICollectionView!
     @IBOutlet weak var coverPage2CollectionView: UICollectionView!
     @IBOutlet weak var coverPage3CollectionView: UICollectionView!
     
-    @IBOutlet weak var coverImageView: UIImageView!
+    var selectedCoverPage1Index: IndexPath?
+    var selectedCoverPage2Index: IndexPath?
+    var selectedCoverPage3Index: IndexPath?
+    var userSelectedImages: [UIImage] = []
+    private let maxVisibleCustomCovers = 9
     
     var isLoading = true
     private var noDataView: NoDataView!
@@ -38,6 +49,11 @@ class CoverViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.revealViewController()?.gestureEnabled = false
+        
+        if let selectedIndexPath = coverPage1CollectionView.indexPathsForSelectedItems?.first {
+            coverPage1CollectionView.deselectItem(at: selectedIndexPath, animated: false)
+        }
+        selectedCoverPage1Index = nil
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -52,9 +68,32 @@ class CoverViewController: UIViewController {
         showSkeletonLoader()
         setupNoInternetView()
         checkInternetAndFetchData()
-        
+        loadSavedImages()
+        //  selectFirstDataCellInCoverPage1()
         self.coverPage2CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
         self.coverPage3CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
+        
+        coverImageView.image = UIImage(named: "SideMenuLogo")
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+                // Set heights for iPad
+            coverImageViewHeightConstraint.constant = 280
+            coverImageViewWidthConstraint.constant = 245
+                scrollViewHeightConstraint.constant = 730
+                coverPage1HeightConstraint.constant = 165
+                coverPage2HeightConstraint.constant = 165
+                coverPage3HeightConstraint.constant = 165
+            } else {
+                // Set heights for iPhone
+                coverImageViewHeightConstraint.constant = 240
+                coverImageViewWidthConstraint.constant = 205
+                scrollViewHeightConstraint.constant = 580
+                coverPage1HeightConstraint.constant = 125
+                coverPage2HeightConstraint.constant = 125
+                coverPage3HeightConstraint.constant = 125
+            }
+            
+            self.view.layoutIfNeeded()
     }
     
     func checkInternetAndFetchData() {
@@ -174,7 +213,11 @@ class CoverViewController: UIViewController {
     }
     
     @IBAction func btnCoverPage1ShowAllTapped(_ sender: UIButton) {
-        // Implement your logic here
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                if let customCoverAllVC = storyboard.instantiateViewController(withIdentifier: "CustomCoverAllViewController") as? CustomCoverAllViewController {
+                    customCoverAllVC.userSelectedImages = self.userSelectedImages
+                    self.navigationController?.pushViewController(customCoverAllVC, animated: true)
+                }
     }
     
     @IBAction func btnCoverPage2ShowAllTapped(_ sender: UIButton) {
@@ -183,7 +226,8 @@ class CoverViewController: UIViewController {
     }
     
     @IBAction func btnCoverPage3ShowAllTapped(_ sender: UIButton) {
-        // Implement your logic here
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "RealisticCoverAllViewController") as! RealisticCoverAllViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func fetchEmojiCoverPages() {
@@ -279,21 +323,62 @@ class CoverViewController: UIViewController {
         let networkManager = NetworkReachabilityManager()
         return networkManager?.isReachable ?? false
     }
+    
+    func loadSavedImages() {
+        if let savedImages = UserDefaults.standard.object(forKey: "userSelectedImages") as? Data {
+            if let decodedImages = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedImages) as? [UIImage] {
+                userSelectedImages = decodedImages
+                coverPage1CollectionView.reloadData()
+
+                if let lastImage = userSelectedImages.last {
+                    coverImageView.image = lastImage
+                }
+
+                selectedCoverPage1Index = nil
+            }
+        }
+    }
+
+    func saveImages() {
+        if let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: userSelectedImages, requiringSecureCoding: false) {
+            UserDefaults.standard.set(encodedData, forKey: "userSelectedImages")
+        }
+    }
+    
+    
+    @IBAction func btnFavouriteSetTapped(_ sender: UIButton) {
+        
+        
+    }
+
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == coverPage2CollectionView {
+        if collectionView == coverPage1CollectionView {
+            return min(userSelectedImages.count + 1, maxVisibleCustomCovers + 1)
+        } else if collectionView == coverPage2CollectionView {
             return isLoading ? 10 : emojiViewModel.emojiCoverPages.count
         } else if collectionView == coverPage3CollectionView {
             return isLoading ? 10 : realisticViewModel.realisticCoverPages.count
         }
-        return emojiViewModel.emojiCoverPages.count
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == coverPage2CollectionView {
+        if collectionView == coverPage1CollectionView {
+            if indexPath.item == 0 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddCoverPageCollectionCell", for: indexPath) as! AddCoverPageCollectionCell
+                cell.imageView.image = UIImage(systemName: "plus")
+                cell.addCoverPageLabel.text = "Cover Page"
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CoverPage1CollectionCell", for: indexPath) as! CoverPage1CollectionCell
+                cell.imageView.image = userSelectedImages[indexPath.item - 1]
+                return cell
+            }
+        } else if collectionView == coverPage2CollectionView {
             if isLoading {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SkeletonCell", for: indexPath) as! SkeletonBoxCollectionViewCell
                 cell.isUserInteractionEnabled = false
@@ -320,36 +405,130 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            if collectionView == coverPage2CollectionView {
-                let coverPageData = emojiViewModel.emojiCoverPages[indexPath.row]
-                handleCellSelection(coverPageData: coverPageData)
-            } else if collectionView == coverPage3CollectionView {
-                let coverPageData = realisticViewModel.realisticCoverPages[indexPath.row]
-                handleCellSelection(coverPageData: coverPageData)
+        guard !isLoading else { return }
+        if collectionView == coverPage1CollectionView {
+            handleCoverPage1Selection(at: indexPath)
+        } else if collectionView == coverPage2CollectionView {
+            let coverPageData = emojiViewModel.emojiCoverPages[indexPath.row]
+            handleCellSelection(coverPageData: coverPageData, collectionView: collectionView, indexPath: indexPath)
+        } else if collectionView == coverPage3CollectionView {
+            let coverPageData = realisticViewModel.realisticCoverPages[indexPath.row]
+            handleCellSelection(coverPageData: coverPageData, collectionView: collectionView, indexPath: indexPath)
+        }
+    }
+    
+    
+    private func handleCoverPage1Selection(at indexPath: IndexPath) {
+        if indexPath.item == 0 {
+            openPhotoLibrary()
+        } else {
+            let selectedImage = userSelectedImages[indexPath.item - 1]
+            coverImageView.image = selectedImage
+            
+            selectedCoverPage1Index = indexPath
+            
+            deselectCellsInOtherCollectionViews(except: coverPage1CollectionView)
+        }
+    }
+    
+    private func handleCellSelection(coverPageData: CoverPageData, collectionView: UICollectionView, indexPath: IndexPath) {
+        if coverPageData.coverPremium {
+            presentPremiumViewController()
+            collectionView.deselectItem(at: indexPath, animated: false)
+            
+            if collectionView == coverPage2CollectionView, let previousIndex = selectedCoverPage2Index {
+                collectionView.selectItem(at: previousIndex, animated: false, scrollPosition: [])
+            } else if collectionView == coverPage3CollectionView, let previousIndex = selectedCoverPage3Index {
+                collectionView.selectItem(at: previousIndex, animated: false, scrollPosition: [])
+            }
+        } else {
+            if let imageUrl = URL(string: coverPageData.coverURL) {
+                coverImageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "placeholder"))
+                
+                updateSelectionForCollectionView(collectionView, at: indexPath)
+                
+                deselectCellsInOtherCollectionViews(except: collectionView)
             }
         }
-
-        private func handleCellSelection(coverPageData: CoverPageData) {
-            if coverPageData.coverPremium {
-                presentPremiumViewController()
-            } else {
-                if let imageUrl = URL(string: coverPageData.coverURL) {
-                    coverImageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "placeholder"))
-                }
+    }
+    
+    private func updateSelectionForCollectionView(_ collectionView: UICollectionView, at indexPath: IndexPath) {
+        if collectionView == coverPage2CollectionView {
+            selectedCoverPage2Index = indexPath
+        } else if collectionView == coverPage3CollectionView {
+            selectedCoverPage3Index = indexPath
+        }
+    }
+    
+    private func deselectCellsInOtherCollectionViews(except currentCollectionView: UICollectionView) {
+        if currentCollectionView != coverPage1CollectionView {
+            if let previousIndex = selectedCoverPage1Index {
+                coverPage1CollectionView.deselectItem(at: previousIndex, animated: true)
+                selectedCoverPage1Index = nil
             }
         }
-
-        private func presentPremiumViewController() {
-            let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumViewController") as! PremiumViewController
-            present(premiumVC, animated: true, completion: nil)
+        
+        if currentCollectionView != coverPage2CollectionView {
+            if let previousIndex = selectedCoverPage2Index {
+                coverPage2CollectionView.deselectItem(at: previousIndex, animated: true)
+                selectedCoverPage2Index = nil
+            }
         }
+        
+        if currentCollectionView != coverPage3CollectionView {
+            if let previousIndex = selectedCoverPage3Index {
+                coverPage3CollectionView.deselectItem(at: previousIndex, animated: true)
+                selectedCoverPage3Index = nil
+            }
+        }
+    }
+    
+    private func presentPremiumViewController() {
+        let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumViewController") as! PremiumViewController
+        present(premiumVC, animated: true, completion: nil)
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 155 : 115
+        let height: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 165 : 125
+        
         if collectionView == coverPage1CollectionView {
             if indexPath.item == 0 {
-                return CGSize(width: 115, height: 125)
+                return CGSize(width: width, height: height)
             }
+            return CGSize(width: width, height: height)
+        } else if collectionView == coverPage2CollectionView {
+            return CGSize(width: width, height: height)
+        } else if collectionView == coverPage3CollectionView {
+            return CGSize(width: width, height: height)
         }
-        return CGSize(width: 115, height: 125)
+        return CGSize(width: width, height: height)
     }
+}
+
+// MARK: - Photo Library Methods
+extension CoverViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func openPhotoLibrary() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let selectedImage = info[.originalImage] as? UIImage {
+                userSelectedImages.append(selectedImage)
+                coverImageView.image = selectedImage
+                coverPage1CollectionView.reloadData()
+                saveImages()
+                
+                let newImageIndex = min(userSelectedImages.count, maxVisibleCustomCovers)
+                let indexPath = IndexPath(item: newImageIndex, section: 0)
+                coverPage1CollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+                selectedCoverPage1Index = indexPath
+                
+                deselectCellsInOtherCollectionViews(except: coverPage1CollectionView)
+            }
+            dismiss(animated: true, completion: nil)
+        }
 }

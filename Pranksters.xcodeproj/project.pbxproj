@@ -20,6 +20,9 @@
 		BD2F1E3A2CB462E00017A963 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F1E392CB462E00017A963 /* LaunchViewController.swift */; };
 		BD2F1E3C2CB470B20017A963 /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = BD2F1E3B2CB470B20017A963 /* Loading.json */; };
 		BD2F1E402CB4A6870017A963 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2F1E3F2CB4A6870017A963 /* Color.xcassets */; };
+		BD6B5CEB2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */; };
+		BD6B5CED2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6B5CEC2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift */; };
+		BD6B5CEF2CB9FF4B00E768ED /* CustomCoverAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6B5CEE2CB9FF4A00E768ED /* CustomCoverAllViewController.swift */; };
 		BD7D62CF2CB7593800439C11 /* RegistrationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7D62CE2CB7593800439C11 /* RegistrationAPI.swift */; };
 		BD7D62D12CB7594B00439C11 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7D62D02CB7594B00439C11 /* RegistrationViewModel.swift */; };
 		BDA87EB32CB5AB2E00C25C50 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EB22CB5AB2E00C25C50 /* SideMenuViewController.swift */; };
@@ -89,6 +92,9 @@
 		BD2F1E392CB462E00017A963 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		BD2F1E3B2CB470B20017A963 /* Loading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
 		BD2F1E3F2CB4A6870017A963 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
+		BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealisticCoverAllViewController.swift; sourceTree = "<group>"; };
+		BD6B5CEC2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealisticCoverAllCollectionViewCell.swift; sourceTree = "<group>"; };
+		BD6B5CEE2CB9FF4A00E768ED /* CustomCoverAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCoverAllViewController.swift; sourceTree = "<group>"; };
 		BD7D62CE2CB7593800439C11 /* RegistrationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationAPI.swift; sourceTree = "<group>"; };
 		BD7D62D02CB7594B00439C11 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		BDA87EB22CB5AB2E00C25C50 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
@@ -259,6 +265,8 @@
 				BDA87EC82CB5C12900C25C50 /* MoreAppViewController.swift */,
 				BDACA25C2CB7375E00B3C2E2 /* CoverViewController.swift */,
 				BDD883AB2CB86790004C6908 /* EmojiCoverAllViewController.swift */,
+				BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */,
+				BD6B5CEE2CB9FF4A00E768ED /* CustomCoverAllViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -277,6 +285,7 @@
 				BDA87ED72CB5EAAA00C25C50 /* MoreAppCollectionViewCell.swift */,
 				BDD883A52CB8504D004C6908 /* CoverPageCollectionViewCell.swift */,
 				BDD883AD2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift */,
+				BD6B5CEC2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -571,6 +580,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD6B5CEB2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift in Sources */,
 				BDD883AC2CB86790004C6908 /* EmojiCoverAllViewController.swift in Sources */,
 				BDA87EDC2CB5EEC100C25C50 /* NoInternetView.swift in Sources */,
 				BDA87EB62CB5AC3B00C25C50 /* Model.swift in Sources */,
@@ -597,6 +607,8 @@
 				BDD883A62CB8504D004C6908 /* CoverPageCollectionViewCell.swift in Sources */,
 				BDC9ACB32CB6F89D00183146 /* NoDataView.swift in Sources */,
 				BDA87EB32CB5AB2E00C25C50 /* SideMenuViewController.swift in Sources */,
+				BD6B5CED2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift in Sources */,
+				BD6B5CEF2CB9FF4B00E768ED /* CustomCoverAllViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -33,6 +33,13 @@ struct CoverPageData: Codable {
     }
 }
 
+// MARK: - FavouriteSet
+struct FavouriteSet: Codable {
+    let status: Int
+    let message: String
+}
+
+
 // MARK: - MoreApp
 struct MoreApp: Codable {
     let status: Int

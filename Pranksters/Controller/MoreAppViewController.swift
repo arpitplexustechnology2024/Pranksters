@@ -197,6 +197,8 @@ extension MoreAppViewController: UICollectionViewDelegate, UICollectionViewDataS
         let paddingSpace = layout.sectionInset.left + layout.sectionInset.right + layout.minimumInteritemSpacing * (UIDevice.current.userInterfaceIdiom == .pad ? 2 : 1)
         let availableWidth = collectionView.frame.width - paddingSpace
         let widthPerItem = availableWidth / (UIDevice.current.userInterfaceIdiom == .pad ? 3 : 2)
-        return CGSize(width: widthPerItem, height: 245)
+        let heightPerItem: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 300 : 245
+        
+        return CGSize(width: widthPerItem, height: heightPerItem)
     }
 }

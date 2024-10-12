@@ -14,8 +14,19 @@ class MoreAppCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var More_App_Label: UILabel!
     @IBOutlet weak var More_App_DownloadButton: UIButton!
     
+    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            imageViewHeightConstraint.constant = 174
+        } else {
+            imageViewHeightConstraint.constant = 119
+        }
+        
+        layoutIfNeeded()
         
         // Cell background and shadow
         self.contentView.backgroundColor = UIColor { traitCollection in

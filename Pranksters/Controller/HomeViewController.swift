@@ -16,7 +16,13 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var moreAppView: UIView!
     @IBOutlet weak var sideMenuButton: UIButton!
     @IBOutlet weak var spinerButton: UIButton!
-
+    @IBOutlet weak var scrollViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var audioHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var videoHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var premiumHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var moreAppHeightConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
@@ -26,6 +32,24 @@ class HomeViewController: UIViewController {
         if let revealVC = self.revealViewController() {
             self.sideMenuButton.addTarget(revealVC, action: #selector(revealVC.revealSideMenu), for: .touchUpInside)
         }
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            scrollViewHeightConstraint.constant = 810
+            audioHeightConstraint.constant = 140
+            videoHeightConstraint.constant = 140
+            imageHeightConstraint.constant = 140
+            premiumHeightConstraint.constant = 140
+            moreAppHeightConstraint.constant = 140
+        } else {
+            scrollViewHeightConstraint.constant = 730
+            audioHeightConstraint.constant = 120
+            videoHeightConstraint.constant = 120
+            imageHeightConstraint.constant = 120
+            premiumHeightConstraint.constant = 120
+            moreAppHeightConstraint.constant = 120
+        }
+        
+        self.view.layoutIfNeeded()
     }
     
     func setupUI() {
@@ -71,15 +95,15 @@ class HomeViewController: UIViewController {
     }
     
     @objc func btnVideoTapped(_ sender: UITapGestureRecognizer){
-       
+        
     }
     
     @objc func btnImageTapped(_ sender: UITapGestureRecognizer){
-       
+        
     }
     
     @objc func btnPremiumTapped(_ sender: UITapGestureRecognizer){
-       
+        
     }
     
     @objc func btnMoreAppTapped(_ sender: UITapGestureRecognizer){
