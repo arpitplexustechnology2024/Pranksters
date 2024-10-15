@@ -1777,8 +1777,69 @@
             </objects>
             <point key="canvasLocation" x="6182" y="-32"/>
         </scene>
+        <!--Cover Preview View Controller-->
+        <scene sceneID="WrE-Xc-9OV">
+            <objects>
+                <viewController storyboardIdentifier="CoverPreviewViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="krC-Ov-hCs" customClass="CoverPreviewViewController" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BxJ-cP-fTk">
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G7m-FH-kLH">
+                                <rect key="frame" x="31" y="192" width="340" height="426"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AllSwiped" translatesAutoresizingMaskIntoConstraints="NO" id="mnh-gp-K2O">
+                                        <rect key="frame" x="111.66666666666666" y="150.66666666666669" width="117" height="125"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="125" id="0Rn-DB-CLn"/>
+                                            <constraint firstAttribute="width" constant="117" id="uVn-DD-Zbz"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="mnh-gp-K2O" firstAttribute="centerX" secondItem="G7m-FH-kLH" secondAttribute="centerX" id="3UO-nv-YgV"/>
+                                    <constraint firstItem="mnh-gp-K2O" firstAttribute="centerY" secondItem="G7m-FH-kLH" secondAttribute="centerY" id="mY9-Uk-Srr"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7MM-kB-tGW">
+                                <rect key="frame" x="16" y="718" width="370" height="52"/>
+                                <color key="backgroundColor" red="1" green="0.84705882349999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="8IW-Sc-Har"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Select">
+                                    <fontDescription key="titleFontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
+                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="rqZ-BX-EGl"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7MM-kB-tGW" firstAttribute="leading" secondItem="rqZ-BX-EGl" secondAttribute="leading" constant="16" id="LCR-SF-TBW"/>
+                            <constraint firstItem="rqZ-BX-EGl" firstAttribute="bottom" secondItem="7MM-kB-tGW" secondAttribute="bottom" constant="70" id="Sie-J8-uwq"/>
+                            <constraint firstItem="G7m-FH-kLH" firstAttribute="top" secondItem="rqZ-BX-EGl" secondAttribute="top" constant="130" id="aR3-Xe-swH"/>
+                            <constraint firstItem="rqZ-BX-EGl" firstAttribute="trailing" secondItem="7MM-kB-tGW" secondAttribute="trailing" constant="16" id="hVd-hH-dWc"/>
+                            <constraint firstItem="7MM-kB-tGW" firstAttribute="top" secondItem="G7m-FH-kLH" secondAttribute="bottom" constant="100" id="jKY-pQ-45J"/>
+                            <constraint firstItem="rqZ-BX-EGl" firstAttribute="trailing" secondItem="G7m-FH-kLH" secondAttribute="trailing" constant="31" id="p0M-YR-Bn0"/>
+                            <constraint firstItem="G7m-FH-kLH" firstAttribute="leading" secondItem="rqZ-BX-EGl" secondAttribute="leading" constant="31" id="qTH-Lg-wnh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="allSwipedImageView" destination="mnh-gp-K2O" id="c0h-zV-5Bb"/>
+                        <outlet property="containerView" destination="G7m-FH-kLH" id="pdm-WO-lhG"/>
+                        <outlet property="selectButton" destination="7MM-kB-tGW" id="Fuk-XC-KNw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bnS-Ka-81d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6829.8507462686566" y="-32.265446224256287"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="AllSwiped" width="1170" height="1243"/>
         <image name="Audio" width="717" height="711"/>
         <image name="Fav" width="240" height="240"/>
         <image name="Favourit_Float" width="471" height="471"/>

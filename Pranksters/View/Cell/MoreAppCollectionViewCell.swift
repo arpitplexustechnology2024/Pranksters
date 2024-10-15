@@ -16,7 +16,6 @@ class MoreAppCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -28,7 +27,6 @@ class MoreAppCollectionViewCell: UICollectionViewCell {
         
         layoutIfNeeded()
         
-        // Cell background and shadow
         self.contentView.backgroundColor = UIColor { traitCollection in
             traitCollection.userInterfaceStyle == .dark ? UIColor.moreApp : UIColor.moreApp
         }
@@ -40,15 +38,12 @@ class MoreAppCollectionViewCell: UICollectionViewCell {
         self.layer.shadowRadius = 4.0
         self.layer.masksToBounds = false
         
-        // Cell corner radius
         self.contentView.layer.cornerRadius = 16
         self.contentView.layer.masksToBounds = true
         
-        // ImageView Corner Radius
         self.More_App_LogoImage.layer.cornerRadius = 16
         self.More_App_LogoImage.clipsToBounds = true
         
-        // Button Corner Radius
         self.More_App_DownloadButton.layer.cornerRadius = More_App_DownloadButton.layer.frame.height / 2
         self.More_App_DownloadButton.clipsToBounds = true
     }

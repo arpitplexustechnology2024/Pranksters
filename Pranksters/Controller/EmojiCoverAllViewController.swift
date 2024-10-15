@@ -203,6 +203,12 @@ extension EmojiCoverAllViewController: UICollectionViewDelegate, UICollectionVie
             presentPremiumViewController()
         } else {
             
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "CoverPreviewViewController") as! CoverPreviewViewController
+            vc.modalTransitionStyle = .crossDissolve
+            vc.modalPresentationStyle = .overCurrentContext
+            
+            self.present(vc, animated: true)
+
         }
     }
     

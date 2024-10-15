@@ -10,6 +10,7 @@ target 'Pranksters' do
   pod 'Alamofire'
   pod "TTGSnackbar"
   pod 'SDWebImage'
+  pod 'Shuffle-iOS'
   
   target 'PrankstersTests' do
     inherit! :search_paths

@@ -7,6 +7,7 @@
 
 import UIKit
 import SDWebImage
+import CoreImage
 
 class RealisticCoverAllCollectionViewCell: UICollectionViewCell {
     
@@ -17,11 +18,12 @@ class RealisticCoverAllCollectionViewCell: UICollectionViewCell {
     var onFavoriteButtonTapped: ((Bool) -> Void)?
     
     private var isFavorite: Bool = false
+    private var originalImage: UIImage?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.cornerRadius = 10
-        layer.masksToBounds = false // Changed to false to allow shadow
+        layer.masksToBounds = false
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
     }
@@ -52,35 +54,40 @@ class RealisticCoverAllCollectionViewCell: UICollectionViewCell {
     
     func configure(with coverPageData: CoverPageData) {
         if let imageURL = URL(string: coverPageData.coverURL) {
-            imageView.sd_setImage(with: imageURL, completed: nil)
+            imageView.sd_setImage(with: imageURL) { [weak self] image, _, _, _ in
+                self?.originalImage = image
+                
+                if coverPageData.coverPremium {
+                    self?.applyBlurEffect()
+                    self?.premiumIconImageView.isHidden = false
+                } else {
+                    self?.removeBlurEffect()
+                    self?.premiumIconImageView.isHidden = true
+                }
+                
+                self?.isFavorite = coverPageData.isFavorite
+                self?.updateFavoriteButton()
+            }
         }
-        
-        if coverPageData.coverPremium {
-            applyBlurEffect()
-            premiumIconImageView.isHidden = false
-        } else {
-            removeBlurEffect()
-            premiumIconImageView.isHidden = true
-        }
-        
-        isFavorite = coverPageData.isFavorite
-        updateFavoriteButton()
     }
     
     func applyBlurEffect() {
-        let blurEffect = UIBlurEffect(style: .regular)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = imageView.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        imageView.addSubview(blurEffectView)
+        guard let image = originalImage else { return }
+        
+        let context = CIContext()
+        guard let ciImage = CIImage(image: image) else { return }
+        
+        let filter = CIFilter(name: "CIGaussianBlur")!
+        filter.setValue(ciImage, forKey: kCIInputImageKey)
+        filter.setValue(20.0, forKey: kCIInputRadiusKey)
+        guard let outputImage = filter.outputImage,
+              let cgImage = context.createCGImage(outputImage, from: ciImage.extent) else { return }
+        
+        imageView.image = UIImage(cgImage: cgImage)
     }
     
     func removeBlurEffect() {
-        imageView.subviews.forEach { subview in
-            if let effectView = subview as? UIVisualEffectView {
-                effectView.removeFromSuperview()
-            }
-        }
+        imageView.image = originalImage
     }
     
     override var isSelected: Bool {

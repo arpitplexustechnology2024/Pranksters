@@ -20,6 +20,8 @@
 		BD2F1E3A2CB462E00017A963 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F1E392CB462E00017A963 /* LaunchViewController.swift */; };
 		BD2F1E3C2CB470B20017A963 /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = BD2F1E3B2CB470B20017A963 /* Loading.json */; };
 		BD2F1E402CB4A6870017A963 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2F1E3F2CB4A6870017A963 /* Color.xcassets */; };
+		BD487C912CBF161E00874560 /* CoverPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD487C902CBF161E00874560 /* CoverPreviewViewController.swift */; };
+		BD487C932CBF1AD500874560 /* CoverCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD487C922CBF1AD500874560 /* CoverCardView.swift */; };
 		BD6B5CEB2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */; };
 		BD6B5CED2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6B5CEC2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift */; };
 		BD6B5CEF2CB9FF4B00E768ED /* CustomCoverAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6B5CEE2CB9FF4A00E768ED /* CustomCoverAllViewController.swift */; };
@@ -97,6 +99,8 @@
 		BD2F1E392CB462E00017A963 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		BD2F1E3B2CB470B20017A963 /* Loading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
 		BD2F1E3F2CB4A6870017A963 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
+		BD487C902CBF161E00874560 /* CoverPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverPreviewViewController.swift; sourceTree = "<group>"; };
+		BD487C922CBF1AD500874560 /* CoverCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverCardView.swift; sourceTree = "<group>"; };
 		BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealisticCoverAllViewController.swift; sourceTree = "<group>"; };
 		BD6B5CEC2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealisticCoverAllCollectionViewCell.swift; sourceTree = "<group>"; };
 		BD6B5CEE2CB9FF4A00E768ED /* CustomCoverAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCoverAllViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +281,7 @@
 				BDD883AB2CB86790004C6908 /* EmojiCoverAllViewController.swift */,
 				BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */,
 				BD6B5CEE2CB9FF4A00E768ED /* CustomCoverAllViewController.swift */,
+				BD487C902CBF161E00874560 /* CoverPreviewViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 				BDACA25A2CB712EA00B3C2E2 /* Skeleton.swift */,
 				BDC578D92CBDA0F400811602 /* Snackbar.swift */,
 				BDC578DB2CBDA10F00811602 /* Extension.swift */,
+				BD487C922CBF1AD500874560 /* CoverCardView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -613,6 +619,7 @@
 				BD7D62D12CB7594B00439C11 /* RegistrationViewModel.swift in Sources */,
 				BDD883AA2CB85910004C6908 /* CoverPageViewModel.swift in Sources */,
 				BDA87ECE2CB5C12900C25C50 /* SpinnerViewController.swift in Sources */,
+				BD487C932CBF1AD500874560 /* CoverCardView.swift in Sources */,
 				BDD883A82CB85903004C6908 /* CoverPageAPI.swift in Sources */,
 				BDA87ED02CB5C16400C25C50 /* MainViewController.swift in Sources */,
 				BDACA25D2CB7375E00B3C2E2 /* CoverViewController.swift in Sources */,
@@ -628,6 +635,7 @@
 				BDC9ACB32CB6F89D00183146 /* NoDataView.swift in Sources */,
 				BDA87EB32CB5AB2E00C25C50 /* SideMenuViewController.swift in Sources */,
 				BD6B5CED2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift in Sources */,
+				BD487C912CBF161E00874560 /* CoverPreviewViewController.swift in Sources */,
 				BD6B5CEF2CB9FF4B00E768ED /* CustomCoverAllViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
