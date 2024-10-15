@@ -7,18 +7,33 @@
 
 import UIKit
 
+protocol CoverViewControllerDelegate: AnyObject {
+    func didUpdateFavoriteStatus(at index: Int, isFavorite: Bool)
+}
+
 class CustomCoverAllViewController: UIViewController {
     
     @IBOutlet weak var navigationbarView: UIView!
     @IBOutlet weak var customeCoverAllCollectionView: UICollectionView!
     
     var allCustomCovers: [UIImage] = []
+    var favoriteCustomImages: [Bool] = []
     
+    weak var delegate: CoverViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addBottomShadow(to: navigationbarView)
         setupCollectionView()
+        loadFavoriteStatus()
+    }
+    
+    private func loadFavoriteStatus() {
+        favoriteCustomImages = UserDefaults.standard.array(forKey: "favoriteCustomImages") as? [Bool] ?? Array(repeating: false, count: allCustomCovers.count)
+    }
+    
+    private func saveFavoriteStatus() {
+        UserDefaults.standard.set(favoriteCustomImages, forKey: "favoriteCustomImages")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +81,16 @@ extension CustomCoverAllViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CoverPage1CollectionCell", for: indexPath) as! CoverPage1CollectionCell
         cell.imageView.image = allCustomCovers[indexPath.item]
+        cell.updateFavoriteButton(isFavorite: favoriteCustomImages[indexPath.item])
+        
+        cell.onFavoriteButtonTapped = { [weak self] in
+            guard let self = self else { return }
+            self.favoriteCustomImages[indexPath.item].toggle()
+            cell.updateFavoriteButton(isFavorite: self.favoriteCustomImages[indexPath.item])
+            self.saveFavoriteStatus()
+            self.delegate?.didUpdateFavoriteStatus(at: indexPath.item, isFavorite: self.favoriteCustomImages[indexPath.item])
+        }
+        
         return cell
     }
     

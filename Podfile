@@ -10,7 +10,6 @@ target 'Pranksters' do
   pod 'Alamofire'
   pod "TTGSnackbar"
   pod 'SDWebImage'
-  pod 'SkeletonView'
   
   target 'PrankstersTests' do
     inherit! :search_paths

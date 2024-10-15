@@ -21,7 +21,6 @@ class EmojiAPIService: EmojiAPIServiceProtocol {
     func fetchCoverPages(page: Int, completion: @escaping (Result<CoverPage, Error>) -> Void) {
         let url = "https://pslink.world/api/cover/emoji"
         
-        // Retrieve token from UserDefaults
         guard let token = UserDefaults.standard.string(forKey: "userToken") else {
             completion(.failure(NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Unauthorized: No token found"])))
             return
@@ -32,7 +31,7 @@ class EmojiAPIService: EmojiAPIServiceProtocol {
         ]
         
         let parameters: [String: Any] = [
-            "page": page // Pass pagination page number
+            "page": page
         ]
         
         AF.request(url, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers)

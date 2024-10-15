@@ -12,7 +12,7 @@ import SDWebImage
 import Photos
 import Lottie
 
-class CoverViewController: UIViewController, EmojiCoverAllDelegate, RealisticCoverAllDelegate {
+class CoverViewController: UIViewController, CoverViewControllerDelegate {
     
     @IBOutlet weak var navigationbarView: UIView!
     @IBOutlet weak var bottomScrollView: UIScrollView!
@@ -22,6 +22,8 @@ class CoverViewController: UIViewController, EmojiCoverAllDelegate, RealisticCov
     @IBOutlet var floatingCollectionButton: [UIButton]!
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var favouriteButton: UIButton!
+    
+    var favoriteCustomImages: [Bool] = []
     
     @IBOutlet weak var coverImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var coverImageViewWidthConstraint: NSLayoutConstraint!
@@ -79,7 +81,7 @@ class CoverViewController: UIViewController, EmojiCoverAllDelegate, RealisticCov
         self.coverPage3CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
         
         coverImageView.image = UIImage(named: "SideMenuLogo")
-        
+        updateFavoriteButton(isFavorite: false)
         if UIDevice.current.userInterfaceIdiom == .pad {
             // Set heights for iPad
             coverImageViewHeightConstraint.constant = 280
@@ -232,29 +234,28 @@ class CoverViewController: UIViewController, EmojiCoverAllDelegate, RealisticCov
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let customCoverAllVC = storyboard.instantiateViewController(withIdentifier: "CustomCoverAllViewController") as? CustomCoverAllViewController {
             customCoverAllVC.allCustomCovers = Array(userSelectedImages)
+            customCoverAllVC.delegate = self
             self.navigationController?.pushViewController(customCoverAllVC, animated: true)
         }
     }
     
-    func didEmojiSelectImage(_ image: UIImage) {
-        coverImageView.image = image
-        coverPage2CollectionView.reloadData()
+    func didUpdateFavoriteStatus(at index: Int, isFavorite: Bool) {
+        favoriteCustomImages[index] = isFavorite
+        saveImages()
+        coverPage1CollectionView.reloadItems(at: [IndexPath(item: index + 1, section: 0)])
+        
+        if let selectedIndex = selectedCoverPage1Index, selectedIndex.item - 1 == index {
+            updateFavoriteButton(isFavorite: isFavorite)
+        }
     }
     
     @IBAction func btnCoverPage2ShowAllTapped(_ sender: UIButton) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "EmojiCoverAllViewController") as! EmojiCoverAllViewController
-        vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func didRealisticSelectImage(_ image: UIImage) {
-        coverImageView.image = image
-        coverPage3CollectionView.reloadData()
     }
     
     @IBAction func btnCoverPage3ShowAllTapped(_ sender: UIButton) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "RealisticCoverAllViewController") as! RealisticCoverAllViewController
-        vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -367,44 +368,57 @@ class CoverViewController: UIViewController, EmojiCoverAllDelegate, RealisticCov
     }
     
     func loadSavedImages() {
-        if let savedImages = UserDefaults.standard.object(forKey: "userSelectedImages") as? Data {
-            if let decodedImages = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedImages) as? [UIImage] {
-                userSelectedImages = decodedImages
-                coverPage1CollectionView.reloadData()
-                
-                if let lastImage = userSelectedImages.last {
-                    coverImageView.image = lastImage
-                }
-                
-                selectedCoverPage1Index = nil
+        if let savedImages = UserDefaults.standard.object(forKey: "userSelectedImages") as? Data,
+           let decodedImages = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedImages) as? [UIImage] {
+            userSelectedImages = decodedImages
+            
+            favoriteCustomImages = UserDefaults.standard.array(forKey: "favoriteCustomImages") as? [Bool] ?? Array(repeating: false, count: decodedImages.count)
+            
+            coverPage1CollectionView.reloadData()
+            
+            if let lastImage = userSelectedImages.last,
+               let lastIndex = userSelectedImages.indices.last {
+                coverImageView.image = lastImage
+                updateFavoriteButton(isFavorite: favoriteCustomImages[lastIndex])
+            } else {
+                updateFavoriteButton(isFavorite: false)
             }
+            selectedCoverPage1Index = nil
+        } else {
+            updateFavoriteButton(isFavorite: false)
         }
     }
     
     func saveImages() {
         if let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: userSelectedImages, requiringSecureCoding: false) {
             UserDefaults.standard.set(encodedData, forKey: "userSelectedImages")
+            UserDefaults.standard.set(favoriteCustomImages, forKey: "favoriteCustomImages")
         }
     }
     
     
     @IBAction func btnFavouriteSetTapped(_ sender: UIButton) {
-        guard let selectedCoverPage = getSelectedCoverPage() else {
-            print("No cover page selected")
-            return
-        }
-        
-        let favoriteViewModel = FavoriteViewModel()
-        let newFavoriteStatus = !selectedCoverPage.isFavorite
-        
-        favoriteViewModel.setFavorite(itemId: selectedCoverPage.itemID, isFavorite: newFavoriteStatus) { [weak self] success, message in
-            guard let self = self else { return }
+        if let selectedIndex = selectedCoverPage1Index, selectedIndex.item > 0 {
+            let imageIndex = selectedIndex.item - 1
+            favoriteCustomImages[imageIndex].toggle()
+            updateFavoriteButton(isFavorite: favoriteCustomImages[imageIndex])
+            saveImages()
+            coverPage1CollectionView.reloadItems(at: [selectedIndex])
+        } else if let selectedCoverPage = getSelectedCoverPage() {
             
-            if success {
-                self.updateFavoriteStatus(newStatus: newFavoriteStatus)
-                print(message ?? "Favorite status updated successfully")
-            } else {
-                print("Failed to update favorite status: \(message ?? "Unknown error")")
+            let favoriteViewModel = FavoriteViewModel()
+            let newFavoriteStatus = !selectedCoverPage.isFavorite
+            let categoryId: Int = 4
+            
+            favoriteViewModel.setFavorite(itemId: selectedCoverPage.itemID, isFavorite: newFavoriteStatus, categoryId: categoryId) { [weak self] success, message in
+                guard let self = self else { return }
+                
+                if success {
+                    self.updateFavoriteStatus(newStatus: newFavoriteStatus)
+                    print(message ?? "Favorite status updated successfully")
+                } else {
+                    print("Failed to update favorite status: \(message ?? "Unknown error")")
+                }
             }
         }
     }
@@ -500,17 +514,19 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
     }
     
-    
     private func handleCoverPage1Selection(at indexPath: IndexPath, sender: UIView) {
         if indexPath.item == 0 {
             presentImageSourceOptions(sender: sender)
         } else {
-            let selectedImage = userSelectedImages[indexPath.item - 1]
+            let imageIndex = indexPath.item - 1
+            let selectedImage = userSelectedImages[imageIndex]
             coverImageView.image = selectedImage
             
             selectedCoverPage1Index = indexPath
             
             deselectCellsInOtherCollectionViews(except: coverPage1CollectionView)
+            
+            updateFavoriteButton(isFavorite: favoriteCustomImages[imageIndex])
         }
     }
     
@@ -609,7 +625,6 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     // MARK: - Existing methods
-    
     private func presentImageSourceOptions(sender: UIView) {
         let titleString = NSAttributedString(string: "Select Image", attributes: [
             NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)
@@ -729,6 +744,7 @@ extension CoverViewController: UIImagePickerControllerDelegate, UINavigationCont
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage {
             userSelectedImages.append(selectedImage)
+            favoriteCustomImages.append(false)
             coverImageView.image = selectedImage
             coverPage1CollectionView.reloadData()
             saveImages()
@@ -739,6 +755,8 @@ extension CoverViewController: UIImagePickerControllerDelegate, UINavigationCont
             selectedCoverPage1Index = indexPath
             
             deselectCellsInOtherCollectionViews(except: coverPage1CollectionView)
+            
+            updateFavoriteButton(isFavorite: false)
         }
         dismiss(animated: true, completion: nil)
     }

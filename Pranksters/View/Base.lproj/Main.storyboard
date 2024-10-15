@@ -1048,22 +1048,34 @@
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8uL-z5-6wc">
                                                                             <rect key="frame" x="0.0" y="0.0" width="115" height="125"/>
                                                                         </imageView>
+                                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tno-55-w6k">
+                                                                            <rect key="frame" x="85" y="8" width="22" height="20"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="20" id="4qW-If-C0i"/>
+                                                                                <constraint firstAttribute="width" constant="22" id="fM3-Bh-tpg"/>
+                                                                            </constraints>
+                                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                            <state key="normal" image="Heart"/>
+                                                                        </button>
                                                                     </subviews>
                                                                     <constraints>
+                                                                        <constraint firstAttribute="trailing" secondItem="Tno-55-w6k" secondAttribute="trailing" constant="8" id="1hw-IX-WUo"/>
                                                                         <constraint firstItem="8uL-z5-6wc" firstAttribute="leading" secondItem="SPS-0Y-gp4" secondAttribute="leading" id="4rZ-nm-5ge"/>
+                                                                        <constraint firstItem="Tno-55-w6k" firstAttribute="top" secondItem="SPS-0Y-gp4" secondAttribute="top" constant="8" id="7hL-hh-qet"/>
                                                                         <constraint firstAttribute="trailing" secondItem="8uL-z5-6wc" secondAttribute="trailing" id="cJN-cp-QEz"/>
                                                                         <constraint firstItem="8uL-z5-6wc" firstAttribute="top" secondItem="SPS-0Y-gp4" secondAttribute="top" id="nPu-Ql-r90"/>
                                                                         <constraint firstAttribute="bottom" secondItem="8uL-z5-6wc" secondAttribute="bottom" id="sck-Yv-Acg"/>
                                                                     </constraints>
                                                                 </collectionViewCellContentView>
                                                                 <connections>
+                                                                    <outlet property="favoriteButton" destination="Tno-55-w6k" id="J59-c2-ABM"/>
                                                                     <outlet property="imageView" destination="8uL-z5-6wc" id="VFf-dy-vSg"/>
                                                                 </connections>
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cover page  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pu6-64-zLy">
-                                                        <rect key="frame" x="16" y="200.33333333333337" width="122" height="27.333333333333343"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Emoji Cover page  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pu6-64-zLy">
+                                                        <rect key="frame" x="16" y="200.33333333333337" width="180.66666666666666" height="27.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1105,8 +1117,8 @@
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cover page  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUs-8Q-8GQ">
-                                                        <rect key="frame" x="16" y="384.66666666666663" width="122" height="27.333333333333314"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Realistic Cover page  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUs-8Q-8GQ">
+                                                        <rect key="frame" x="16" y="384.66666666666663" width="205.66666666666666" height="27.333333333333314"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1737,6 +1749,7 @@
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="193" height="187"/>
                                         <connections>
+                                            <outlet property="favoriteButton" destination="hEh-UW-IGo" id="8EE-qC-rXU"/>
                                             <outlet property="imageView" destination="M8E-xs-XlU" id="sTd-2h-4wQ"/>
                                         </connections>
                                     </collectionViewCell>

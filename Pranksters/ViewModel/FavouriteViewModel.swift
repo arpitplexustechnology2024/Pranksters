@@ -14,8 +14,8 @@ class FavoriteViewModel {
         self.apiService = apiService
     }
     
-    func setFavorite(itemId: Int, isFavorite: Bool, completion: @escaping (Bool, String?) -> Void) {
-        apiService.setFavorite(itemId: itemId, isFavorite: isFavorite) { result in
+    func setFavorite(itemId: Int, isFavorite: Bool, categoryId: Int, completion: @escaping (Bool, String?) -> Void) {
+        apiService.setFavorite(itemId: itemId, isFavorite: isFavorite, categoryId: categoryId) { result in
             switch result {
             case .success(let response):
                 completion(true, response.message)

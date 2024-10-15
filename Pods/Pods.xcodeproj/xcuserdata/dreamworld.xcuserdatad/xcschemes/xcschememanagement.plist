@@ -53,19 +53,12 @@
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
-		<key>SkeletonView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>9</integer>
-		</dict>
 		<key>TTGSnackbar.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>9</integer>
 		</dict>
 		<key>lottie-ios-LottiePrivacyInfo.xcscheme</key>
 		<dict>

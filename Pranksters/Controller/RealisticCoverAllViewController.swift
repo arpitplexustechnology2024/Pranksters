@@ -7,11 +7,6 @@
 
 import UIKit
 import Alamofire
-import SDWebImage
-
-protocol RealisticCoverAllDelegate: AnyObject {
-    func didRealisticSelectImage(_ image: UIImage)
-}
 
 class RealisticCoverAllViewController: UIViewController {
     
@@ -26,7 +21,8 @@ class RealisticCoverAllViewController: UIViewController {
     
     var isLoading = true
     
-    weak var delegate: RealisticCoverAllDelegate?
+    private let categoryId: Int = 4
+    
     func checkInternetAndFetchData() {
         if isConnectedToInternet() {
             fetchAllCoverPages()
@@ -168,20 +164,20 @@ extension RealisticCoverAllViewController: UICollectionViewDelegate, UICollectio
     }
     
     private func handleFavoriteButtonTapped(for coverPageData: CoverPageData, isFavorite: Bool) {
-        favoriteViewModel.setFavorite(itemId: coverPageData.itemID, isFavorite: isFavorite) { [weak self] success, message in
+        favoriteViewModel.setFavorite(itemId: coverPageData.itemID, isFavorite: isFavorite, categoryId: categoryId) { [weak self] success, message in
             guard let self = self else { return }
             
             DispatchQueue.main.async {
                 if success {
-                    
                     if let index = self.viewModel.realisticCoverPages.firstIndex(where: { $0.itemID == coverPageData.itemID }) {
                         self.viewModel.realisticCoverPages[index].isFavorite = isFavorite
                     }
                     print(message ?? "Favorite status updated successfully")
                 } else {
                     print("Failed to update favorite status: \(message ?? "Unknown error")")
+                    // Revert the favorite status in the UI
                     if let cell = self.realisticCoverAllCollectionView.cellForItem(at: IndexPath(item: self.viewModel.realisticCoverPages.firstIndex(where: { $0.itemID == coverPageData.itemID }) ?? 0, section: 0)) as? RealisticCoverAllCollectionViewCell {
-                        cell.updateFavoriteButton(isFavorite: !isFavorite)
+                        cell.configure(with: coverPageData)
                     }
                 }
             }
@@ -209,14 +205,7 @@ extension RealisticCoverAllViewController: UICollectionViewDelegate, UICollectio
         if coverPageData.coverPremium {
             presentPremiumViewController()
         } else {
-            if let imageUrl = URL(string: coverPageData.coverURL) {
-                SDWebImageManager.shared.loadImage(with: imageUrl, options: [], progress: nil) { [weak self] (image, _, _, _, _, _) in
-                    if let image = image {
-                        self?.delegate?.didRealisticSelectImage(image)
-                        self?.navigationController?.popViewController(animated: true)
-                    }
-                }
-            }
+            
         }
     }
     

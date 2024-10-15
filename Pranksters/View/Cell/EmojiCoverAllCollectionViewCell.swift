@@ -17,6 +17,8 @@ class EmojiCoverAllCollectionViewCell: UICollectionViewCell {
     
     var onFavoriteButtonTapped: ((Bool) -> Void)?
     
+    private var isFavorite: Bool = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.cornerRadius = 10
@@ -62,7 +64,8 @@ class EmojiCoverAllCollectionViewCell: UICollectionViewCell {
             premiumIconImageView.isHidden = true
         }
         
-        updateFavoriteButton(isFavorite: coverPageData.isFavorite)
+        isFavorite = coverPageData.isFavorite
+        updateFavoriteButton()
     }
     
     func applyBlurEffect() {
@@ -103,15 +106,14 @@ class EmojiCoverAllCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    
-    func updateFavoriteButton(isFavorite: Bool) {
+    private func updateFavoriteButton() {
         let imageName = isFavorite ? "Heart_Fill" : "Heart"
         favouriteButton.setImage(UIImage(named: imageName), for: .normal)
     }
     
     @IBAction func favoriteButtonTapped(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        updateFavoriteButton(isFavorite: sender.isSelected)
-        onFavoriteButtonTapped?(sender.isSelected)
+        isFavorite.toggle()
+        updateFavoriteButton()
+        onFavoriteButtonTapped?(isFavorite)
     }
 }
