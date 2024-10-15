@@ -12,10 +12,12 @@ class CustomCoverAllViewController: UIViewController {
     @IBOutlet weak var navigationbarView: UIView!
     @IBOutlet weak var customeCoverAllCollectionView: UICollectionView!
     
-    var userSelectedImages: [UIImage] = []
+    var allCustomCovers: [UIImage] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addBottomShadow(to: navigationbarView)
         setupCollectionView()
     }
     
@@ -39,6 +41,18 @@ class CustomCoverAllViewController: UIViewController {
         }
     }
     
+    func addBottomShadow(to view: UIView) {
+        view.layer.masksToBounds = false
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.2
+        view.layer.shadowOffset = CGSize(width: 0, height: 7)
+        view.layer.shadowRadius = 12
+        view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
+                                                          y: view.bounds.maxY - 4,
+                                                          width: view.bounds.width,
+                                                          height: 4)).cgPath
+    }
+    
     @IBAction func btnBackTapped(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -46,12 +60,12 @@ class CustomCoverAllViewController: UIViewController {
 
 extension CustomCoverAllViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userSelectedImages.count + 1
+        return allCustomCovers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CoverPage1CollectionCell", for: indexPath) as! CoverPage1CollectionCell
-        cell.imageView.image = userSelectedImages[indexPath.item - 1]
+        cell.imageView.image = allCustomCovers[indexPath.item]
         return cell
     }
     

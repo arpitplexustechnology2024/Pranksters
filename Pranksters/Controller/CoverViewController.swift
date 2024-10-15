@@ -9,8 +9,10 @@ import UIKit
 import Alamofire
 import TTGSnackbar
 import SDWebImage
+import Photos
+import Lottie
 
-class CoverViewController: UIViewController {
+class CoverViewController: UIViewController, EmojiCoverAllDelegate, RealisticCoverAllDelegate {
     
     @IBOutlet weak var navigationbarView: UIView!
     @IBOutlet weak var bottomScrollView: UIScrollView!
@@ -30,6 +32,8 @@ class CoverViewController: UIViewController {
     @IBOutlet weak var coverPage1CollectionView: UICollectionView!
     @IBOutlet weak var coverPage2CollectionView: UICollectionView!
     @IBOutlet weak var coverPage3CollectionView: UICollectionView!
+    
+    @IBOutlet weak var lottieLoader: LottieAnimationView!
     
     var selectedCoverPage1Index: IndexPath?
     var selectedCoverPage2Index: IndexPath?
@@ -69,31 +73,32 @@ class CoverViewController: UIViewController {
         setupNoInternetView()
         checkInternetAndFetchData()
         loadSavedImages()
-        //  selectFirstDataCellInCoverPage1()
+        setupLottieLoader()
+        
         self.coverPage2CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
         self.coverPage3CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
         
         coverImageView.image = UIImage(named: "SideMenuLogo")
         
         if UIDevice.current.userInterfaceIdiom == .pad {
-                // Set heights for iPad
+            // Set heights for iPad
             coverImageViewHeightConstraint.constant = 280
             coverImageViewWidthConstraint.constant = 245
-                scrollViewHeightConstraint.constant = 730
-                coverPage1HeightConstraint.constant = 165
-                coverPage2HeightConstraint.constant = 165
-                coverPage3HeightConstraint.constant = 165
-            } else {
-                // Set heights for iPhone
-                coverImageViewHeightConstraint.constant = 240
-                coverImageViewWidthConstraint.constant = 205
-                scrollViewHeightConstraint.constant = 580
-                coverPage1HeightConstraint.constant = 125
-                coverPage2HeightConstraint.constant = 125
-                coverPage3HeightConstraint.constant = 125
-            }
-            
-            self.view.layoutIfNeeded()
+            scrollViewHeightConstraint.constant = 750
+            coverPage1HeightConstraint.constant = 180
+            coverPage2HeightConstraint.constant = 180
+            coverPage3HeightConstraint.constant = 180
+        } else {
+            // Set heights for iPhone
+            coverImageViewHeightConstraint.constant = 240
+            coverImageViewWidthConstraint.constant = 205
+            scrollViewHeightConstraint.constant = 600
+            coverPage1HeightConstraint.constant = 140
+            coverPage2HeightConstraint.constant = 140
+            coverPage3HeightConstraint.constant = 140
+        }
+        
+        self.view.layoutIfNeeded()
     }
     
     func checkInternetAndFetchData() {
@@ -108,6 +113,10 @@ class CoverViewController: UIViewController {
     
     func setupUI() {
         addBottomShadow(to: navigationbarView)
+        bottomView.layer.shadowColor = UIColor.black.cgColor
+        bottomView.layer.shadowOpacity = 0.5
+        bottomView.layer.shadowOffset = CGSize(width: 0, height: 5)
+        bottomView.layer.shadowRadius = 12
         bottomView.layer.cornerRadius = 28
         bottomView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         bottomScrollView.layer.cornerRadius = 28
@@ -152,6 +161,13 @@ class CoverViewController: UIViewController {
                                                           y: view.bounds.maxY - 4,
                                                           width: view.bounds.width,
                                                           height: 4)).cgPath
+    }
+    
+    private func setupLottieLoader() {
+        lottieLoader.isHidden = true
+        lottieLoader.loopMode = .loop
+        lottieLoader.contentMode = .scaleAspectFill
+        lottieLoader.animation = LottieAnimation.named("Loader")
     }
     
     @IBAction func btnFloatingTapped(_ sender: UIButton) {
@@ -214,19 +230,31 @@ class CoverViewController: UIViewController {
     
     @IBAction func btnCoverPage1ShowAllTapped(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                if let customCoverAllVC = storyboard.instantiateViewController(withIdentifier: "CustomCoverAllViewController") as? CustomCoverAllViewController {
-                    customCoverAllVC.userSelectedImages = self.userSelectedImages
-                    self.navigationController?.pushViewController(customCoverAllVC, animated: true)
-                }
+        if let customCoverAllVC = storyboard.instantiateViewController(withIdentifier: "CustomCoverAllViewController") as? CustomCoverAllViewController {
+            customCoverAllVC.allCustomCovers = Array(userSelectedImages)
+            self.navigationController?.pushViewController(customCoverAllVC, animated: true)
+        }
+    }
+    
+    func didEmojiSelectImage(_ image: UIImage) {
+        coverImageView.image = image
+        coverPage2CollectionView.reloadData()
     }
     
     @IBAction func btnCoverPage2ShowAllTapped(_ sender: UIButton) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "EmojiCoverAllViewController") as! EmojiCoverAllViewController
+        vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func didRealisticSelectImage(_ image: UIImage) {
+        coverImageView.image = image
+        coverPage3CollectionView.reloadData()
     }
     
     @IBAction func btnCoverPage3ShowAllTapped(_ sender: UIButton) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "RealisticCoverAllViewController") as! RealisticCoverAllViewController
+        vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -298,8 +326,8 @@ class CoverViewController: UIViewController {
             noDataView.isHidden = true
             checkInternetAndFetchData()
         } else {
-            let snackbar = TTGSnackbar(message: "Please turn on internet connection!", duration: .middle)
-            snackbar.show()
+            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: UIColor(hexString: "#322F35"))
+            snackbar.show(in: self.view, duration: 3.0)
         }
     }
     
@@ -324,21 +352,35 @@ class CoverViewController: UIViewController {
         return networkManager?.isReachable ?? false
     }
     
+    func showLottieLoader() {
+        lottieLoader.isHidden = false
+        coverImageView.isHidden = true
+        favouriteButton.isHidden = true
+        lottieLoader.play()
+    }
+    
+    func hideLottieLoader() {
+        lottieLoader.stop()
+        lottieLoader.isHidden = true
+        coverImageView.isHidden = false
+        favouriteButton.isHidden = false
+    }
+    
     func loadSavedImages() {
         if let savedImages = UserDefaults.standard.object(forKey: "userSelectedImages") as? Data {
             if let decodedImages = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedImages) as? [UIImage] {
                 userSelectedImages = decodedImages
                 coverPage1CollectionView.reloadData()
-
+                
                 if let lastImage = userSelectedImages.last {
                     coverImageView.image = lastImage
                 }
-
+                
                 selectedCoverPage1Index = nil
             }
         }
     }
-
+    
     func saveImages() {
         if let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: userSelectedImages, requiringSecureCoding: false) {
             UserDefaults.standard.set(encodedData, forKey: "userSelectedImages")
@@ -347,10 +389,49 @@ class CoverViewController: UIViewController {
     
     
     @IBAction func btnFavouriteSetTapped(_ sender: UIButton) {
+        guard let selectedCoverPage = getSelectedCoverPage() else {
+            print("No cover page selected")
+            return
+        }
         
+        let favoriteViewModel = FavoriteViewModel()
+        let newFavoriteStatus = !selectedCoverPage.isFavorite
         
+        favoriteViewModel.setFavorite(itemId: selectedCoverPage.itemID, isFavorite: newFavoriteStatus) { [weak self] success, message in
+            guard let self = self else { return }
+            
+            if success {
+                self.updateFavoriteStatus(newStatus: newFavoriteStatus)
+                print(message ?? "Favorite status updated successfully")
+            } else {
+                print("Failed to update favorite status: \(message ?? "Unknown error")")
+            }
+        }
     }
-
+    
+    private func getSelectedCoverPage() -> CoverPageData? {
+        if let selectedIndex = selectedCoverPage2Index {
+            return emojiViewModel.emojiCoverPages[selectedIndex.item]
+        } else if let selectedIndex = selectedCoverPage3Index {
+            return realisticViewModel.realisticCoverPages[selectedIndex.item]
+        }
+        return nil
+    }
+    
+    private func updateFavoriteStatus(newStatus: Bool) {
+        if let selectedIndex = selectedCoverPage2Index {
+            emojiViewModel.emojiCoverPages[selectedIndex.item].isFavorite = newStatus
+        } else if let selectedIndex = selectedCoverPage3Index {
+            realisticViewModel.realisticCoverPages[selectedIndex.item].isFavorite = newStatus
+        }
+        
+        updateFavoriteButton(isFavorite: newStatus)
+    }
+    
+    func updateFavoriteButton(isFavorite: Bool) {
+        let imageName = isFavorite ? "Heart_Fill" : "Heart"
+        favouriteButton.setImage(UIImage(named: imageName), for: .normal)
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
@@ -407,7 +488,9 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard !isLoading else { return }
         if collectionView == coverPage1CollectionView {
-            handleCoverPage1Selection(at: indexPath)
+            if let cell = collectionView.cellForItem(at: indexPath) {
+                handleCoverPage1Selection(at: indexPath, sender: cell)
+            }
         } else if collectionView == coverPage2CollectionView {
             let coverPageData = emojiViewModel.emojiCoverPages[indexPath.row]
             handleCellSelection(coverPageData: coverPageData, collectionView: collectionView, indexPath: indexPath)
@@ -418,9 +501,9 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     
-    private func handleCoverPage1Selection(at indexPath: IndexPath) {
+    private func handleCoverPage1Selection(at indexPath: IndexPath, sender: UIView) {
         if indexPath.item == 0 {
-            openPhotoLibrary()
+            presentImageSourceOptions(sender: sender)
         } else {
             let selectedImage = userSelectedImages[indexPath.item - 1]
             coverImageView.image = selectedImage
@@ -429,6 +512,134 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
             
             deselectCellsInOtherCollectionViews(except: coverPage1CollectionView)
         }
+    }
+    
+    // MARK: - Camera Button
+    func btnCameraTapped() {
+        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        switch cameraAuthorizationStatus {
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                DispatchQueue.main.async {
+                    if granted {
+                        self.showImagePicker(for: .camera)
+                    } else {
+                        self.showPermissionSnackbar(for: "camera")
+                    }
+                }
+            }
+        case .authorized:
+            showImagePicker(for: .camera)
+        case .restricted, .denied:
+            showPermissionSnackbar(for: "camera")
+        @unknown default:
+            fatalError("Unknown authorization status")
+        }
+    }
+    
+    // MARK: - Gallery Button
+    func btnGalleryTapped() {
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAuthorizationStatus {
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { status in
+                DispatchQueue.main.async {
+                    if status == .authorized {
+                        self.showImagePicker(for: .photoLibrary)
+                    } else {
+                        self.showPermissionSnackbar(for: "photo library")
+                    }
+                }
+            }
+        case .authorized, .limited:
+            showImagePicker(for: .photoLibrary)
+        case .restricted, .denied:
+            showPermissionSnackbar(for: "photo library")
+        @unknown default:
+            fatalError("Unknown authorization status")
+        }
+    }
+    
+    func showImagePicker(for sourceType: UIImagePickerController.SourceType) {
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = sourceType
+            imagePicker.allowsEditing = true
+            if sourceType == .camera {
+                imagePicker.cameraDevice = .front
+            }
+            DispatchQueue.main.async {
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        } else {
+            print("\(sourceType) is not available")
+        }
+    }
+    
+    func showPermissionSnackbar(for feature: String) {
+        let messageKey: String
+        
+        switch feature {
+        case "camera":
+            messageKey = "SnackbarCameraPermissionAccess"
+        case "photo library":
+            messageKey = "SnackbarGalleryPermissionAccess"
+        default:
+            messageKey = "SnackbarDefaultPermissionAccess"
+        }
+        
+        let localizedMessage = NSLocalizedString(messageKey, comment: "")
+        let snackbar = TTGSnackbar(message: localizedMessage, duration: .long)
+        
+        snackbar.actionText = NSLocalizedString("Settings", comment: "")
+        snackbar.actionBlock = { (snackbar) in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)")
+                })
+            }
+        }
+        
+        snackbar.show()
+    }
+    
+    // MARK: - Existing methods
+    
+    private func presentImageSourceOptions(sender: UIView) {
+        let titleString = NSAttributedString(string: "Select Image", attributes: [
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)
+        ])
+        
+        let alertController = UIAlertController(title: "", message: nil, preferredStyle: .actionSheet)
+        alertController.setValue(titleString, forKey: "attributedTitle")
+        
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { [weak self] _ in
+            self?.btnCameraTapped()
+        }
+        
+        let galleryAction = UIAlertAction(title: "Gallery", style: .default) { [weak self] _ in
+            self?.btnGalleryTapped()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        cancelAction.setValue(UIColor.black, forKey: "titleTextColor")
+        
+        alertController.addAction(cameraAction)
+        alertController.addAction(galleryAction)
+        alertController.addAction(cancelAction)
+        
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = sender
+            popoverController.sourceRect = sender.bounds
+        }
+        
+        present(alertController, animated: true, completion: nil)
     }
     
     private func handleCellSelection(coverPageData: CoverPageData, collectionView: UICollectionView, indexPath: IndexPath) {
@@ -443,11 +654,18 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
             }
         } else {
             if let imageUrl = URL(string: coverPageData.coverURL) {
-                coverImageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "placeholder"))
-                
-                updateSelectionForCollectionView(collectionView, at: indexPath)
-                
-                deselectCellsInOtherCollectionViews(except: collectionView)
+                showLottieLoader()
+                coverImageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "placeholder")) { [weak self] (image, error, cacheType, url) in
+                    self?.hideLottieLoader()
+                    if error == nil {
+                        self?.updateSelectionForCollectionView(collectionView, at: indexPath)
+                        self?.deselectCellsInOtherCollectionViews(except: collectionView)
+                        
+                        self?.updateFavoriteButton(isFavorite: coverPageData.isFavorite)
+                    } else {
+                        print("Error loading image: \(error?.localizedDescription ?? "Unknown error")")
+                    }
+                }
             }
         }
     }
@@ -508,27 +726,37 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
 // MARK: - Photo Library Methods
 extension CoverViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func openPhotoLibrary() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        present(imagePicker, animated: true, completion: nil)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage {
+            userSelectedImages.append(selectedImage)
+            coverImageView.image = selectedImage
+            coverPage1CollectionView.reloadData()
+            saveImages()
+            
+            let newImageIndex = min(userSelectedImages.count, maxVisibleCustomCovers)
+            let indexPath = IndexPath(item: newImageIndex, section: 0)
+            coverPage1CollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+            selectedCoverPage1Index = indexPath
+            
+            deselectCellsInOtherCollectionViews(except: coverPage1CollectionView)
+        }
+        dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let selectedImage = info[.originalImage] as? UIImage {
-                userSelectedImages.append(selectedImage)
-                coverImageView.image = selectedImage
-                coverPage1CollectionView.reloadData()
-                saveImages()
-                
-                let newImageIndex = min(userSelectedImages.count, maxVisibleCustomCovers)
-                let indexPath = IndexPath(item: newImageIndex, section: 0)
-                coverPage1CollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-                selectedCoverPage1Index = indexPath
-                
-                deselectCellsInOtherCollectionViews(except: coverPage1CollectionView)
-            }
-            dismiss(animated: true, completion: nil)
-        }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension CoverViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return CustomPresentationController(presentedViewController: presented, presenting: presenting)
+    }
+}
+
+class CustomPresentationController: UIPresentationController {
+    override var frameOfPresentedViewInContainerView: CGRect {
+        guard let containerView = containerView else { return .zero }
+        return CGRect(x: 0, y: containerView.bounds.height / 2, width: containerView.bounds.width, height: containerView.bounds.height / 2)
+    }
 }

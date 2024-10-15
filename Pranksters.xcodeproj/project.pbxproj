@@ -41,6 +41,11 @@
 		BDA87EDD2CB5EEC100C25C50 /* NoInternetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDA87EDB2CB5EEC100C25C50 /* NoInternetView.xib */; };
 		BDACA25B2CB712ED00B3C2E2 /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDACA25A2CB712EA00B3C2E2 /* Skeleton.swift */; };
 		BDACA25D2CB7375E00B3C2E2 /* CoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDACA25C2CB7375E00B3C2E2 /* CoverViewController.swift */; };
+		BDC578DA2CBDA0F400811602 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC578D92CBDA0F400811602 /* Snackbar.swift */; };
+		BDC578DC2CBDA10F00811602 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC578DB2CBDA10F00811602 /* Extension.swift */; };
+		BDC578DE2CBDA47600811602 /* Loader.json in Resources */ = {isa = PBXBuildFile; fileRef = BDC578DD2CBDA47600811602 /* Loader.json */; };
+		BDC578E02CBDCB1300811602 /* FavouriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC578DF2CBDCB1300811602 /* FavouriteViewModel.swift */; };
+		BDC578E22CBDCF7B00811602 /* FavouriteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC578E12CBDCF7B00811602 /* FavouriteAPI.swift */; };
 		BDC9ACB32CB6F89D00183146 /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9ACB12CB6F89D00183146 /* NoDataView.swift */; };
 		BDC9ACB42CB6F89D00183146 /* NoDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDC9ACB22CB6F89D00183146 /* NoDataView.xib */; };
 		BDD883A62CB8504D004C6908 /* CoverPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD883A52CB8504D004C6908 /* CoverPageCollectionViewCell.swift */; };
@@ -113,6 +118,11 @@
 		BDA87EDB2CB5EEC100C25C50 /* NoInternetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoInternetView.xib; sourceTree = "<group>"; };
 		BDACA25A2CB712EA00B3C2E2 /* Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
 		BDACA25C2CB7375E00B3C2E2 /* CoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverViewController.swift; sourceTree = "<group>"; };
+		BDC578D92CBDA0F400811602 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
+		BDC578DB2CBDA10F00811602 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		BDC578DD2CBDA47600811602 /* Loader.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Loader.json; sourceTree = "<group>"; };
+		BDC578DF2CBDCB1300811602 /* FavouriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewModel.swift; sourceTree = "<group>"; };
+		BDC578E12CBDCF7B00811602 /* FavouriteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteAPI.swift; sourceTree = "<group>"; };
 		BDC9ACB12CB6F89D00183146 /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
 		BDC9ACB22CB6F89D00183146 /* NoDataView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoDataView.xib; sourceTree = "<group>"; };
 		BDD883A52CB8504D004C6908 /* CoverPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverPageCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -275,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				BD2F1E3B2CB470B20017A963 /* Loading.json */,
+				BDC578DD2CBDA47600811602 /* Loader.json */,
 			);
 			path = "Lottie json";
 			sourceTree = "<group>";
@@ -304,6 +315,7 @@
 				BDA87ED12CB5E90500C25C50 /* MoreAppAPI.swift */,
 				BD7D62CE2CB7593800439C11 /* RegistrationAPI.swift */,
 				BDD883A72CB85903004C6908 /* CoverPageAPI.swift */,
+				BDC578E12CBDCF7B00811602 /* FavouriteAPI.swift */,
 			);
 			path = "API Manager";
 			sourceTree = "<group>";
@@ -314,6 +326,7 @@
 				BDA87ED52CB5E9B100C25C50 /* MoreAppViewModel.swift */,
 				BD7D62D02CB7594B00439C11 /* RegistrationViewModel.swift */,
 				BDD883A92CB85910004C6908 /* CoverPageViewModel.swift */,
+				BDC578DF2CBDCB1300811602 /* FavouriteViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -333,6 +346,8 @@
 			isa = PBXGroup;
 			children = (
 				BDACA25A2CB712EA00B3C2E2 /* Skeleton.swift */,
+				BDC578D92CBDA0F400811602 /* Snackbar.swift */,
+				BDC578DB2CBDA10F00811602 /* Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -448,6 +463,7 @@
 			files = (
 				BDA87EDD2CB5EEC100C25C50 /* NoInternetView.xib in Resources */,
 				BD2F1E2A2CB459320017A963 /* LaunchScreen.storyboard in Resources */,
+				BDC578DE2CBDA47600811602 /* Loader.json in Resources */,
 				BD2F1E2B2CB459320017A963 /* Main.storyboard in Resources */,
 				BD2F1E402CB4A6870017A963 /* Color.xcassets in Resources */,
 				BD2F1E3C2CB470B20017A963 /* Loading.json in Resources */,
@@ -586,6 +602,8 @@
 				BDA87EB62CB5AC3B00C25C50 /* Model.swift in Sources */,
 				BDA87EC92CB5C12900C25C50 /* ViewLinkViewController.swift in Sources */,
 				BDA87ED22CB5E90500C25C50 /* MoreAppAPI.swift in Sources */,
+				BDC578DA2CBDA0F400811602 /* Snackbar.swift in Sources */,
+				BDC578DC2CBDA10F00811602 /* Extension.swift in Sources */,
 				BDA87ECA2CB5C12900C25C50 /* PremiumViewController.swift in Sources */,
 				BDA87ECB2CB5C12900C25C50 /* HomeViewController.swift in Sources */,
 				BDACA25B2CB712ED00B3C2E2 /* Skeleton.swift in Sources */,
@@ -598,10 +616,12 @@
 				BDD883A82CB85903004C6908 /* CoverPageAPI.swift in Sources */,
 				BDA87ED02CB5C16400C25C50 /* MainViewController.swift in Sources */,
 				BDACA25D2CB7375E00B3C2E2 /* CoverViewController.swift in Sources */,
+				BDC578E02CBDCB1300811602 /* FavouriteViewModel.swift in Sources */,
 				BD7D62CF2CB7593800439C11 /* RegistrationAPI.swift in Sources */,
 				BD2F1E272CB459320017A963 /* AppDelegate.swift in Sources */,
 				BD2F1E3A2CB462E00017A963 /* LaunchViewController.swift in Sources */,
 				BDA87ED82CB5EAAA00C25C50 /* MoreAppCollectionViewCell.swift in Sources */,
+				BDC578E22CBDCF7B00811602 /* FavouriteAPI.swift in Sources */,
 				BDD883AE2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift in Sources */,
 				BD2F1E282CB459320017A963 /* SceneDelegate.swift in Sources */,
 				BDD883A62CB8504D004C6908 /* CoverPageCollectionViewCell.swift in Sources */,

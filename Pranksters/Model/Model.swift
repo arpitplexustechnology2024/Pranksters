@@ -23,7 +23,7 @@ struct CoverPageData: Codable {
     let coverURL: String
     let coverPremium: Bool
     let itemID: Int
-    let isFavorite: Bool
+    var isFavorite: Bool
 
     enum CodingKeys: String, CodingKey {
         case coverURL = "CoverURL"

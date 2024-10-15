@@ -217,4 +217,3 @@ class SkeletonBoxCollectionViewCell: UICollectionViewCell {
         gradientLayerLarge.frame = largeImageView.bounds
     }
 }
-

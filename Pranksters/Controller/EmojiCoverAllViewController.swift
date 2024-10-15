@@ -6,22 +6,39 @@
 //
 
 import UIKit
+import Alamofire
+import SDWebImage
+
+protocol EmojiCoverAllDelegate: AnyObject {
+    func didEmojiSelectImage(_ image: UIImage)
+}
 
 class EmojiCoverAllViewController: UIViewController {
     
     @IBOutlet weak var navigationbarView: UIView!
-    
     @IBOutlet weak var emojiCoverAllCollectionView: UICollectionView!
     
+    private var noDataView: NoDataView!
+    private var noInternetView: NoInternetView!
     private let viewModel = EmojiViewModel()
-    
+    private let favoriteViewModel = FavoriteViewModel()
     var isLoading = true
+    
+    weak var delegate: EmojiCoverAllDelegate?
+    
+    func checkInternetAndFetchData() {
+        if isConnectedToInternet() {
+            fetchAllCoverPages()
+            self.noInternetView?.isHidden = true
+        } else {
+            self.showNoInternetView()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        fetchAllCoverPages()
-        
+        checkInternetAndFetchData()
         showSkeletonLoader()
         
         self.emojiCoverAllCollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
@@ -55,6 +72,7 @@ class EmojiCoverAllViewController: UIViewController {
                 self.emojiCoverAllCollectionView.reloadData()
             } else if let errorMessage = self.viewModel.errorMessage {
                 self.hideSkeletonLoader()
+                self.noDataView.isHidden = false
                 print("Error fetching all cover pages: \(errorMessage)")
             }
         }
@@ -74,6 +92,56 @@ class EmojiCoverAllViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    private func setupNoDataView() {
+        noDataView = NoDataView()
+        noDataView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        noDataView.isHidden = true
+        self.view.addSubview(noDataView)
+        
+        noDataView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            noDataView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor),
+            noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    func setupNoInternetView() {
+        noInternetView = NoInternetView()
+        noInternetView.retryButton.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
+        noInternetView.isHidden = true
+        self.view.addSubview(noInternetView)
+        
+        noInternetView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            noInternetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            noInternetView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            noInternetView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor),
+            noInternetView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    @objc func retryButtonTapped() {
+        if isConnectedToInternet() {
+            noInternetView.isHidden = true
+            noDataView.isHidden = true
+            checkInternetAndFetchData()
+        } else {
+            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: UIColor(hexString: "#322F35"))
+            snackbar.show(in: self.view, duration: 3.0)
+        }
+    }
+    
+    func showNoInternetView() {
+        self.noInternetView.isHidden = false
+    }
+    
+    private func isConnectedToInternet() -> Bool {
+        let networkManager = NetworkReachabilityManager()
+        return networkManager?.isReachable ?? false
+    }
+    
 }
 
 extension EmojiCoverAllViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -90,7 +158,30 @@ extension EmojiCoverAllViewController: UICollectionViewDelegate, UICollectionVie
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmojiCoverAllCollectionViewCell", for: indexPath) as! EmojiCoverAllCollectionViewCell
             let coverPageData = viewModel.emojiCoverPages[indexPath.row]
             cell.configure(with: coverPageData)
+            cell.onFavoriteButtonTapped = { [weak self] isFavorite in
+                self?.handleFavoriteButtonTapped(for: coverPageData, isFavorite: isFavorite)
+            }
             return cell
+        }
+    }
+    
+    private func handleFavoriteButtonTapped(for coverPageData: CoverPageData, isFavorite: Bool) {
+        favoriteViewModel.setFavorite(itemId: coverPageData.itemID, isFavorite: isFavorite) { [weak self] success, message in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                if success {
+                    if let index = self.viewModel.emojiCoverPages.firstIndex(where: { $0.itemID == coverPageData.itemID }) {
+                        self.viewModel.emojiCoverPages[index].isFavorite = isFavorite
+                    }
+                    print(message ?? "Favorite status updated successfully")
+                } else {
+                    print("Failed to update favorite status: \(message ?? "Unknown error")")
+                    if let cell = self.emojiCoverAllCollectionView.cellForItem(at: IndexPath(item: self.viewModel.emojiCoverPages.firstIndex(where: { $0.itemID == coverPageData.itemID }) ?? 0, section: 0)) as? EmojiCoverAllCollectionViewCell {
+                        cell.updateFavoriteButton(isFavorite: !isFavorite)
+                    }
+                }
+            }
         }
     }
     
@@ -108,5 +199,26 @@ extension EmojiCoverAllViewController: UICollectionViewDelegate, UICollectionVie
         if indexPath.item == viewModel.emojiCoverPages.count - 1 && !viewModel.isLoading && viewModel.hasMorePages {
             fetchAllCoverPages()
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            let coverPageData = viewModel.emojiCoverPages[indexPath.row]
+            if coverPageData.coverPremium {
+                presentPremiumViewController()
+            } else {
+                if let imageUrl = URL(string: coverPageData.coverURL) {
+                    SDWebImageManager.shared.loadImage(with: imageUrl, options: [], progress: nil) { [weak self] (image, _, _, _, _, _) in
+                        if let image = image {
+                            self?.delegate?.didEmojiSelectImage(image)
+                            self?.navigationController?.popViewController(animated: true)
+                        }
+                    }
+                }
+            }
+        }
+    
+    private func presentPremiumViewController() {
+        let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumViewController") as! PremiumViewController
+        present(premiumVC, animated: true, completion: nil)
     }
 }
