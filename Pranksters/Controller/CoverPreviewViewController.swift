@@ -10,6 +10,7 @@ import Shuffle_iOS
 
 protocol CoverPreviewViewControllerDelegate: AnyObject {
     func coverPreviewViewController(_ viewController: CoverPreviewViewController, didUpdateFavoriteStatusForItemAt index: Int, isFavorite: Bool)
+    func coverPreviewViewController(_ viewController: CoverPreviewViewController, didSelectCoverAt index: Int, coverData: CoverPageData)
 }
 
 class CoverPreviewViewController: UIViewController, SwipeCardStackDataSource, SwipeCardStackDelegate {
@@ -111,17 +112,16 @@ class CoverPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
     }
     
     func cardStack(_ cardStack: SwipeCardStack, didSwipeCardAt index: Int, with direction: SwipeDirection) {
-        if direction == .left {
-            print("Swiped card at index \(index) to the left")
-        } else if direction == .right {
-            print("Swiped card at index \(index) to the right")
-        }
-        
         if index < visibleCards.count {
             visibleCards.remove(at: index)
         }
         
         currentCardIndex = index + 1
+        updateSelectButtonState()
+    }
+    
+    private func updateSelectButtonState() {
+        selectButton.isEnabled = currentCardIndex < coverPages.count
     }
     
     // MARK: - Favorite Handling
@@ -161,6 +161,20 @@ class CoverPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
     }
     
     @IBAction func btnSelectTapped(_ sender: UIButton) {
-        // Button action implementation
+        guard currentCardIndex < coverPages.count else { return }
+        
+        let selectedCoverData = coverPages[currentCardIndex]
+        
+        if selectedCoverData.coverPremium {
+            presentPremiumViewController()
+        } else {
+            delegate?.coverPreviewViewController(self, didSelectCoverAt: currentCardIndex, coverData: selectedCoverData)
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    private func presentPremiumViewController() {
+        let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumViewController") as! PremiumViewController
+        present(premiumVC, animated: true, completion: nil)
     }
 }

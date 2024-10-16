@@ -251,11 +251,13 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
     
     @IBAction func btnCoverPage2ShowAllTapped(_ sender: UIButton) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "EmojiCoverAllViewController") as! EmojiCoverAllViewController
+        vc.coverViewControllerDelegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func btnCoverPage3ShowAllTapped(_ sender: UIButton) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "RealisticCoverAllViewController") as! RealisticCoverAllViewController
+        vc.coverViewControllerDelegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -375,7 +377,7 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
             favoriteCustomImages = UserDefaults.standard.array(forKey: "favoriteCustomImages") as? [Bool] ?? Array(repeating: false, count: decodedImages.count)
             
             coverPage1CollectionView.reloadData()
-        
+            
             if let lastImage = userSelectedImages.last,
                let lastIndex = userSelectedImages.indices.last {
                 coverImageView.image = lastImage
@@ -777,5 +779,28 @@ class CustomPresentationController: UIPresentationController {
     override var frameOfPresentedViewInContainerView: CGRect {
         guard let containerView = containerView else { return .zero }
         return CGRect(x: 0, y: containerView.bounds.height / 2, width: containerView.bounds.width, height: containerView.bounds.height / 2)
+    }
+}
+
+extension CoverViewController: CoverPreviewViewControllerDelegate {
+    func coverPreviewViewController(_ viewController: CoverPreviewViewController, didUpdateFavoriteStatusForItemAt index: Int, isFavorite: Bool) {
+        if index < emojiViewModel.emojiCoverPages.count {
+            emojiViewModel.emojiCoverPages[index].isFavorite = isFavorite
+            coverPage2CollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+        }
+    }
+    
+    func coverPreviewViewController(_ viewController: CoverPreviewViewController, didSelectCoverAt index: Int, coverData: CoverPageData) {
+        if let imageUrl = URL(string: coverData.coverURL) {
+            showLottieLoader()
+            coverImageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "placeholder")) { [weak self] (image, error, cacheType, url) in
+                self?.hideLottieLoader()
+                if error == nil {
+                    self?.updateFavoriteButton(isFavorite: coverData.isFavorite)
+                } else {
+                    print("Error loading image: \(error?.localizedDescription ?? "Unknown error")")
+                }
+            }
+        }
     }
 }

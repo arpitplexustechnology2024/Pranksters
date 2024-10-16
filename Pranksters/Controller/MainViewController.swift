@@ -117,23 +117,23 @@ extension MainViewController: SideMenuViewControllerDelegate {
         switch index {
         case 0: break
             // Spinner View Controller
-//            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SpinnerViewController") as! SpinnerViewController
-//            self.navigationController?.pushViewController(vc, animated: true)
+            //            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SpinnerViewController") as! SpinnerViewController
+            //            self.navigationController?.pushViewController(vc, animated: true)
         case 1: break
             // Favorite list
             
-//            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "FavoriteListViewController") as! FavoriteListViewController
-//            self.navigationController?.pushViewController(vc, animated: true)
+            //            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "FavoriteListViewController") as! FavoriteListViewController
+            //            self.navigationController?.pushViewController(vc, animated: true)
             
         case 2: break
             // View link
-//            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ViewLinkViewController") as! ViewLinkViewController
-//            self.navigationController?.pushViewController(vc, animated: true)
+            //            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ViewLinkViewController") as! ViewLinkViewController
+            //            self.navigationController?.pushViewController(vc, animated: true)
         case 3: break
             // Premium
-//            let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-//            let profileModalVC = storyboard.instantiateViewController(withIdentifier: "PremiumViewController") as? PremiumViewController
-//            present(profileModalVC!, animated: true, completion: nil)
+            //            let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            //            let profileModalVC = storyboard.instantiateViewController(withIdentifier: "PremiumViewController") as? PremiumViewController
+            //            present(profileModalVC!, animated: true, completion: nil)
         case 4:
             // More App
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MoreAppViewController") as! MoreAppViewController

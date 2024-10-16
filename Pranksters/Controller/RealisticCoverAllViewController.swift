@@ -8,7 +8,7 @@
 import UIKit
 import Alamofire
 
-class RealisticCoverAllViewController: UIViewController {
+class RealisticCoverAllViewController: UIViewController, CoverPreviewViewControllerDelegate {
     
     @IBOutlet weak var navigationbarView: UIView!
     
@@ -18,6 +18,8 @@ class RealisticCoverAllViewController: UIViewController {
     private let favoriteViewModel = FavoriteViewModel()
     private var noDataView: NoDataView!
     private var noInternetView: NoInternetView!
+    
+    weak var coverViewControllerDelegate: CoverPreviewViewControllerDelegate?
     
     var isLoading = true
     
@@ -212,6 +214,7 @@ extension RealisticCoverAllViewController: UICollectionViewDelegate, UICollectio
             vc.modalPresentationStyle = .overCurrentContext
             vc.coverPages = Array(viewModel.realisticCoverPages[indexPath.row...])
             vc.initialIndex = 0
+            vc.delegate = self
             self.present(vc, animated: true)
         }
     }
@@ -219,5 +222,19 @@ extension RealisticCoverAllViewController: UICollectionViewDelegate, UICollectio
     private func presentPremiumViewController() {
         let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumViewController") as! PremiumViewController
         present(premiumVC, animated: true, completion: nil)
+    }
+    
+    func coverPreviewViewController(_ viewController: CoverPreviewViewController, didUpdateFavoriteStatusForItemAt index: Int, isFavorite: Bool) {
+        if index < viewModel.realisticCoverPages.count {
+            viewModel.realisticCoverPages[index].isFavorite = isFavorite
+            realisticCoverAllCollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+        }
+    }
+    
+    func coverPreviewViewController(_ viewController: CoverPreviewViewController, didSelectCoverAt index: Int, coverData: CoverPageData) {
+        coverViewControllerDelegate?.coverPreviewViewController(viewController, didSelectCoverAt: index, coverData: coverData)
+        viewController.dismiss(animated: true) { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
 }

@@ -130,6 +130,9 @@ extension CustomCoverAllViewController: UICollectionViewDelegate, UICollectionVi
 }
 
 extension CustomCoverAllViewController: CoverPreviewViewControllerDelegate {
+    func coverPreviewViewController(_ viewController: CoverPreviewViewController, didSelectCoverAt index: Int, coverData: CoverPageData) {
+        return
+    }
     
     func coverPreviewViewController(_ viewController: CoverPreviewViewController, didUpdateFavoriteStatusForItemAt index: Int, isFavorite: Bool) {
         let actualIndex = coverPages.firstIndex(where: { $0.itemID == index }) ?? index

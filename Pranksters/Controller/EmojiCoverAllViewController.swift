@@ -8,7 +8,7 @@
 import UIKit
 import Alamofire
 
-class EmojiCoverAllViewController: UIViewController {
+class EmojiCoverAllViewController: UIViewController, CoverPreviewViewControllerDelegate {
     
     @IBOutlet weak var navigationbarView: UIView!
     @IBOutlet weak var emojiCoverAllCollectionView: UICollectionView!
@@ -20,6 +20,8 @@ class EmojiCoverAllViewController: UIViewController {
     var isLoading = true
     
     private let categoryId: Int = 4
+    
+    weak var coverViewControllerDelegate: CoverPreviewViewControllerDelegate?
     
     func checkInternetAndFetchData() {
         if isConnectedToInternet() {
@@ -207,13 +209,27 @@ extension EmojiCoverAllViewController: UICollectionViewDelegate, UICollectionVie
             vc.modalPresentationStyle = .overCurrentContext
             vc.coverPages = Array(viewModel.emojiCoverPages[indexPath.row...])
             vc.initialIndex = 0
+            vc.delegate = self
             self.present(vc, animated: true)
         }
     }
     
-    
     private func presentPremiumViewController() {
         let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumViewController") as! PremiumViewController
         present(premiumVC, animated: true, completion: nil)
+    }
+    
+    func coverPreviewViewController(_ viewController: CoverPreviewViewController, didUpdateFavoriteStatusForItemAt index: Int, isFavorite: Bool) {
+        if index < viewModel.emojiCoverPages.count {
+            viewModel.emojiCoverPages[index].isFavorite = isFavorite
+            emojiCoverAllCollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+        }
+    }
+    
+    func coverPreviewViewController(_ viewController: CoverPreviewViewController, didSelectCoverAt index: Int, coverData: CoverPageData) {
+        coverViewControllerDelegate?.coverPreviewViewController(viewController, didSelectCoverAt: index, coverData: coverData)
+        viewController.dismiss(animated: true) { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
 }

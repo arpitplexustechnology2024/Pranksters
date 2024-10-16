@@ -11,7 +11,7 @@ class SpinnerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
-
+    
 }
