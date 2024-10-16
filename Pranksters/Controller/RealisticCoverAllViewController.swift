@@ -87,7 +87,9 @@ class RealisticCoverAllViewController: UIViewController {
     }
     
     @IBAction func btnBackTapped(_ sender: UIButton) {
+        
         self.navigationController?.popViewController(animated: true)
+
     }
     
     private func setupNoDataView() {

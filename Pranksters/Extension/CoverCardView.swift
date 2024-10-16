@@ -60,11 +60,15 @@ class CoverCardView: SwipeCard {
         ])
     }
     
-    func configure(withModel model: CardModel) {
-        self.model = model
-        imageView.sd_setImage(with: URL(string: model.imageURL))
-        updateFavoriteButton(isFavorited: model.isFavorited)
-    }
+    func configure(withModel model: CardModel, customImage: UIImage? = nil) {
+            self.model = model
+            if let customImage = customImage {
+                imageView.image = customImage
+            } else {
+                imageView.sd_setImage(with: URL(string: model.imageURL))
+            }
+            updateFavoriteButton(isFavorited: model.isFavorited)
+        }
     
     private func updateFavoriteButton(isFavorited: Bool) {
         let heartImage = isFavorited ? "Heart_Fill" : "Heart"

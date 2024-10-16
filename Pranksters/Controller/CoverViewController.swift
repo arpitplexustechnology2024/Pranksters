@@ -22,9 +22,6 @@ class CoverViewController: UIViewController, CoverViewControllerDelegate {
     @IBOutlet var floatingCollectionButton: [UIButton]!
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var favouriteButton: UIButton!
-    
-    var favoriteCustomImages: [Bool] = []
-    
     @IBOutlet weak var coverImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var coverImageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollViewHeightConstraint: NSLayoutConstraint!
@@ -34,9 +31,9 @@ class CoverViewController: UIViewController, CoverViewControllerDelegate {
     @IBOutlet weak var coverPage1CollectionView: UICollectionView!
     @IBOutlet weak var coverPage2CollectionView: UICollectionView!
     @IBOutlet weak var coverPage3CollectionView: UICollectionView!
-    
     @IBOutlet weak var lottieLoader: LottieAnimationView!
     
+    var favoriteCustomImages: [Bool] = []
     var selectedCoverPage1Index: IndexPath?
     var selectedCoverPage2Index: IndexPath?
     var selectedCoverPage3Index: IndexPath?
@@ -79,11 +76,10 @@ class CoverViewController: UIViewController, CoverViewControllerDelegate {
         
         self.coverPage2CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
         self.coverPage3CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
-        
-        coverImageView.image = UIImage(named: "SideMenuLogo")
+        self.favouriteButton.isHidden = true
+        coverImageView.image = UIImage(named: "")
         updateFavoriteButton(isFavorite: false)
         if UIDevice.current.userInterfaceIdiom == .pad {
-            // Set heights for iPad
             coverImageViewHeightConstraint.constant = 280
             coverImageViewWidthConstraint.constant = 245
             scrollViewHeightConstraint.constant = 750
@@ -91,7 +87,6 @@ class CoverViewController: UIViewController, CoverViewControllerDelegate {
             coverPage2HeightConstraint.constant = 180
             coverPage3HeightConstraint.constant = 180
         } else {
-            // Set heights for iPhone
             coverImageViewHeightConstraint.constant = 240
             coverImageViewWidthConstraint.constant = 205
             scrollViewHeightConstraint.constant = 600
@@ -438,7 +433,6 @@ class CoverViewController: UIViewController, CoverViewControllerDelegate {
         } else if let selectedIndex = selectedCoverPage3Index {
             realisticViewModel.realisticCoverPages[selectedIndex.item].isFavorite = newStatus
         }
-        
         updateFavoriteButton(isFavorite: newStatus)
     }
     
@@ -500,6 +494,7 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.favouriteButton.isHidden = false
         guard !isLoading else { return }
         if collectionView == coverPage1CollectionView {
             if let cell = collectionView.cellForItem(at: indexPath) {
@@ -521,11 +516,8 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
             let imageIndex = indexPath.item - 1
             let selectedImage = userSelectedImages[imageIndex]
             coverImageView.image = selectedImage
-            
             selectedCoverPage1Index = indexPath
-            
             deselectCellsInOtherCollectionViews(except: coverPage1CollectionView)
-            
             updateFavoriteButton(isFavorite: favoriteCustomImages[imageIndex])
         }
     }
@@ -620,7 +612,6 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 })
             }
         }
-        
         snackbar.show()
     }
     

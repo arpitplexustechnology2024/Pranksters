@@ -1463,7 +1463,7 @@
                                     <constraint firstAttribute="height" constant="50" id="wdz-Gt-joD"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mjb-4D-GVx">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mjb-4D-GVx">
                                 <rect key="frame" x="0.0" y="112" width="402" height="728"/>
                                 <color key="backgroundColor" name="comman"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="X03-8C-q1h">
@@ -1593,7 +1593,7 @@
                                     <constraint firstItem="SDE-WW-ymz" firstAttribute="leading" secondItem="NfA-lj-b4E" secondAttribute="trailing" constant="16" id="pZa-0S-3qd"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UyR-P1-eb5">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UyR-P1-eb5">
                                 <rect key="frame" x="0.0" y="112" width="402" height="728"/>
                                 <color key="backgroundColor" name="comman"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fng-Ah-eK0">
@@ -1708,7 +1708,7 @@
                                     <constraint firstItem="Vea-1C-20d" firstAttribute="leading" secondItem="ffw-qW-8J2" secondAttribute="leading" constant="16" id="wdV-o9-EsX"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2oY-je-xBH">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2oY-je-xBH">
                                 <rect key="frame" x="0.0" y="112" width="402" height="728"/>
                                 <color key="backgroundColor" name="comman"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MB3-Z2-Vxr">
@@ -1813,6 +1813,9 @@
                                     <fontDescription key="titleFontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnSelectTapped:" destination="krC-Ov-hCs" eventType="touchUpInside" id="XSH-gt-aPl"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rqZ-BX-EGl"/>

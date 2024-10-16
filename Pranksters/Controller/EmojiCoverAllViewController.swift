@@ -205,8 +205,8 @@ extension EmojiCoverAllViewController: UICollectionViewDelegate, UICollectionVie
             let vc = storyboard.instantiateViewController(identifier: "CoverPreviewViewController") as! CoverPreviewViewController
             vc.modalTransitionStyle = .crossDissolve
             vc.modalPresentationStyle = .overCurrentContext
-            vc.coverPages = viewModel.emojiCoverPages
-            vc.initialIndex = indexPath.row
+            vc.coverPages = Array(viewModel.emojiCoverPages[indexPath.row...])
+            vc.initialIndex = 0
             self.present(vc, animated: true)
         }
     }

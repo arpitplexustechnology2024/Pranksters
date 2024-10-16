@@ -16,6 +16,7 @@ class CustomCoverAllViewController: UIViewController {
     @IBOutlet weak var navigationbarView: UIView!
     @IBOutlet weak var customeCoverAllCollectionView: UICollectionView!
     
+    private var coverPages: [CoverPageData] = []
     var allCustomCovers: [UIImage] = []
     var favoriteCustomImages: [Bool] = []
     
@@ -26,6 +27,16 @@ class CustomCoverAllViewController: UIViewController {
         addBottomShadow(to: navigationbarView)
         setupCollectionView()
         loadFavoriteStatus()
+        createCoverPageData()
+    }
+    
+    private func createCoverPageData() {
+        coverPages = allCustomCovers.enumerated().map { index, image in
+            CoverPageData(coverURL: "",
+                          coverPremium: false,
+                          itemID: index,
+                          isFavorite: favoriteCustomImages[index])
+        }
     }
     
     private func loadFavoriteStatus() {
@@ -94,6 +105,19 @@ extension CustomCoverAllViewController: UICollectionViewDelegate, UICollectionVi
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(identifier: "CoverPreviewViewController") as! CoverPreviewViewController
+        vc.modalTransitionStyle = .crossDissolve
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.coverPages = Array(coverPages[indexPath.row...])
+        vc.initialIndex = 0
+        vc.isCustomCover = true
+        vc.customImages = Array(allCustomCovers[indexPath.row...])
+        vc.delegate = self
+        self.present(vc, animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let layout = collectionViewLayout as! UICollectionViewFlowLayout
         let paddingSpace = layout.sectionInset.left + layout.sectionInset.right + layout.minimumInteritemSpacing * (UIDevice.current.userInterfaceIdiom == .pad ? 2 : 1)
@@ -102,5 +126,15 @@ extension CustomCoverAllViewController: UICollectionViewDelegate, UICollectionVi
         let heightPerItem: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 287 : 187
         
         return CGSize(width: widthPerItem, height: heightPerItem)
+    }
+}
+
+extension CustomCoverAllViewController: CoverPreviewViewControllerDelegate {
+    func coverPreviewViewController(_ viewController: CoverPreviewViewController, didUpdateFavoriteStatusForItemAt index: Int, isFavorite: Bool) {
+        let actualIndex = coverPages.firstIndex(where: { $0.itemID == index }) ?? index
+        favoriteCustomImages[actualIndex] = isFavorite
+        coverPages[actualIndex].isFavorite = isFavorite
+        saveFavoriteStatus()
+        customeCoverAllCollectionView.reloadItems(at: [IndexPath(item: actualIndex, section: 0)])
     }
 }
