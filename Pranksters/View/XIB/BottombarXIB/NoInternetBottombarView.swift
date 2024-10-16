@@ -45,8 +45,8 @@ class NoInternetBottombarView: UIView {
     }
     
     func localizeUI() {
-        titleLabel.text = NSLocalizedString("NoInternetTitleKey", comment: "")
-        messageLabel.text = NSLocalizedString("NoInternetDescriptionKey", comment: "")
+        titleLabel.text = NSLocalizedString("Oops... \n No internet connection!", comment: "")
+        messageLabel.text = NSLocalizedString("Please turn on internet connection!", comment: "")
     }
     
     private func adjustConstraints() {
@@ -79,9 +79,5 @@ class NoInternetBottombarView: UIView {
                 retryButtonTopConstraint.constant = 30
             }
         }
-    }
-    
-    @IBAction func retryButtonTapped(_ sender: UIButton) {
-        onRetry?()
     }
 }

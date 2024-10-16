@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		3395FE72E7FAB6040EB29728 /* Pods_Pranksters_PrankstersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51018BD3A405439AB1609AFE /* Pods_Pranksters_PrankstersUITests.framework */; };
 		59823A03C529D45383B51117 /* Pods_PrankstersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7E1176E07CF9FB76BEB2184 /* Pods_PrankstersTests.framework */; };
+		BD19D0A02CC0664A00F04C35 /* NoDataBottomBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD19D09C2CC0664A00F04C35 /* NoDataBottomBarView.xib */; };
+		BD19D0A12CC0664A00F04C35 /* NoInternetBottombarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD19D09E2CC0664A00F04C35 /* NoInternetBottombarView.xib */; };
+		BD19D0A22CC0664A00F04C35 /* NoInternetBottombarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD19D09D2CC0664A00F04C35 /* NoInternetBottombarView.swift */; };
+		BD19D0A32CC0664A00F04C35 /* NoDataBottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD19D09B2CC0664A00F04C35 /* NoDataBottomBarView.swift */; };
+		BD19D0A52CC0771D00F04C35 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD19D0A42CC0771D00F04C35 /* UIImage+Gif.swift */; };
+		BD19D0A72CC0772800F04C35 /* Boy.gif in Resources */ = {isa = PBXBuildFile; fileRef = BD19D0A62CC0772800F04C35 /* Boy.gif */; };
 		BD2F1E272CB459320017A963 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F1E1B2CB459320017A963 /* AppDelegate.swift */; };
 		BD2F1E282CB459320017A963 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F1E1C2CB459320017A963 /* SceneDelegate.swift */; };
 		BD2F1E2A2CB459320017A963 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD2F1E1F2CB459320017A963 /* LaunchScreen.storyboard */; };
@@ -84,6 +90,12 @@
 		A0E1E871794AC18CCA95F3A0 /* Pods-PrankstersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrankstersTests.debug.xcconfig"; path = "Target Support Files/Pods-PrankstersTests/Pods-PrankstersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A7E1176E07CF9FB76BEB2184 /* Pods_PrankstersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrankstersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6C5D2EE3C7B2BA341BA1C7A /* Pods-Pranksters.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pranksters.debug.xcconfig"; path = "Target Support Files/Pods-Pranksters/Pods-Pranksters.debug.xcconfig"; sourceTree = "<group>"; };
+		BD19D09B2CC0664A00F04C35 /* NoDataBottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataBottomBarView.swift; sourceTree = "<group>"; };
+		BD19D09C2CC0664A00F04C35 /* NoDataBottomBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoDataBottomBarView.xib; sourceTree = "<group>"; };
+		BD19D09D2CC0664A00F04C35 /* NoInternetBottombarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetBottombarView.swift; sourceTree = "<group>"; };
+		BD19D09E2CC0664A00F04C35 /* NoInternetBottombarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoInternetBottombarView.xib; sourceTree = "<group>"; };
+		BD19D0A42CC0771D00F04C35 /* UIImage+Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
+		BD19D0A62CC0772800F04C35 /* Boy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Boy.gif; sourceTree = "<group>"; };
 		BD2F1DE52CB458130017A963 /* Pranksters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pranksters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD2F1DFB2CB458150017A963 /* PrankstersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrankstersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD2F1E052CB458150017A963 /* PrankstersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrankstersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,6 +200,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BD19D09F2CC0664A00F04C35 /* BottombarXIB */ = {
+			isa = PBXGroup;
+			children = (
+				BD19D09B2CC0664A00F04C35 /* NoDataBottomBarView.swift */,
+				BD19D09C2CC0664A00F04C35 /* NoDataBottomBarView.xib */,
+				BD19D09D2CC0664A00F04C35 /* NoInternetBottombarView.swift */,
+				BD19D09E2CC0664A00F04C35 /* NoInternetBottombarView.xib */,
+			);
+			path = BottombarXIB;
+			sourceTree = "<group>";
+		};
 		BD2F1DDC2CB458130017A963 = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +256,7 @@
 		BD2F1E262CB459320017A963 /* Pranksters */ = {
 			isa = PBXGroup;
 			children = (
+				BD19D0A62CC0772800F04C35 /* Boy.gif */,
 				BDACA2592CB712DC00B3C2E2 /* Extension */,
 				BD2F1E1D2CB459320017A963 /* Delegate */,
 				BD3B42A92CB4AD4800634A2E /* Lottie json */,
@@ -339,6 +363,7 @@
 		BDA87ED92CB5EE9600C25C50 /* XIB */ = {
 			isa = PBXGroup;
 			children = (
+				BD19D09F2CC0664A00F04C35 /* BottombarXIB */,
 				BDA87EDA2CB5EEC100C25C50 /* NoInternetView.swift */,
 				BDA87EDB2CB5EEC100C25C50 /* NoInternetView.xib */,
 				BDC9ACB12CB6F89D00183146 /* NoDataView.swift */,
@@ -354,6 +379,7 @@
 				BDC578D92CBDA0F400811602 /* Snackbar.swift */,
 				BDC578DB2CBDA10F00811602 /* Extension.swift */,
 				BD487C922CBF1AD500874560 /* CoverCardView.swift */,
+				BD19D0A42CC0771D00F04C35 /* UIImage+Gif.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -469,10 +495,13 @@
 			files = (
 				BDA87EDD2CB5EEC100C25C50 /* NoInternetView.xib in Resources */,
 				BD2F1E2A2CB459320017A963 /* LaunchScreen.storyboard in Resources */,
+				BD19D0A72CC0772800F04C35 /* Boy.gif in Resources */,
 				BDC578DE2CBDA47600811602 /* Loader.json in Resources */,
 				BD2F1E2B2CB459320017A963 /* Main.storyboard in Resources */,
 				BD2F1E402CB4A6870017A963 /* Color.xcassets in Resources */,
 				BD2F1E3C2CB470B20017A963 /* Loading.json in Resources */,
+				BD19D0A02CC0664A00F04C35 /* NoDataBottomBarView.xib in Resources */,
+				BD19D0A12CC0664A00F04C35 /* NoInternetBottombarView.xib in Resources */,
 				BD2F1E2C2CB459320017A963 /* Assets.xcassets in Resources */,
 				BDC9ACB42CB6F89D00183146 /* NoDataView.xib in Resources */,
 			);
@@ -602,6 +631,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD19D0A52CC0771D00F04C35 /* UIImage+Gif.swift in Sources */,
 				BD6B5CEB2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift in Sources */,
 				BDD883AC2CB86790004C6908 /* EmojiCoverAllViewController.swift in Sources */,
 				BDA87EDC2CB5EEC100C25C50 /* NoInternetView.swift in Sources */,
@@ -637,6 +667,8 @@
 				BD6B5CED2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift in Sources */,
 				BD487C912CBF161E00874560 /* CoverPreviewViewController.swift in Sources */,
 				BD6B5CEF2CB9FF4B00E768ED /* CustomCoverAllViewController.swift in Sources */,
+				BD19D0A22CC0664A00F04C35 /* NoInternetBottombarView.swift in Sources */,
+				BD19D0A32CC0664A00F04C35 /* NoDataBottomBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

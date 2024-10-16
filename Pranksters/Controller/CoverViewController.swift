@@ -44,8 +44,8 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
     private let maxVisibleCustomCovers = 9
     
     var isLoading = true
-    private var noDataView: NoDataView!
-    private var noInternetView: NoInternetView!
+    private var noDataView: NoDataBottomBarView!
+    private var noInternetView: NoInternetBottombarView!
     let emojiViewModel = EmojiViewModel()
     let realisticViewModel = RealisticViewModel()
     
@@ -80,7 +80,7 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         self.coverPage2CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
         self.coverPage3CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
         self.favouriteButton.isHidden = true
-        coverImageView.image = UIImage(named: "")
+        coverImageView.loadGif(name: "Boy")
         updateFavoriteButton(isFavorite: false)
         if UIDevice.current.userInterfaceIdiom == .pad {
             // Set heights for iPad
@@ -302,8 +302,9 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
     }
     
     private func setupNoDataView() {
-        noDataView = NoDataView()
+        noDataView = NoDataBottomBarView()
         noDataView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
         noDataView.isHidden = true
         self.view.addSubview(noDataView)
         
@@ -311,14 +312,20 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         NSLayoutConstraint.activate([
             noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noDataView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor),
+            noDataView.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: 16),
             noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        noDataView.layer.cornerRadius = 28
+        noDataView.layer.masksToBounds = true
+        
+        noDataView.layoutIfNeeded()
     }
     
     func setupNoInternetView() {
-        noInternetView = NoInternetView()
+        noInternetView = NoInternetBottombarView()
         noInternetView.retryButton.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
+        
         noInternetView.isHidden = true
         self.view.addSubview(noInternetView)
         
@@ -326,9 +333,14 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         NSLayoutConstraint.activate([
             noInternetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             noInternetView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noInternetView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor),
+            noInternetView.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: 16),
             noInternetView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        noInternetView.layer.cornerRadius = 28
+        noInternetView.layer.masksToBounds = true
+        
+        noInternetView.layoutIfNeeded()
     }
     
     @objc func retryButtonTapped() {
@@ -337,7 +349,7 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
             noDataView.isHidden = true
             checkInternetAndFetchData()
         } else {
-            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: UIColor(hexString: "#322F35"))
+            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: .snackbar)
             snackbar.show(in: self.view, duration: 3.0)
         }
     }
@@ -509,16 +521,17 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.favouriteButton.isHidden = false
         guard !isLoading else { return }
         if collectionView == coverPage1CollectionView {
-            if let cell = collectionView.cellForItem(at: indexPath) {
-                handleCoverPage1Selection(at: indexPath, sender: cell)
-            }
+                if let cell = collectionView.cellForItem(at: indexPath) {
+                    handleCoverPage1Selection(at: indexPath, sender: cell)
+                }
         } else if collectionView == coverPage2CollectionView {
+            self.favouriteButton.isHidden = false
             let coverPageData = emojiViewModel.emojiCoverPages[indexPath.row]
             handleCellSelection(coverPageData: coverPageData, collectionView: collectionView, indexPath: indexPath)
         } else if collectionView == coverPage3CollectionView {
+            self.favouriteButton.isHidden = false
             let coverPageData = realisticViewModel.realisticCoverPages[indexPath.row]
             handleCellSelection(coverPageData: coverPageData, collectionView: collectionView, indexPath: indexPath)
         }
@@ -528,6 +541,7 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
         if indexPath.item == 0 {
             presentImageSourceOptions(sender: sender)
         } else {
+            self.favouriteButton.isHidden = false
             let imageIndex = indexPath.item - 1
             let selectedImage = userSelectedImages[imageIndex]
             coverImageView.image = selectedImage
@@ -605,18 +619,18 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
         
         switch feature {
         case "camera":
-            messageKey = "SnackbarCameraPermissionAccess"
+            messageKey = "We need to access to your camera to use the set profile picture."
         case "photo library":
-            messageKey = "SnackbarGalleryPermissionAccess"
+            messageKey = "We need to access to your photo library to use the set profile picture."
         default:
             messageKey = "SnackbarDefaultPermissionAccess"
         }
         
         let localizedMessage = NSLocalizedString(messageKey, comment: "")
-        let snackbar = TTGSnackbar(message: localizedMessage, duration: .long)
+        let settingsText = NSLocalizedString("Settings", comment: "")
         
-        snackbar.actionText = NSLocalizedString("Settings", comment: "")
-        snackbar.actionBlock = { (snackbar) in
+        let snackbar = Snackbar(message: localizedMessage)
+        snackbar.setAction(title: settingsText) {
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                 return
             }
@@ -627,8 +641,12 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 })
             }
         }
-        snackbar.show()
+        
+        if let keyWindow = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
+            snackbar.show(in: keyWindow, duration: 5.0)
+        }
     }
+    
     
     // MARK: - Existing methods
     private func presentImageSourceOptions(sender: UIView) {
@@ -759,6 +777,7 @@ extension CoverViewController: UIImagePickerControllerDelegate, UINavigationCont
             
             coverImageView.image = selectedImage
             coverPage1CollectionView.reloadData()
+            self.favouriteButton.isHidden = false
             saveImages()
             
             let indexPath = IndexPath(item: 1, section: 0)
