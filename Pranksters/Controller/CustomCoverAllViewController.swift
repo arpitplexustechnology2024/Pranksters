@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol CoverViewControllerDelegate: AnyObject {
+protocol CoverCustomViewControllerDelegate: AnyObject {
     func didUpdateFavoriteStatus(at index: Int, isFavorite: Bool)
 }
 
@@ -20,7 +20,7 @@ class CustomCoverAllViewController: UIViewController {
     var allCustomCovers: [UIImage] = []
     var favoriteCustomImages: [Bool] = []
     
-    weak var delegate: CoverViewControllerDelegate?
+    weak var delegate: CoverCustomViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,6 +130,7 @@ extension CustomCoverAllViewController: UICollectionViewDelegate, UICollectionVi
 }
 
 extension CustomCoverAllViewController: CoverPreviewViewControllerDelegate {
+    
     func coverPreviewViewController(_ viewController: CoverPreviewViewController, didUpdateFavoriteStatusForItemAt index: Int, isFavorite: Bool) {
         let actualIndex = coverPages.firstIndex(where: { $0.itemID == index }) ?? index
         favoriteCustomImages[actualIndex] = isFavorite

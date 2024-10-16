@@ -89,7 +89,7 @@ class RealisticCoverAllViewController: UIViewController {
     @IBAction func btnBackTapped(_ sender: UIButton) {
         
         self.navigationController?.popViewController(animated: true)
-
+        
     }
     
     private func setupNoDataView() {
@@ -177,7 +177,7 @@ extension RealisticCoverAllViewController: UICollectionViewDelegate, UICollectio
                     print(message ?? "Favorite status updated successfully")
                 } else {
                     print("Failed to update favorite status: \(message ?? "Unknown error")")
-                    // Revert the favorite status in the UI
+                    
                     if let cell = self.realisticCoverAllCollectionView.cellForItem(at: IndexPath(item: self.viewModel.realisticCoverPages.firstIndex(where: { $0.itemID == coverPageData.itemID }) ?? 0, section: 0)) as? RealisticCoverAllCollectionViewCell {
                         cell.configure(with: coverPageData)
                     }

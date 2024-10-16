@@ -211,6 +211,7 @@ extension EmojiCoverAllViewController: UICollectionViewDelegate, UICollectionVie
         }
     }
     
+    
     private func presentPremiumViewController() {
         let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumViewController") as! PremiumViewController
         present(premiumVC, animated: true, completion: nil)

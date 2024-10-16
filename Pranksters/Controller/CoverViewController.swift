@@ -12,7 +12,7 @@ import SDWebImage
 import Photos
 import Lottie
 
-class CoverViewController: UIViewController, CoverViewControllerDelegate {
+class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
     
     @IBOutlet weak var navigationbarView: UIView!
     @IBOutlet weak var bottomScrollView: UIScrollView!
@@ -22,6 +22,9 @@ class CoverViewController: UIViewController, CoverViewControllerDelegate {
     @IBOutlet var floatingCollectionButton: [UIButton]!
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var favouriteButton: UIButton!
+    
+    var favoriteCustomImages: [Bool] = []
+    
     @IBOutlet weak var coverImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var coverImageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollViewHeightConstraint: NSLayoutConstraint!
@@ -31,9 +34,9 @@ class CoverViewController: UIViewController, CoverViewControllerDelegate {
     @IBOutlet weak var coverPage1CollectionView: UICollectionView!
     @IBOutlet weak var coverPage2CollectionView: UICollectionView!
     @IBOutlet weak var coverPage3CollectionView: UICollectionView!
+    
     @IBOutlet weak var lottieLoader: LottieAnimationView!
     
-    var favoriteCustomImages: [Bool] = []
     var selectedCoverPage1Index: IndexPath?
     var selectedCoverPage2Index: IndexPath?
     var selectedCoverPage3Index: IndexPath?
@@ -80,6 +83,7 @@ class CoverViewController: UIViewController, CoverViewControllerDelegate {
         coverImageView.image = UIImage(named: "")
         updateFavoriteButton(isFavorite: false)
         if UIDevice.current.userInterfaceIdiom == .pad {
+            // Set heights for iPad
             coverImageViewHeightConstraint.constant = 280
             coverImageViewWidthConstraint.constant = 245
             scrollViewHeightConstraint.constant = 750
@@ -87,6 +91,7 @@ class CoverViewController: UIViewController, CoverViewControllerDelegate {
             coverPage2HeightConstraint.constant = 180
             coverPage3HeightConstraint.constant = 180
         } else {
+            // Set heights for iPhone
             coverImageViewHeightConstraint.constant = 240
             coverImageViewWidthConstraint.constant = 205
             scrollViewHeightConstraint.constant = 600
@@ -370,7 +375,7 @@ class CoverViewController: UIViewController, CoverViewControllerDelegate {
             favoriteCustomImages = UserDefaults.standard.array(forKey: "favoriteCustomImages") as? [Bool] ?? Array(repeating: false, count: decodedImages.count)
             
             coverPage1CollectionView.reloadData()
-            
+        
             if let lastImage = userSelectedImages.last,
                let lastIndex = userSelectedImages.indices.last {
                 coverImageView.image = lastImage
