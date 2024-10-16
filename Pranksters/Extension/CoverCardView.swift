@@ -7,16 +7,21 @@
 
 import UIKit
 import Shuffle_iOS
+import SDWebImage
 
 struct CardModel {
-    let imageName: String
-    var isFavorited: Bool = false
+    let imageURL: String
+    var isFavorited: Bool
+    let itemId: Int
+    let categoryId: Int
 }
 
 class CoverCardView: SwipeCard {
     
     private let imageView = UIImageView()
     private let favouriteButton = UIButton()
+    var model: CardModel?
+    var onFavoriteButtonTapped: ((Int, Bool, Int) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,19 +33,16 @@ class CoverCardView: SwipeCard {
     }
     
     private func configureCard() {
-        // Configure image view
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 12
         addSubview(imageView)
         
-        // Configure favorite button
-        favouriteButton.setImage(UIImage(named: "Heart"), for: .normal) // Default unfavorite state
+        favouriteButton.setImage(UIImage(named: "Heart"), for: .normal)
         favouriteButton.addTarget(self, action: #selector(favouriteButtonTapped), for: .touchUpInside)
         
         addSubview(favouriteButton)
         
-        // Set up constraints for image view
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor),
@@ -49,7 +51,6 @@ class CoverCardView: SwipeCard {
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
-        // Set up constraints for favorite button
         favouriteButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             favouriteButton.topAnchor.constraint(equalTo: topAnchor, constant: 8),
@@ -59,24 +60,21 @@ class CoverCardView: SwipeCard {
         ])
     }
     
-    // Method to configure the card with the model
     func configure(withModel model: CardModel) {
-        imageView.image = UIImage(named: model.imageName)
+        self.model = model
+        imageView.sd_setImage(with: URL(string: model.imageURL))
         updateFavoriteButton(isFavorited: model.isFavorited)
     }
     
-    // Update the button's image based on favorite status
     private func updateFavoriteButton(isFavorited: Bool) {
-        let heartImage = isFavorited ? "Heart_Fill" : "Heart" // Heart_Fill for favorite, Heart for unfavorite
+        let heartImage = isFavorited ? "Heart_Fill" : "Heart"
         favouriteButton.setImage(UIImage(named: heartImage), for: .normal)
     }
     
-    // Handle favorite button tap
     @objc private func favouriteButtonTapped() {
-        let isFavorited = (favouriteButton.currentImage == UIImage(named: "Heart")) // Check if it is currently unfavorited
-        updateFavoriteButton(isFavorited: isFavorited)
-        
-        // Add any additional logic you want to perform when the button is tapped
-        print(isFavorited ? "Marked as Favorite" : "Unmarked as Favorite")
+        guard var model = model else { return }
+        model.isFavorited.toggle()
+        updateFavoriteButton(isFavorited: model.isFavorited)
+        onFavoriteButtonTapped?(model.itemId, model.isFavorited, model.categoryId)
     }
 }

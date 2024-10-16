@@ -172,7 +172,6 @@ extension EmojiCoverAllViewController: UICollectionViewDelegate, UICollectionVie
                     print(message ?? "Favorite status updated successfully")
                 } else {
                     print("Failed to update favorite status: \(message ?? "Unknown error")")
-                    // Revert the favorite status in the UI
                     if let cell = self.emojiCoverAllCollectionView.cellForItem(at: IndexPath(item: self.viewModel.emojiCoverPages.firstIndex(where: { $0.itemID == coverPageData.itemID }) ?? 0, section: 0)) as? EmojiCoverAllCollectionViewCell {
                         cell.configure(with: coverPageData)
                     }
@@ -202,13 +201,13 @@ extension EmojiCoverAllViewController: UICollectionViewDelegate, UICollectionVie
         if coverPageData.coverPremium {
             presentPremiumViewController()
         } else {
-            
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "CoverPreviewViewController") as! CoverPreviewViewController
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(identifier: "CoverPreviewViewController") as! CoverPreviewViewController
             vc.modalTransitionStyle = .crossDissolve
             vc.modalPresentationStyle = .overCurrentContext
-            
+            vc.coverPages = viewModel.emojiCoverPages
+            vc.initialIndex = indexPath.row
             self.present(vc, animated: true)
-
         }
     }
     

@@ -205,7 +205,12 @@ extension RealisticCoverAllViewController: UICollectionViewDelegate, UICollectio
         if coverPageData.coverPremium {
             presentPremiumViewController()
         } else {
-            
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "CoverPreviewViewController") as! CoverPreviewViewController
+            vc.modalTransitionStyle = .crossDissolve
+            vc.modalPresentationStyle = .overCurrentContext
+            vc.coverPages = Array(viewModel.realisticCoverPages[indexPath.row...])
+            vc.initialIndex = 0
+            self.present(vc, animated: true)
         }
     }
     

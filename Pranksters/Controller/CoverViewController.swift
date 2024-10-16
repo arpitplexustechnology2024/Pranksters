@@ -743,14 +743,19 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
 extension CoverViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage {
-            userSelectedImages.append(selectedImage)
-            favoriteCustomImages.append(false)
+            if userSelectedImages.isEmpty {
+                userSelectedImages.append(selectedImage)
+                favoriteCustomImages.append(false)
+            } else {
+                userSelectedImages.insert(selectedImage, at: 0)
+                favoriteCustomImages.insert(false, at: 0)
+            }
+            
             coverImageView.image = selectedImage
             coverPage1CollectionView.reloadData()
             saveImages()
             
-            let newImageIndex = min(userSelectedImages.count, maxVisibleCustomCovers)
-            let indexPath = IndexPath(item: newImageIndex, section: 0)
+            let indexPath = IndexPath(item: 1, section: 0)
             coverPage1CollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
             selectedCoverPage1Index = indexPath
             

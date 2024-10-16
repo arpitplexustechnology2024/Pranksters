@@ -15,21 +15,18 @@ class CoverPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
     @IBOutlet weak var allSwipedImageView: UIImageView!
     
     private let cardStack = SwipeCardStack()
+    private let favoriteViewModel = FavoriteViewModel()
+    var onDismiss: (() -> Void)?
+    var coverPages: [CoverPageData] = []
+    var initialIndex: Int = 0
     
-    private var cardModels: [CardModel] = [
-        CardModel(imageName: "Pranksters"),
-        CardModel(imageName: "Pranksters"),
-        CardModel(imageName: "Pranksters"),
-        CardModel(imageName: "Pranksters"),
-        CardModel(imageName: "Pranksters"),
-        CardModel(imageName: "Pranksters"),
-        CardModel(imageName: "Pranksters"),
-        CardModel(imageName: "Pranksters"),
-        CardModel(imageName: "Pranksters")
-    ]
+    private var nonPremiumCoverPages: [CoverPageData] = []
+    private var currentCardIndex: Int = 0
+    private var visibleCards: [CoverCardView] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        filterNonPremiumCoverPages()
         setupCardStack()
         setupBlurEffect()
         
@@ -37,6 +34,10 @@ class CoverPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
         allSwipedImageView.alpha = 0
         
         self.selectButton.layer.cornerRadius = 13
+    }
+    
+    private func filterNonPremiumCoverPages() {
+        nonPremiumCoverPages = coverPages.filter { !$0.coverPremium }
     }
     
     private func setupCardStack() {
@@ -64,13 +65,22 @@ class CoverPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
     
     // MARK: - SwipeCardStackDataSource
     func numberOfCards(in cardStack: SwipeCardStack) -> Int {
-        return cardModels.count
+        return nonPremiumCoverPages.count
     }
     
     func cardStack(_ cardStack: SwipeCardStack, cardForIndexAt index: Int) -> SwipeCard {
         let card = CoverCardView()
-        card.configure(withModel: cardModels[index])
+        let coverPageData = nonPremiumCoverPages[index]
+        let cardModel = CardModel(imageURL: coverPageData.coverURL, isFavorited: coverPageData.isFavorite, itemId: coverPageData.itemID, categoryId: 4)
+        card.configure(withModel: cardModel)
         card.swipeDirections = [.left, .right]
+        
+        visibleCards.append(card)
+        
+        card.onFavoriteButtonTapped = { [weak self] itemId, isFavorite, categoryId in
+            self?.handleFavoriteButtonTapped(itemId: itemId, isFavorite: isFavorite, categoryId: categoryId)
+        }
+        
         return card
     }
     
@@ -98,9 +108,41 @@ class CoverPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
         } else if direction == .right {
             print("Swiped card at index \(index) to the right")
         }
+        
+        if index < visibleCards.count {
+            visibleCards.remove(at: index)
+        }
+        
+        currentCardIndex = index + 1
     }
     
-    func cardStack(_ cardStack: SwipeCardStack, shouldSwipeCardAt index: Int, in direction: SwipeDirection) -> Bool {
-        return direction == .left || direction == .right
+    // MARK: - Favorite Handling
+    private func handleFavoriteButtonTapped(itemId: Int, isFavorite: Bool, categoryId: Int) {
+        favoriteViewModel.setFavorite(itemId: itemId, isFavorite: isFavorite, categoryId: categoryId) { [weak self] success, message in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                if success {
+                    print(message ?? "")
+                    if let index = self.nonPremiumCoverPages.firstIndex(where: { $0.itemID == itemId }) {
+                        self.nonPremiumCoverPages[index].isFavorite = isFavorite
+                    }
+                } else {
+                    print("Failed to update favorite status: \(message ?? "Unknown error")")
+                    self.revertFavoriteStatus(for: itemId)
+                }
+            }
+        }
+    }
+    
+    private func revertFavoriteStatus(for itemId: Int) {
+        
+        if let index = nonPremiumCoverPages.firstIndex(where: { $0.itemID == itemId }) {
+            let coverPageData = nonPremiumCoverPages[index]
+            let updatedCardModel = CardModel(imageURL: coverPageData.coverURL, isFavorited: !coverPageData.isFavorite, itemId: coverPageData.itemID, categoryId: 4)
+            
+            if let cardToUpdate = visibleCards.first(where: { $0.model?.itemId == itemId }) {
+                cardToUpdate.configure(withModel: updatedCardModel)
+            }
+        }
     }
 }
