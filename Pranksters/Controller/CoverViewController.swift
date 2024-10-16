@@ -230,11 +230,19 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     
+    func didSelectCustomCover(image: UIImage, at index: Int) {
+        coverImageView.image = image
+        selectedCoverPage1Index = IndexPath(item: index + 1, section: 0)
+        deselectCellsInOtherCollectionViews(except: coverPage1CollectionView)
+        updateFavoriteButton(isFavorite: favoriteCustomImages[index])
+    }
+    
     @IBAction func btnCoverPage1ShowAllTapped(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let customCoverAllVC = storyboard.instantiateViewController(withIdentifier: "CustomCoverAllViewController") as? CustomCoverAllViewController {
             customCoverAllVC.allCustomCovers = Array(userSelectedImages)
             customCoverAllVC.delegate = self
+            customCoverAllVC.coverViewControllerDelegate = self
             self.navigationController?.pushViewController(customCoverAllVC, animated: true)
         }
     }
@@ -787,6 +795,12 @@ extension CoverViewController: CoverPreviewViewControllerDelegate {
         if index < emojiViewModel.emojiCoverPages.count {
             emojiViewModel.emojiCoverPages[index].isFavorite = isFavorite
             coverPage2CollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+        } else if index < realisticViewModel.realisticCoverPages.count {
+            realisticViewModel.realisticCoverPages[index].isFavorite = isFavorite
+            coverPage3CollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+        } else if index < userSelectedImages.count {
+            favoriteCustomImages[index] = isFavorite
+            coverPage1CollectionView.reloadItems(at: [IndexPath(item: index + 1, section: 0)])
         }
     }
     

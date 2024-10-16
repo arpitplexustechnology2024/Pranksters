@@ -9,6 +9,7 @@ import UIKit
 
 protocol CoverCustomViewControllerDelegate: AnyObject {
     func didUpdateFavoriteStatus(at index: Int, isFavorite: Bool)
+    func didSelectCustomCover(image: UIImage, at index: Int)
 }
 
 class CustomCoverAllViewController: UIViewController {
@@ -21,6 +22,7 @@ class CustomCoverAllViewController: UIViewController {
     var favoriteCustomImages: [Bool] = []
     
     weak var delegate: CoverCustomViewControllerDelegate?
+    weak var coverViewControllerDelegate: CoverPreviewViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,7 +133,13 @@ extension CustomCoverAllViewController: UICollectionViewDelegate, UICollectionVi
 
 extension CustomCoverAllViewController: CoverPreviewViewControllerDelegate {
     func coverPreviewViewController(_ viewController: CoverPreviewViewController, didSelectCoverAt index: Int, coverData: CoverPageData) {
-        return
+        let actualIndex = coverPages.firstIndex(where: { $0.itemID == coverData.itemID }) ?? index
+        let selectedImage = allCustomCovers[actualIndex]
+        coverViewControllerDelegate?.coverPreviewViewController(viewController, didSelectCoverAt: actualIndex, coverData: coverData)
+        delegate?.didSelectCustomCover(image: selectedImage, at: actualIndex)
+        viewController.dismiss(animated: true) { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
     
     func coverPreviewViewController(_ viewController: CoverPreviewViewController, didUpdateFavoriteStatusForItemAt index: Int, isFavorite: Bool) {
@@ -140,5 +148,6 @@ extension CustomCoverAllViewController: CoverPreviewViewControllerDelegate {
         coverPages[actualIndex].isFavorite = isFavorite
         saveFavoriteStatus()
         customeCoverAllCollectionView.reloadItems(at: [IndexPath(item: actualIndex, section: 0)])
+        delegate?.didUpdateFavoriteStatus(at: actualIndex, isFavorite: isFavorite)
     }
 }
