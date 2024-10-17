@@ -29,6 +29,7 @@ class EmojiCoverAllViewController: UIViewController, CoverPreviewViewControllerD
             self.noInternetView?.isHidden = true
         } else {
             self.showNoInternetView()
+            self.hideSkeletonLoader()
         }
     }
     
@@ -37,7 +38,7 @@ class EmojiCoverAllViewController: UIViewController, CoverPreviewViewControllerD
         setupCollectionView()
         checkInternetAndFetchData()
         showSkeletonLoader()
-        
+        addBottomShadow(to: navigationbarView)
         self.emojiCoverAllCollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
     }
     
@@ -49,6 +50,18 @@ class EmojiCoverAllViewController: UIViewController, CoverPreviewViewControllerD
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.revealViewController()?.gestureEnabled = true
+    }
+    
+    func addBottomShadow(to view: UIView) {
+        view.layer.masksToBounds = false
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.2
+        view.layer.shadowOffset = CGSize(width: 0, height: 7)
+        view.layer.shadowRadius = 12
+        view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
+                                                          y: view.bounds.maxY - 4,
+                                                          width: view.bounds.width,
+                                                          height: 4)).cgPath
     }
     
     private func setupCollectionView() {
@@ -99,7 +112,7 @@ class EmojiCoverAllViewController: UIViewController, CoverPreviewViewControllerD
         NSLayoutConstraint.activate([
             noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noDataView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor),
+            noDataView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor, constant: 30),
             noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
@@ -114,7 +127,7 @@ class EmojiCoverAllViewController: UIViewController, CoverPreviewViewControllerD
         NSLayoutConstraint.activate([
             noInternetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             noInternetView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noInternetView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor),
+            noInternetView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor, constant: 30),
             noInternetView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }

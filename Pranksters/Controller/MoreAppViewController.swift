@@ -58,6 +58,7 @@ class MoreAppViewController: UIViewController {
             self.noInternetView?.isHidden = true
         } else {
             self.showNoInternetView()
+            self.hideSkeletonLoader()
         }
     }
     
@@ -115,7 +116,7 @@ class MoreAppViewController: UIViewController {
         NSLayoutConstraint.activate([
             noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noDataView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor, constant: 10),
+            noDataView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor, constant: 30),
             noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
@@ -130,7 +131,7 @@ class MoreAppViewController: UIViewController {
         NSLayoutConstraint.activate([
             noInternetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             noInternetView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noInternetView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor, constant: 10),
+            noInternetView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor, constant: 30),
             noInternetView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
@@ -141,8 +142,8 @@ class MoreAppViewController: UIViewController {
             noDataView.isHidden = true
             checkInternetAndFetchData()
         } else {
-            let snackbar = TTGSnackbar(message: "Please turn on internet connection!", duration: .middle)
-            snackbar.show()
+            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: .snackbar)
+            snackbar.show(in: self.view, duration: 3.0)
         }
     }
     

@@ -37,6 +37,8 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
     
     @IBOutlet weak var lottieLoader: LottieAnimationView!
     
+    @IBOutlet weak var oneTimeBlurView: UIView!
+    
     var selectedCoverPage1Index: IndexPath?
     var selectedCoverPage2Index: IndexPath?
     var selectedCoverPage3Index: IndexPath?
@@ -76,7 +78,18 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         checkInternetAndFetchData()
         loadSavedImages()
         setupLottieLoader()
+        applyBlurEffect()
+        self.oneTimeBlurView.isHidden = true
         
+        if isFirstLaunch() {
+            self.oneTimeBlurView.isHidden = false
+        } else {
+            self.oneTimeBlurView.isHidden = true
+        }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        oneTimeBlurView.addGestureRecognizer(tapGesture)
+        oneTimeBlurView.isUserInteractionEnabled = true
         self.coverPage2CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
         self.coverPage3CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
         self.favouriteButton.isHidden = true
@@ -103,6 +116,33 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         self.view.layoutIfNeeded()
     }
     
+    func applyBlurEffect() {
+        let blurEffect = UIBlurEffect(style: .dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = oneTimeBlurView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.alpha = 0.5
+        oneTimeBlurView.addSubview(blurEffectView)
+    }
+    
+    @objc func handleTap(_ gesture: UITapGestureRecognizer) {
+        UIView.animate(withDuration: 0.3) {
+            self.oneTimeBlurView.alpha = 0
+        } completion: { _ in
+            self.oneTimeBlurView.isHidden = true
+        }
+    }
+    
+    func isFirstLaunch() -> Bool {
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: "hasLaunchedBefore") {
+            return false
+        } else {
+            defaults.set(true, forKey: "hasLaunchedBefore")
+            return true
+        }
+    }
+    
     func checkInternetAndFetchData() {
         if isConnectedToInternet() {
             self.fetchEmojiCoverPages()
@@ -110,6 +150,7 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
             self.noInternetView?.isHidden = true
         } else {
             self.showNoInternetView()
+            self.hideSkeletonLoader()
         }
     }
     
@@ -523,9 +564,9 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard !isLoading else { return }
         if collectionView == coverPage1CollectionView {
-                if let cell = collectionView.cellForItem(at: indexPath) {
-                    handleCoverPage1Selection(at: indexPath, sender: cell)
-                }
+            if let cell = collectionView.cellForItem(at: indexPath) {
+                handleCoverPage1Selection(at: indexPath, sender: cell)
+            }
         } else if collectionView == coverPage2CollectionView {
             self.favouriteButton.isHidden = false
             let coverPageData = emojiViewModel.emojiCoverPages[indexPath.row]

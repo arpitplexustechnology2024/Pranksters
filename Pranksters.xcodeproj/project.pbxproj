@@ -49,6 +49,7 @@
 		BDA87EDD2CB5EEC100C25C50 /* NoInternetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDA87EDB2CB5EEC100C25C50 /* NoInternetView.xib */; };
 		BDACA25B2CB712ED00B3C2E2 /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDACA25A2CB712EA00B3C2E2 /* Skeleton.swift */; };
 		BDACA25D2CB7375E00B3C2E2 /* CoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDACA25C2CB7375E00B3C2E2 /* CoverViewController.swift */; };
+		BDB28ADC2CC09FAA000E7C46 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB28ADB2CC09FAA000E7C46 /* AudioViewController.swift */; };
 		BDC578DA2CBDA0F400811602 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC578D92CBDA0F400811602 /* Snackbar.swift */; };
 		BDC578DC2CBDA10F00811602 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC578DB2CBDA10F00811602 /* Extension.swift */; };
 		BDC578DE2CBDA47600811602 /* Loader.json in Resources */ = {isa = PBXBuildFile; fileRef = BDC578DD2CBDA47600811602 /* Loader.json */; };
@@ -134,6 +135,7 @@
 		BDA87EDB2CB5EEC100C25C50 /* NoInternetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoInternetView.xib; sourceTree = "<group>"; };
 		BDACA25A2CB712EA00B3C2E2 /* Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
 		BDACA25C2CB7375E00B3C2E2 /* CoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverViewController.swift; sourceTree = "<group>"; };
+		BDB28ADB2CC09FAA000E7C46 /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
 		BDC578D92CBDA0F400811602 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		BDC578DB2CBDA10F00811602 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		BDC578DD2CBDA47600811602 /* Loader.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Loader.json; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */,
 				BD6B5CEE2CB9FF4A00E768ED /* CustomCoverAllViewController.swift */,
 				BD487C902CBF161E00874560 /* CoverPreviewViewController.swift */,
+				BDB28ADB2CC09FAA000E7C46 /* AudioViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -669,6 +672,7 @@
 				BD6B5CEF2CB9FF4B00E768ED /* CustomCoverAllViewController.swift in Sources */,
 				BD19D0A22CC0664A00F04C35 /* NoInternetBottombarView.swift in Sources */,
 				BD19D0A32CC0664A00F04C35 /* NoDataBottomBarView.swift in Sources */,
+				BDB28ADC2CC09FAA000E7C46 /* AudioViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

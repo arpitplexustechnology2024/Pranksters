@@ -21,6 +21,8 @@ class CustomCoverAllViewController: UIViewController {
     var allCustomCovers: [UIImage] = []
     var favoriteCustomImages: [Bool] = []
     
+    private var noDataView: NoDataView!
+    
     weak var delegate: CoverCustomViewControllerDelegate?
     weak var coverViewControllerDelegate: CoverPreviewViewControllerDelegate?
     
@@ -28,8 +30,10 @@ class CustomCoverAllViewController: UIViewController {
         super.viewDidLoad()
         addBottomShadow(to: navigationbarView)
         setupCollectionView()
+        setupNoDataView()
         loadFavoriteStatus()
         createCoverPageData()
+        updateNoDataViewVisibility()
     }
     
     private func createCoverPageData() {
@@ -68,6 +72,32 @@ class CustomCoverAllViewController: UIViewController {
             layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         }
     }
+    
+    private func setupNoDataView() {
+            noDataView = NoDataView()
+            noDataView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            noDataView.isHidden = true
+            self.view.addSubview(noDataView)
+            
+            noDataView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                noDataView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor, constant: 30),
+                noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+            
+            noDataView.layer.cornerRadius = 28
+            noDataView.layer.masksToBounds = true
+            
+            noDataView.layoutIfNeeded()
+        }
+        
+        private func updateNoDataViewVisibility() {
+            noDataView.isHidden = !allCustomCovers.isEmpty
+            customeCoverAllCollectionView.isHidden = allCustomCovers.isEmpty
+        }
     
     func addBottomShadow(to view: UIView) {
         view.layer.masksToBounds = false
