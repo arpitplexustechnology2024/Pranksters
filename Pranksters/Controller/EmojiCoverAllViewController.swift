@@ -174,7 +174,7 @@ extension EmojiCoverAllViewController: UICollectionViewDelegate, UICollectionVie
             return cell
         }
     }
-    
+                                     
     private func handleFavoriteButtonTapped(for coverPageData: CoverPageData, isFavorite: Bool) {
         favoriteViewModel.setFavorite(itemId: coverPageData.itemID, isFavorite: isFavorite, categoryId: categoryId) { [weak self] success, message in
             guard let self = self else { return }

@@ -264,7 +264,10 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
     }
     
     @IBAction func btnDoneTapped(_ sender: UIButton) {
-        // Implement your logic here
+        
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "AudioViewController") as! AudioViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+
     }
     
     @IBAction func btnBackTapped(_ sender: UIButton) {

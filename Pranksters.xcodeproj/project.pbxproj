@@ -26,6 +26,10 @@
 		BD2F1E3A2CB462E00017A963 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F1E392CB462E00017A963 /* LaunchViewController.swift */; };
 		BD2F1E3C2CB470B20017A963 /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = BD2F1E3B2CB470B20017A963 /* Loading.json */; };
 		BD2F1E402CB4A6870017A963 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2F1E3F2CB4A6870017A963 /* Color.xcassets */; };
+		BD30945F2CC1A1E900753247 /* AudioCharacterAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD30945E2CC1A1E900753247 /* AudioCharacterAllViewController.swift */; };
+		BD3094632CC1A41000753247 /* AudioCharacterAllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3094622CC1A41000753247 /* AudioCharacterAllCollectionViewCell.swift */; };
+		BD3094652CC1BCE900753247 /* CharacterAllAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3094642CC1BCE900753247 /* CharacterAllAPI.swift */; };
+		BD3094672CC1BD0000753247 /* CharacterAllViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3094662CC1BD0000753247 /* CharacterAllViewModel.swift */; };
 		BD487C912CBF161E00874560 /* CoverPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD487C902CBF161E00874560 /* CoverPreviewViewController.swift */; };
 		BD487C932CBF1AD500874560 /* CoverCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD487C922CBF1AD500874560 /* CoverCardView.swift */; };
 		BD6B5CEB2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */; };
@@ -33,6 +37,9 @@
 		BD6B5CEF2CB9FF4B00E768ED /* CustomCoverAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6B5CEE2CB9FF4A00E768ED /* CustomCoverAllViewController.swift */; };
 		BD7D62CF2CB7593800439C11 /* RegistrationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7D62CE2CB7593800439C11 /* RegistrationAPI.swift */; };
 		BD7D62D12CB7594B00439C11 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7D62D02CB7594B00439C11 /* RegistrationViewModel.swift */; };
+		BD804D612CC1747C0048FF70 /* AudioCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD804D602CC1747C0048FF70 /* AudioCollectionViewCell.swift */; };
+		BD804D632CC176A20048FF70 /* CharacterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD804D622CC176A20048FF70 /* CharacterAPI.swift */; };
+		BD804D652CC176B30048FF70 /* CharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD804D642CC176B30048FF70 /* CharacterViewModel.swift */; };
 		BDA87EB32CB5AB2E00C25C50 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EB22CB5AB2E00C25C50 /* SideMenuViewController.swift */; };
 		BDA87EB62CB5AC3B00C25C50 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EB52CB5AC3B00C25C50 /* Model.swift */; };
 		BDA87EC92CB5C12900C25C50 /* ViewLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EC62CB5C12900C25C50 /* ViewLinkViewController.swift */; };
@@ -112,6 +119,10 @@
 		BD2F1E392CB462E00017A963 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		BD2F1E3B2CB470B20017A963 /* Loading.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
 		BD2F1E3F2CB4A6870017A963 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
+		BD30945E2CC1A1E900753247 /* AudioCharacterAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCharacterAllViewController.swift; sourceTree = "<group>"; };
+		BD3094622CC1A41000753247 /* AudioCharacterAllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCharacterAllCollectionViewCell.swift; sourceTree = "<group>"; };
+		BD3094642CC1BCE900753247 /* CharacterAllAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterAllAPI.swift; sourceTree = "<group>"; };
+		BD3094662CC1BD0000753247 /* CharacterAllViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterAllViewModel.swift; sourceTree = "<group>"; };
 		BD487C902CBF161E00874560 /* CoverPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverPreviewViewController.swift; sourceTree = "<group>"; };
 		BD487C922CBF1AD500874560 /* CoverCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverCardView.swift; sourceTree = "<group>"; };
 		BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealisticCoverAllViewController.swift; sourceTree = "<group>"; };
@@ -119,6 +130,9 @@
 		BD6B5CEE2CB9FF4A00E768ED /* CustomCoverAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCoverAllViewController.swift; sourceTree = "<group>"; };
 		BD7D62CE2CB7593800439C11 /* RegistrationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationAPI.swift; sourceTree = "<group>"; };
 		BD7D62D02CB7594B00439C11 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		BD804D602CC1747C0048FF70 /* AudioCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCollectionViewCell.swift; sourceTree = "<group>"; };
+		BD804D622CC176A20048FF70 /* CharacterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterAPI.swift; sourceTree = "<group>"; };
+		BD804D642CC176B30048FF70 /* CharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewModel.swift; sourceTree = "<group>"; };
 		BDA87EB22CB5AB2E00C25C50 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		BDA87EB52CB5AC3B00C25C50 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		BDA87EC32CB5C12900C25C50 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -309,6 +323,7 @@
 				BD6B5CEE2CB9FF4A00E768ED /* CustomCoverAllViewController.swift */,
 				BD487C902CBF161E00874560 /* CoverPreviewViewController.swift */,
 				BDB28ADB2CC09FAA000E7C46 /* AudioViewController.swift */,
+				BD30945E2CC1A1E900753247 /* AudioCharacterAllViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -329,6 +344,8 @@
 				BDD883A52CB8504D004C6908 /* CoverPageCollectionViewCell.swift */,
 				BDD883AD2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift */,
 				BD6B5CEC2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift */,
+				BD804D602CC1747C0048FF70 /* AudioCollectionViewCell.swift */,
+				BD3094622CC1A41000753247 /* AudioCharacterAllCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -348,6 +365,8 @@
 				BD7D62CE2CB7593800439C11 /* RegistrationAPI.swift */,
 				BDD883A72CB85903004C6908 /* CoverPageAPI.swift */,
 				BDC578E12CBDCF7B00811602 /* FavouriteAPI.swift */,
+				BD804D622CC176A20048FF70 /* CharacterAPI.swift */,
+				BD3094642CC1BCE900753247 /* CharacterAllAPI.swift */,
 			);
 			path = "API Manager";
 			sourceTree = "<group>";
@@ -359,6 +378,8 @@
 				BD7D62D02CB7594B00439C11 /* RegistrationViewModel.swift */,
 				BDD883A92CB85910004C6908 /* CoverPageViewModel.swift */,
 				BDC578DF2CBDCB1300811602 /* FavouriteViewModel.swift */,
+				BD804D642CC176B30048FF70 /* CharacterViewModel.swift */,
+				BD3094662CC1BD0000753247 /* CharacterAllViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -634,6 +655,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD804D632CC176A20048FF70 /* CharacterAPI.swift in Sources */,
 				BD19D0A52CC0771D00F04C35 /* UIImage+Gif.swift in Sources */,
 				BD6B5CEB2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift in Sources */,
 				BDD883AC2CB86790004C6908 /* EmojiCoverAllViewController.swift in Sources */,
@@ -643,6 +665,9 @@
 				BDA87ED22CB5E90500C25C50 /* MoreAppAPI.swift in Sources */,
 				BDC578DA2CBDA0F400811602 /* Snackbar.swift in Sources */,
 				BDC578DC2CBDA10F00811602 /* Extension.swift in Sources */,
+				BD3094672CC1BD0000753247 /* CharacterAllViewModel.swift in Sources */,
+				BD804D612CC1747C0048FF70 /* AudioCollectionViewCell.swift in Sources */,
+				BD3094632CC1A41000753247 /* AudioCharacterAllCollectionViewCell.swift in Sources */,
 				BDA87ECA2CB5C12900C25C50 /* PremiumViewController.swift in Sources */,
 				BDA87ECB2CB5C12900C25C50 /* HomeViewController.swift in Sources */,
 				BDACA25B2CB712ED00B3C2E2 /* Skeleton.swift in Sources */,
@@ -655,6 +680,8 @@
 				BD487C932CBF1AD500874560 /* CoverCardView.swift in Sources */,
 				BDD883A82CB85903004C6908 /* CoverPageAPI.swift in Sources */,
 				BDA87ED02CB5C16400C25C50 /* MainViewController.swift in Sources */,
+				BD804D652CC176B30048FF70 /* CharacterViewModel.swift in Sources */,
+				BD30945F2CC1A1E900753247 /* AudioCharacterAllViewController.swift in Sources */,
 				BDACA25D2CB7375E00B3C2E2 /* CoverViewController.swift in Sources */,
 				BDC578E02CBDCB1300811602 /* FavouriteViewModel.swift in Sources */,
 				BD7D62CF2CB7593800439C11 /* RegistrationAPI.swift in Sources */,
@@ -667,6 +694,7 @@
 				BDD883A62CB8504D004C6908 /* CoverPageCollectionViewCell.swift in Sources */,
 				BDC9ACB32CB6F89D00183146 /* NoDataView.swift in Sources */,
 				BDA87EB32CB5AB2E00C25C50 /* SideMenuViewController.swift in Sources */,
+				BD3094652CC1BCE900753247 /* CharacterAllAPI.swift in Sources */,
 				BD6B5CED2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift in Sources */,
 				BD487C912CBF161E00874560 /* CoverPreviewViewController.swift in Sources */,
 				BD6B5CEF2CB9FF4B00E768ED /* CustomCoverAllViewController.swift in Sources */,

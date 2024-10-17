@@ -39,6 +39,47 @@ struct FavouriteSet: Codable {
     let message: String
 }
 
+// MARK: - CharacterResponse
+struct CharacterResponse: Codable {
+    let status: Int
+    let message: String
+    let data: [CharacterData]
+}
+struct CharacterData: Codable {
+    let characterName: String
+    let characterImage: String
+    let characterID: Int
+
+    enum CodingKeys: String, CodingKey {
+        case characterName = "CharacterName"
+        case characterImage = "CharacterImage"
+        case characterID = "CharacterId"
+    }
+}
+
+// MARK: - CharacterAllResponse
+struct CharacterAllResponse: Codable {
+    let status: Int
+    let message: String
+    let data: [CharacterAllData]
+}
+struct CharacterAllData: Codable {
+    let audio: String
+    let audioName: String
+    let audioImage: String
+    let audioPremium: Bool
+    let itemID: Int
+    var isFavorite: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case audio = "Audio"
+        case audioName = "AudioName"
+        case audioImage = "AudioImage"
+        case audioPremium = "AudioPremium"
+        case itemID = "ItemId"
+        case isFavorite
+    }
+}
 
 // MARK: - MoreApp
 struct MoreApp: Codable {
