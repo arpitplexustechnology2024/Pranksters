@@ -229,4 +229,24 @@ extension AudioCharacterAllViewController: UICollectionViewDelegate, UICollectio
         let heightPerItem: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 287 : 187
         return CGSize(width: widthPerItem, height: heightPerItem)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let coverPageData = viewModel.audioData[indexPath.row]
+        if coverPageData.premium {
+            presentPremiumViewController()
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(identifier: "AudioPreviewViewController") as! AudioPreviewViewController
+            vc.modalTransitionStyle = .crossDissolve
+            vc.modalPresentationStyle = .overCurrentContext
+            vc.audioData = Array(viewModel.audioData[indexPath.row...])
+            vc.initialIndex = 0
+            self.present(vc, animated: true)
+        }
+    }
+    
+    private func presentPremiumViewController() {
+        let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumViewController") as! PremiumViewController
+        present(premiumVC, animated: true, completion: nil)
+    }
 }

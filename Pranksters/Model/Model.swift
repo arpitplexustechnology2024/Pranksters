@@ -64,18 +64,18 @@ struct CharacterAllResponse: Codable {
     let data: [CharacterAllData]
 }
 struct CharacterAllData: Codable {
-    let audio: String
-    let audioName: String
-    let audioImage: String
-    let audioPremium: Bool
+    let file: String
+    let name: String
+    let image: String
+    let premium: Bool
     let itemID: Int
     var isFavorite: Bool
 
     enum CodingKeys: String, CodingKey {
-        case audio = "Audio"
-        case audioName = "AudioName"
-        case audioImage = "AudioImage"
-        case audioPremium = "AudioPremium"
+        case file = "File"
+        case name = "Name"
+        case image = "Image"
+        case premium = "Premium"
         case itemID = "ItemId"
         case isFavorite
     }

@@ -267,7 +267,7 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "AudioViewController") as! AudioViewController
         self.navigationController?.pushViewController(vc, animated: true)
-
+        
     }
     
     @IBAction func btnBackTapped(_ sender: UIButton) {
@@ -710,8 +710,6 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        cancelAction.setValue(UIColor.black, forKey: "titleTextColor")
         
         alertController.addAction(cameraAction)
         alertController.addAction(galleryAction)

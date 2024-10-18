@@ -56,12 +56,12 @@ class AudioCharacterAllCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with characterAllData: CharacterAllData) {
-        if let imageURL = URL(string: characterAllData.audioImage) {
+        if let imageURL = URL(string: characterAllData.image) {
             imageView.sd_setImage(with: imageURL) { [weak self] image, _, _, _ in
                 guard let self = self else { return }
                 self.originalImage = image
                 
-                if characterAllData.audioPremium {
+                if characterAllData.premium {
                     self.applyBlurEffect()
                     self.premiumIconImageView.isHidden = false
                 } else {
@@ -70,7 +70,7 @@ class AudioCharacterAllCollectionViewCell: UICollectionViewCell {
                 }
             }
         }
-        audioLabel.text = characterAllData.audioName
+        audioLabel.text = characterAllData.name
         isFavorite = characterAllData.isFavorite
         updateFavoriteButton()
     }

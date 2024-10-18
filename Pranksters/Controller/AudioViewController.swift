@@ -15,6 +15,13 @@ import MobileCoreServices
 struct CustomAudio: Codable {
     let fileName: String
     let imageFileName: String
+    var isFavorite: Bool
+    
+    init(fileName: String, imageFileName: String, isFavorite: Bool = false) {
+        self.fileName = fileName
+        self.imageFileName = imageFileName
+        self.isFavorite = isFavorite
+    }
 }
 
 class AudioViewController: UIViewController {
@@ -52,9 +59,17 @@ class AudioViewController: UIViewController {
     private var isPlaying = false
     private var selectedAudioIndex: Int?
     
-    private var customAudios: [(url: URL, image: UIImage?)] = [] {
+    var initialAudioData: CharacterAllData?
+    
+    private var customAudios: [(url: URL, image: UIImage?, isFavorite: Bool?)] = [] {
         didSet {
             saveCustomAudiosToUserDefaults()
+        }
+    }
+    
+    private var currentAudioIsFavorite: Bool = false {
+        didSet {
+            updateFavoriteButtonImage()
         }
     }
     
@@ -100,6 +115,10 @@ class AudioViewController: UIViewController {
         checkInternetAndFetchData()
         loadCustomAudiosFromUserDefaults()
         addBottomShadow(to: navigationbarView)
+        
+        if let audioData = initialAudioData {
+            playSelectedAudio(audioData)
+        }
     }
     
     func checkInternetAndFetchData() {
@@ -240,6 +259,10 @@ class AudioViewController: UIViewController {
     }
     
     func showLottieLoader() {
+        blureEffect.isHidden = true
+        songProgress.isHidden = true
+        songName.isHidden = true
+        songMinit.isHidden = true
         lottieLoader.isHidden = false
         coverImageView.isHidden = true
         favouriteButton.isHidden = true
@@ -248,6 +271,10 @@ class AudioViewController: UIViewController {
     
     func hideLottieLoader() {
         lottieLoader.stop()
+        blureEffect.isHidden = false
+        songProgress.isHidden = false
+        songName.isHidden = false
+        songMinit.isHidden = false
         lottieLoader.isHidden = true
         coverImageView.isHidden = false
         favouriteButton.isHidden = false
@@ -341,20 +368,38 @@ class AudioViewController: UIViewController {
     }
     
     @IBAction func btnFavouriteSetTapped(_ sender: UIButton) {
-        
+        guard let selectedIndex = selectedAudioIndex else { return }
+        updateFavoriteButtonImage()
+        currentAudioIsFavorite.toggle()
+        customAudios[selectedIndex].isFavorite = currentAudioIsFavorite
+        saveCustomAudiosToUserDefaults()
+        audioCustomCollectionView.reloadItems(at: [IndexPath(item: selectedIndex + 1, section: 0)])
     }
     
     @IBAction func playPauseButtonTapped(_ sender: UIButton) {
         if let player = audioPlayer {
             if player.isPlaying {
                 player.pause()
+                timer?.invalidate()
                 playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             } else {
-                player.play()
-                playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+                startAudioPlayback()
             }
             isPlaying = player.isPlaying
         }
+    }
+    
+    private func startAudioPlayback() {
+        guard let player = audioPlayer else { return }
+        
+        if player.currentTime >= player.duration {
+            player.currentTime = 0
+            songProgress.value = 0
+        }
+        
+        player.play()
+        playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        setupTimer()
     }
 }
 
@@ -414,6 +459,8 @@ extension AudioViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 audioPlayer?.play()
                 isPlaying = true
                 playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+                currentAudioIsFavorite = audioData.isFavorite ?? false
+                updateFavoriteButtonImage()
                 setupTimer()
             }
         } else if collectionView == audioCharacterCollectionView {
@@ -456,7 +503,6 @@ extension AudioViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        cancelAction.setValue(UIColor.black, forKey: "titleTextColor")
         
         alertController.addAction(recorderAction)
         alertController.addAction(mediaPlayerAction)
@@ -476,7 +522,8 @@ extension AudioViewController {
         let audioData = customAudios.map { audio -> CustomAudio in
             let fileName = audio.url.lastPathComponent
             let imageFileName = audio.image?.accessibilityIdentifier ?? defaultImages[0]
-            return CustomAudio(fileName: fileName, imageFileName: imageFileName)
+            let isFavorite = audio.isFavorite ?? false
+            return CustomAudio(fileName: fileName, imageFileName: imageFileName, isFavorite: isFavorite)
         }
         
         if let encoded = try? JSONEncoder().encode(audioData) {
@@ -497,7 +544,7 @@ extension AudioViewController {
             if FileManager.default.fileExists(atPath: audioUrl.path) {
                 let image = UIImage(named: savedAudio.imageFileName)
                 image?.accessibilityIdentifier = savedAudio.imageFileName
-                return (url: audioUrl, image: image)
+                return (url: audioUrl, image: image, isFavorite: savedAudio.isFavorite)
             } else {
                 print("File not found: \(audioUrl.path)")
                 return nil
@@ -579,7 +626,7 @@ extension AudioViewController {
     }
     
     private func updateSongDuration() {
-        let currentTime = Int(audioPlayer?.currentTime ?? 0)
+        _ = Int(audioPlayer?.currentTime ?? 0)
         let duration = Int(audioPlayer?.duration ?? 0)
         songMinit.text = "\(timeString(from: duration))"
     }
@@ -589,6 +636,66 @@ extension AudioViewController {
         let seconds = timeInterval % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
+    
+    private func updateFavoriteButtonImage() {
+        let imageName = currentAudioIsFavorite ? "Heart_Fill" : "Heart"
+        favouriteButton.setImage(UIImage(named: imageName), for: .normal)
+    }
+    
+    private func setupAudioPlayerFromURL(_ url: URL) {
+        URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+            guard let self = self,
+                  let audioData = data,
+                  error == nil else {
+                DispatchQueue.main.async {
+                    self?.hideLottieLoader()
+                }
+                print("Error downloading audio: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                do {
+                    self.audioPlayer?.stop()
+                    self.timer?.invalidate()
+                    
+                    self.audioPlayer = try AVAudioPlayer(data: audioData)
+                    self.audioPlayer?.delegate = self
+                    self.audioPlayer?.prepareToPlay()
+                    
+                    self.songProgress.maximumValue = Float(self.audioPlayer?.duration ?? 0)
+                    self.songProgress.value = 0
+                    self.updateSongDuration()
+                    
+                    self.audioPlayer?.play()
+                    self.isPlaying = true
+                    self.playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+                    self.setupTimer()
+                    
+                    self.hideLottieLoader()
+                } catch {
+                    self.hideLottieLoader()
+                    print("Error setting up audio player: \(error)")
+                }
+            }
+        }.resume()
+    }
+    
+    func playSelectedAudio(_ audioData: CharacterAllData) {
+        showLottieLoader()
+        if let url = URL(string: audioData.image) {
+            coverImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder")) { [weak self] _, _, _, _ in
+                self?.hideLottieLoader()
+            }
+        }
+        songName.text = audioData.name
+        currentAudioIsFavorite = audioData.isFavorite
+        updateFavoriteButtonImage()
+        if let audioUrl = URL(string: audioData.file) {
+            showLottieLoader()
+            setupAudioPlayerFromURL(audioUrl)
+        }
+    }
 }
 
 //MARK: - Add Document Picker Delegate
@@ -596,32 +703,54 @@ extension AudioViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let selectedURL = urls.first else { return }
         
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let destinationURL = documentsDirectory.appendingPathComponent(selectedURL.lastPathComponent)
+        // Show lottie loader
+        self.showLottieLoader()
         
-        do {
-            if FileManager.default.fileExists(atPath: destinationURL.path) {
-                try FileManager.default.removeItem(at: destinationURL)
+        // Delay for 2 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+            guard let self = self else { return }
+            
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let destinationURL = documentsDirectory.appendingPathComponent(selectedURL.lastPathComponent)
+            
+            do {
+                if FileManager.default.fileExists(atPath: destinationURL.path) {
+                    try FileManager.default.removeItem(at: destinationURL)
+                }
+                try FileManager.default.copyItem(at: selectedURL, to: destinationURL)
+                let defaultImage = self.getNextDefaultImage()
+                self.customAudios.insert((url: destinationURL, image: defaultImage, isFavorite: false), at: 0)
+                
+                DispatchQueue.main.async {
+                    self.audioCustomCollectionView.reloadData()
+                    
+                    // Hide lottie loader
+                    self.hideLottieLoader()
+                    
+                    // Automatically select the newly added audio
+                    let indexPath = IndexPath(item: 1, section: 0) // Index 1 because index 0 is the "Add Audio" cell
+                    self.collectionView(self.audioCustomCollectionView, didSelectItemAt: indexPath)
+                }
+            } catch {
+                print("Error copying file: \(error)")
+                self.hideLottieLoader()
             }
-            try FileManager.default.copyItem(at: selectedURL, to: destinationURL)
-            let defaultImage = getNextDefaultImage()
-            customAudios.insert((url: destinationURL, image: defaultImage), at: 0)
-            DispatchQueue.main.async {
-                self.audioCustomCollectionView.reloadData()
-            }
-        } catch {
-            print("Error copying file: \(error)")
         }
     }
 }
-
-//MARK: - Add Audio Player Delegate
-extension AudioViewController: AVAudioPlayerDelegate {
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        isPlaying = false
-        playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-        timer?.invalidate()
-        songProgress.value = 0
-        updateSongDuration()
+    
+    
+    //MARK: - Add Audio Player Delegate
+    extension AudioViewController: AVAudioPlayerDelegate {
+        func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.isPlaying = false
+                self.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+                self.timer?.invalidate()
+                self.songProgress.value = Float(player.duration)
+                self.songProgress.value = 0
+                self.updateSongDuration()
+            }
+        }
     }
-}

@@ -1647,7 +1647,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hiM-ti-1ir">
                                 <rect key="frame" x="98.666666666666686" y="122" width="205" height="240"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pranksters" translatesAutoresizingMaskIntoConstraints="NO" id="fMq-2M-lcK">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MusicAudio05" translatesAutoresizingMaskIntoConstraints="NO" id="fMq-2M-lcK">
                                         <rect key="frame" x="0.0" y="0.0" width="205" height="240"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1J-ff-ajv">
@@ -1723,7 +1723,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="gca-w7-EUb"/>
                                         </constraints>
-                                        <blurEffect style="regular"/>
+                                        <blurEffect style="prominent"/>
                                     </visualEffectView>
                                 </subviews>
                                 <color key="backgroundColor" name="comman"/>
@@ -2418,6 +2418,69 @@
             </objects>
             <point key="canvasLocation" x="8185" y="-32"/>
         </scene>
+        <!--Audio Preview View Controller-->
+        <scene sceneID="O6k-kT-ec8">
+            <objects>
+                <viewController storyboardIdentifier="AudioPreviewViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RbP-pH-dEj" customClass="AudioPreviewViewController" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZFB-Mk-h6X">
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="42J-y0-0t2">
+                                <rect key="frame" x="31" y="192" width="340" height="426"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AllSwiped" translatesAutoresizingMaskIntoConstraints="NO" id="V1s-ZN-Vga">
+                                        <rect key="frame" x="111.66666666666666" y="150.66666666666669" width="117" height="125"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="117" id="CDL-J4-i2T"/>
+                                            <constraint firstAttribute="height" constant="125" id="xGv-Qs-v6V"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="V1s-ZN-Vga" firstAttribute="centerY" secondItem="42J-y0-0t2" secondAttribute="centerY" id="Dpj-JG-7jd"/>
+                                    <constraint firstItem="V1s-ZN-Vga" firstAttribute="centerX" secondItem="42J-y0-0t2" secondAttribute="centerX" id="xzs-S8-7ng"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bkP-BW-cIW">
+                                <rect key="frame" x="16" y="718" width="370" height="52"/>
+                                <color key="backgroundColor" red="1" green="0.84705882349999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="kBW-SX-rud"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Select">
+                                    <fontDescription key="titleFontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
+                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnSelectTapped:" destination="RbP-pH-dEj" eventType="touchUpInside" id="joG-1X-qjM"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="aB8-C2-lT3"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="42J-y0-0t2" firstAttribute="leading" secondItem="aB8-C2-lT3" secondAttribute="leading" constant="31" id="RpG-cb-tKy"/>
+                            <constraint firstItem="aB8-C2-lT3" firstAttribute="bottom" secondItem="bkP-BW-cIW" secondAttribute="bottom" constant="70" id="TOg-k8-YfW"/>
+                            <constraint firstItem="aB8-C2-lT3" firstAttribute="trailing" secondItem="42J-y0-0t2" secondAttribute="trailing" constant="31" id="Tcy-YS-UCA"/>
+                            <constraint firstItem="bkP-BW-cIW" firstAttribute="top" secondItem="42J-y0-0t2" secondAttribute="bottom" constant="100" id="U7H-Ie-emW"/>
+                            <constraint firstItem="bkP-BW-cIW" firstAttribute="leading" secondItem="aB8-C2-lT3" secondAttribute="leading" constant="16" id="Wo0-td-EEL"/>
+                            <constraint firstItem="aB8-C2-lT3" firstAttribute="trailing" secondItem="bkP-BW-cIW" secondAttribute="trailing" constant="16" id="dh7-AA-8Dh"/>
+                            <constraint firstItem="42J-y0-0t2" firstAttribute="top" secondItem="aB8-C2-lT3" secondAttribute="top" constant="130" id="wgi-Tq-2Hq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="allSwipedImageView" destination="V1s-ZN-Vga" id="CPg-Dm-obj"/>
+                        <outlet property="containerView" destination="42J-y0-0t2" id="a8K-KD-zwW"/>
+                        <outlet property="selectButton" destination="bkP-BW-cIW" id="cTx-xl-erc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aAp-2S-7Cr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8822" y="-32"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AddAudio" width="32" height="32"/>
@@ -2432,8 +2495,8 @@
         <image name="More" width="240" height="240"/>
         <image name="MoreApp" width="922" height="926"/>
         <image name="MoreApp_Float" width="471" height="471"/>
+        <image name="MusicAudio05" width="258" height="258"/>
         <image name="Plus" width="700" height="700"/>
-        <image name="Pranksters" width="1024" height="1024"/>
         <image name="Premium" width="1006" height="886"/>
         <image name="Premium_Float" width="471" height="471"/>
         <image name="SideMenu" width="201" height="200"/>
