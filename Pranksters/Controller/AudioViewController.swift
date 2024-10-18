@@ -32,7 +32,7 @@ class AudioViewController: UIViewController {
     @IBOutlet weak var AudioShowView: UIView!
     @IBOutlet weak var floatingButton: UIButton!
     @IBOutlet var floatingCollectionButton: [UIButton]!
-    @IBOutlet weak var coverImageView: UIImageView!
+    @IBOutlet weak var audioImageView: UIImageView!
     @IBOutlet weak var favouriteButton: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var songProgress: UISlider!
@@ -142,7 +142,7 @@ class AudioViewController: UIViewController {
         bottomScrollView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         floatingButton.setImage(plusImage, for: .normal)
         floatingButton.layer.cornerRadius = 19
-        coverImageView.layer.cornerRadius = 8
+        audioImageView.layer.cornerRadius = 8
         AudioShowView.layer.cornerRadius = 8
         blureEffect.layer.cornerRadius = 8
         blureEffect.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
@@ -197,7 +197,7 @@ class AudioViewController: UIViewController {
         NSLayoutConstraint.activate([
             noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noDataView.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: 16),
+            noDataView.topAnchor.constraint(equalTo: audioImageView.bottomAnchor, constant: 16),
             noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
@@ -218,7 +218,7 @@ class AudioViewController: UIViewController {
         NSLayoutConstraint.activate([
             noInternetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             noInternetView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noInternetView.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: 16),
+            noInternetView.topAnchor.constraint(equalTo: audioImageView.bottomAnchor, constant: 16),
             noInternetView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
@@ -264,7 +264,7 @@ class AudioViewController: UIViewController {
         songName.isHidden = true
         songMinit.isHidden = true
         lottieLoader.isHidden = false
-        coverImageView.isHidden = true
+        audioImageView.isHidden = true
         favouriteButton.isHidden = true
         lottieLoader.play()
     }
@@ -276,7 +276,7 @@ class AudioViewController: UIViewController {
         songName.isHidden = false
         songMinit.isHidden = false
         lottieLoader.isHidden = true
-        coverImageView.isHidden = false
+        audioImageView.isHidden = false
         favouriteButton.isHidden = false
     }
     
@@ -454,7 +454,7 @@ extension AudioViewController: UICollectionViewDelegate, UICollectionViewDataSou
                     player.stop()
                     timer?.invalidate()
                 }
-                coverImageView.image = audioData.image
+                audioImageView.image = audioData.image
                 setupAudioPlayer(with: audioData.url)
                 audioPlayer?.play()
                 isPlaying = true
@@ -684,7 +684,7 @@ extension AudioViewController {
     func playSelectedAudio(_ audioData: CharacterAllData) {
         showLottieLoader()
         if let url = URL(string: audioData.image) {
-            coverImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder")) { [weak self] _, _, _, _ in
+            audioImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder")) { [weak self] _, _, _, _ in
                 self?.hideLottieLoader()
             }
         }

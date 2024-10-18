@@ -1769,10 +1769,10 @@
                         <outlet property="audioCharacterHeightConstraint" destination="v2B-HN-RPp" id="zK2-4X-Oxh"/>
                         <outlet property="audioCustomCollectionView" destination="j51-wl-5vy" id="9p7-R2-RLh"/>
                         <outlet property="audioCustomHeightConstraint" destination="hxV-2r-Dga" id="zAU-Vk-Nvx"/>
+                        <outlet property="audioImageView" destination="fMq-2M-lcK" id="W0w-qO-7Cs"/>
                         <outlet property="blureEffect" destination="fYw-iB-g5q" id="rpa-7r-bPd"/>
                         <outlet property="bottomScrollView" destination="ez1-jI-q8a" id="ekj-qX-qXO"/>
                         <outlet property="bottomView" destination="jtG-Cl-NAI" id="ei3-cg-ESa"/>
-                        <outlet property="coverImageView" destination="fMq-2M-lcK" id="W0w-qO-7Cs"/>
                         <outlet property="coverImageViewHeightConstraint" destination="Lin-q3-PF9" id="IUk-Ah-t1O"/>
                         <outlet property="coverImageViewWidthConstraint" destination="1ge-cp-cx4" id="elN-Gc-7Ii"/>
                         <outlet property="favouriteButton" destination="B1J-ff-ajv" id="lYz-2u-6sf"/>

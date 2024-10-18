@@ -152,7 +152,7 @@ class AudioCharacterAllViewController: UIViewController {
             noDataView.isHidden = true
             checkInternetAndFetchData()
         } else {
-            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: UIColor(hexString: "#322F35"))
+            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: .snackbar)
             snackbar.show(in: self.view, duration: 3.0)
         }
     }

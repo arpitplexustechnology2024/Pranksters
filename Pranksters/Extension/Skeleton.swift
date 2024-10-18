@@ -31,20 +31,15 @@ class SkeletonCollectionViewCell: UICollectionViewCell {
     
     private func setupSkeleton() {
         
-        skeletonBackgroundView.backgroundColor = UIColor { traitCollection in
-            traitCollection.userInterfaceStyle == .dark ? UIColor.moreApp.withAlphaComponent(0.9) : UIColor.moreApp.withAlphaComponent(0.9)
-        }
+        skeletonBackgroundView.backgroundColor = UIColor.white.withAlphaComponent(0.9)
         skeletonBackgroundView.layer.cornerRadius = 16
         skeletonBackgroundView.clipsToBounds = true
         
-        skeletonBackgroundView.layer.shadowColor = UIColor { traitCollection in
-            traitCollection.userInterfaceStyle == .dark ? UIColor.white : UIColor.black
-        }.cgColor
+        skeletonBackgroundView.layer.shadowColor = UIColor.black.cgColor
         skeletonBackgroundView.layer.shadowOpacity = 0.2
         skeletonBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 2)
         skeletonBackgroundView.layer.shadowRadius = 4.0
         skeletonBackgroundView.layer.masksToBounds = false
-        
         contentView.addSubview(skeletonBackgroundView)
         
         ImageView.backgroundColor = UIColor.systemGray4.withAlphaComponent(0.5)
@@ -67,7 +62,6 @@ class SkeletonCollectionViewCell: UICollectionViewCell {
         buttonImageView.layer.cornerRadius = 20
         contentView.addSubview(buttonImageView)
         
-        // Constraints setup for all views
         skeletonBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             skeletonBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -154,6 +148,7 @@ class SkeletonCollectionViewCell: UICollectionViewCell {
     }
 }
 
+
 class SkeletonBoxCollectionViewCell: UICollectionViewCell {
     
     private let largeImageView = UIView()
@@ -171,13 +166,11 @@ class SkeletonBoxCollectionViewCell: UICollectionViewCell {
     
     private func setupSkeleton() {
         
-        // Setup the large image view
         largeImageView.backgroundColor = UIColor.systemGray4.withAlphaComponent(0.5)
         largeImageView.clipsToBounds = true
         largeImageView.layer.cornerRadius = 16
         contentView.addSubview(largeImageView)
         
-        // Layout constraints for large image view
         largeImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             largeImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
