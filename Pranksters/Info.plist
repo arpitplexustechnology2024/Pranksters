@@ -2,8 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>This app requires Microphone access to take audio for custom audio.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>We need access to microphone for audio recording</string>
+    <key>NSAppleMusicUsageDescription</key>
+    <string>We need access to your media library to play audio files</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app requires camera access to take photos for custom cover images.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

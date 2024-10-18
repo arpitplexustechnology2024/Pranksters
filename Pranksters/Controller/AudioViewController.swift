@@ -12,6 +12,11 @@ import Lottie
 import AVFoundation
 import MobileCoreServices
 
+struct CustomAudio: Codable {
+    let fileName: String
+    let imageFileName: String
+}
+
 class AudioViewController: UIViewController {
     
     @IBOutlet weak var navigationbarView: UIView!
@@ -26,6 +31,7 @@ class AudioViewController: UIViewController {
     @IBOutlet weak var songProgress: UISlider!
     @IBOutlet weak var songMinit: UILabel!
     @IBOutlet weak var songName: UILabel!
+    @IBOutlet weak var blureEffect: UIVisualEffectView!
     @IBOutlet weak var audioCustomCollectionView: UICollectionView!
     @IBOutlet weak var audioCharacterCollectionView: UICollectionView!
     @IBOutlet weak var lottieLoader: LottieAnimationView!
@@ -35,8 +41,22 @@ class AudioViewController: UIViewController {
     @IBOutlet weak var audioCustomHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var audioCharacterHeightConstraint: NSLayoutConstraint!
     
+    private var nextImageIndex = 0
+    private let defaultImages = ["MusicAudio01", "MusicAudio02", "MusicAudio03", "MusicAudio04", "MusicAudio05"]
+    
     let plusImage = UIImage(named: "Plus")
     let cancelImage = UIImage(named: "Cancel")
+    
+    private var audioPlayer: AVAudioPlayer?
+    private var timer: Timer?
+    private var isPlaying = false
+    private var selectedAudioIndex: Int?
+    
+    private var customAudios: [(url: URL, image: UIImage?)] = [] {
+        didSet {
+            saveCustomAudiosToUserDefaults()
+        }
+    }
     
     private var viewModel: CharacterViewModel!
     var isLoading = true
@@ -60,19 +80,25 @@ class AudioViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        audioPlayer?.stop()
+        timer?.invalidate()
+        timer = nil
         self.revealViewController()?.gestureEnabled = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupSlider()
         setupViewModel()
         setupNoDataView()
+        setupAudioSession()
         setupLottieLoader()
         showSkeletonLoader()
         setupNoInternetView()
         setupFloatingButtons()
         checkInternetAndFetchData()
+        loadCustomAudiosFromUserDefaults()
         addBottomShadow(to: navigationbarView)
     }
     
@@ -99,31 +125,29 @@ class AudioViewController: UIViewController {
         floatingButton.layer.cornerRadius = 19
         coverImageView.layer.cornerRadius = 8
         AudioShowView.layer.cornerRadius = 8
+        blureEffect.layer.cornerRadius = 8
+        blureEffect.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        blureEffect.layer.masksToBounds = true
         self.audioCharacterCollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
-        // CollectionView Delegate, DataSource
         audioCustomCollectionView.delegate = self
         audioCustomCollectionView.dataSource = self
         audioCharacterCollectionView.delegate = self
         audioCharacterCollectionView.dataSource = self
         
         if UIDevice.current.userInterfaceIdiom == .pad {
-            // Set heights for iPad
             coverImageViewHeightConstraint.constant = 280
             coverImageViewWidthConstraint.constant = 245
             scrollViewHeightConstraint.constant = 680
             audioCustomHeightConstraint.constant = 180
             audioCharacterHeightConstraint.constant = 360
         } else {
-            // Set heights for iPhone
             coverImageViewHeightConstraint.constant = 240
             coverImageViewWidthConstraint.constant = 205
             scrollViewHeightConstraint.constant = 530
             audioCustomHeightConstraint.constant = 140
             audioCharacterHeightConstraint.constant = 280
         }
-        
         self.view.layoutIfNeeded()
-        
     }
     
     func setupViewModel() {
@@ -321,14 +345,23 @@ class AudioViewController: UIViewController {
     }
     
     @IBAction func playPauseButtonTapped(_ sender: UIButton) {
-        
+        if let player = audioPlayer {
+            if player.isPlaying {
+                player.pause()
+                playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            } else {
+                player.play()
+                playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            }
+            isPlaying = player.isPlaying
+        }
     }
 }
 
 extension AudioViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == audioCustomCollectionView {
-            return 1
+            return 1 + customAudios.count
         } else if collectionView == audioCharacterCollectionView {
             return isLoading ? 6 : viewModel.characters.count
         }
@@ -344,6 +377,8 @@ extension AudioViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AudioCustomCollectionCell", for: indexPath) as! AudioCustomCollectionCell
+                let audioData = customAudios[indexPath.item - 1]
+                cell.imageView.image = audioData.image ?? getNextDefaultImage()
                 return cell
             }
         } else if collectionView == audioCharacterCollectionView {
@@ -367,6 +402,19 @@ extension AudioViewController: UICollectionViewDelegate, UICollectionViewDataSou
         if collectionView == audioCustomCollectionView {
             if indexPath.item == 0 {
                 showAudioOptionsActionSheet(sourceView: collectionView.cellForItem(at: indexPath)!)
+            } else {
+                let audioData = customAudios[indexPath.item - 1]
+                selectedAudioIndex = indexPath.item - 1
+                if let player = audioPlayer, player.isPlaying {
+                    player.stop()
+                    timer?.invalidate()
+                }
+                coverImageView.image = audioData.image
+                setupAudioPlayer(with: audioData.url)
+                audioPlayer?.play()
+                isPlaying = true
+                playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+                setupTimer()
             }
         } else if collectionView == audioCharacterCollectionView {
             let character = viewModel.characters[indexPath.item]
@@ -404,7 +452,7 @@ extension AudioViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
         
         let mediaPlayerAction = UIAlertAction(title: "Media player", style: .default) { [weak self] _ in
-            // Handle media player action
+            self?.openMediaPicker()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -420,5 +468,160 @@ extension AudioViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
         
         present(alertController, animated: true)
+    }
+}
+
+extension AudioViewController {
+    private func saveCustomAudiosToUserDefaults() {
+        let audioData = customAudios.map { audio -> CustomAudio in
+            let fileName = audio.url.lastPathComponent
+            let imageFileName = audio.image?.accessibilityIdentifier ?? defaultImages[0]
+            return CustomAudio(fileName: fileName, imageFileName: imageFileName)
+        }
+        
+        if let encoded = try? JSONEncoder().encode(audioData) {
+            UserDefaults.standard.set(encoded, forKey: "SavedCustomAudios")
+        }
+    }
+    
+    private func loadCustomAudiosFromUserDefaults() {
+        guard let data = UserDefaults.standard.data(forKey: "SavedCustomAudios"),
+              let savedAudios = try? JSONDecoder().decode([CustomAudio].self, from: data) else {
+            return
+        }
+        
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        customAudios = savedAudios.compactMap { savedAudio in
+            let audioUrl = documentsDirectory.appendingPathComponent(savedAudio.fileName)
+            if FileManager.default.fileExists(atPath: audioUrl.path) {
+                let image = UIImage(named: savedAudio.imageFileName)
+                image?.accessibilityIdentifier = savedAudio.imageFileName
+                return (url: audioUrl, image: image)
+            } else {
+                print("File not found: \(audioUrl.path)")
+                return nil
+            }
+        }
+        
+        DispatchQueue.main.async {
+            self.audioCustomCollectionView.reloadData()
+        }
+    }
+    
+    private func getNextDefaultImage() -> UIImage? {
+        let imageName = defaultImages[nextImageIndex]
+        nextImageIndex = (nextImageIndex + 1) % defaultImages.count
+        let image = UIImage(named: imageName)
+        image?.accessibilityIdentifier = imageName
+        return image
+    }
+    
+    private func setupSlider() {
+        songProgress.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+    }
+    
+    @objc private func sliderValueChanged(_ slider: UISlider) {
+        audioPlayer?.currentTime = TimeInterval(slider.value)
+        updateSongDuration()
+    }
+    
+    private func setupAudioSession() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("Failed to setup audio session: \(error)")
+        }
+    }
+    
+    private func openMediaPicker() {
+        let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.audio"], in: .import)
+        documentPicker.delegate = self
+        documentPicker.allowsMultipleSelection = false
+        present(documentPicker, animated: true)
+    }
+    
+    private func setupAudioPlayer(with url: URL) {
+        do {
+            if let player = audioPlayer, player.isPlaying {
+                player.stop()
+            }
+            
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.delegate = self
+            audioPlayer?.prepareToPlay()
+            songName.text = url.lastPathComponent
+            songProgress.maximumValue = Float(audioPlayer?.duration ?? 0)
+            songProgress.value = 0
+            audioPlayer?.play()
+            isPlaying = true
+            playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            
+            updateSongDuration()
+            setupTimer()
+        } catch {
+            print("Error setting up audio player: \(error)")
+        }
+    }
+    
+    private func setupTimer() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
+            self?.updateSongProgress()
+        }
+    }
+    
+    private func updateSongProgress() {
+        guard let player = audioPlayer else { return }
+        songProgress.value = Float(player.currentTime)
+        updateSongDuration()
+    }
+    
+    private func updateSongDuration() {
+        let currentTime = Int(audioPlayer?.currentTime ?? 0)
+        let duration = Int(audioPlayer?.duration ?? 0)
+        songMinit.text = "\(timeString(from: duration))"
+    }
+    
+    private func timeString(from timeInterval: Int) -> String {
+        let minutes = timeInterval / 60
+        let seconds = timeInterval % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+}
+
+//MARK: - Add Document Picker Delegate
+extension AudioViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let selectedURL = urls.first else { return }
+        
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let destinationURL = documentsDirectory.appendingPathComponent(selectedURL.lastPathComponent)
+        
+        do {
+            if FileManager.default.fileExists(atPath: destinationURL.path) {
+                try FileManager.default.removeItem(at: destinationURL)
+            }
+            try FileManager.default.copyItem(at: selectedURL, to: destinationURL)
+            let defaultImage = getNextDefaultImage()
+            customAudios.insert((url: destinationURL, image: defaultImage), at: 0)
+            DispatchQueue.main.async {
+                self.audioCustomCollectionView.reloadData()
+            }
+        } catch {
+            print("Error copying file: \(error)")
+        }
+    }
+}
+
+//MARK: - Add Audio Player Delegate
+extension AudioViewController: AVAudioPlayerDelegate {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        isPlaying = false
+        playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        timer?.invalidate()
+        songProgress.value = 0
+        updateSongDuration()
     }
 }

@@ -1490,10 +1490,10 @@
                                                                         </imageView>
                                                                     </subviews>
                                                                     <constraints>
-                                                                        <constraint firstItem="ISP-cH-S9A" firstAttribute="top" secondItem="H6b-Iv-3cV" secondAttribute="top" id="Izf-uM-8UQ"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="ISP-cH-S9A" secondAttribute="trailing" id="NYv-IE-1fe"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="ISP-cH-S9A" secondAttribute="bottom" id="Phc-Id-QXr"/>
-                                                                        <constraint firstItem="ISP-cH-S9A" firstAttribute="leading" secondItem="H6b-Iv-3cV" secondAttribute="leading" id="oh5-WP-WWP"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="ISP-cH-S9A" secondAttribute="trailing" id="RZu-vb-0WF"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="ISP-cH-S9A" secondAttribute="bottom" id="tlD-Ad-Nea"/>
+                                                                        <constraint firstItem="ISP-cH-S9A" firstAttribute="leading" secondItem="H6b-Iv-3cV" secondAttribute="leading" id="y3V-Eq-POm"/>
+                                                                        <constraint firstItem="ISP-cH-S9A" firstAttribute="top" secondItem="H6b-Iv-3cV" secondAttribute="top" id="yY2-eB-chr"/>
                                                                     </constraints>
                                                                 </collectionViewCellContentView>
                                                                 <connections>
@@ -1679,10 +1679,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="leX-Vj-2pP">
-                                                    <rect key="frame" x="8" y="35" width="15" height="15"/>
+                                                    <rect key="frame" x="8" y="30" width="20" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="15" id="0PK-bc-Kwy"/>
-                                                        <constraint firstAttribute="height" constant="15" id="Jqt-Ag-Z7a"/>
+                                                        <constraint firstAttribute="width" constant="20" id="0PK-bc-Kwy"/>
+                                                        <constraint firstAttribute="height" constant="20" id="Jqt-Ag-Z7a"/>
                                                     </constraints>
                                                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -1700,7 +1700,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="dC6-cd-Rwd">
-                                                    <rect key="frame" x="28.999999999999986" y="26" width="142.33333333333331" height="31"/>
+                                                    <rect key="frame" x="33.999999999999986" y="26" width="137.33333333333331" height="31"/>
                                                     <color key="minimumTrackTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="maximumTrackTintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="thumbTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1769,6 +1769,7 @@
                         <outlet property="audioCharacterHeightConstraint" destination="v2B-HN-RPp" id="zK2-4X-Oxh"/>
                         <outlet property="audioCustomCollectionView" destination="j51-wl-5vy" id="9p7-R2-RLh"/>
                         <outlet property="audioCustomHeightConstraint" destination="hxV-2r-Dga" id="zAU-Vk-Nvx"/>
+                        <outlet property="blureEffect" destination="fYw-iB-g5q" id="rpa-7r-bPd"/>
                         <outlet property="bottomScrollView" destination="ez1-jI-q8a" id="ekj-qX-qXO"/>
                         <outlet property="bottomView" destination="jtG-Cl-NAI" id="ei3-cg-ESa"/>
                         <outlet property="coverImageView" destination="fMq-2M-lcK" id="W0w-qO-7Cs"/>
@@ -1790,7 +1791,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HTx-mU-UUX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7501" y="-32"/>
+            <point key="canvasLocation" x="7500" y="-32.265446224256287"/>
         </scene>
         <!--Cover View Controller-->
         <scene sceneID="m7c-Jh-SPu">
