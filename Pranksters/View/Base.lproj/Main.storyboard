@@ -1689,6 +1689,9 @@
                                                     <state key="normal" image="play.fill" catalog="system">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="playPauseButtonTapped:" destination="cft-xI-6kg" eventType="touchUpInside" id="nHp-5f-v5g"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X5K-XY-IvV">
                                                     <rect key="frame" x="177.33333333333331" y="36.333333333333314" width="19.666666666666657" height="13.666666666666664"/>
@@ -1778,6 +1781,7 @@
                         <outlet property="playPauseButton" destination="leX-Vj-2pP" id="23c-JJ-kYC"/>
                         <outlet property="scrollViewHeightConstraint" destination="cpS-ca-VSj" id="GDa-pf-Vkv"/>
                         <outlet property="songMinit" destination="X5K-XY-IvV" id="wJW-m5-6qS"/>
+                        <outlet property="songName" destination="o5m-li-8NC" id="E8W-FA-RKg"/>
                         <outlet property="songProgress" destination="dC6-cd-Rwd" id="fQU-ml-dKt"/>
                         <outletCollection property="floatingCollectionButton" destination="m0I-pY-fml" collectionClass="NSMutableArray" id="uHR-Zo-Hhi"/>
                         <outletCollection property="floatingCollectionButton" destination="N8N-mX-Hp4" collectionClass="NSMutableArray" id="D15-Ho-oEZ"/>

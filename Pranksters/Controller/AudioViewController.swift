@@ -9,6 +9,8 @@ import UIKit
 import Alamofire
 import SDWebImage
 import Lottie
+import AVFoundation
+import MobileCoreServices
 
 class AudioViewController: UIViewController {
     
@@ -23,6 +25,7 @@ class AudioViewController: UIViewController {
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var songProgress: UISlider!
     @IBOutlet weak var songMinit: UILabel!
+    @IBOutlet weak var songName: UILabel!
     @IBOutlet weak var audioCustomCollectionView: UICollectionView!
     @IBOutlet weak var audioCharacterCollectionView: UICollectionView!
     @IBOutlet weak var lottieLoader: LottieAnimationView!
@@ -136,7 +139,7 @@ class AudioViewController: UIViewController {
         viewModel.onError = { error in
             self.hideSkeletonLoader()
             self.noDataView.isHidden = false
-            print("Error fetching Character: \(error)")
+            print("Error fetching cover pages: \(error)")
         }
     }
     
@@ -316,6 +319,10 @@ class AudioViewController: UIViewController {
     @IBAction func btnFavouriteSetTapped(_ sender: UIButton) {
         
     }
+    
+    @IBAction func playPauseButtonTapped(_ sender: UIButton) {
+        
+    }
 }
 
 extension AudioViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -357,7 +364,11 @@ extension AudioViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == audioCharacterCollectionView {
+        if collectionView == audioCustomCollectionView {
+            if indexPath.item == 0 {
+                showAudioOptionsActionSheet(sourceView: collectionView.cellForItem(at: indexPath)!)
+            }
+        } else if collectionView == audioCharacterCollectionView {
             let character = viewModel.characters[indexPath.item]
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "AudioCharacterAllViewController") as! AudioCharacterAllViewController
             vc.characterId = character.characterID
@@ -378,5 +389,36 @@ extension AudioViewController: UICollectionViewDelegate, UICollectionViewDataSou
             return CGSize(width: width, height: height)
         }
         return CGSize(width: width, height: height)
+    }
+    
+    private func showAudioOptionsActionSheet(sourceView: UIView) {
+        let titleString = NSAttributedString(string: "Select Audio", attributes: [
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)
+        ])
+        
+        let alertController = UIAlertController(title: "", message: nil, preferredStyle: .actionSheet)
+        alertController.setValue(titleString, forKey: "attributedTitle")
+        
+        let recorderAction = UIAlertAction(title: "Recorder", style: .default) { [weak self] _ in
+            // Handle recorder action
+        }
+        
+        let mediaPlayerAction = UIAlertAction(title: "Media player", style: .default) { [weak self] _ in
+            // Handle media player action
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        cancelAction.setValue(UIColor.black, forKey: "titleTextColor")
+        
+        alertController.addAction(recorderAction)
+        alertController.addAction(mediaPlayerAction)
+        alertController.addAction(cancelAction)
+        
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = sourceView
+            popoverController.sourceRect = sourceView.bounds
+        }
+        
+        present(alertController, animated: true)
     }
 }
