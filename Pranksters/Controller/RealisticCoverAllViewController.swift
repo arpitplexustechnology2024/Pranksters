@@ -11,39 +11,15 @@ import Alamofire
 class RealisticCoverAllViewController: UIViewController, CoverPreviewViewControllerDelegate {
     
     @IBOutlet weak var navigationbarView: UIView!
-    
     @IBOutlet weak var realisticCoverAllCollectionView: UICollectionView!
     
     private let viewModel = RealisticViewModel()
     private let favoriteViewModel = FavoriteViewModel()
     private var noDataView: NoDataView!
     private var noInternetView: NoInternetView!
-    
     weak var coverViewControllerDelegate: CoverPreviewViewControllerDelegate?
-    
     var isLoading = true
-    
     private let categoryId: Int = 4
-    
-    func checkInternetAndFetchData() {
-        if isConnectedToInternet() {
-            fetchAllCoverPages()
-            self.noInternetView?.isHidden = true
-        } else {
-            self.showNoInternetView()
-            self.hideSkeletonLoader()
-        }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupCollectionView()
-        checkInternetAndFetchData()
-        addBottomShadow(to: navigationbarView)
-        showSkeletonLoader()
-        
-        self.realisticCoverAllCollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -55,16 +31,35 @@ class RealisticCoverAllViewController: UIViewController, CoverPreviewViewControl
         self.revealViewController()?.gestureEnabled = true
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupNoDataView()
+        showSkeletonLoader()
+        setupCollectionView()
+        setupNoInternetView()
+        checkInternetAndFetchData()
+        addBottomShadow(to: navigationbarView)
+        self.realisticCoverAllCollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
+    }
+    
+    func checkInternetAndFetchData() {
+        if isConnectedToInternet() {
+            fetchAllCoverPages()
+            self.noInternetView?.isHidden = true
+            self.hideNoDataView()
+        } else {
+            self.showNoInternetView()
+            self.hideSkeletonLoader()
+        }
+    }
+    
     func addBottomShadow(to view: UIView) {
         view.layer.masksToBounds = false
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.2
         view.layer.shadowOffset = CGSize(width: 0, height: 7)
         view.layer.shadowRadius = 12
-        view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
-                                                          y: view.bounds.maxY - 4,
-                                                          width: view.bounds.width,
-                                                          height: 4)).cgPath
+        view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: view.bounds.maxY - 4, width: view.bounds.width, height: 4)).cgPath
     }
     
     private func setupCollectionView() {
@@ -81,14 +76,28 @@ class RealisticCoverAllViewController: UIViewController, CoverPreviewViewControl
         viewModel.fetchRealisticCoverPages { [weak self] success in
             guard let self = self else { return }
             if success {
-                self.hideSkeletonLoader()
-                self.realisticCoverAllCollectionView.reloadData()
+                if self.viewModel.realisticCoverPages.isEmpty {
+                    self.hideSkeletonLoader()
+                    self.showNoDataView()
+                } else {
+                    self.hideSkeletonLoader()
+                    self.hideNoDataView()
+                    self.realisticCoverAllCollectionView.reloadData()
+                }
             } else if let errorMessage = self.viewModel.errorMessage {
                 self.hideSkeletonLoader()
                 self.noDataView.isHidden = false
                 print("Error fetching all cover pages: \(errorMessage)")
             }
         }
+    }
+    
+    private func showNoDataView() {
+        noDataView?.isHidden = false
+    }
+    
+    private func hideNoDataView() {
+        noDataView?.isHidden = true
     }
     
     func showSkeletonLoader() {
@@ -102,9 +111,7 @@ class RealisticCoverAllViewController: UIViewController, CoverPreviewViewControl
     }
     
     @IBAction func btnBackTapped(_ sender: UIButton) {
-        
         self.navigationController?.popViewController(animated: true)
-        
     }
     
     private func setupNoDataView() {
@@ -140,10 +147,10 @@ class RealisticCoverAllViewController: UIViewController, CoverPreviewViewControl
     @objc func retryButtonTapped() {
         if isConnectedToInternet() {
             noInternetView.isHidden = true
-            noDataView.isHidden = true
+            hideNoDataView()
             checkInternetAndFetchData()
         } else {
-            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: UIColor(hexString: "#322F35"))
+            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: .snackbar)
             snackbar.show(in: self.view, duration: 3.0)
         }
     }
@@ -156,7 +163,6 @@ class RealisticCoverAllViewController: UIViewController, CoverPreviewViewControl
         let networkManager = NetworkReachabilityManager()
         return networkManager?.isReachable ?? false
     }
-    
 }
 
 extension RealisticCoverAllViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

@@ -738,19 +738,19 @@ extension AudioViewController: UIDocumentPickerDelegate {
         }
     }
 }
-    
-    
-    //MARK: - Add Audio Player Delegate
-    extension AudioViewController: AVAudioPlayerDelegate {
-        func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.isPlaying = false
-                self.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-                self.timer?.invalidate()
-                self.songProgress.value = Float(player.duration)
-                self.songProgress.value = 0
-                self.updateSongDuration()
-            }
+
+
+//MARK: - Add Audio Player Delegate
+extension AudioViewController: AVAudioPlayerDelegate {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.isPlaying = false
+            self.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            self.timer?.invalidate()
+            self.songProgress.value = Float(player.duration)
+            self.songProgress.value = 0
+            self.updateSongDuration()
         }
     }
+}

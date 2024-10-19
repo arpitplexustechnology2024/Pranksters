@@ -32,6 +32,12 @@
 		BD3094672CC1BD0000753247 /* CharacterAllViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3094662CC1BD0000753247 /* CharacterAllViewModel.swift */; };
 		BD3568E92CC2DEA400A72F73 /* AudioPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3568E82CC2DEA400A72F73 /* AudioPreviewViewController.swift */; };
 		BD3568EB2CC2DF3800A72F73 /* AudioCardPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3568EA2CC2DF3800A72F73 /* AudioCardPreview.swift */; };
+		BD3568ED2CC3372900A72F73 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3568EC2CC3372900A72F73 /* VideoViewController.swift */; };
+		BD3568EF2CC3374C00A72F73 /* VideoCharacterAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3568EE2CC3374C00A72F73 /* VideoCharacterAllViewController.swift */; };
+		BD3568F12CC3378900A72F73 /* VideoPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3568F02CC3378900A72F73 /* VideoPreviewViewController.swift */; };
+		BD3568F32CC3382B00A72F73 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3568F22CC3382B00A72F73 /* ImageViewController.swift */; };
+		BD3568F52CC3383600A72F73 /* ImageCharacterAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3568F42CC3383600A72F73 /* ImageCharacterAllViewController.swift */; };
+		BD3568F72CC3384000A72F73 /* ImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3568F62CC3384000A72F73 /* ImagePreviewViewController.swift */; };
 		BD487C912CBF161E00874560 /* CoverPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD487C902CBF161E00874560 /* CoverPreviewViewController.swift */; };
 		BD487C932CBF1AD500874560 /* CoverCardPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD487C922CBF1AD500874560 /* CoverCardPreview.swift */; };
 		BD6B5CEB2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */; };
@@ -127,6 +133,12 @@
 		BD3094662CC1BD0000753247 /* CharacterAllViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterAllViewModel.swift; sourceTree = "<group>"; };
 		BD3568E82CC2DEA400A72F73 /* AudioPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPreviewViewController.swift; sourceTree = "<group>"; };
 		BD3568EA2CC2DF3800A72F73 /* AudioCardPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCardPreview.swift; sourceTree = "<group>"; };
+		BD3568EC2CC3372900A72F73 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		BD3568EE2CC3374C00A72F73 /* VideoCharacterAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCharacterAllViewController.swift; sourceTree = "<group>"; };
+		BD3568F02CC3378900A72F73 /* VideoPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewViewController.swift; sourceTree = "<group>"; };
+		BD3568F22CC3382B00A72F73 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		BD3568F42CC3383600A72F73 /* ImageCharacterAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCharacterAllViewController.swift; sourceTree = "<group>"; };
+		BD3568F62CC3384000A72F73 /* ImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewViewController.swift; sourceTree = "<group>"; };
 		BD487C902CBF161E00874560 /* CoverPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverPreviewViewController.swift; sourceTree = "<group>"; };
 		BD487C922CBF1AD500874560 /* CoverCardPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverCardPreview.swift; sourceTree = "<group>"; };
 		BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealisticCoverAllViewController.swift; sourceTree = "<group>"; };
@@ -329,6 +341,12 @@
 				BDB28ADB2CC09FAA000E7C46 /* AudioViewController.swift */,
 				BD30945E2CC1A1E900753247 /* AudioCharacterAllViewController.swift */,
 				BD3568E82CC2DEA400A72F73 /* AudioPreviewViewController.swift */,
+				BD3568EC2CC3372900A72F73 /* VideoViewController.swift */,
+				BD3568EE2CC3374C00A72F73 /* VideoCharacterAllViewController.swift */,
+				BD3568F02CC3378900A72F73 /* VideoPreviewViewController.swift */,
+				BD3568F22CC3382B00A72F73 /* ImageViewController.swift */,
+				BD3568F42CC3383600A72F73 /* ImageCharacterAllViewController.swift */,
+				BD3568F62CC3384000A72F73 /* ImagePreviewViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -667,6 +685,7 @@
 				BDD883AC2CB86790004C6908 /* EmojiCoverAllViewController.swift in Sources */,
 				BDA87EDC2CB5EEC100C25C50 /* NoInternetView.swift in Sources */,
 				BDA87EB62CB5AC3B00C25C50 /* Model.swift in Sources */,
+				BD3568F32CC3382B00A72F73 /* ImageViewController.swift in Sources */,
 				BDA87EC92CB5C12900C25C50 /* ViewLinkViewController.swift in Sources */,
 				BDA87ED22CB5E90500C25C50 /* MoreAppAPI.swift in Sources */,
 				BDC578DA2CBDA0F400811602 /* Snackbar.swift in Sources */,
@@ -688,7 +707,10 @@
 				BDD883A82CB85903004C6908 /* CoverPageAPI.swift in Sources */,
 				BDA87ED02CB5C16400C25C50 /* MainViewController.swift in Sources */,
 				BD804D652CC176B30048FF70 /* CharacterViewModel.swift in Sources */,
+				BD3568F72CC3384000A72F73 /* ImagePreviewViewController.swift in Sources */,
+				BD3568F12CC3378900A72F73 /* VideoPreviewViewController.swift in Sources */,
 				BD30945F2CC1A1E900753247 /* AudioCharacterAllViewController.swift in Sources */,
+				BD3568EF2CC3374C00A72F73 /* VideoCharacterAllViewController.swift in Sources */,
 				BDACA25D2CB7375E00B3C2E2 /* CoverViewController.swift in Sources */,
 				BDC578E02CBDCB1300811602 /* FavouriteViewModel.swift in Sources */,
 				BD7D62CF2CB7593800439C11 /* RegistrationAPI.swift in Sources */,
@@ -704,6 +726,8 @@
 				BDA87EB32CB5AB2E00C25C50 /* SideMenuViewController.swift in Sources */,
 				BD3094652CC1BCE900753247 /* CharacterAllAPI.swift in Sources */,
 				BD6B5CED2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift in Sources */,
+				BD3568F52CC3383600A72F73 /* ImageCharacterAllViewController.swift in Sources */,
+				BD3568ED2CC3372900A72F73 /* VideoViewController.swift in Sources */,
 				BD487C912CBF161E00874560 /* CoverPreviewViewController.swift in Sources */,
 				BD6B5CEF2CB9FF4B00E768ED /* CustomCoverAllViewController.swift in Sources */,
 				BD19D0A22CC0664A00F04C35 /* NoInternetBottombarView.swift in Sources */,

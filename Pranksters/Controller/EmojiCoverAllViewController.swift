@@ -18,29 +18,9 @@ class EmojiCoverAllViewController: UIViewController, CoverPreviewViewControllerD
     private let viewModel = EmojiViewModel()
     private let favoriteViewModel = FavoriteViewModel()
     var isLoading = true
-    
     private let categoryId: Int = 4
-    
     weak var coverViewControllerDelegate: CoverPreviewViewControllerDelegate?
     
-    func checkInternetAndFetchData() {
-        if isConnectedToInternet() {
-            fetchAllCoverPages()
-            self.noInternetView?.isHidden = true
-        } else {
-            self.showNoInternetView()
-            self.hideSkeletonLoader()
-        }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupCollectionView()
-        checkInternetAndFetchData()
-        showSkeletonLoader()
-        addBottomShadow(to: navigationbarView)
-        self.emojiCoverAllCollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -52,16 +32,35 @@ class EmojiCoverAllViewController: UIViewController, CoverPreviewViewControllerD
         self.revealViewController()?.gestureEnabled = true
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupNoDataView()
+        showSkeletonLoader()
+        setupNoInternetView()
+        setupCollectionView()
+        checkInternetAndFetchData()
+        addBottomShadow(to: navigationbarView)
+        self.emojiCoverAllCollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
+    }
+    
+    func checkInternetAndFetchData() {
+        if isConnectedToInternet() {
+            fetchAllCoverPages()
+            self.noInternetView?.isHidden = true
+            self.hideNoDataView()
+        } else {
+            self.showNoInternetView()
+            self.hideSkeletonLoader()
+        }
+    }
+    
     func addBottomShadow(to view: UIView) {
         view.layer.masksToBounds = false
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.2
         view.layer.shadowOffset = CGSize(width: 0, height: 7)
         view.layer.shadowRadius = 12
-        view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
-                                                          y: view.bounds.maxY - 4,
-                                                          width: view.bounds.width,
-                                                          height: 4)).cgPath
+        view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: view.bounds.maxY - 4, width: view.bounds.width, height: 4)).cgPath
     }
     
     private func setupCollectionView() {
@@ -78,14 +77,28 @@ class EmojiCoverAllViewController: UIViewController, CoverPreviewViewControllerD
         viewModel.fetchEmojiCoverPages { [weak self] success in
             guard let self = self else { return }
             if success {
-                self.hideSkeletonLoader()
-                self.emojiCoverAllCollectionView.reloadData()
+                if self.viewModel.emojiCoverPages.isEmpty {
+                    self.hideSkeletonLoader()
+                    self.showNoDataView()
+                } else {
+                    self.hideSkeletonLoader()
+                    self.hideNoDataView()
+                    self.emojiCoverAllCollectionView.reloadData()
+                }
             } else if let errorMessage = self.viewModel.errorMessage {
                 self.hideSkeletonLoader()
-                self.noDataView.isHidden = false
+                self.showNoDataView()
                 print("Error fetching all cover pages: \(errorMessage)")
             }
         }
+    }
+    
+    private func showNoDataView() {
+        noDataView?.isHidden = false
+    }
+    
+    private func hideNoDataView() {
+        noDataView?.isHidden = true
     }
     
     func showSkeletonLoader() {
@@ -135,10 +148,10 @@ class EmojiCoverAllViewController: UIViewController, CoverPreviewViewControllerD
     @objc func retryButtonTapped() {
         if isConnectedToInternet() {
             noInternetView.isHidden = true
-            noDataView.isHidden = true
+            hideNoDataView()
             checkInternetAndFetchData()
         } else {
-            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: UIColor(hexString: "#322F35"))
+            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: .snackbar)
             snackbar.show(in: self.view, duration: 3.0)
         }
     }
@@ -151,7 +164,6 @@ class EmojiCoverAllViewController: UIViewController, CoverPreviewViewControllerD
         let networkManager = NetworkReachabilityManager()
         return networkManager?.isReachable ?? false
     }
-    
 }
 
 extension EmojiCoverAllViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -174,7 +186,7 @@ extension EmojiCoverAllViewController: UICollectionViewDelegate, UICollectionVie
             return cell
         }
     }
-                                     
+    
     private func handleFavoriteButtonTapped(for coverPageData: CoverPageData, isFavorite: Bool) {
         favoriteViewModel.setFavorite(itemId: coverPageData.itemID, isFavorite: isFavorite, categoryId: categoryId) { [weak self] success, message in
             guard let self = self else { return }
