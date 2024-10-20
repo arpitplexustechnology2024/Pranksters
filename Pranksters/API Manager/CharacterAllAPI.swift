@@ -9,13 +9,13 @@ import Alamofire
 import UIKit
 
 // MARK: - Audio API Protocol
-protocol AudioAPIServiceProtocol {
+protocol ChracterAllAPIServiceProtocol {
     func fetchAudioData(categoryId: Int, characterId: Int, completion: @escaping (Result<CharacterAllResponse, Error>) -> Void)
 }
 
 // MARK: - Audio API Service
-class AudioAPIService: AudioAPIServiceProtocol {
-    static let shared = AudioAPIService()
+class CharacterAllAPIService: ChracterAllAPIServiceProtocol {
+    static let shared = CharacterAllAPIService()
     private init() {}
     
     func fetchAudioData(categoryId: Int, characterId: Int, completion: @escaping (Result<CharacterAllResponse, Error>) -> Void) {
@@ -46,6 +46,7 @@ class AudioAPIService: AudioAPIServiceProtocol {
             case .success(let audioResponse):
                 completion(.success(audioResponse))
             case .failure(let error):
+                print("Error: \(error)")
                 completion(.failure(error))
             }
         }

@@ -20,7 +20,7 @@ class ImagePreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
     var initialIndex: Int = 0
     
     private var currentCardIndex: Int = 0
-    private var visibleCards: [CoverCardView] = []
+    private var visibleCards: [ImageCardPreview] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,11 +61,12 @@ class ImagePreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
         return imageData.count
     }
     
+    
     func cardStack(_ cardStack: SwipeCardStack, cardForIndexAt index: Int) -> SwipeCard {
-        let card = CoverCardView()
+        let card = ImageCardPreview()
         let coverPageData = imageData[index]
         
-        let cardModel = CardModel(imageURL: coverPageData.image, isFavorited: coverPageData.isFavorite, itemId: coverPageData.itemID, categoryId: 4, isPremium: coverPageData.premium)
+        let cardModel = ImageCardModel(name: coverPageData.name, image: coverPageData.image, isFavorited: coverPageData.isFavorite, itemId: coverPageData.itemID, categoryId: 3, Premium: coverPageData.premium)
         card.configure(withModel: cardModel)
         
         card.swipeDirections = [.left, .right]
@@ -115,10 +116,22 @@ class ImagePreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
             guard let self = self else { return }
             DispatchQueue.main.async {
                 if success {
-                    print(message ?? "")
                     if let index = self.imageData.firstIndex(where: { $0.itemID == itemId }) {
                         self.imageData[index].isFavorite = isFavorite
+                        
+                        if let visibleCard = self.visibleCards.first(where: { $0.model?.itemId == itemId }) {
+                            let updatedModel = ImageCardModel(
+                                name: self.imageData[index].name,
+                                image: self.imageData[index].image,
+                                isFavorited: isFavorite,
+                                itemId: itemId,
+                                categoryId: categoryId,
+                                Premium: self.imageData[index].premium
+                            )
+                            visibleCard.configure(withModel: updatedModel)
+                        }
                     }
+                    print(message ?? "Favorite status updated successfully")
                 } else {
                     print("Failed to update favorite status: \(message ?? "Unknown error")")
                     self.revertFavoriteStatus(for: itemId)
@@ -129,37 +142,47 @@ class ImagePreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
     
     private func revertFavoriteStatus(for itemId: Int) {
         if let index = imageData.firstIndex(where: { $0.itemID == itemId }) {
-            let coverPageData = imageData[index]
-            let updatedCardModel = CardModel(imageURL: coverPageData.image, isFavorited: !coverPageData.isFavorite, itemId: coverPageData.itemID, categoryId: 4, isPremium: coverPageData.premium)
+            let currentStatus = imageData[index].isFavorite
+            imageData[index].isFavorite = !currentStatus
             
             if let cardToUpdate = visibleCards.first(where: { $0.model?.itemId == itemId }) {
-                cardToUpdate.configure(withModel: updatedCardModel)
+                let updatedModel = ImageCardModel(
+                    name: imageData[index].name,
+                    image: imageData[index].image,
+                    isFavorited: !currentStatus,
+                    itemId: itemId,
+                    categoryId: 3,
+                    Premium: imageData[index].premium
+                )
+                cardToUpdate.configure(withModel: updatedModel)
             }
         }
     }
     
     @IBAction func btnSelectTapped(_ sender: UIButton) {
-        guard currentCardIndex < imageData.count else { return }
-        
-        let selectedCoverData = imageData[currentCardIndex]
-        
-        if selectedCoverData.premium {
-            presentPremiumViewController()
-        } else {
-            if let navigationController = self.presentingViewController as? UINavigationController {
-                self.dismiss(animated: false) {
-                    if let audioVC = navigationController.viewControllers.first(where: { $0 is ImageViewController }) as? ImageViewController {
-                        navigationController.popToViewController(audioVC, animated: true)
-                    } else {
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        if let audioVC = storyboard.instantiateViewController(withIdentifier: "ImageViewController") as? ImageViewController {
-                            navigationController.pushViewController(audioVC, animated: true)
+            guard currentCardIndex < imageData.count else { return }
+
+            let selectedCoverData = imageData[currentCardIndex]
+
+            if selectedCoverData.premium {
+                presentPremiumViewController()
+            } else {
+                if let navigationController = self.presentingViewController as? UINavigationController {
+                    self.dismiss(animated: false) {
+                        if let imageVC = navigationController.viewControllers.first(where: { $0 is ImageViewController }) as? ImageViewController {
+                            imageVC.updateSelectedImage(with: selectedCoverData)
+                            navigationController.popToViewController(imageVC, animated: true)
+                        } else {
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            if let imageVC = storyboard.instantiateViewController(withIdentifier: "ImageViewController") as? ImageViewController {
+                                imageVC.updateSelectedImage(with: selectedCoverData)
+                                navigationController.pushViewController(imageVC, animated: true)
+                            }
                         }
                     }
                 }
             }
         }
-    }
     
     private func presentPremiumViewController() {
         let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumViewController") as! PremiumViewController

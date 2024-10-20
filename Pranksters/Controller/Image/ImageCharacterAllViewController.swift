@@ -11,8 +11,8 @@ import Alamofire
 class ImageCharacterAllViewController: UIViewController {
     
     @IBOutlet weak var navigationbarView: UIView!
-    @IBOutlet weak var audioCharacterAllCollectionView: UICollectionView!
-    private var viewModel: AudioViewModel!
+    @IBOutlet weak var imageCharacterAllCollectionView: UICollectionView!
+    private var viewModel: CharacterAllViewModel!
     private var noDataView: NoDataView!
     private var noInternetView: NoInternetView!
     private let favoriteViewModel = FavoriteViewModel()
@@ -21,14 +21,14 @@ class ImageCharacterAllViewController: UIViewController {
     private let categoryId: Int = 3
     var isLoading = true
     
-    init(viewModel: AudioViewModel) {
+    init(viewModel: CharacterAllViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.viewModel = AudioViewModel(apiService: AudioAPIService.shared)
+        self.viewModel = CharacterAllViewModel(apiService: CharacterAllAPIService.shared)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,12 +50,12 @@ class ImageCharacterAllViewController: UIViewController {
         setupCollectionView()
         checkInternetAndFetchData()
         addBottomShadow(to: navigationbarView)
-        self.audioCharacterAllCollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
+        self.imageCharacterAllCollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
     }
     
     func checkInternetAndFetchData() {
         if isConnectedToInternet() {
-            viewModel.fetchAudioData(categoryId: 1, characterId: characterId)
+            viewModel.fetchAudioData(categoryId: 3, characterId: characterId)
             self.noInternetView?.isHidden = true
         } else {
             self.showNoInternetView()
@@ -76,9 +76,9 @@ class ImageCharacterAllViewController: UIViewController {
     }
     
     private func setupCollectionView() {
-        audioCharacterAllCollectionView.delegate = self
-        audioCharacterAllCollectionView.dataSource = self
-        if let layout = audioCharacterAllCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+        imageCharacterAllCollectionView.delegate = self
+        imageCharacterAllCollectionView.dataSource = self
+        if let layout = imageCharacterAllCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.minimumInteritemSpacing = 16
             layout.minimumLineSpacing = 16
             layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
@@ -93,9 +93,9 @@ class ImageCharacterAllViewController: UIViewController {
                     self?.showNoDataView()
                 } else {
                     self?.hideNoDataView()
-                    self?.audioCharacterAllCollectionView.reloadData()
+                    self?.imageCharacterAllCollectionView.reloadData()
                 }
-                self?.audioCharacterAllCollectionView.reloadData()
+                self?.imageCharacterAllCollectionView.reloadData()
             }
         }
         
@@ -108,12 +108,12 @@ class ImageCharacterAllViewController: UIViewController {
     
     func showSkeletonLoader() {
         isLoading = true
-        audioCharacterAllCollectionView.reloadData()
+        imageCharacterAllCollectionView.reloadData()
     }
     
     func hideSkeletonLoader() {
         isLoading = false
-        audioCharacterAllCollectionView.reloadData()
+        imageCharacterAllCollectionView.reloadData()
     }
     
     private func setupNoDataView() {
@@ -191,7 +191,7 @@ extension ImageCharacterAllViewController: UICollectionViewDelegate, UICollectio
             cell.isUserInteractionEnabled = false
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AudioCharacterAllCollectionViewCell", for: indexPath) as! AudioCharacterAllCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCharacterAllCollectionViewCell", for: indexPath) as! ImageCharacterAllCollectionViewCell
             let audioData = viewModel.audioData[indexPath.item]
             cell.configure(with: audioData)
             cell.onFavoriteButtonTapped = { [weak self] isFavorite in
@@ -213,7 +213,7 @@ extension ImageCharacterAllViewController: UICollectionViewDelegate, UICollectio
                     print(message ?? "Favorite status updated successfully")
                 } else {
                     print("Failed to update favorite status: \(message ?? "Unknown error")")
-                    if let cell = self.audioCharacterAllCollectionView.cellForItem(at: IndexPath(item: self.viewModel.audioData.firstIndex(where: { $0.itemID == audioData.itemID }) ?? 0, section: 0)) as? AudioCharacterAllCollectionViewCell {
+                    if let cell = self.imageCharacterAllCollectionView.cellForItem(at: IndexPath(item: self.viewModel.audioData.firstIndex(where: { $0.itemID == audioData.itemID }) ?? 0, section: 0)) as? ImageCharacterAllCollectionViewCell {
                         cell.configure(with: audioData)
                     }
                 }
@@ -236,10 +236,10 @@ extension ImageCharacterAllViewController: UICollectionViewDelegate, UICollectio
             presentPremiumViewController()
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(identifier: "AudioPreviewViewController") as! AudioPreviewViewController
+            let vc = storyboard.instantiateViewController(identifier: "ImagePreviewViewController") as! ImagePreviewViewController
             vc.modalTransitionStyle = .crossDissolve
             vc.modalPresentationStyle = .overCurrentContext
-            vc.audioData = Array(viewModel.audioData[indexPath.row...])
+            vc.imageData = Array(viewModel.audioData[indexPath.row...])
             vc.initialIndex = 0
             self.present(vc, animated: true)
         }

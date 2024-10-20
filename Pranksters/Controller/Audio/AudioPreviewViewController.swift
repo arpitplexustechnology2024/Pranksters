@@ -181,10 +181,16 @@ class AudioPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
         let card = AudioCardPreview()
         let audioPageData = audioData[index]
         
-        let cardModel = AudioCardModel(file: audioPageData.file, name: audioPageData.name, image: audioPageData.image, isFavorited: audioPageData.isFavorite, itemId: audioPageData.itemID, categoryId: 1, Premium: audioPageData.premium)
+        let cardModel = AudioCardModel(file: audioPageData.file!,
+                                       name: audioPageData.name,
+                                       image: audioPageData.image,
+                                       isFavorited: audioPageData.isFavorite,
+                                       itemId: audioPageData.itemID,
+                                       categoryId: 1,
+                                       Premium: audioPageData.premium)
         card.configure(withModel: cardModel)
         
-        setupAudioPlayer(for: audioPageData.file)
+        setupAudioPlayer(for: audioPageData.file!)
         
         card.onPlayButtonTapped = { [weak self] in
             self?.playPauseAudio(card)
@@ -197,6 +203,7 @@ class AudioPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
         card.swipeDirections = [.left, .right]
         visibleCards.append(card)
         
+        // Updated favorite button handler
         card.onFavoriteButtonTapped = { [weak self] itemId, isFavorite, categoryId in
             self?.handleFavoriteButtonTapped(itemId: itemId, isFavorite: isFavorite, categoryId: categoryId)
         }
@@ -233,7 +240,7 @@ class AudioPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
         updateSelectButtonState()
         
         if currentCardIndex < audioData.count {
-            setupAudioPlayer(for: audioData[currentCardIndex].file)
+            setupAudioPlayer(for: audioData[currentCardIndex].file!)
         }
     }
     
@@ -254,12 +261,26 @@ class AudioPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
     private func handleFavoriteButtonTapped(itemId: Int, isFavorite: Bool, categoryId: Int) {
         favoriteViewModel.setFavorite(itemId: itemId, isFavorite: isFavorite, categoryId: categoryId) { [weak self] success, message in
             guard let self = self else { return }
+            
             DispatchQueue.main.async {
                 if success {
-                    print(message ?? "")
                     if let index = self.audioData.firstIndex(where: { $0.itemID == itemId }) {
                         self.audioData[index].isFavorite = isFavorite
+                        
+                        if let visibleCard = self.visibleCards.first(where: { $0.model?.itemId == itemId }) {
+                            let updatedModel = AudioCardModel(
+                                file: self.audioData[index].file!,
+                                name: self.audioData[index].name,
+                                image: self.audioData[index].image,
+                                isFavorited: isFavorite,
+                                itemId: itemId,
+                                categoryId: categoryId,
+                                Premium: self.audioData[index].premium
+                            )
+                            visibleCard.configure(withModel: updatedModel)
+                        }
                     }
+                    print(message ?? "Favorite status updated successfully")
                 } else {
                     print("Failed to update favorite status: \(message ?? "Unknown error")")
                     self.revertFavoriteStatus(for: itemId)
@@ -270,11 +291,20 @@ class AudioPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
     
     private func revertFavoriteStatus(for itemId: Int) {
         if let index = audioData.firstIndex(where: { $0.itemID == itemId }) {
-            let audioPageData = audioData[index]
-            let updatedCardModel = AudioCardModel(file: audioPageData.file, name: audioPageData.name, image: audioPageData.image, isFavorited: !audioPageData.isFavorite, itemId: audioPageData.itemID, categoryId: 1, Premium: audioPageData.premium)
+            let currentStatus = audioData[index].isFavorite
+            audioData[index].isFavorite = !currentStatus
             
             if let cardToUpdate = visibleCards.first(where: { $0.model?.itemId == itemId }) {
-                cardToUpdate.configure(withModel: updatedCardModel)
+                let updatedModel = AudioCardModel(
+                    file: audioData[index].file!,
+                    name: audioData[index].name,
+                    image: audioData[index].image,
+                    isFavorited: !currentStatus,
+                    itemId: itemId,
+                    categoryId: 1,
+                    Premium: audioData[index].premium
+                )
+                cardToUpdate.configure(withModel: updatedModel)
             }
         }
     }

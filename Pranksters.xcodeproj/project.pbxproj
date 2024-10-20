@@ -35,9 +35,6 @@
 		BD3568ED2CC3372900A72F73 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3568EC2CC3372900A72F73 /* VideoViewController.swift */; };
 		BD3568EF2CC3374C00A72F73 /* VideoCharacterAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3568EE2CC3374C00A72F73 /* VideoCharacterAllViewController.swift */; };
 		BD3568F12CC3378900A72F73 /* VideoPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3568F02CC3378900A72F73 /* VideoPreviewViewController.swift */; };
-		BD3568F32CC3382B00A72F73 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3568F22CC3382B00A72F73 /* ImageViewController.swift */; };
-		BD3568F52CC3383600A72F73 /* ImageCharacterAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3568F42CC3383600A72F73 /* ImageCharacterAllViewController.swift */; };
-		BD3568F72CC3384000A72F73 /* ImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3568F62CC3384000A72F73 /* ImagePreviewViewController.swift */; };
 		BD487C912CBF161E00874560 /* CoverPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD487C902CBF161E00874560 /* CoverPreviewViewController.swift */; };
 		BD487C932CBF1AD500874560 /* CoverCardPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD487C922CBF1AD500874560 /* CoverCardPreview.swift */; };
 		BD6B5CEB2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */; };
@@ -48,6 +45,12 @@
 		BD804D612CC1747C0048FF70 /* AudioCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD804D602CC1747C0048FF70 /* AudioCollectionViewCell.swift */; };
 		BD804D632CC176A20048FF70 /* CharacterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD804D622CC176A20048FF70 /* CharacterAPI.swift */; };
 		BD804D652CC176B30048FF70 /* CharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD804D642CC176B30048FF70 /* CharacterViewModel.swift */; };
+		BD96FEAB2CC4128600F60FAB /* ImageCharacterAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD96FEA72CC4128600F60FAB /* ImageCharacterAllViewController.swift */; };
+		BD96FEAC2CC4128600F60FAB /* ImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD96FEA82CC4128600F60FAB /* ImagePreviewViewController.swift */; };
+		BD96FEAD2CC4128600F60FAB /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD96FEA92CC4128600F60FAB /* ImageViewController.swift */; };
+		BD96FEB02CC41E7500F60FAB /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD96FEAF2CC41E7500F60FAB /* ImageCollectionViewCell.swift */; };
+		BD96FEB22CC41EA900F60FAB /* ImageCharacterAllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD96FEB12CC41EA900F60FAB /* ImageCharacterAllCollectionViewCell.swift */; };
+		BD96FEB42CC4392500F60FAB /* ImageCardPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD96FEB32CC4392500F60FAB /* ImageCardPreview.swift */; };
 		BDA87EB32CB5AB2E00C25C50 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EB22CB5AB2E00C25C50 /* SideMenuViewController.swift */; };
 		BDA87EB62CB5AC3B00C25C50 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EB52CB5AC3B00C25C50 /* Model.swift */; };
 		BDA87EC92CB5C12900C25C50 /* ViewLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EC62CB5C12900C25C50 /* ViewLinkViewController.swift */; };
@@ -136,9 +139,6 @@
 		BD3568EC2CC3372900A72F73 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		BD3568EE2CC3374C00A72F73 /* VideoCharacterAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCharacterAllViewController.swift; sourceTree = "<group>"; };
 		BD3568F02CC3378900A72F73 /* VideoPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewViewController.swift; sourceTree = "<group>"; };
-		BD3568F22CC3382B00A72F73 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
-		BD3568F42CC3383600A72F73 /* ImageCharacterAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCharacterAllViewController.swift; sourceTree = "<group>"; };
-		BD3568F62CC3384000A72F73 /* ImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewViewController.swift; sourceTree = "<group>"; };
 		BD487C902CBF161E00874560 /* CoverPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverPreviewViewController.swift; sourceTree = "<group>"; };
 		BD487C922CBF1AD500874560 /* CoverCardPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverCardPreview.swift; sourceTree = "<group>"; };
 		BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealisticCoverAllViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +149,12 @@
 		BD804D602CC1747C0048FF70 /* AudioCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCollectionViewCell.swift; sourceTree = "<group>"; };
 		BD804D622CC176A20048FF70 /* CharacterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterAPI.swift; sourceTree = "<group>"; };
 		BD804D642CC176B30048FF70 /* CharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewModel.swift; sourceTree = "<group>"; };
+		BD96FEA72CC4128600F60FAB /* ImageCharacterAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCharacterAllViewController.swift; sourceTree = "<group>"; };
+		BD96FEA82CC4128600F60FAB /* ImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewViewController.swift; sourceTree = "<group>"; };
+		BD96FEA92CC4128600F60FAB /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		BD96FEAF2CC41E7500F60FAB /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		BD96FEB12CC41EA900F60FAB /* ImageCharacterAllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCharacterAllCollectionViewCell.swift; sourceTree = "<group>"; };
+		BD96FEB32CC4392500F60FAB /* ImageCardPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCardPreview.swift; sourceTree = "<group>"; };
 		BDA87EB22CB5AB2E00C25C50 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		BDA87EB52CB5AC3B00C25C50 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		BDA87EC32CB5C12900C25C50 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -333,20 +339,10 @@
 				BDA87EC62CB5C12900C25C50 /* ViewLinkViewController.swift */,
 				BDA87EC72CB5C12900C25C50 /* PremiumViewController.swift */,
 				BDA87EC82CB5C12900C25C50 /* MoreAppViewController.swift */,
-				BDACA25C2CB7375E00B3C2E2 /* CoverViewController.swift */,
-				BDD883AB2CB86790004C6908 /* EmojiCoverAllViewController.swift */,
-				BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */,
-				BD6B5CEE2CB9FF4A00E768ED /* CustomCoverAllViewController.swift */,
-				BD487C902CBF161E00874560 /* CoverPreviewViewController.swift */,
-				BDB28ADB2CC09FAA000E7C46 /* AudioViewController.swift */,
-				BD30945E2CC1A1E900753247 /* AudioCharacterAllViewController.swift */,
-				BD3568E82CC2DEA400A72F73 /* AudioPreviewViewController.swift */,
-				BD3568EC2CC3372900A72F73 /* VideoViewController.swift */,
-				BD3568EE2CC3374C00A72F73 /* VideoCharacterAllViewController.swift */,
-				BD3568F02CC3378900A72F73 /* VideoPreviewViewController.swift */,
-				BD3568F22CC3382B00A72F73 /* ImageViewController.swift */,
-				BD3568F42CC3383600A72F73 /* ImageCharacterAllViewController.swift */,
-				BD3568F62CC3384000A72F73 /* ImagePreviewViewController.swift */,
+				BD96FEAE2CC4129400F60FAB /* Cover Page */,
+				BD96FEA42CC4126F00F60FAB /* Audio */,
+				BD96FEA52CC4127800F60FAB /* Video */,
+				BD96FEAA2CC4128600F60FAB /* Image */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -369,8 +365,52 @@
 				BD6B5CEC2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift */,
 				BD804D602CC1747C0048FF70 /* AudioCollectionViewCell.swift */,
 				BD3094622CC1A41000753247 /* AudioCharacterAllCollectionViewCell.swift */,
+				BD96FEAF2CC41E7500F60FAB /* ImageCollectionViewCell.swift */,
+				BD96FEB12CC41EA900F60FAB /* ImageCharacterAllCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		BD96FEA42CC4126F00F60FAB /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				BDB28ADB2CC09FAA000E7C46 /* AudioViewController.swift */,
+				BD30945E2CC1A1E900753247 /* AudioCharacterAllViewController.swift */,
+				BD3568E82CC2DEA400A72F73 /* AudioPreviewViewController.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		BD96FEA52CC4127800F60FAB /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				BD3568EC2CC3372900A72F73 /* VideoViewController.swift */,
+				BD3568EE2CC3374C00A72F73 /* VideoCharacterAllViewController.swift */,
+				BD3568F02CC3378900A72F73 /* VideoPreviewViewController.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		BD96FEAA2CC4128600F60FAB /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				BD96FEA92CC4128600F60FAB /* ImageViewController.swift */,
+				BD96FEA72CC4128600F60FAB /* ImageCharacterAllViewController.swift */,
+				BD96FEA82CC4128600F60FAB /* ImagePreviewViewController.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		BD96FEAE2CC4129400F60FAB /* Cover Page */ = {
+			isa = PBXGroup;
+			children = (
+				BDACA25C2CB7375E00B3C2E2 /* CoverViewController.swift */,
+				BDD883AB2CB86790004C6908 /* EmojiCoverAllViewController.swift */,
+				BD6B5CEA2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift */,
+				BD6B5CEE2CB9FF4A00E768ED /* CustomCoverAllViewController.swift */,
+				BD487C902CBF161E00874560 /* CoverPreviewViewController.swift */,
+			);
+			path = "Cover Page";
 			sourceTree = "<group>";
 		};
 		BDA87EB42CB5AC2F00C25C50 /* Model */ = {
@@ -428,6 +468,7 @@
 				BD487C922CBF1AD500874560 /* CoverCardPreview.swift */,
 				BD3568EA2CC2DF3800A72F73 /* AudioCardPreview.swift */,
 				BD19D0A42CC0771D00F04C35 /* UIImage+Gif.swift */,
+				BD96FEB32CC4392500F60FAB /* ImageCardPreview.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -680,18 +721,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD804D632CC176A20048FF70 /* CharacterAPI.swift in Sources */,
+				BD96FEB02CC41E7500F60FAB /* ImageCollectionViewCell.swift in Sources */,
 				BD19D0A52CC0771D00F04C35 /* UIImage+Gif.swift in Sources */,
 				BD6B5CEB2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift in Sources */,
 				BDD883AC2CB86790004C6908 /* EmojiCoverAllViewController.swift in Sources */,
 				BDA87EDC2CB5EEC100C25C50 /* NoInternetView.swift in Sources */,
 				BDA87EB62CB5AC3B00C25C50 /* Model.swift in Sources */,
-				BD3568F32CC3382B00A72F73 /* ImageViewController.swift in Sources */,
 				BDA87EC92CB5C12900C25C50 /* ViewLinkViewController.swift in Sources */,
 				BDA87ED22CB5E90500C25C50 /* MoreAppAPI.swift in Sources */,
 				BDC578DA2CBDA0F400811602 /* Snackbar.swift in Sources */,
 				BD3568E92CC2DEA400A72F73 /* AudioPreviewViewController.swift in Sources */,
 				BDC578DC2CBDA10F00811602 /* Extension.swift in Sources */,
 				BD3094672CC1BD0000753247 /* CharacterAllViewModel.swift in Sources */,
+				BD96FEB42CC4392500F60FAB /* ImageCardPreview.swift in Sources */,
 				BD804D612CC1747C0048FF70 /* AudioCollectionViewCell.swift in Sources */,
 				BD3094632CC1A41000753247 /* AudioCharacterAllCollectionViewCell.swift in Sources */,
 				BDA87ECA2CB5C12900C25C50 /* PremiumViewController.swift in Sources */,
@@ -700,6 +742,9 @@
 				BDA87ED62CB5E9B100C25C50 /* MoreAppViewModel.swift in Sources */,
 				BDA87ECC2CB5C12900C25C50 /* FavoriteListViewController.swift in Sources */,
 				BDA87ECD2CB5C12900C25C50 /* MoreAppViewController.swift in Sources */,
+				BD96FEAB2CC4128600F60FAB /* ImageCharacterAllViewController.swift in Sources */,
+				BD96FEAC2CC4128600F60FAB /* ImagePreviewViewController.swift in Sources */,
+				BD96FEAD2CC4128600F60FAB /* ImageViewController.swift in Sources */,
 				BD7D62D12CB7594B00439C11 /* RegistrationViewModel.swift in Sources */,
 				BDD883AA2CB85910004C6908 /* CoverPageViewModel.swift in Sources */,
 				BDA87ECE2CB5C12900C25C50 /* SpinnerViewController.swift in Sources */,
@@ -707,12 +752,12 @@
 				BDD883A82CB85903004C6908 /* CoverPageAPI.swift in Sources */,
 				BDA87ED02CB5C16400C25C50 /* MainViewController.swift in Sources */,
 				BD804D652CC176B30048FF70 /* CharacterViewModel.swift in Sources */,
-				BD3568F72CC3384000A72F73 /* ImagePreviewViewController.swift in Sources */,
 				BD3568F12CC3378900A72F73 /* VideoPreviewViewController.swift in Sources */,
 				BD30945F2CC1A1E900753247 /* AudioCharacterAllViewController.swift in Sources */,
 				BD3568EF2CC3374C00A72F73 /* VideoCharacterAllViewController.swift in Sources */,
 				BDACA25D2CB7375E00B3C2E2 /* CoverViewController.swift in Sources */,
 				BDC578E02CBDCB1300811602 /* FavouriteViewModel.swift in Sources */,
+				BD96FEB22CC41EA900F60FAB /* ImageCharacterAllCollectionViewCell.swift in Sources */,
 				BD7D62CF2CB7593800439C11 /* RegistrationAPI.swift in Sources */,
 				BD3568EB2CC2DF3800A72F73 /* AudioCardPreview.swift in Sources */,
 				BD2F1E272CB459320017A963 /* AppDelegate.swift in Sources */,
@@ -726,7 +771,6 @@
 				BDA87EB32CB5AB2E00C25C50 /* SideMenuViewController.swift in Sources */,
 				BD3094652CC1BCE900753247 /* CharacterAllAPI.swift in Sources */,
 				BD6B5CED2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift in Sources */,
-				BD3568F52CC3383600A72F73 /* ImageCharacterAllViewController.swift in Sources */,
 				BD3568ED2CC3372900A72F73 /* VideoViewController.swift in Sources */,
 				BD487C912CBF161E00874560 /* CoverPreviewViewController.swift in Sources */,
 				BD6B5CEF2CB9FF4B00E768ED /* CustomCoverAllViewController.swift in Sources */,

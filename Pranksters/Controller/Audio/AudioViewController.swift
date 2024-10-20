@@ -450,6 +450,13 @@ extension AudioViewController: UICollectionViewDelegate, UICollectionViewDataSou
             } else {
                 let audioData = customAudios[indexPath.item - 1]
                 selectedAudioIndex = indexPath.item - 1
+                
+                print("=== Audio Custom Collection Cell Clicked ===")
+                print("Audio File URL:", audioData.url)
+                print("Audio Image:", audioData.image?.accessibilityIdentifier ?? "No Image")
+                print("Is Favorite:", audioData.isFavorite ?? false)
+                print("=====================================")
+                
                 if let player = audioPlayer, player.isPlaying {
                     player.stop()
                     timer?.invalidate()
@@ -682,6 +689,12 @@ extension AudioViewController {
     }
     
     func playSelectedAudio(_ audioData: CharacterAllData) {
+        print("=== Selected Audio from Preview ===")
+        print("Audio Name:", audioData.name)
+        print("Audio File:", audioData.file ?? "No File")
+        print("Audio Image URL:", audioData.image)
+        print("=====================================")
+        
         showLottieLoader()
         if let url = URL(string: audioData.image) {
             audioImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder")) { [weak self] _, _, _, _ in
@@ -691,23 +704,20 @@ extension AudioViewController {
         songName.text = audioData.name
         currentAudioIsFavorite = audioData.isFavorite
         updateFavoriteButtonImage()
-        if let audioUrl = URL(string: audioData.file) {
+        if let audioUrl = URL(string: audioData.file!) {
             showLottieLoader()
             setupAudioPlayerFromURL(audioUrl)
         }
     }
 }
 
-//MARK: - Add Document Picker Delegate
 extension AudioViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let selectedURL = urls.first else { return }
         
-        // Show lottie loader
         self.showLottieLoader()
         
-        // Delay for 2 seconds
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+        DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
             let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -719,16 +729,15 @@ extension AudioViewController: UIDocumentPickerDelegate {
                 }
                 try FileManager.default.copyItem(at: selectedURL, to: destinationURL)
                 let defaultImage = self.getNextDefaultImage()
+                
                 self.customAudios.insert((url: destinationURL, image: defaultImage, isFavorite: false), at: 0)
                 
                 DispatchQueue.main.async {
                     self.audioCustomCollectionView.reloadData()
-                    
-                    // Hide lottie loader
                     self.hideLottieLoader()
                     
-                    // Automatically select the newly added audio
-                    let indexPath = IndexPath(item: 1, section: 0) // Index 1 because index 0 is the "Add Audio" cell
+                    let indexPath = IndexPath(item: 1, section: 0)
+                    self.audioCustomCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
                     self.collectionView(self.audioCustomCollectionView, didSelectItemAt: indexPath)
                 }
             } catch {
@@ -738,7 +747,6 @@ extension AudioViewController: UIDocumentPickerDelegate {
         }
     }
 }
-
 
 //MARK: - Add Audio Player Delegate
 extension AudioViewController: AVAudioPlayerDelegate {

@@ -7,6 +7,12 @@
 
 import UIKit
 
+enum CoverViewType {
+    case audio
+    case video
+    case image
+}
+
 class HomeViewController: UIViewController {
     @IBOutlet weak var navigationbarView: UIView!
     @IBOutlet weak var audioView: UIView!
@@ -91,19 +97,25 @@ class HomeViewController: UIViewController {
     
     @objc func btnAudioTapped(_ sender: UITapGestureRecognizer){
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "CoverViewController") as! CoverViewController
+        vc.viewType = .audio
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func btnVideoTapped(_ sender: UITapGestureRecognizer){
-        
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "CoverViewController") as! CoverViewController
+        vc.viewType = .video
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func btnImageTapped(_ sender: UITapGestureRecognizer){
-        
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "CoverViewController") as! CoverViewController
+        vc.viewType = .image
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func btnPremiumTapped(_ sender: UITapGestureRecognizer){
-        
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "PremiumViewController") as! PremiumViewController
+        self.present(vc, animated: true)
     }
     
     @objc func btnMoreAppTapped(_ sender: UITapGestureRecognizer){

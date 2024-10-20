@@ -45,6 +45,8 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
     var userSelectedImages: [UIImage] = []
     private let maxVisibleCustomCovers = 9
     
+    var viewType: CoverViewType = .audio
+    
     var isLoading = true
     private var noDataView: NoDataBottomBarView!
     private var noInternetView: NoInternetBottombarView!
@@ -264,11 +266,23 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
     }
     
     @IBAction func btnDoneTapped(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "AudioViewController") as! AudioViewController
-        self.navigationController?.pushViewController(vc, animated: true)
-        
+        switch viewType {
+        case .audio:
+            let vc = storyboard.instantiateViewController(identifier: "AudioViewController") as! AudioViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        case .video:
+            let vc = storyboard.instantiateViewController(identifier: "VideoViewController") as! VideoViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        case .image:
+            let vc = storyboard.instantiateViewController(identifier: "ImageViewController") as! ImageViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
+    
     
     @IBAction func btnBackTapped(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -462,7 +476,6 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         }
     }
     
-    
     @IBAction func btnFavouriteSetTapped(_ sender: UIButton) {
         if let selectedIndex = selectedCoverPage1Index, selectedIndex.item > 0 {
             let imageIndex = selectedIndex.item - 1
@@ -568,13 +581,49 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
         guard !isLoading else { return }
         if collectionView == coverPage1CollectionView {
             if let cell = collectionView.cellForItem(at: indexPath) {
-                handleCoverPage1Selection(at: indexPath, sender: cell)
+                if indexPath.item == 0 {
+                    handleCoverPage1Selection(at: indexPath, sender: cell)
+                } else {
+                    let selectedImage = userSelectedImages[indexPath.item - 1]
+                    let temporaryDirectory = NSTemporaryDirectory()
+                    let fileName = "\(UUID().uuidString).jpg"
+                    let fileURL = URL(fileURLWithPath: temporaryDirectory).appendingPathComponent(fileName)
+                    
+                    if let imageData = selectedImage.jpegData(compressionQuality: 1.0) {
+                        try? imageData.write(to: fileURL)
+                        
+                        print("📱 Selected Custom Cover Image:")
+                        print("=====================================")
+                        print("Image URL: \(fileURL.absoluteString)")
+                        print("Is Favorite: \(favoriteCustomImages[indexPath.item - 1])")
+                        print("=====================================")
+                    }
+                    
+                    handleCoverPage1Selection(at: indexPath, sender: cell)
+                }
             }
         } else if collectionView == coverPage2CollectionView {
+            print("📱 Selected Emoji Cover:")
+            print("=====================================")
+            print("Cover URL: \(emojiViewModel.emojiCoverPages[indexPath.item].coverURL)")
+            print("Item ID: \(emojiViewModel.emojiCoverPages[indexPath.item].itemID)")
+            print("Is Premium: \(emojiViewModel.emojiCoverPages[indexPath.item].coverPremium)")
+            print("Is Favorite: \(emojiViewModel.emojiCoverPages[indexPath.item].isFavorite)")
+            print("=====================================")
+            
             self.favouriteButton.isHidden = false
             let coverPageData = emojiViewModel.emojiCoverPages[indexPath.row]
             handleCellSelection(coverPageData: coverPageData, collectionView: collectionView, indexPath: indexPath)
         } else if collectionView == coverPage3CollectionView {
+            print("📱 Selected Realistic Cover:")
+            print("=====================================")
+            print("Index: \(indexPath.item)")
+            print("Cover URL: \(realisticViewModel.realisticCoverPages[indexPath.item].coverURL)")
+            print("Item ID: \(realisticViewModel.realisticCoverPages[indexPath.item].itemID)")
+            print("Is Premium: \(realisticViewModel.realisticCoverPages[indexPath.item].coverPremium)")
+            print("Is Favorite: \(realisticViewModel.realisticCoverPages[indexPath.item].isFavorite)")
+            print("=====================================")
+            
             self.favouriteButton.isHidden = false
             let coverPageData = realisticViewModel.realisticCoverPages[indexPath.row]
             handleCellSelection(coverPageData: coverPageData, collectionView: collectionView, indexPath: indexPath)
@@ -809,6 +858,21 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
 extension CoverViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage {
+            let temporaryDirectory = NSTemporaryDirectory()
+            let fileName = "\(UUID().uuidString).jpg"
+            let fileURL = URL(fileURLWithPath: temporaryDirectory).appendingPathComponent(fileName)
+            
+            if let imageData = selectedImage.jpegData(compressionQuality: 1.0) {
+                try? imageData.write(to: fileURL)
+                
+                print("📱 New Custom Cover Image Added:")
+                print("=====================================")
+                print("Image Size: \(selectedImage.size)")
+                print("Source: \(picker.sourceType == .camera ? "Camera" : "Gallery")")
+                print("Image URL: \(fileURL.absoluteString)")
+                print("=====================================")
+            }
+            
             if userSelectedImages.isEmpty {
                 userSelectedImages.append(selectedImage)
                 favoriteCustomImages.append(false)
@@ -866,14 +930,23 @@ extension CoverViewController: CoverPreviewViewControllerDelegate {
     }
     
     func coverPreviewViewController(_ viewController: CoverPreviewViewController, didSelectCoverAt index: Int, coverData: CoverPageData) {
+        print("📱 Selected Cover Data:")
+        print("=====================================")
+        print("Cover URL: \(coverData.coverURL)")
+        print("Item ID: \(coverData.itemID)")
+        print("Is Favorite: \(coverData.isFavorite)")
+        print("Is Premium: \(coverData.coverPremium)")
+        print("=====================================")
+        
         if let imageUrl = URL(string: coverData.coverURL) {
             showLottieLoader()
             coverImageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "placeholder")) { [weak self] (image, error, cacheType, url) in
                 self?.hideLottieLoader()
                 if error == nil {
+                    print("✅ Image loaded successfully")
                     self?.updateFavoriteButton(isFavorite: coverData.isFavorite)
                 } else {
-                    print("Error loading image: \(error?.localizedDescription ?? "Unknown error")")
+                    print("❌ Error loading image: \(error?.localizedDescription ?? "Unknown error")")
                 }
             }
         }

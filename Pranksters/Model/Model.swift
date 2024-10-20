@@ -64,7 +64,7 @@ struct CharacterAllResponse: Codable {
     let data: [CharacterAllData]
 }
 struct CharacterAllData: Codable {
-    let file: String
+    let file: String?
     let name: String
     let image: String
     let premium: Bool

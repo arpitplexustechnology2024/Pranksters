@@ -12,7 +12,7 @@ class AudioCharacterAllViewController: UIViewController {
     
     @IBOutlet weak var navigationbarView: UIView!
     @IBOutlet weak var audioCharacterAllCollectionView: UICollectionView!
-    private var viewModel: AudioViewModel!
+    private var viewModel: CharacterAllViewModel!
     private var noDataView: NoDataView!
     private var noInternetView: NoInternetView!
     private let favoriteViewModel = FavoriteViewModel()
@@ -21,14 +21,14 @@ class AudioCharacterAllViewController: UIViewController {
     private let categoryId: Int = 1
     var isLoading = true
     
-    init(viewModel: AudioViewModel) {
+    init(viewModel: CharacterAllViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.viewModel = AudioViewModel(apiService: AudioAPIService.shared)
+        self.viewModel = CharacterAllViewModel(apiService: CharacterAllAPIService.shared)
     }
     
     override func viewWillAppear(_ animated: Bool) {

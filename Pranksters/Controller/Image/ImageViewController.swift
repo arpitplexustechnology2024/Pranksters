@@ -11,6 +11,7 @@ import SDWebImage
 import Lottie
 import AVFoundation
 import MobileCoreServices
+import Photos
 
 class ImageViewController: UIViewController {
     
@@ -20,31 +21,31 @@ class ImageViewController: UIViewController {
     @IBOutlet weak var AudioShowView: UIView!
     @IBOutlet weak var floatingButton: UIButton!
     @IBOutlet var floatingCollectionButton: [UIButton]!
-    @IBOutlet weak var audioImageView: UIImageView!
+    @IBOutlet weak var ImageImageView: UIImageView!
     @IBOutlet weak var favouriteButton: UIButton!
-    @IBOutlet weak var audioCustomCollectionView: UICollectionView!
-    @IBOutlet weak var audioCharacterCollectionView: UICollectionView!
+    @IBOutlet weak var imageCustomCollectionView: UICollectionView!
+    @IBOutlet weak var imageCharacterCollectionView: UICollectionView!
     @IBOutlet weak var lottieLoader: LottieAnimationView!
     @IBOutlet weak var coverImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var coverImageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var audioCustomHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var audioCharacterHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageCustomHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageCharacterHeightConstraint: NSLayoutConstraint!
+    
+    var favoriteCustomImages: [Bool] = []
+    var userSelectedImages: [UIImage] = []
     
     let plusImage = UIImage(named: "Plus")
     let cancelImage = UIImage(named: "Cancel")
     
     private var selectedAudioIndex: Int?
+    var selectedCoverPage1Index: IndexPath?
     
-    private var customAudios: [(url: URL, image: UIImage?, isFavorite: Bool?)] = [] {
-        didSet {
-            
-        }
-    }
+    var customImages: [(image: UIImage, isFavorite: Bool)] = []
     
     private var currentAudioIsFavorite: Bool = false {
         didSet {
-            updateFavoriteButtonImage()
+            updateFavoriteButton(isFavorite: currentAudioIsFavorite)
         }
     }
     
@@ -66,6 +67,11 @@ class ImageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.revealViewController()?.gestureEnabled = false
+        
+        if let selectedIndexPath = imageCustomCollectionView.indexPathsForSelectedItems?.first {
+            imageCustomCollectionView.deselectItem(at: selectedIndexPath, animated: false)
+        }
+        selectedCoverPage1Index = nil
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -78,6 +84,7 @@ class ImageViewController: UIViewController {
         setupUI()
         setupViewModel()
         setupNoDataView()
+        loadSavedImages()
         setupLottieLoader()
         showSkeletonLoader()
         setupNoInternetView()
@@ -107,26 +114,27 @@ class ImageViewController: UIViewController {
         bottomScrollView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         floatingButton.setImage(plusImage, for: .normal)
         floatingButton.layer.cornerRadius = 19
-        audioImageView.layer.cornerRadius = 8
+        ImageImageView.layer.cornerRadius = 8
         AudioShowView.layer.cornerRadius = 8
-        self.audioCharacterCollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
-        audioCustomCollectionView.delegate = self
-        audioCustomCollectionView.dataSource = self
-        audioCharacterCollectionView.delegate = self
-        audioCharacterCollectionView.dataSource = self
+        updateFavoriteButton(isFavorite: false)
+        self.imageCharacterCollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
+        imageCustomCollectionView.delegate = self
+        imageCustomCollectionView.dataSource = self
+        imageCharacterCollectionView.delegate = self
+        imageCharacterCollectionView.dataSource = self
         
         if UIDevice.current.userInterfaceIdiom == .pad {
             coverImageViewHeightConstraint.constant = 280
             coverImageViewWidthConstraint.constant = 245
             scrollViewHeightConstraint.constant = 680
-            audioCustomHeightConstraint.constant = 180
-            audioCharacterHeightConstraint.constant = 360
+            imageCustomHeightConstraint.constant = 180
+            imageCharacterHeightConstraint.constant = 360
         } else {
             coverImageViewHeightConstraint.constant = 240
             coverImageViewWidthConstraint.constant = 205
             scrollViewHeightConstraint.constant = 530
-            audioCustomHeightConstraint.constant = 140
-            audioCharacterHeightConstraint.constant = 280
+            imageCustomHeightConstraint.constant = 140
+            imageCharacterHeightConstraint.constant = 280
         }
         self.view.layoutIfNeeded()
     }
@@ -136,7 +144,7 @@ class ImageViewController: UIViewController {
             DispatchQueue.main.async {
                 self?.hideSkeletonLoader()
                 self?.noDataView.isHidden = true
-                self?.audioCharacterCollectionView.reloadData()
+                self?.imageCharacterCollectionView.reloadData()
                 
             }
         }
@@ -159,7 +167,7 @@ class ImageViewController: UIViewController {
         NSLayoutConstraint.activate([
             noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noDataView.topAnchor.constraint(equalTo: audioImageView.bottomAnchor, constant: 16),
+            noDataView.topAnchor.constraint(equalTo: ImageImageView.bottomAnchor, constant: 16),
             noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
@@ -180,7 +188,7 @@ class ImageViewController: UIViewController {
         NSLayoutConstraint.activate([
             noInternetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             noInternetView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noInternetView.topAnchor.constraint(equalTo: audioImageView.bottomAnchor, constant: 16),
+            noInternetView.topAnchor.constraint(equalTo: ImageImageView.bottomAnchor, constant: 16),
             noInternetView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
@@ -203,12 +211,12 @@ class ImageViewController: UIViewController {
     
     func showSkeletonLoader() {
         isLoading = true
-        audioCharacterCollectionView.reloadData()
+        imageCharacterCollectionView.reloadData()
     }
     
     func hideSkeletonLoader() {
         isLoading = false
-        audioCharacterCollectionView.reloadData()
+        imageCharacterCollectionView.reloadData()
     }
     
     func showNoInternetView() {
@@ -222,7 +230,7 @@ class ImageViewController: UIViewController {
     
     func showLottieLoader() {
         lottieLoader.isHidden = false
-        audioImageView.isHidden = true
+        ImageImageView.isHidden = true
         favouriteButton.isHidden = true
         lottieLoader.play()
     }
@@ -230,7 +238,7 @@ class ImageViewController: UIViewController {
     func hideLottieLoader() {
         lottieLoader.stop()
         lottieLoader.isHidden = true
-        audioImageView.isHidden = false
+        ImageImageView.isHidden = false
         favouriteButton.isHidden = false
     }
     
@@ -323,41 +331,66 @@ class ImageViewController: UIViewController {
     
     @IBAction func btnFavouriteSetTapped(_ sender: UIButton) {
         guard let selectedIndex = selectedAudioIndex else { return }
-        updateFavoriteButtonImage()
         currentAudioIsFavorite.toggle()
-        customAudios[selectedIndex].isFavorite = currentAudioIsFavorite
-        audioCustomCollectionView.reloadItems(at: [IndexPath(item: selectedIndex + 1, section: 0)])
+        updateFavoriteButton(isFavorite: currentAudioIsFavorite)
+        customImages[selectedIndex].isFavorite = currentAudioIsFavorite
+        imageCustomCollectionView.reloadItems(at: [IndexPath(item: selectedIndex + 1, section: 0)])
+        saveImages()
+    }
+    
+    func updateSelectedImage(with coverData: CharacterAllData) {
+        if let url = URL(string: coverData.image) {
+            ImageImageView.sd_setImage(with: url, completed: { [weak self] (image, error, cacheType, imageURL) in
+                if let error = error {
+                    print("Error loading image: \(error.localizedDescription)")
+                } else {
+                    print("=== Selected Image from Preview ===")
+                    print("Name: \(coverData.name)")
+                    print("Image URL: \(coverData.image)")
+                    print("Is Favorite: \(coverData.isFavorite)")
+                    print("Item ID: \(coverData.itemID)")
+                    print("Premium: \(coverData.premium)")
+                    print("=====================================")
+                    
+                    // Update favorite button
+                    self?.currentAudioIsFavorite = coverData.isFavorite
+                    self?.updateFavoriteButton(isFavorite: coverData.isFavorite)
+                }
+            })
+        }
     }
 }
 
 extension ImageViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == audioCustomCollectionView {
-            return 1 + customAudios.count
-        } else if collectionView == audioCharacterCollectionView {
+        if collectionView == imageCustomCollectionView {
+            return 1 + customImages.count
+        } else if collectionView == imageCharacterCollectionView {
             return isLoading ? 6 : viewModel.characters.count
         }
         return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == audioCustomCollectionView {
+        if collectionView == imageCustomCollectionView {
             if indexPath.item == 0 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddAudioCollectionCell", for: indexPath) as! AddAudioCollectionCell
-                cell.imageView.image = UIImage(named: "AddAudio")
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddImageCollectionViewCell", for: indexPath) as! AddImageCollectionViewCell
+                cell.imageView.image = UIImage(named: "AddImage")
                 cell.addAudioLabel.text = "Add Image"
                 return cell
             } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AudioCustomCollectionCell", for: indexPath) as! AudioCustomCollectionCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCustomCollectionViewCell", for: indexPath) as! ImageCustomCollectionViewCell
+                let customImage = customImages[indexPath.item - 1]
+                cell.imageView.image = customImage.image
                 return cell
             }
-        } else if collectionView == audioCharacterCollectionView {
+        } else if collectionView == imageCharacterCollectionView {
             if isLoading {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SkeletonCell", for: indexPath) as! SkeletonBoxCollectionViewCell
                 cell.isUserInteractionEnabled = false
                 return cell
             } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AudioCharacterCollectionCell", for: indexPath) as! AudioCharacterCollectionCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCharacterCollectionViewCell", for: indexPath) as! ImageCharacterCollectionViewCell
                 let character = viewModel.characters[indexPath.item]
                 if let url = URL(string: character.characterImage) {
                     cell.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"))
@@ -369,19 +402,28 @@ extension ImageViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == audioCustomCollectionView {
+        if collectionView == imageCustomCollectionView {
             if indexPath.item == 0 {
                 showImageOptionsActionSheet(sourceView: collectionView.cellForItem(at: indexPath)!)
             } else {
-                let audioData = customAudios[indexPath.item - 1]
+                let customImage = customImages[indexPath.item - 1]
                 selectedAudioIndex = indexPath.item - 1
-                audioImageView.image = audioData.image
-                currentAudioIsFavorite = audioData.isFavorite ?? false
-                updateFavoriteButtonImage()
+                ImageImageView.image = customImage.image
+                currentAudioIsFavorite = customImage.isFavorite
+                updateFavoriteButton(isFavorite: currentAudioIsFavorite)
+                
+                let temporaryDirectory = NSTemporaryDirectory()
+                let fileName = "\(UUID().uuidString).jpg"
+                let fileURL = URL(fileURLWithPath: temporaryDirectory).appendingPathComponent(fileName)
+                
+                print("=== Selected Custom Image ===")
+                print("Image URL: \(fileURL.absoluteString)")
+                print("Is Favorite: \(customImage.isFavorite)")
+                print("==============================")
             }
-        } else if collectionView == audioCharacterCollectionView {
+        } else if collectionView == imageCharacterCollectionView {
             let character = viewModel.characters[indexPath.item]
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "AudioCharacterAllViewController") as! AudioCharacterAllViewController
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ImageCharacterAllViewController") as! ImageCharacterAllViewController
             vc.characterId = character.characterID
             self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -391,39 +433,39 @@ extension ImageViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let width: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 155 : 115
         let height: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 165 : 125
         
-        if collectionView == audioCustomCollectionView {
+        if collectionView == imageCustomCollectionView {
             if indexPath.item == 0 {
                 return CGSize(width: width, height: height)
             }
             return CGSize(width: width, height: height)
-        } else if collectionView == audioCharacterCollectionView {
+        } else if collectionView == imageCharacterCollectionView {
             return CGSize(width: width, height: height)
         }
         return CGSize(width: width, height: height)
     }
 }
 
-extension ImageViewController {
+extension ImageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     private func showImageOptionsActionSheet(sourceView: UIView) {
-        let titleString = NSAttributedString(string: "Select Audio", attributes: [
+        let titleString = NSAttributedString(string: "Select Image", attributes: [
             NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)
         ])
         
         let alertController = UIAlertController(title: "", message: nil, preferredStyle: .actionSheet)
         alertController.setValue(titleString, forKey: "attributedTitle")
         
-        let recorderAction = UIAlertAction(title: "Camera", style: .default) { [weak self] _ in
-            // Handle recorder action
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { [weak self] _ in
+            self?.btnCameraTapped()
         }
         
-        let mediaPlayerAction = UIAlertAction(title: "Gallery", style: .default) { [weak self] _ in
-            // Handle recorder action
+        let galleryAction = UIAlertAction(title: "Gallery", style: .default) { [weak self] _ in
+            self?.btnGalleryTapped()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
-        alertController.addAction(recorderAction)
-        alertController.addAction(mediaPlayerAction)
+        alertController.addAction(cameraAction)
+        alertController.addAction(galleryAction)
         alertController.addAction(cancelAction)
         
         if let popoverController = alertController.popoverPresentationController {
@@ -434,8 +476,183 @@ extension ImageViewController {
         present(alertController, animated: true)
     }
     
-    private func updateFavoriteButtonImage() {
-        let imageName = currentAudioIsFavorite ? "Heart_Fill" : "Heart"
+    // MARK: - Camera Button
+    func btnCameraTapped() {
+        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        switch cameraAuthorizationStatus {
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                DispatchQueue.main.async {
+                    if granted {
+                        self.showImagePicker(for: .camera)
+                    } else {
+                        self.showPermissionSnackbar(for: "camera")
+                    }
+                }
+            }
+        case .authorized:
+            showImagePicker(for: .camera)
+        case .restricted, .denied:
+            showPermissionSnackbar(for: "camera")
+        @unknown default:
+            fatalError("Unknown authorization status")
+        }
+    }
+    
+    // MARK: - Gallery Button
+    func btnGalleryTapped() {
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAuthorizationStatus {
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { status in
+                DispatchQueue.main.async {
+                    if status == .authorized {
+                        self.showImagePicker(for: .photoLibrary)
+                    } else {
+                        self.showPermissionSnackbar(for: "photo library")
+                    }
+                }
+            }
+        case .authorized, .limited:
+            showImagePicker(for: .photoLibrary)
+        case .restricted, .denied:
+            showPermissionSnackbar(for: "photo library")
+        @unknown default:
+            fatalError("Unknown authorization status")
+        }
+    }
+    
+    func showImagePicker(for sourceType: UIImagePickerController.SourceType) {
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = sourceType
+            imagePicker.allowsEditing = true
+            if sourceType == .camera {
+                imagePicker.cameraDevice = .front
+            }
+            DispatchQueue.main.async {
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        } else {
+            print("\(sourceType) is not available")
+        }
+    }
+    
+    func showPermissionSnackbar(for feature: String) {
+        let messageKey: String
+        
+        switch feature {
+        case "camera":
+            messageKey = "We need access to your camera to set the profile picture."
+        case "photo library":
+            messageKey = "We need access to your photo library to set the profile picture."
+        default:
+            messageKey = "SnackbarDefaultPermissionAccess"
+        }
+        
+        let localizedMessage = NSLocalizedString(messageKey, comment: "")
+        let settingsText = NSLocalizedString("Settings", comment: "")
+        
+        let snackbar = Snackbar(message: localizedMessage, backgroundColor: .snackbar)
+        snackbar.setAction(title: settingsText) {
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)")
+                })
+            }
+        }
+        
+        snackbar.show(in: self.view, duration: 5.0)
+    }
+    
+    // MARK: - UIImagePickerControllerDelegate
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage {
+            let temporaryDirectory = NSTemporaryDirectory()
+            let fileName = "\(UUID().uuidString).jpg"
+            let fileURL = URL(fileURLWithPath: temporaryDirectory).appendingPathComponent(fileName)
+            
+            if let imageData = selectedImage.jpegData(compressionQuality: 1.0) {
+                try? imageData.write(to: fileURL)
+                
+                print("📱 New Custom Cover Image Added:")
+                print("=====================================")
+                print("Image Size: \(selectedImage.size)")
+                print("Source: \(picker.sourceType == .camera ? "Camera" : "Gallery")")
+                print("Image URL: \(fileURL.absoluteString)")
+                print("=====================================")
+            }
+            
+            // Add the new image to the beginning of the customImages array
+            customImages.insert((image: selectedImage, isFavorite: false), at: 0)
+            
+            ImageImageView.image = selectedImage
+            self.favouriteButton.isHidden = false
+            
+            updateFavoriteButton(isFavorite: false)
+            currentAudioIsFavorite = false
+            selectedAudioIndex = 0
+            
+            saveImages()
+            
+            DispatchQueue.main.async {
+                self.imageCustomCollectionView.reloadData()
+                
+                let indexPath = IndexPath(item: 1, section: 0)
+                self.imageCustomCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+                self.selectedCoverPage1Index = indexPath
+                
+                self.imageCustomCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func loadSavedImages() {
+        if let savedImagesData = UserDefaults.standard.object(forKey: "is_UserSelectedImages") as? Data,
+           let savedFavorites = UserDefaults.standard.array(forKey: "is_FavouriteImages") as? [Bool] {
+            do {
+                if let decodedImages = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedImagesData) as? [UIImage] {
+                    customImages = zip(decodedImages, savedFavorites).map { (image: $0, isFavorite: $1) }
+                    imageCustomCollectionView.reloadData()
+                    
+                    if let firstCustomImage = customImages.first {
+                        ImageImageView.image = firstCustomImage.image
+                        updateFavoriteButton(isFavorite: firstCustomImage.isFavorite)
+                        currentAudioIsFavorite = firstCustomImage.isFavorite
+                        selectedAudioIndex = 0
+                    } else {
+                        updateFavoriteButton(isFavorite: false)
+                    }
+                }
+            } catch {
+                print("Error decoding saved images: \(error)")
+                updateFavoriteButton(isFavorite: false)
+            }
+        } else {
+            updateFavoriteButton(isFavorite: false)
+        }
+        selectedCoverPage1Index = nil
+    }
+    
+    func saveImages() {
+        let imagesToSave = customImages.map { $0.image }
+        let favoritesToSave = customImages.map { $0.isFavorite }
+        
+        if let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: imagesToSave, requiringSecureCoding: false) {
+            UserDefaults.standard.set(encodedData, forKey: "is_UserSelectedImages")
+            UserDefaults.standard.set(favoritesToSave, forKey: "is_FavouriteImages")
+        }
+    }
+    
+    func updateFavoriteButton(isFavorite: Bool) {
+        let imageName = isFavorite ? "Heart_Fill" : "Heart"
         favouriteButton.setImage(UIImage(named: imageName), for: .normal)
     }
+    
 }

@@ -9,13 +9,13 @@ import Foundation
 import UIKit
 
 // MARK: - Audio ViewModel
-class AudioViewModel {
-    private let apiService: AudioAPIServiceProtocol
+class CharacterAllViewModel {
+    private let apiService: ChracterAllAPIServiceProtocol
     var audioData: [CharacterAllData] = []
     var reloadData: (() -> Void)?
     var onError: ((String) -> Void)?
     
-    init(apiService: AudioAPIServiceProtocol) {
+    init(apiService: ChracterAllAPIServiceProtocol) {
         self.apiService = apiService
     }
     

@@ -2805,70 +2805,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="205" height="240"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8cO-VG-h3z">
-                                        <rect key="frame" x="0.0" y="180" width="205" height="60"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ctJ-ga-xMX">
-                                            <rect key="frame" x="0.0" y="0.0" width="205" height="60"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cover page  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="irg-BG-XuI">
-                                                    <rect key="frame" x="8" y="5" width="189" height="18"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="13"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFm-kP-JRZ">
-                                                    <rect key="frame" x="8" y="30" width="20" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="hXZ-MA-VK6"/>
-                                                        <constraint firstAttribute="height" constant="20" id="mgi-Ir-1eq"/>
-                                                    </constraints>
-                                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" image="play.fill" catalog="system">
-                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="playPauseButtonTapped:" destination="eg6-hZ-IQP" eventType="touchUpInside" id="Ajl-c3-RDN"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CqK-BI-FuP">
-                                                    <rect key="frame" x="177.33333333333331" y="36.333333333333314" width="19.666666666666657" height="13.666666666666664"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="10"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="l1z-YB-TFD">
-                                                    <rect key="frame" x="33.999999999999986" y="26" width="137.33333333333331" height="31"/>
-                                                    <color key="minimumTrackTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="maximumTrackTintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="thumbTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </slider>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="l1z-YB-TFD" firstAttribute="leading" secondItem="YFm-kP-JRZ" secondAttribute="trailing" constant="8" symbolic="YES" id="5zh-By-YNU"/>
-                                                <constraint firstAttribute="bottom" secondItem="CqK-BI-FuP" secondAttribute="bottom" constant="10" id="77W-ka-EzT"/>
-                                                <constraint firstItem="irg-BG-XuI" firstAttribute="top" secondItem="ctJ-ga-xMX" secondAttribute="top" constant="5" id="BZT-t7-6fF"/>
-                                                <constraint firstItem="irg-BG-XuI" firstAttribute="centerX" secondItem="ctJ-ga-xMX" secondAttribute="centerX" id="FjO-0z-Ti2"/>
-                                                <constraint firstAttribute="bottom" secondItem="YFm-kP-JRZ" secondAttribute="bottom" constant="10" id="IKe-PS-B3g"/>
-                                                <constraint firstAttribute="trailing" secondItem="CqK-BI-FuP" secondAttribute="trailing" constant="8" id="OMR-HY-fmr"/>
-                                                <constraint firstAttribute="trailing" secondItem="irg-BG-XuI" secondAttribute="trailing" constant="8" id="WIM-Zu-29P"/>
-                                                <constraint firstAttribute="bottom" secondItem="l1z-YB-TFD" secondAttribute="bottom" constant="4" id="Way-Vh-9x2"/>
-                                                <constraint firstItem="CqK-BI-FuP" firstAttribute="leading" secondItem="l1z-YB-TFD" secondAttribute="trailing" constant="8" id="eu4-TN-aKe"/>
-                                                <constraint firstItem="irg-BG-XuI" firstAttribute="leading" secondItem="ctJ-ga-xMX" secondAttribute="leading" constant="8" id="iAs-qW-Sbj"/>
-                                                <constraint firstItem="YFm-kP-JRZ" firstAttribute="leading" secondItem="ctJ-ga-xMX" secondAttribute="leading" constant="8" id="zLE-sb-8pA"/>
-                                            </constraints>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="RKO-aS-4jN"/>
-                                        </constraints>
-                                        <blurEffect style="prominent"/>
-                                    </visualEffectView>
                                 </subviews>
                                 <color key="backgroundColor" name="comman"/>
                                 <constraints>
                                     <constraint firstItem="Qoz-i3-psA" firstAttribute="top" secondItem="EmM-bc-3py" secondAttribute="top" id="4NF-ic-3gU"/>
-                                    <constraint firstAttribute="trailing" secondItem="8cO-VG-h3z" secondAttribute="trailing" id="Cv2-TA-qgS"/>
                                     <constraint firstAttribute="trailing" secondItem="6Za-d0-ejb" secondAttribute="trailing" id="Gd5-UZ-JX8"/>
                                     <constraint firstItem="BfV-X3-8WB" firstAttribute="top" secondItem="EmM-bc-3py" secondAttribute="top" constant="8" id="KHQ-OP-AyP"/>
                                     <constraint firstAttribute="height" constant="240" id="RDz-5D-M4h"/>
@@ -2880,8 +2820,6 @@
                                     <constraint firstItem="6Za-d0-ejb" firstAttribute="leading" secondItem="EmM-bc-3py" secondAttribute="leading" id="cdC-ef-3cb"/>
                                     <constraint firstAttribute="bottom" secondItem="Qoz-i3-psA" secondAttribute="bottom" id="mgq-UY-eKF"/>
                                     <constraint firstItem="6Za-d0-ejb" firstAttribute="top" secondItem="EmM-bc-3py" secondAttribute="top" id="r3y-UG-o0R"/>
-                                    <constraint firstAttribute="bottom" secondItem="8cO-VG-h3z" secondAttribute="bottom" id="t0g-VI-WJF"/>
-                                    <constraint firstItem="8cO-VG-h3z" firstAttribute="leading" secondItem="EmM-bc-3py" secondAttribute="leading" id="vI8-DS-xxb"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2909,7 +2847,6 @@
                         <outlet property="audioCustomCollectionView" destination="o6u-8w-qcV" id="hGO-BY-WwK"/>
                         <outlet property="audioCustomHeightConstraint" destination="pXr-Zy-8di" id="vZt-8l-NVG"/>
                         <outlet property="audioImageView" destination="6Za-d0-ejb" id="D18-mR-JRi"/>
-                        <outlet property="blureEffect" destination="8cO-VG-h3z" id="ZVl-yu-ilm"/>
                         <outlet property="bottomScrollView" destination="opc-TL-Sc2" id="kBT-rG-KAs"/>
                         <outlet property="bottomView" destination="Z7D-be-NyT" id="igR-Du-8ES"/>
                         <outlet property="coverImageViewHeightConstraint" destination="RDz-5D-M4h" id="R4z-kE-atw"/>
@@ -2918,11 +2855,7 @@
                         <outlet property="floatingButton" destination="sgA-cN-1dj" id="gzp-v2-9I6"/>
                         <outlet property="lottieLoader" destination="Qoz-i3-psA" id="RvN-V2-Wut"/>
                         <outlet property="navigationbarView" destination="NXz-SA-trz" id="wMf-M0-6xW"/>
-                        <outlet property="playPauseButton" destination="YFm-kP-JRZ" id="nLP-O8-HNV"/>
                         <outlet property="scrollViewHeightConstraint" destination="4IE-zM-61J" id="jAs-D9-fMf"/>
-                        <outlet property="songMinit" destination="CqK-BI-FuP" id="QSd-lE-FbS"/>
-                        <outlet property="songName" destination="irg-BG-XuI" id="Lmy-DB-4K6"/>
-                        <outlet property="songProgress" destination="l1z-YB-TFD" id="jeN-4g-rVa"/>
                         <outletCollection property="floatingCollectionButton" destination="jow-H7-kLL" collectionClass="NSMutableArray" id="F7y-Cm-5CM"/>
                         <outletCollection property="floatingCollectionButton" destination="opX-Rl-LRE" collectionClass="NSMutableArray" id="cbZ-gU-Hhq"/>
                         <outletCollection property="floatingCollectionButton" destination="tAK-w6-Ymp" collectionClass="NSMutableArray" id="T9L-25-swt"/>
@@ -3217,7 +3150,7 @@
                                                             <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddAudioCollectionCell" id="pMt-G9-Cvu" customClass="AddAudioCollectionCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddImageCollectionViewCell" id="pMt-G9-Cvu" customClass="AddImageCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="0.0" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hhS-dc-4I9">
@@ -3225,17 +3158,17 @@
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZQS-6s-SPH">
-                                                                            <rect key="frame" x="16.666666666666671" y="22.666666666666671" width="82" height="80"/>
+                                                                            <rect key="frame" x="16" y="22.666666666666671" width="83" height="80"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddAudio" translatesAutoresizingMaskIntoConstraints="NO" id="AbD-Nt-fL1">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="82" height="50"/>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddImage" translatesAutoresizingMaskIntoConstraints="NO" id="AbD-Nt-fL1">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="83" height="50"/>
                                                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="50" id="b6P-pg-MDM"/>
                                                                                     </constraints>
                                                                                 </imageView>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Audio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKa-ZA-3Bo">
-                                                                                    <rect key="frame" x="0.0" y="58" width="82" height="22"/>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKa-ZA-3Bo">
+                                                                                    <rect key="frame" x="0.0" y="58" width="83" height="22"/>
                                                                                     <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="16"/>
                                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
@@ -3254,7 +3187,7 @@
                                                                     <outlet property="imageView" destination="AbD-Nt-fL1" id="JvL-hw-Dzd"/>
                                                                 </connections>
                                                             </collectionViewCell>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="AudioCustomCollectionCell" id="yBH-RV-4Ru" customClass="AudioCustomCollectionCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="ImageCustomCollectionViewCell" id="yBH-RV-4Ru" customClass="ImageCustomCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
                                                                 <rect key="frame" x="141" y="0.0" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mmv-Kv-VfF">
@@ -3297,7 +3230,7 @@
                                                             <inset key="sectionInset" minX="16" minY="10" maxX="16" maxY="10"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AudioCharacterCollectionCell" id="7Er-cQ-w6m" customClass="AudioCharacterCollectionCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCharacterCollectionViewCell" id="7Er-cQ-w6m" customClass="ImageCharacterCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="10" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="TSg-6a-Q4o">
@@ -3479,17 +3412,17 @@
                     <navigationItem key="navigationItem" id="R2n-Es-LgZ"/>
                     <connections>
                         <outlet property="AudioShowView" destination="vLi-D3-E2Y" id="2Pd-Zg-q1e"/>
-                        <outlet property="audioCharacterCollectionView" destination="vZD-0A-EjI" id="EAt-9G-b71"/>
-                        <outlet property="audioCharacterHeightConstraint" destination="pO8-bM-quq" id="RHE-4u-wtB"/>
-                        <outlet property="audioCustomCollectionView" destination="I8m-7T-DXC" id="P4S-FQ-juW"/>
-                        <outlet property="audioCustomHeightConstraint" destination="c7e-e8-z3y" id="IoV-e6-sgs"/>
-                        <outlet property="audioImageView" destination="buK-K9-U9s" id="7Ff-80-OqT"/>
+                        <outlet property="ImageImageView" destination="buK-K9-U9s" id="7Ff-80-OqT"/>
                         <outlet property="bottomScrollView" destination="dqG-jm-rqb" id="bIE-LL-3HZ"/>
                         <outlet property="bottomView" destination="h0q-ze-x1k" id="9Ju-sX-Wav"/>
                         <outlet property="coverImageViewHeightConstraint" destination="4LZ-vG-5DF" id="vOR-Fj-pKC"/>
                         <outlet property="coverImageViewWidthConstraint" destination="cdc-1v-Cfc" id="YXQ-bD-KfJ"/>
                         <outlet property="favouriteButton" destination="ucw-03-2YF" id="jN4-oJ-75P"/>
                         <outlet property="floatingButton" destination="WQs-uF-C77" id="Q4b-Lm-5uu"/>
+                        <outlet property="imageCharacterCollectionView" destination="vZD-0A-EjI" id="EAt-9G-b71"/>
+                        <outlet property="imageCharacterHeightConstraint" destination="pO8-bM-quq" id="RHE-4u-wtB"/>
+                        <outlet property="imageCustomCollectionView" destination="I8m-7T-DXC" id="P4S-FQ-juW"/>
+                        <outlet property="imageCustomHeightConstraint" destination="c7e-e8-z3y" id="IoV-e6-sgs"/>
                         <outlet property="lottieLoader" destination="6Za-I6-hmD" id="kA7-bC-GiA"/>
                         <outlet property="navigationbarView" destination="4Vw-Sc-Sqw" id="f6G-ky-MXi"/>
                         <outlet property="scrollViewHeightConstraint" destination="OOv-mR-sBL" id="54T-Ul-FM1"/>
@@ -3554,7 +3487,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AudioCharacterAllCollectionViewCell" id="PZu-wo-eDh" customClass="AudioCharacterAllCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCharacterAllCollectionViewCell" id="PZu-wo-eDh" customClass="ImageCharacterAllCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="193" height="187"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ed4-WV-2pi">
@@ -3617,7 +3550,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="audioCharacterAllCollectionView" destination="irU-ES-2Ue" id="abb-Zd-qvF"/>
+                        <outlet property="imageCharacterAllCollectionView" destination="irU-ES-2Ue" id="abb-Zd-qvF"/>
                         <outlet property="navigationbarView" destination="BkK-Jg-AbC" id="jO1-98-MBq"/>
                     </connections>
                 </viewController>
@@ -3691,6 +3624,7 @@
     </scenes>
     <resources>
         <image name="AddAudio" width="32" height="32"/>
+        <image name="AddImage" width="31" height="31"/>
         <image name="AllSwiped" width="1170" height="1243"/>
         <image name="Audio" width="717" height="711"/>
         <image name="Fav" width="240" height="240"/>

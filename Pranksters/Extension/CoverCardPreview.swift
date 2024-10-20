@@ -125,15 +125,15 @@ class CoverCardView: SwipeCard {
         return UIImage(cgImage: cgImage)
     }
     
+    @objc private func favouriteButtonTapped() {
+        guard let model = model else { return }
+        let newFavoriteStatus = !model.isFavorited
+        updateFavoriteButton(isFavorited: newFavoriteStatus)
+        onFavoriteButtonTapped?(model.itemId, newFavoriteStatus, model.categoryId)
+    }
+    
     private func updateFavoriteButton(isFavorited: Bool) {
         let heartImage = isFavorited ? "Heart_Fill" : "Heart"
         favouriteButton.setImage(UIImage(named: heartImage), for: .normal)
-    }
-    
-    @objc private func favouriteButtonTapped() {
-        guard var model = model else { return }
-        model.isFavorited.toggle()
-        updateFavoriteButton(isFavorited: model.isFavorited)
-        onFavoriteButtonTapped?(model.itemId, model.isFavorited, model.categoryId)
     }
 }

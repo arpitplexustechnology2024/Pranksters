@@ -136,10 +136,20 @@ class CoverPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     if success {
-                        print(message ?? "")
                         if let index = self.coverPages.firstIndex(where: { $0.itemID == itemId }) {
                             self.coverPages[index].isFavorite = isFavorite
+                            if let visibleCard = self.visibleCards.first(where: { $0.model?.itemId == itemId }) {
+                                let updatedModel = CardModel(
+                                    imageURL: self.coverPages[index].coverURL,
+                                    isFavorited: isFavorite,
+                                    itemId: itemId,
+                                    categoryId: categoryId,
+                                    isPremium: self.coverPages[index].coverPremium
+                                )
+                                visibleCard.configure(withModel: updatedModel)
+                            }
                         }
+                        print(message ?? "Favorite status updated successfully")
                     } else {
                         print("Failed to update favorite status: \(message ?? "Unknown error")")
                         self.revertFavoriteStatus(for: itemId)
@@ -151,10 +161,12 @@ class CoverPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
     
     private func revertFavoriteStatus(for itemId: Int) {
         if let index = coverPages.firstIndex(where: { $0.itemID == itemId }) {
-            let coverPageData = coverPages[index]
-            let updatedCardModel = CardModel(imageURL: coverPageData.coverURL, isFavorited: !coverPageData.isFavorite, itemId: coverPageData.itemID, categoryId: 4, isPremium: coverPageData.coverPremium)
+            let currentStatus = coverPages[index].isFavorite
+            coverPages[index].isFavorite = !currentStatus
             
             if let cardToUpdate = visibleCards.first(where: { $0.model?.itemId == itemId }) {
+                let updatedCardModel = CardModel(imageURL: coverPages[index].coverURL, isFavorited: !currentStatus, itemId: coverPages[index].itemID, categoryId: 4, isPremium: coverPages[index].coverPremium)
+                
                 cardToUpdate.configure(withModel: updatedCardModel)
             }
         }
