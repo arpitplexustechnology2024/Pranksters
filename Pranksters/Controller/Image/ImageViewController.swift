@@ -41,6 +41,9 @@ class ImageViewController: UIViewController {
     private var selectedAudioIndex: Int?
     var selectedCoverPage1Index: IndexPath?
     
+    var currentlySelectedCollectionView: UICollectionView?
+    var currentlySelectedIndexPath: IndexPath?
+    
     var customImages: [(image: UIImage, isFavorite: Bool)] = []
     
     private var currentAudioIsFavorite: Bool = false {
@@ -339,8 +342,10 @@ class ImageViewController: UIViewController {
     }
     
     func updateSelectedImage(with coverData: CharacterAllData) {
+        showLottieLoader()
         if let url = URL(string: coverData.image) {
             ImageImageView.sd_setImage(with: url, completed: { [weak self] (image, error, cacheType, imageURL) in
+                self?.hideLottieLoader()
                 if let error = error {
                     print("Error loading image: \(error.localizedDescription)")
                 } else {
@@ -352,7 +357,6 @@ class ImageViewController: UIViewController {
                     print("Premium: \(coverData.premium)")
                     print("=====================================")
                     
-                    // Update favorite button
                     self?.currentAudioIsFavorite = coverData.isFavorite
                     self?.updateFavoriteButton(isFavorite: coverData.isFavorite)
                 }
@@ -402,10 +406,20 @@ extension ImageViewController: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let previousCollectionView = currentlySelectedCollectionView,
+           let previousIndexPath = currentlySelectedIndexPath,
+           previousCollectionView != collectionView {
+            previousCollectionView.deselectItem(at: previousIndexPath, animated: true)
+        }
+        
+        currentlySelectedCollectionView = collectionView
+        currentlySelectedIndexPath = indexPath
+        
         if collectionView == imageCustomCollectionView {
             if indexPath.item == 0 {
                 showImageOptionsActionSheet(sourceView: collectionView.cellForItem(at: indexPath)!)
             } else {
+                showLottieLoader()
                 let customImage = customImages[indexPath.item - 1]
                 selectedAudioIndex = indexPath.item - 1
                 ImageImageView.image = customImage.image
@@ -420,6 +434,8 @@ extension ImageViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 print("Image URL: \(fileURL.absoluteString)")
                 print("Is Favorite: \(customImage.isFavorite)")
                 print("==============================")
+                
+                hideLottieLoader()
             }
         } else if collectionView == imageCharacterCollectionView {
             let character = viewModel.characters[indexPath.item]
@@ -572,6 +588,7 @@ extension ImageViewController: UIImagePickerControllerDelegate, UINavigationCont
     
     // MARK: - UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        showLottieLoader()
         if let selectedImage = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage {
             let temporaryDirectory = NSTemporaryDirectory()
             let fileName = "\(UUID().uuidString).jpg"
@@ -588,7 +605,6 @@ extension ImageViewController: UIImagePickerControllerDelegate, UINavigationCont
                 print("=====================================")
             }
             
-            // Add the new image to the beginning of the customImages array
             customImages.insert((image: selectedImage, isFavorite: false), at: 0)
             
             ImageImageView.image = selectedImage
@@ -608,12 +624,16 @@ extension ImageViewController: UIImagePickerControllerDelegate, UINavigationCont
                 self.selectedCoverPage1Index = indexPath
                 
                 self.imageCustomCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+                self.hideLottieLoader()
             }
+        } else {
+            hideLottieLoader()
         }
         dismiss(animated: true, completion: nil)
     }
     
     func loadSavedImages() {
+        showLottieLoader()
         if let savedImagesData = UserDefaults.standard.object(forKey: "is_UserSelectedImages") as? Data,
            let savedFavorites = UserDefaults.standard.array(forKey: "is_FavouriteImages") as? [Bool] {
             do {
@@ -638,6 +658,7 @@ extension ImageViewController: UIImagePickerControllerDelegate, UINavigationCont
             updateFavoriteButton(isFavorite: false)
         }
         selectedCoverPage1Index = nil
+        hideLottieLoader()
     }
     
     func saveImages() {
@@ -654,5 +675,4 @@ extension ImageViewController: UIImagePickerControllerDelegate, UINavigationCont
         let imageName = isFavorite ? "Heart_Fill" : "Heart"
         favouriteButton.setImage(UIImage(named: imageName), for: .normal)
     }
-    
 }

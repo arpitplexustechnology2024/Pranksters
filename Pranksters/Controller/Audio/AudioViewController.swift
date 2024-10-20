@@ -59,6 +59,9 @@ class AudioViewController: UIViewController {
     private var isPlaying = false
     private var selectedAudioIndex: Int?
     
+    private var selectedAudioCustomCell: IndexPath?
+    private var selectedAudioCharacterCell: IndexPath?
+    
     var initialAudioData: CharacterAllData?
     
     private var customAudios: [(url: URL, image: UIImage?, isFavorite: Bool?)] = [] {
@@ -448,6 +451,12 @@ extension AudioViewController: UICollectionViewDelegate, UICollectionViewDataSou
             if indexPath.item == 0 {
                 showAudioOptionsActionSheet(sourceView: collectionView.cellForItem(at: indexPath)!)
             } else {
+                if let previousCharacterCell = selectedAudioCharacterCell {
+                    audioCharacterCollectionView.deselectItem(at: previousCharacterCell, animated: true)
+                    selectedAudioCharacterCell = nil
+                }
+                
+                selectedAudioCustomCell = indexPath
                 let audioData = customAudios[indexPath.item - 1]
                 selectedAudioIndex = indexPath.item - 1
                 
@@ -471,6 +480,12 @@ extension AudioViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 setupTimer()
             }
         } else if collectionView == audioCharacterCollectionView {
+            if let previousCustomCell = selectedAudioCustomCell {
+                audioCustomCollectionView.deselectItem(at: previousCustomCell, animated: true)
+                selectedAudioCustomCell = nil
+            }
+            
+            selectedAudioCharacterCell = indexPath
             let character = viewModel.characters[indexPath.item]
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "AudioCharacterAllViewController") as! AudioCharacterAllViewController
             vc.characterId = character.characterID
