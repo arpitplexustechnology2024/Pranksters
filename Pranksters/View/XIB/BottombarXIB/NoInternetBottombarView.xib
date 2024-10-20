@@ -11,11 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoInternetBottombarView" customModule="Pranksters" customModuleProvider="target">
             <connections>
-                <outlet property="imageView" destination="IOS-6A-kAF" id="SRH-CV-8Ak"/>
-                <outlet property="imageViewHeightConstraint" destination="Efa-Ar-G26" id="nDX-MR-hf7"/>
-                <outlet property="imageViewTopConstraint" destination="3SS-LS-gWB" id="WrH-Kp-qRE"/>
-                <outlet property="imageViewWidthConstraint" destination="WOd-uU-UcB" id="wv7-rs-BTo"/>
-                <outlet property="labelTopConstraint" destination="yDG-cP-zV6" id="9oS-BN-ekA"/>
+                <outlet property="labelTopConstraint" destination="Atv-w2-LLx" id="e6I-HW-FpF"/>
+                <outlet property="lottieView" destination="YbR-6v-gDZ" id="YVb-hF-1VE"/>
+                <outlet property="lottieViewHeightConstraint" destination="yBe-XZ-NEl" id="P7M-Ex-Yir"/>
+                <outlet property="lottieViewTopConstraint" destination="JXj-Im-yid" id="V5A-Nx-qh9"/>
+                <outlet property="lottieViewWidthConstraint" destination="WM2-mo-49l" id="KeS-fY-qgD"/>
                 <outlet property="messageLabel" destination="7d1-e8-eYz" id="NxC-JA-G6Z"/>
                 <outlet property="retryButton" destination="9AT-lE-uDB" id="3zT-kX-gOo"/>
                 <outlet property="retryButtonTopConstraint" destination="Wsv-iR-XCx" id="mRb-uc-in3"/>
@@ -27,13 +27,6 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No Internet" translatesAutoresizingMaskIntoConstraints="NO" id="IOS-6A-kAF">
-                    <rect key="frame" x="96.666666666666686" y="99" width="200" height="200"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="200" id="Efa-Ar-G26"/>
-                        <constraint firstAttribute="width" constant="200" id="WOd-uU-UcB"/>
-                    </constraints>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RyX-eb-ATe">
                     <rect key="frame" x="68" y="319" width="257" height="63"/>
                     <string key="text">Oops...
@@ -57,24 +50,31 @@ No internet connection!</string>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" image="restore"/>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YbR-6v-gDZ" customClass="LottieAnimationView" customModule="Lottie">
+                    <rect key="frame" x="96.666666666666686" y="99" width="200" height="200"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="WM2-mo-49l"/>
+                        <constraint firstAttribute="height" constant="200" id="yBe-XZ-NEl"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="comman"/>
             <constraints>
-                <constraint firstItem="IOS-6A-kAF" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="40" id="3SS-LS-gWB"/>
                 <constraint firstItem="RyX-eb-ATe" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4NQ-0Z-HEL"/>
                 <constraint firstItem="7d1-e8-eYz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4ql-2G-FRD"/>
+                <constraint firstItem="RyX-eb-ATe" firstAttribute="top" secondItem="YbR-6v-gDZ" secondAttribute="bottom" constant="20" id="Atv-w2-LLx"/>
+                <constraint firstItem="YbR-6v-gDZ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="40" id="JXj-Im-yid"/>
                 <constraint firstItem="7d1-e8-eYz" firstAttribute="top" secondItem="RyX-eb-ATe" secondAttribute="bottom" id="NDz-gh-M3w"/>
-                <constraint firstItem="IOS-6A-kAF" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Qwe-Lv-rxc"/>
                 <constraint firstItem="9AT-lE-uDB" firstAttribute="top" secondItem="7d1-e8-eYz" secondAttribute="bottom" constant="30" id="Wsv-iR-XCx"/>
+                <constraint firstItem="YbR-6v-gDZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="mmd-yg-Ewm"/>
                 <constraint firstItem="9AT-lE-uDB" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="vZu-8H-bv5"/>
-                <constraint firstItem="RyX-eb-ATe" firstAttribute="top" secondItem="IOS-6A-kAF" secondAttribute="bottom" constant="20" id="yDG-cP-zV6"/>
             </constraints>
             <point key="canvasLocation" x="118" y="-27"/>
         </view>
     </objects>
     <resources>
-        <image name="No Internet" width="2612" height="2501"/>
         <image name="restore" width="500" height="500"/>
         <namedColor name="comman">
             <color red="0.96862745098039216" green="0.94901960784313721" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

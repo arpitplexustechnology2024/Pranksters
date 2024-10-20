@@ -6,16 +6,17 @@
 //
 
 import UIKit
+import Lottie
 
 class NoInternetBottombarView: UIView {
     
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var lottieView: LottieAnimationView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var retryButton: UIButton!
-    @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var lottieViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var lottieViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var lottieViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var labelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var retryButtonTopConstraint: NSLayoutConstraint!
     
@@ -42,6 +43,14 @@ class NoInternetBottombarView: UIView {
         adjustConstraints()
         
         localizeUI()
+        setupLottieLoader()
+    }
+    
+    private func setupLottieLoader() {
+        lottieView.loopMode = .loop
+        lottieView.contentMode = .scaleAspectFill
+        lottieView.animation = LottieAnimation.named("NoInternet")
+        lottieView.play()
     }
     
     func localizeUI() {
@@ -54,27 +63,27 @@ class NoInternetBottombarView: UIView {
         if UIDevice.current.userInterfaceIdiom == .phone {
             switch screenHeight {
             case 1136, 1334, 1920, 2208:
-                imageViewTopConstraint.constant = 30
-                imageViewHeightConstraint.constant = 160
-                imageViewWidthConstraint.constant = 160
+                lottieViewTopConstraint.constant = 30
+                lottieViewHeightConstraint.constant = 160
+                lottieViewWidthConstraint.constant = 160
                 labelTopConstraint.constant = 0
                 retryButtonTopConstraint.constant = 20
             case 2436, 1792, 2556, 2532:
-                imageViewTopConstraint.constant = 40
-                imageViewHeightConstraint.constant = 200
-                imageViewWidthConstraint.constant = 200
+                lottieViewTopConstraint.constant = 40
+                lottieViewHeightConstraint.constant = 200
+                lottieViewWidthConstraint.constant = 200
                 labelTopConstraint.constant = 20
                 retryButtonTopConstraint.constant = 30
             case 2796, 2778, 2688:
-                imageViewTopConstraint.constant = 40
-                imageViewHeightConstraint.constant = 230
-                imageViewWidthConstraint.constant = 230
+                lottieViewTopConstraint.constant = 40
+                lottieViewHeightConstraint.constant = 230
+                lottieViewWidthConstraint.constant = 230
                 labelTopConstraint.constant = 20
                 retryButtonTopConstraint.constant = 30
             default:
-                imageViewTopConstraint.constant = 40
-                imageViewHeightConstraint.constant = 200
-                imageViewWidthConstraint.constant = 200
+                lottieViewTopConstraint.constant = 40
+                lottieViewHeightConstraint.constant = 200
+                lottieViewWidthConstraint.constant = 200
                 labelTopConstraint.constant = 20
                 retryButtonTopConstraint.constant = 30
             }

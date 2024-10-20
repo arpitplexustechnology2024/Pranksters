@@ -51,6 +51,8 @@
 		BD96FEB02CC41E7500F60FAB /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD96FEAF2CC41E7500F60FAB /* ImageCollectionViewCell.swift */; };
 		BD96FEB22CC41EA900F60FAB /* ImageCharacterAllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD96FEB12CC41EA900F60FAB /* ImageCharacterAllCollectionViewCell.swift */; };
 		BD96FEB42CC4392500F60FAB /* ImageCardPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD96FEB32CC4392500F60FAB /* ImageCardPreview.swift */; };
+		BD96FEB72CC486C700F60FAB /* NoInternet.json in Resources */ = {isa = PBXBuildFile; fileRef = BD96FEB52CC486C700F60FAB /* NoInternet.json */; };
+		BD96FEB82CC486C700F60FAB /* Nodata.json in Resources */ = {isa = PBXBuildFile; fileRef = BD96FEB62CC486C700F60FAB /* Nodata.json */; };
 		BDA87EB32CB5AB2E00C25C50 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EB22CB5AB2E00C25C50 /* SideMenuViewController.swift */; };
 		BDA87EB62CB5AC3B00C25C50 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EB52CB5AC3B00C25C50 /* Model.swift */; };
 		BDA87EC92CB5C12900C25C50 /* ViewLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA87EC62CB5C12900C25C50 /* ViewLinkViewController.swift */; };
@@ -155,6 +157,8 @@
 		BD96FEAF2CC41E7500F60FAB /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		BD96FEB12CC41EA900F60FAB /* ImageCharacterAllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCharacterAllCollectionViewCell.swift; sourceTree = "<group>"; };
 		BD96FEB32CC4392500F60FAB /* ImageCardPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCardPreview.swift; sourceTree = "<group>"; };
+		BD96FEB52CC486C700F60FAB /* NoInternet.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NoInternet.json; sourceTree = "<group>"; };
+		BD96FEB62CC486C700F60FAB /* Nodata.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Nodata.json; sourceTree = "<group>"; };
 		BDA87EB22CB5AB2E00C25C50 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		BDA87EB52CB5AC3B00C25C50 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		BDA87EC32CB5C12900C25C50 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -350,6 +354,8 @@
 		BD3B42A92CB4AD4800634A2E /* Lottie json */ = {
 			isa = PBXGroup;
 			children = (
+				BD96FEB52CC486C700F60FAB /* NoInternet.json */,
+				BD96FEB62CC486C700F60FAB /* Nodata.json */,
 				BD2F1E3B2CB470B20017A963 /* Loading.json */,
 				BDC578DD2CBDA47600811602 /* Loader.json */,
 			);
@@ -592,6 +598,8 @@
 				BD19D0A02CC0664A00F04C35 /* NoDataBottomBarView.xib in Resources */,
 				BD19D0A12CC0664A00F04C35 /* NoInternetBottombarView.xib in Resources */,
 				BD2F1E2C2CB459320017A963 /* Assets.xcassets in Resources */,
+				BD96FEB72CC486C700F60FAB /* NoInternet.json in Resources */,
+				BD96FEB82CC486C700F60FAB /* Nodata.json in Resources */,
 				BDC9ACB42CB6F89D00183146 /* NoDataView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

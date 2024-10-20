@@ -11,10 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoInternetView" customModule="Pranksters" customModuleProvider="target">
             <connections>
-                <outlet property="imageView" destination="IOS-6A-kAF" id="SRH-CV-8Ak"/>
-                <outlet property="imageViewHeightConstraint" destination="Efa-Ar-G26" id="1NF-jm-Bdy"/>
-                <outlet property="imageViewTopConstraint" destination="3SS-LS-gWB" id="SEH-Bb-Vs5"/>
-                <outlet property="labelTopConstraint" destination="yDG-cP-zV6" id="0RO-Kz-B1J"/>
+                <outlet property="labelTopConstraint" destination="rvH-Og-iH6" id="erI-wH-bGt"/>
+                <outlet property="lottieView" destination="tSt-5D-mCL" id="ONK-q2-20P"/>
+                <outlet property="lottieViewHeightConstraint" destination="lvu-HO-bXs" id="TJU-JF-gzf"/>
+                <outlet property="lottieViewTopConstraint" destination="riR-8L-Pft" id="GOe-Zo-2E6"/>
                 <outlet property="messageLabel" destination="7d1-e8-eYz" id="NxC-JA-G6Z"/>
                 <outlet property="retryButton" destination="9AT-lE-uDB" id="3zT-kX-gOo"/>
                 <outlet property="retryButtonTopConstraint" destination="Wsv-iR-XCx" id="mZu-OR-scX"/>
@@ -26,12 +26,6 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No Internet" translatesAutoresizingMaskIntoConstraints="NO" id="IOS-6A-kAF">
-                    <rect key="frame" x="53" y="129" width="287" height="287"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="287" id="Efa-Ar-G26"/>
-                    </constraints>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RyX-eb-ATe">
                     <rect key="frame" x="68" y="466" width="257" height="63"/>
                     <string key="text">Oops...
@@ -55,26 +49,32 @@ No internet connection!</string>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" image="restore"/>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tSt-5D-mCL" customClass="LottieAnimationView" customModule="Lottie">
+                    <rect key="frame" x="53" y="129" width="287" height="287"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="287" id="lvu-HO-bXs"/>
+                        <constraint firstAttribute="width" constant="287" id="toq-pO-vme"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="comman"/>
             <constraints>
-                <constraint firstItem="IOS-6A-kAF" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="70" id="3SS-LS-gWB"/>
                 <constraint firstItem="RyX-eb-ATe" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4NQ-0Z-HEL"/>
                 <constraint firstItem="7d1-e8-eYz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4ql-2G-FRD"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="IOS-6A-kAF" secondAttribute="trailing" constant="53" id="88D-H0-Wxx"/>
+                <constraint firstItem="tSt-5D-mCL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="53" id="5wp-2g-946"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="tSt-5D-mCL" secondAttribute="trailing" constant="53" id="6OH-TD-Zsp"/>
                 <constraint firstItem="7d1-e8-eYz" firstAttribute="top" secondItem="RyX-eb-ATe" secondAttribute="bottom" constant="8" id="NDz-gh-M3w"/>
-                <constraint firstItem="IOS-6A-kAF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="53" id="PDu-TZ-Zqn"/>
                 <constraint firstItem="9AT-lE-uDB" firstAttribute="top" secondItem="7d1-e8-eYz" secondAttribute="bottom" constant="60" id="Wsv-iR-XCx"/>
-                <constraint firstItem="IOS-6A-kAF" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fZ5-SJ-CpZ"/>
+                <constraint firstItem="tSt-5D-mCL" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="70" id="riR-8L-Pft"/>
+                <constraint firstItem="RyX-eb-ATe" firstAttribute="top" secondItem="tSt-5D-mCL" secondAttribute="bottom" constant="50" id="rvH-Og-iH6"/>
                 <constraint firstItem="9AT-lE-uDB" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="vZu-8H-bv5"/>
-                <constraint firstItem="RyX-eb-ATe" firstAttribute="top" secondItem="IOS-6A-kAF" secondAttribute="bottom" constant="50" id="yDG-cP-zV6"/>
             </constraints>
             <point key="canvasLocation" x="118" y="-27"/>
         </view>
     </objects>
     <resources>
-        <image name="No Internet" width="2612" height="2501"/>
         <image name="restore" width="500" height="500"/>
         <namedColor name="comman">
             <color red="0.96862745098039216" green="0.94901960784313721" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
