@@ -82,6 +82,9 @@
 		BDD883AA2CB85910004C6908 /* CoverPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD883A92CB85910004C6908 /* CoverPageViewModel.swift */; };
 		BDD883AC2CB86790004C6908 /* EmojiCoverAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD883AB2CB86790004C6908 /* EmojiCoverAllViewController.swift */; };
 		BDD883AE2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD883AD2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift */; };
+		BDFF9B1B2CC6BDB300D36508 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFF9B1A2CC6BDB300D36508 /* VideoCollectionViewCell.swift */; };
+		BDFF9B1D2CC6BDCB00D36508 /* VideoCharacterAllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFF9B1C2CC6BDCB00D36508 /* VideoCharacterAllCollectionViewCell.swift */; };
+		BDFF9B1F2CC6E0BC00D36508 /* VideoCardPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFF9B1E2CC6E0BC00D36508 /* VideoCardPreview.swift */; };
 		D135A4551B8DF35C16863C46 /* Pods_Pranksters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AD0CF052AC7BC6C607194D1 /* Pods_Pranksters.framework */; };
 /* End PBXBuildFile section */
 
@@ -188,6 +191,9 @@
 		BDD883A92CB85910004C6908 /* CoverPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverPageViewModel.swift; sourceTree = "<group>"; };
 		BDD883AB2CB86790004C6908 /* EmojiCoverAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCoverAllViewController.swift; sourceTree = "<group>"; };
 		BDD883AD2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCoverAllCollectionViewCell.swift; sourceTree = "<group>"; };
+		BDFF9B1A2CC6BDB300D36508 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
+		BDFF9B1C2CC6BDCB00D36508 /* VideoCharacterAllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCharacterAllCollectionViewCell.swift; sourceTree = "<group>"; };
+		BDFF9B1E2CC6E0BC00D36508 /* VideoCardPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCardPreview.swift; sourceTree = "<group>"; };
 		E0C39A3DC80C504DEF55DCB5 /* Pods-PrankstersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrankstersTests.release.xcconfig"; path = "Target Support Files/Pods-PrankstersTests/Pods-PrankstersTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -373,6 +379,8 @@
 				BD3094622CC1A41000753247 /* AudioCharacterAllCollectionViewCell.swift */,
 				BD96FEAF2CC41E7500F60FAB /* ImageCollectionViewCell.swift */,
 				BD96FEB12CC41EA900F60FAB /* ImageCharacterAllCollectionViewCell.swift */,
+				BDFF9B1A2CC6BDB300D36508 /* VideoCollectionViewCell.swift */,
+				BDFF9B1C2CC6BDCB00D36508 /* VideoCharacterAllCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -471,10 +479,11 @@
 				BDACA25A2CB712EA00B3C2E2 /* Skeleton.swift */,
 				BDC578D92CBDA0F400811602 /* Snackbar.swift */,
 				BDC578DB2CBDA10F00811602 /* Extension.swift */,
+				BD19D0A42CC0771D00F04C35 /* UIImage+Gif.swift */,
 				BD487C922CBF1AD500874560 /* CoverCardPreview.swift */,
 				BD3568EA2CC2DF3800A72F73 /* AudioCardPreview.swift */,
-				BD19D0A42CC0771D00F04C35 /* UIImage+Gif.swift */,
 				BD96FEB32CC4392500F60FAB /* ImageCardPreview.swift */,
+				BDFF9B1E2CC6E0BC00D36508 /* VideoCardPreview.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -733,6 +742,7 @@
 				BD19D0A52CC0771D00F04C35 /* UIImage+Gif.swift in Sources */,
 				BD6B5CEB2CB9B5FA00E768ED /* RealisticCoverAllViewController.swift in Sources */,
 				BDD883AC2CB86790004C6908 /* EmojiCoverAllViewController.swift in Sources */,
+				BDFF9B1D2CC6BDCB00D36508 /* VideoCharacterAllCollectionViewCell.swift in Sources */,
 				BDA87EDC2CB5EEC100C25C50 /* NoInternetView.swift in Sources */,
 				BDA87EB62CB5AC3B00C25C50 /* Model.swift in Sources */,
 				BDA87EC92CB5C12900C25C50 /* ViewLinkViewController.swift in Sources */,
@@ -764,6 +774,7 @@
 				BD30945F2CC1A1E900753247 /* AudioCharacterAllViewController.swift in Sources */,
 				BD3568EF2CC3374C00A72F73 /* VideoCharacterAllViewController.swift in Sources */,
 				BDACA25D2CB7375E00B3C2E2 /* CoverViewController.swift in Sources */,
+				BDFF9B1B2CC6BDB300D36508 /* VideoCollectionViewCell.swift in Sources */,
 				BDC578E02CBDCB1300811602 /* FavouriteViewModel.swift in Sources */,
 				BD96FEB22CC41EA900F60FAB /* ImageCharacterAllCollectionViewCell.swift in Sources */,
 				BD7D62CF2CB7593800439C11 /* RegistrationAPI.swift in Sources */,
@@ -774,6 +785,7 @@
 				BDC578E22CBDCF7B00811602 /* FavouriteAPI.swift in Sources */,
 				BDD883AE2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift in Sources */,
 				BD2F1E282CB459320017A963 /* SceneDelegate.swift in Sources */,
+				BDFF9B1F2CC6E0BC00D36508 /* VideoCardPreview.swift in Sources */,
 				BDD883A62CB8504D004C6908 /* CoverPageCollectionViewCell.swift in Sources */,
 				BDC9ACB32CB6F89D00183146 /* NoDataView.swift in Sources */,
 				BDA87EB32CB5AB2E00C25C50 /* SideMenuViewController.swift in Sources */,

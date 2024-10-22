@@ -48,7 +48,7 @@ class NoInternetBottombarView: UIView {
     
     private func setupLottieLoader() {
         lottieView.loopMode = .loop
-        lottieView.contentMode = .scaleAspectFill
+        lottieView.contentMode = .scaleAspectFit
         lottieView.animation = LottieAnimation.named("NoInternet")
         lottieView.play()
     }

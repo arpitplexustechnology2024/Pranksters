@@ -46,11 +46,11 @@ class CustomCoverAllViewController: UIViewController {
     }
     
     private func loadFavoriteStatus() {
-        favoriteCustomImages = UserDefaults.standard.array(forKey: "favoriteCustomImages") as? [Bool] ?? Array(repeating: false, count: allCustomCovers.count)
+        favoriteCustomImages = UserDefaults.standard.array(forKey: "is_FavoriteCoverImages") as? [Bool] ?? Array(repeating: false, count: allCustomCovers.count)
     }
     
     private func saveFavoriteStatus() {
-        UserDefaults.standard.set(favoriteCustomImages, forKey: "favoriteCustomImages")
+        UserDefaults.standard.set(favoriteCustomImages, forKey: "is_FavoriteCoverImages")
     }
     
     override func viewWillAppear(_ animated: Bool) {

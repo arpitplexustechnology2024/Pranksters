@@ -2580,7 +2580,7 @@
                                                             <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddAudioCollectionCell" id="DrB-zB-9Nc" customClass="AddAudioCollectionCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddVideoCollectionViewCell" id="DrB-zB-9Nc" customClass="AddVideoCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="0.0" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="MEx-w1-ubJ">
@@ -2588,17 +2588,17 @@
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hb6-Zg-KSy">
-                                                                            <rect key="frame" x="16.666666666666671" y="22.666666666666671" width="82" height="80"/>
+                                                                            <rect key="frame" x="16.666666666666664" y="22.666666666666671" width="81.666666666666686" height="80"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddAudio" translatesAutoresizingMaskIntoConstraints="NO" id="TS1-0K-3Zc">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="82" height="50"/>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddVideo" translatesAutoresizingMaskIntoConstraints="NO" id="TS1-0K-3Zc">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="50"/>
                                                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="50" id="bgv-HV-XEZ"/>
                                                                                     </constraints>
                                                                                 </imageView>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Audio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S72-Xk-3O7">
-                                                                                    <rect key="frame" x="0.0" y="58" width="82" height="22"/>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Video" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S72-Xk-3O7">
+                                                                                    <rect key="frame" x="0.0" y="58" width="81.666666666666671" height="22"/>
                                                                                     <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="16"/>
                                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
@@ -2617,7 +2617,7 @@
                                                                     <outlet property="imageView" destination="TS1-0K-3Zc" id="kcj-q8-QLF"/>
                                                                 </connections>
                                                             </collectionViewCell>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="AudioCustomCollectionCell" id="qir-Xa-AvL" customClass="AudioCustomCollectionCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="VideoCustomCollectionViewCell" id="qir-Xa-AvL" customClass="VideoCustomCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
                                                                 <rect key="frame" x="141" y="0.0" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="jjn-hs-cZc">
@@ -2660,7 +2660,7 @@
                                                             <inset key="sectionInset" minX="16" minY="10" maxX="16" maxY="10"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AudioCharacterCollectionCell" id="rof-gz-MHx" customClass="AudioCharacterCollectionCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VideoCharacterCollectionViewCell" id="rof-gz-MHx" customClass="VideoCharacterCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="10" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="4wu-Tj-QIJ">
@@ -2786,7 +2786,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EmM-bc-3py">
                                 <rect key="frame" x="98.666666666666686" y="122" width="205" height="240"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MusicAudio05" translatesAutoresizingMaskIntoConstraints="NO" id="6Za-d0-ejb">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Za-d0-ejb">
                                         <rect key="frame" x="0.0" y="0.0" width="205" height="240"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfV-X3-8WB">
@@ -2801,6 +2801,13 @@
                                             <action selector="btnFavouriteSetTapped:" destination="eg6-hZ-IQP" eventType="touchUpInside" id="Ipc-DA-onq"/>
                                         </connections>
                                     </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pause" translatesAutoresizingMaskIntoConstraints="NO" id="zfn-Pb-YN0">
+                                        <rect key="frame" x="77.333333333333329" y="95" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="1Wa-0E-vB3"/>
+                                            <constraint firstAttribute="height" constant="50" id="4Xp-9u-wcG"/>
+                                        </constraints>
+                                    </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qoz-i3-psA" customClass="LottieAnimationView" customModule="Lottie">
                                         <rect key="frame" x="0.0" y="0.0" width="205" height="240"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2820,6 +2827,8 @@
                                     <constraint firstItem="6Za-d0-ejb" firstAttribute="leading" secondItem="EmM-bc-3py" secondAttribute="leading" id="cdC-ef-3cb"/>
                                     <constraint firstAttribute="bottom" secondItem="Qoz-i3-psA" secondAttribute="bottom" id="mgq-UY-eKF"/>
                                     <constraint firstItem="6Za-d0-ejb" firstAttribute="top" secondItem="EmM-bc-3py" secondAttribute="top" id="r3y-UG-o0R"/>
+                                    <constraint firstItem="zfn-Pb-YN0" firstAttribute="centerX" secondItem="EmM-bc-3py" secondAttribute="centerX" id="sN0-e3-07a"/>
+                                    <constraint firstItem="zfn-Pb-YN0" firstAttribute="centerY" secondItem="EmM-bc-3py" secondAttribute="centerY" id="vUo-1B-3xV"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2842,11 +2851,6 @@
                     <navigationItem key="navigationItem" id="vUA-JY-gPf"/>
                     <connections>
                         <outlet property="AudioShowView" destination="EmM-bc-3py" id="e89-D5-zdq"/>
-                        <outlet property="audioCharacterCollectionView" destination="dMQ-de-8qG" id="nNy-0H-yvh"/>
-                        <outlet property="audioCharacterHeightConstraint" destination="q62-or-nQD" id="ldr-w6-fpY"/>
-                        <outlet property="audioCustomCollectionView" destination="o6u-8w-qcV" id="hGO-BY-WwK"/>
-                        <outlet property="audioCustomHeightConstraint" destination="pXr-Zy-8di" id="vZt-8l-NVG"/>
-                        <outlet property="audioImageView" destination="6Za-d0-ejb" id="D18-mR-JRi"/>
                         <outlet property="bottomScrollView" destination="opc-TL-Sc2" id="kBT-rG-KAs"/>
                         <outlet property="bottomView" destination="Z7D-be-NyT" id="igR-Du-8ES"/>
                         <outlet property="coverImageViewHeightConstraint" destination="RDz-5D-M4h" id="R4z-kE-atw"/>
@@ -2855,7 +2859,13 @@
                         <outlet property="floatingButton" destination="sgA-cN-1dj" id="gzp-v2-9I6"/>
                         <outlet property="lottieLoader" destination="Qoz-i3-psA" id="RvN-V2-Wut"/>
                         <outlet property="navigationbarView" destination="NXz-SA-trz" id="wMf-M0-6xW"/>
+                        <outlet property="pauseImageView" destination="zfn-Pb-YN0" id="mDU-iG-x7A"/>
                         <outlet property="scrollViewHeightConstraint" destination="4IE-zM-61J" id="jAs-D9-fMf"/>
+                        <outlet property="videoCharacterCollectionView" destination="dMQ-de-8qG" id="OGf-Sz-ugy"/>
+                        <outlet property="videoCharacterHeightConstraint" destination="q62-or-nQD" id="7iR-Of-m1a"/>
+                        <outlet property="videoCustomCollectionView" destination="o6u-8w-qcV" id="gwX-f2-B4D"/>
+                        <outlet property="videoCustomHeightConstraint" destination="pXr-Zy-8di" id="U0C-OW-Bro"/>
+                        <outlet property="videoImageView" destination="6Za-d0-ejb" id="zWQ-l7-66j"/>
                         <outletCollection property="floatingCollectionButton" destination="jow-H7-kLL" collectionClass="NSMutableArray" id="F7y-Cm-5CM"/>
                         <outletCollection property="floatingCollectionButton" destination="opX-Rl-LRE" collectionClass="NSMutableArray" id="cbZ-gU-Hhq"/>
                         <outletCollection property="floatingCollectionButton" destination="tAK-w6-Ymp" collectionClass="NSMutableArray" id="T9L-25-swt"/>
@@ -2863,7 +2873,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pBT-a6-nBz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7839" y="668"/>
+            <point key="canvasLocation" x="7522" y="668"/>
         </scene>
         <!--Video Character All View Controller-->
         <scene sceneID="5RK-Nn-s7k">
@@ -2891,7 +2901,7 @@
                                             <action selector="btnBackTapped:" destination="gr2-Gv-9vn" eventType="touchUpInside" id="K2Z-o9-F6U"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Audio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9DK-A8-ZaS">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Video" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9DK-A8-ZaS">
                                         <rect key="frame" x="62" y="11" width="56" height="28"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
                                         <nil key="textColor"/>
@@ -2917,7 +2927,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AudioCharacterAllCollectionViewCell" id="FZW-b4-TlN" customClass="AudioCharacterAllCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VideoCharacterAllCollectionViewCell" id="FZW-b4-TlN" customClass="VideoCharacterAllCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="193" height="187"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="E9g-Sh-Zob">
@@ -2939,7 +2949,7 @@
                                                         <action selector="favoriteButtonTapped:" destination="FZW-b4-TlN" eventType="touchUpInside" id="FTd-k6-dCL"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Audio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4kV-eT-Ogi">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Video" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4kV-eT-Ogi">
                                                     <rect key="frame" x="8" y="157" width="45" height="22"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2980,13 +2990,13 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="audioCharacterAllCollectionView" destination="bjT-9G-vZO" id="re3-nE-w4J"/>
                         <outlet property="navigationbarView" destination="7V5-TO-oCe" id="5xz-2H-aeB"/>
+                        <outlet property="videoCharacterAllCollectionView" destination="bjT-9G-vZO" id="5A4-OA-dpA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eX8-dA-Bnf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8524" y="668"/>
+            <point key="canvasLocation" x="8207" y="668"/>
         </scene>
         <!--Video Preview View Controller-->
         <scene sceneID="3mY-Sd-n1z">
@@ -3049,7 +3059,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yke-FL-e4Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9163" y="668"/>
+            <point key="canvasLocation" x="8846" y="668"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="6NA-uG-Njq">
@@ -3433,7 +3443,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tcV-Ev-p6a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5646" y="668"/>
+            <point key="canvasLocation" x="9522" y="-32"/>
         </scene>
         <!--Image Character All View Controller-->
         <scene sceneID="zVn-SY-VPz">
@@ -3556,7 +3566,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vKz-R2-jhq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6331" y="668"/>
+            <point key="canvasLocation" x="10207" y="-32"/>
         </scene>
         <!--Image Preview View Controller-->
         <scene sceneID="wuD-Xh-yqn">
@@ -3619,12 +3629,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D4b-mP-bd8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6967" y="668"/>
+            <point key="canvasLocation" x="10843" y="-32"/>
         </scene>
     </scenes>
     <resources>
         <image name="AddAudio" width="32" height="32"/>
         <image name="AddImage" width="31" height="31"/>
+        <image name="AddVideo" width="31" height="31"/>
         <image name="AllSwiped" width="1170" height="1243"/>
         <image name="Audio" width="717" height="711"/>
         <image name="Fav" width="240" height="240"/>
@@ -3647,6 +3658,7 @@
         <image name="Yes" width="200" height="200"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="menu" width="25" height="25"/>
+        <image name="pause" width="72" height="72"/>
         <image name="play.fill" catalog="system" width="120" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="premium 1" width="240" height="240"/>

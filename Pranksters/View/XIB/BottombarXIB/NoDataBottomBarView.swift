@@ -46,7 +46,7 @@ class NoDataBottomBarView: UIView {
     
     private func setupLottieLoader() {
         lottieView.loopMode = .loop
-        lottieView.contentMode = .scaleAspectFill
+        lottieView.contentMode = .scaleAspectFit
         lottieView.animation = LottieAnimation.named("Nodata")
         lottieView.play()
     }

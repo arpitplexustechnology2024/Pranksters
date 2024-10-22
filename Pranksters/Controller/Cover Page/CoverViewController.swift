@@ -448,11 +448,11 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
     }
     
     func loadSavedImages() {
-        if let savedImages = UserDefaults.standard.object(forKey: "userSelectedImages") as? Data,
+        if let savedImages = UserDefaults.standard.object(forKey: "is_UserSelectedCoverImages") as? Data,
            let decodedImages = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedImages) as? [UIImage] {
             userSelectedImages = decodedImages
             
-            favoriteCustomImages = UserDefaults.standard.array(forKey: "favoriteCustomImages") as? [Bool] ?? Array(repeating: false, count: decodedImages.count)
+            favoriteCustomImages = UserDefaults.standard.array(forKey: "is_FavoriteCoverImages") as? [Bool] ?? Array(repeating: false, count: decodedImages.count)
             
             coverPage1CollectionView.reloadData()
             

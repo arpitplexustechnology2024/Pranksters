@@ -43,7 +43,6 @@ after some time.</string>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="287" id="RpE-yw-n4K"/>
-                        <constraint firstAttribute="width" constant="287" id="j0C-Kh-6Eb"/>
                     </constraints>
                 </view>
             </subviews>
