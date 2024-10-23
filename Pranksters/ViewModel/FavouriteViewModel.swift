@@ -10,6 +10,10 @@ import Foundation
 class FavoriteViewModel {
     private let apiService: FavoriteAPIServiceProtocol
     
+    var favourites: [FavouriteAllData] = []
+    var reloadData: (() -> Void)?
+    var onError: ((String) -> Void)?
+    
     init(apiService: FavoriteAPIServiceProtocol = FavoriteAPIService.shared) {
         self.apiService = apiService
     }
@@ -29,9 +33,10 @@ class FavoriteViewModel {
         apiService.setAllFavorite(categoryId: categoryId) { result in
             switch result {
             case .success(let response):
-                completion(true, response.message)
+                self.favourites = response.data
+                self.reloadData?()
             case .failure(let error):
-                completion(false, error.localizedDescription)
+                self.onError?(error.localizedDescription)
             }
         }
     }
