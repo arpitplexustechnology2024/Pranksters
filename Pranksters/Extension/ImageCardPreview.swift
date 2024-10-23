@@ -8,7 +8,6 @@
 import UIKit
 import Shuffle_iOS
 import SDWebImage
-import CoreImage
 
 struct ImageCardModel {
     let name: String
@@ -23,7 +22,12 @@ class ImageCardPreview: SwipeCard {
     
     private let imageView = UIImageView()
     private let imageLabel = UILabel()
-    private let blurredImageView = UIImageView()
+    private let blurEffectView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .dark)
+        let view = UIVisualEffectView(effect: blurEffect)
+        view.alpha = 0
+        return view
+    }()
     private let favouriteButton = UIButton()
     private let premiumIconView = UIImageView()
     var model: ImageCardModel?
@@ -44,16 +48,15 @@ class ImageCardPreview: SwipeCard {
         imageView.layer.cornerRadius = 12
         addSubview(imageView)
         
+        // Add blur effect view after imageView
+        blurEffectView.layer.masksToBounds = true
+        blurEffectView.layer.cornerRadius = 12
+        addSubview(blurEffectView)
+        
         imageLabel.textColor = .white
         imageLabel.textAlignment = .left
         imageLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         addSubview(imageLabel)
-        
-        blurredImageView.contentMode = .scaleAspectFill
-        blurredImageView.layer.masksToBounds = true
-        blurredImageView.layer.cornerRadius = 12
-        blurredImageView.alpha = 0
-        addSubview(blurredImageView)
         
         premiumIconView.image = UIImage(named: "premiumIcon")
         premiumIconView.isHidden = true
@@ -63,7 +66,9 @@ class ImageCardPreview: SwipeCard {
         favouriteButton.addTarget(self, action: #selector(favouriteButtonTapped), for: .touchUpInside)
         addSubview(favouriteButton)
         
-        [imageView, imageLabel, blurredImageView, premiumIconView, favouriteButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [imageView, blurEffectView, imageLabel, premiumIconView, favouriteButton].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor),
@@ -71,13 +76,13 @@ class ImageCardPreview: SwipeCard {
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
+            blurEffectView.topAnchor.constraint(equalTo: topAnchor),
+            blurEffectView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            blurEffectView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
             imageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             imageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            
-            blurredImageView.topAnchor.constraint(equalTo: topAnchor),
-            blurredImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            blurredImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            blurredImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             premiumIconView.centerXAnchor.constraint(equalTo: centerXAnchor),
             premiumIconView.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -94,46 +99,21 @@ class ImageCardPreview: SwipeCard {
     func configure(withModel model: ImageCardModel, customImage: UIImage? = nil) {
         self.model = model
         if let customImage = customImage {
-            setImage(customImage)
+            imageView.image = customImage
         } else {
-            imageView.sd_setImage(with: URL(string: model.image)) { [weak self] image, _, _, _ in
-                if let image = image {
-                    self?.setImage(image)
-                }
-            }
+            imageView.sd_setImage(with: URL(string: model.image))
         }
         updateFavoriteButton(isFavorited: model.isFavorited)
         imageLabel.text = model.name
         
         if model.Premium {
-            blurredImageView.alpha = 1
+            blurEffectView.alpha = 1
             premiumIconView.isHidden = false
         } else {
-            blurredImageView.alpha = 0
+            blurEffectView.alpha = 0
             premiumIconView.isHidden = true
         }
         favouriteButton.isHidden = false
-    }
-    
-    private func setImage(_ image: UIImage) {
-        imageView.image = image
-        if let blurredImage = applyGaussianBlur(to: image) {
-            blurredImageView.image = blurredImage
-        }
-    }
-    
-    private func applyGaussianBlur(to image: UIImage) -> UIImage? {
-        guard let ciImage = CIImage(image: image) else { return nil }
-        
-        let filter = CIFilter(name: "CIGaussianBlur")
-        filter?.setValue(ciImage, forKey: kCIInputImageKey)
-        filter?.setValue(50, forKey: kCIInputRadiusKey)
-        guard let outputImage = filter?.outputImage else { return nil }
-        
-        let context = CIContext(options: nil)
-        guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else { return nil }
-        
-        return UIImage(cgImage: cgImage)
     }
     
     @objc private func favouriteButtonTapped() {
@@ -148,4 +128,3 @@ class ImageCardPreview: SwipeCard {
         favouriteButton.setImage(UIImage(named: heartImage), for: .normal)
     }
 }
-

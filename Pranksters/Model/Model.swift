@@ -81,6 +81,34 @@ struct CharacterAllData: Codable {
     }
 }
 
+// MARK: - FavouriteAllResponse
+struct FavouriteAllResponse: Codable {
+    let status: Int
+    let message: String
+    let data: [FavouriteAllData]
+}
+
+// MARK: - FavouriteAllData
+struct FavouriteAllData: Codable {
+    let file: String?
+    let name: String?
+    let image: String
+    let premium: Bool
+    let itemID: Int
+    let characterID: Int?
+    var isFavorite: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case file = "File"
+        case name = "Name"
+        case image = "Image"
+        case premium = "Premium"
+        case itemID = "ItemId"
+        case characterID = "CharacterId"
+        case isFavorite
+    }
+}
+
 // MARK: - MoreApp
 struct MoreApp: Codable {
     let status: Int

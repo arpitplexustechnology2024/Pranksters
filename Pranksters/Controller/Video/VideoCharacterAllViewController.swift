@@ -231,16 +231,30 @@ extension VideoCharacterAllViewController: UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let coverPageData = viewModel.audioData[indexPath.row]
-        if coverPageData.premium {
+        let selectedData = viewModel.audioData[indexPath.row]
+        
+        // Print all data of selected cell
+        print("Selected Cell Data:")
+        print("File: \(selectedData.file ?? "No file")")
+        print("Name: \(selectedData.name)")
+        print("Image: \(selectedData.image)")
+        print("Premium: \(selectedData.premium)")
+        print("ItemID: \(selectedData.itemID)")
+        print("Is Favorite: \(selectedData.isFavorite)")
+        
+        if selectedData.premium {
             presentPremiumViewController()
         } else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(identifier: "VideoPreviewViewController") as! VideoPreviewViewController
             vc.modalTransitionStyle = .crossDissolve
             vc.modalPresentationStyle = .overCurrentContext
-            vc.imageData = Array(viewModel.audioData[indexPath.row...])
+            
+            // Create VideoCardModel array from the remaining data
+            let remainingData = Array(viewModel.audioData[indexPath.row...])
+            vc.imageData = remainingData
             vc.initialIndex = 0
+            
             self.present(vc, animated: true)
         }
     }

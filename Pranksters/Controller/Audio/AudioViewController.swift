@@ -337,6 +337,8 @@ class AudioViewController: UIViewController {
     @IBAction func btnFavouriteTapped(_ sender: UIButton) {
         animate(toggel: false)
         floatingButton.setImage(plusImage, for: .normal)
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "FavouriteViewController") as! FavouriteViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func btnPremiumTapped(_ sender: UIButton) {

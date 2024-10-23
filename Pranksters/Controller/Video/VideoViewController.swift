@@ -33,6 +33,10 @@ class VideoViewController: UIViewController {
     @IBOutlet weak var videoCustomHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var videoCharacterHeightConstraint: NSLayoutConstraint!
     
+    
+    var shouldAutoPlayVideo = false
+    private let selectedVideosKey = "SelectedVideos"
+    
     let plusImage = UIImage(named: "Plus")
     let cancelImage = UIImage(named: "Cancel")
     
@@ -94,11 +98,28 @@ class VideoViewController: UIViewController {
         setupAudioSession()
         
         self.pauseImageView.image = UIImage(named: "pause")
-        self.videoImageView.image = UIImage(named: "MusicAudio01")
         self.pauseImageView.isHidden = true
         
-        loadFavoriteVideos()
+        self.videoImageView.isHidden = true
+        self.favouriteButton.isHidden = true
         
+        loadFavoriteVideos()
+        loadSavedVideos()
+        loadSavedVideosWithoutAutoPlay()
+        
+    }
+    
+    private func loadSavedVideosWithoutAutoPlay() {
+        if let savedURLStrings = UserDefaults.standard.array(forKey: selectedVideosKey) as? [String] {
+            selectedVideos = savedURLStrings.compactMap { URL(string: $0) }
+            videoCustomCollectionView.reloadData()
+            
+            self.videoImageView.isHidden = true
+            self.favouriteButton.isHidden = true
+            selectedVideoIndex = nil
+            
+            stopVideo()
+        }
     }
     
     private func stopVideo() {
@@ -352,6 +373,8 @@ class VideoViewController: UIViewController {
     @IBAction func btnFavouriteTapped(_ sender: UIButton) {
         animate(toggel: false)
         floatingButton.setImage(plusImage, for: .normal)
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "FavouriteViewController") as! FavouriteViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func btnPremiumTapped(_ sender: UIButton) {
@@ -378,7 +401,7 @@ class VideoViewController: UIViewController {
     }
     
     @IBAction func btnDoneTapped(_ sender: UIButton) {
-        // Implement your logic here
+        
     }
     
     @IBAction func btnBackTapped(_ sender: UIButton) {
@@ -399,13 +422,11 @@ class VideoViewController: UIViewController {
         let urlString = videoURL.absoluteString
         
         if favoriteVideos.contains(urlString) {
-            // Remove from favorites
             if let index = favoriteVideos.firstIndex(of: urlString) {
                 favoriteVideos.remove(at: index)
                 favouriteButton.setImage(UIImage(named: "Heart"), for: .normal)
             }
         } else {
-            // Add to favorites
             favoriteVideos.append(urlString)
             favouriteButton.setImage(UIImage(named: "Heart_Fill"), for: .normal)
         }
@@ -430,6 +451,7 @@ class VideoViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == videoCustomCollectionView {
@@ -477,7 +499,7 @@ extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSou
             } else {
                 
                 let videoURL = selectedVideos[indexPath.item - 1]
-                playVideo(url: videoURL)
+                playVideo(url: videoURL, autoPlay: true)
                 selectedVideoIndex = indexPath.item - 1
             }
         } else if collectionView == videoCharacterCollectionView {
@@ -485,6 +507,25 @@ extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSou
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "VideoCharacterAllViewController") as! VideoCharacterAllViewController
             vc.characterId = character.characterID
             self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func deleteVideo(at index: Int) {
+        let videoURL = selectedVideos[index]
+        
+        selectedVideos.remove(at: index)
+        saveVideos()
+        
+        try? FileManager.default.removeItem(at: videoURL)
+        
+        videoCustomCollectionView.reloadData()
+        
+        if let firstVideo = selectedVideos.first {
+            playVideo(url: firstVideo)
+            selectedVideoIndex = 0
+        } else {
+            stopVideo()
+            videoImageView.image = UIImage(named: "MusicAudio01")
         }
     }
     
@@ -635,24 +676,40 @@ extension VideoViewController: UIImagePickerControllerDelegate, UINavigationCont
             return
         }
         
-        selectedVideos.append(url)
+        guard let savedURL = saveVideoToDocuments(from: url) else { return }
+        
+        selectedVideos.append(savedURL)
+        saveVideos()
+        
         let newIndex = selectedVideos.count
         videoCustomCollectionView.reloadData()
         
         let indexPath = IndexPath(item: newIndex, section: 0)
         videoCustomCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         
-        playVideo(url: url)
-        
+        playVideo(url: savedURL, autoPlay: true)
         selectedVideoIndex = newIndex - 1
     }
     
-    func playVideo(url: URL) {
+    private func saveVideoToDocuments(from sourceURL: URL) -> URL? {
+        let fileManager = FileManager.default
+        let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let destinationURL = documentsPath.appendingPathComponent(UUID().uuidString + ".mp4")
+        
+        do {
+            try fileManager.copyItem(at: sourceURL, to: destinationURL)
+            return destinationURL
+        } catch {
+            print("Error saving video: \(error)")
+            return nil
+        }
+    }
+    
+    func playVideo(url: URL, autoPlay: Bool = false) {
         showLottieLoader()
         playerLayer?.removeFromSuperlayer()
         
         let playerItem = AVPlayerItem(url: url)
-        
         player = AVPlayer(playerItem: playerItem)
         
         playerLayer = AVPlayerLayer(player: player)
@@ -665,8 +722,17 @@ extension VideoViewController: UIImagePickerControllerDelegate, UINavigationCont
         
         player?.volume = 1.0
         
+        self.videoImageView.isHidden = false
+        self.favouriteButton.isHidden = false
+        
         hideLottieLoader()
-        playVideo()
+        
+        if autoPlay {
+            playVideo()
+        } else {
+            pauseVideo()
+            pauseImageView.isHidden = true
+        }
         
         updateFavoriteButtonState(for: url)
         
@@ -685,5 +751,81 @@ extension VideoViewController: UIImagePickerControllerDelegate, UINavigationCont
     
     func isVideoFavorite(_ url: URL) -> Bool {
         return favoriteVideos.contains(url.absoluteString)
+    }
+    
+    private func loadSavedVideos() {
+        if let savedURLStrings = UserDefaults.standard.array(forKey: selectedVideosKey) as? [String] {
+            selectedVideos = savedURLStrings.compactMap { URL(string: $0) }
+            videoCustomCollectionView.reloadData()
+            
+            if let firstVideo = selectedVideos.first {
+                self.videoImageView.isHidden = false
+                self.favouriteButton.isHidden = false
+                playVideo(url: firstVideo)
+                selectedVideoIndex = 0
+            }
+        }
+    }
+    
+    private func saveVideos() {
+        let urlStrings = selectedVideos.map { $0.absoluteString }
+        UserDefaults.standard.set(urlStrings, forKey: selectedVideosKey)
+    }
+    
+    func updateSelectedVideo(with coverData: CharacterAllData) {
+        showLottieLoader()
+        
+        // Print all data
+        print("=== Selected Video from Preview ===")
+        print("Name: \(coverData.name)")
+        print("File URL: \(coverData.file ?? "No URL")")
+        print("Is Favorite: \(coverData.isFavorite)")
+        print("Item ID: \(coverData.itemID)")
+        print("Premium: \(coverData.premium)")
+        print("=====================================")
+        
+        updateFavoriteButton(isFavorite: coverData.isFavorite)
+        
+        if let videoURLString = coverData.file,
+           let videoURL = URL(string: videoURLString) {
+            // Stop any existing video
+            stopVideo()
+            
+            self.videoImageView.isHidden = false
+            self.favouriteButton.isHidden = false
+            
+            let playerItem = AVPlayerItem(url: videoURL)
+            player = AVPlayer(playerItem: playerItem)
+            
+            playerLayer = AVPlayerLayer(player: player)
+            playerLayer?.frame = videoImageView.bounds
+            playerLayer?.videoGravity = .resizeAspectFill
+            
+            if let playerLayer = playerLayer {
+                videoImageView.layer.addSublayer(playerLayer)
+            }
+            
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(playerDidFinishPlaying),
+                name: .AVPlayerItemDidPlayToEndTime,
+                object: playerItem
+            )
+            
+            player?.volume = 1.0
+            playVideo()
+            
+            pauseImageView.isHidden = true
+            isPlaying = true
+        }
+        
+        hideLottieLoader()
+    }
+    
+    private func updateFavoriteButton(isFavorite: Bool) {
+        favouriteButton.setImage(
+            UIImage(named: isFavorite ? "Heart_Fill" : "Heart"),
+            for: .normal
+        )
     }
 }

@@ -160,29 +160,29 @@ class ImagePreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
     }
     
     @IBAction func btnSelectTapped(_ sender: UIButton) {
-            guard currentCardIndex < imageData.count else { return }
-
-            let selectedCoverData = imageData[currentCardIndex]
-
-            if selectedCoverData.premium {
-                presentPremiumViewController()
-            } else {
-                if let navigationController = self.presentingViewController as? UINavigationController {
-                    self.dismiss(animated: false) {
-                        if let imageVC = navigationController.viewControllers.first(where: { $0 is ImageViewController }) as? ImageViewController {
+        guard currentCardIndex < imageData.count else { return }
+        
+        let selectedCoverData = imageData[currentCardIndex]
+        
+        if selectedCoverData.premium {
+            presentPremiumViewController()
+        } else {
+            if let navigationController = self.presentingViewController as? UINavigationController {
+                self.dismiss(animated: false) {
+                    if let imageVC = navigationController.viewControllers.first(where: { $0 is ImageViewController }) as? ImageViewController {
+                        imageVC.updateSelectedImage(with: selectedCoverData)
+                        navigationController.popToViewController(imageVC, animated: true)
+                    } else {
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        if let imageVC = storyboard.instantiateViewController(withIdentifier: "ImageViewController") as? ImageViewController {
                             imageVC.updateSelectedImage(with: selectedCoverData)
-                            navigationController.popToViewController(imageVC, animated: true)
-                        } else {
-                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                            if let imageVC = storyboard.instantiateViewController(withIdentifier: "ImageViewController") as? ImageViewController {
-                                imageVC.updateSelectedImage(with: selectedCoverData)
-                                navigationController.pushViewController(imageVC, animated: true)
-                            }
+                            navigationController.pushViewController(imageVC, animated: true)
                         }
                     }
                 }
             }
         }
+    }
     
     private func presentPremiumViewController() {
         let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumViewController") as! PremiumViewController

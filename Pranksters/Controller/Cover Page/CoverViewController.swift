@@ -202,10 +202,7 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         view.layer.shadowOpacity = 0.2
         view.layer.shadowOffset = CGSize(width: 0, height: 7)
         view.layer.shadowRadius = 12
-        view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0,
-                                                          y: view.bounds.maxY - 4,
-                                                          width: view.bounds.width,
-                                                          height: 4)).cgPath
+        view.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: view.bounds.maxY - 4, width: view.bounds.width, height: 4)).cgPath
     }
     
     private func setupLottieLoader() {
@@ -240,6 +237,8 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
     @IBAction func btnFavouriteTapped(_ sender: UIButton) {
         animate(toggel: false)
         floatingButton.setImage(plusImage, for: .normal)
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "FavouriteViewController") as! FavouriteViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func btnPremiumTapped(_ sender: UIButton) {
@@ -471,8 +470,8 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
     
     func saveImages() {
         if let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: userSelectedImages, requiringSecureCoding: false) {
-            UserDefaults.standard.set(encodedData, forKey: "userSelectedImages")
-            UserDefaults.standard.set(favoriteCustomImages, forKey: "favoriteCustomImages")
+            UserDefaults.standard.set(encodedData, forKey: "is_UserSelectedCoverImages")
+            UserDefaults.standard.set(favoriteCustomImages, forKey: "is_FavoriteCoverImages")
         }
     }
     
@@ -930,6 +929,7 @@ extension CoverViewController: CoverPreviewViewControllerDelegate {
     }
     
     func coverPreviewViewController(_ viewController: CoverPreviewViewController, didSelectCoverAt index: Int, coverData: CoverPageData) {
+        
         print("📱 Selected Cover Data:")
         print("=====================================")
         print("Cover URL: \(coverData.coverURL)")

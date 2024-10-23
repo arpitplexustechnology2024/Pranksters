@@ -9,6 +9,8 @@ import UIKit
 import Shuffle_iOS
 import SDWebImage
 import CoreImage
+import AVKit
+import Lottie
 
 struct VideoCardModel {
     let file: String
@@ -21,15 +23,28 @@ struct VideoCardModel {
 
 class VideoCardPreview: SwipeCard {
     
-    private let imageView = UIImageView()
+    private let videoContainer = UIView()
+    private let videoPlayer = AVPlayer()
+    private let playerLayer = AVPlayerLayer()
     private let imageLabel = UILabel()
-    private let blurredImageView = UIImageView()
     private let favouriteButton = UIButton()
     private let premiumIconView = UIImageView()
+    private let pauseOverlayImageView = UIImageView()
+    
+    private let blurContainer = UIView()
+    private let blurEffect = UIBlurEffect(style: .dark)
+    private let blurEffectView: UIVisualEffectView
+    
+    private let loadingAnimation = LottieAnimationView(name: "LoadData")
+    private var playerItemStatusObserver: NSKeyValueObservation?
+    
     var model: VideoCardModel?
     var onFavoriteButtonTapped: ((Int, Bool, Int) -> Void)?
+    var onPremiumContentTapped: (() -> Void)?
+    private var isPlaying = false
     
     override init(frame: CGRect) {
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
         super.init(frame: frame)
         configureCard()
     }
@@ -39,23 +54,38 @@ class VideoCardPreview: SwipeCard {
     }
     
     private func configureCard() {
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 12
-        addSubview(imageView)
+        videoContainer.layer.cornerRadius = 12
+        videoContainer.layer.backgroundColor = UIColor.black.cgColor
+        videoContainer.layer.masksToBounds = true
+        addSubview(videoContainer)
+        
+        playerLayer.videoGravity = .resizeAspect
+        videoContainer.layer.addSublayer(playerLayer)
+        
+        pauseOverlayImageView.contentMode = .scaleAspectFit
+        pauseOverlayImageView.image = UIImage(named: "pause")
+        pauseOverlayImageView.tintColor = .white
+        pauseOverlayImageView.alpha = 0
+        videoContainer.addSubview(pauseOverlayImageView)
+        
+        loadingAnimation.loopMode = .loop
+        loadingAnimation.contentMode = .scaleAspectFit
+        addSubview(loadingAnimation)
         
         imageLabel.textColor = .white
         imageLabel.textAlignment = .left
         imageLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         addSubview(imageLabel)
         
-        blurredImageView.contentMode = .scaleAspectFill
-        blurredImageView.layer.masksToBounds = true
-        blurredImageView.layer.cornerRadius = 12
-        blurredImageView.alpha = 0
-        addSubview(blurredImageView)
+        blurContainer.layer.cornerRadius = 12
+        blurContainer.layer.masksToBounds = true
+        videoContainer.addSubview(blurContainer)
+        
+        blurEffectView.alpha = 0
+        blurContainer.addSubview(blurEffectView)
         
         premiumIconView.image = UIImage(named: "premiumIcon")
+        premiumIconView.contentMode = .scaleAspectFit
         premiumIconView.isHidden = true
         addSubview(premiumIconView)
         
@@ -63,73 +93,169 @@ class VideoCardPreview: SwipeCard {
         favouriteButton.addTarget(self, action: #selector(favouriteButtonTapped), for: .touchUpInside)
         addSubview(favouriteButton)
         
-        [imageView, imageLabel, blurredImageView, premiumIconView, favouriteButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleVideoTap))
+        videoContainer.addGestureRecognizer(tapGesture)
+        
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
+        [videoContainer, loadingAnimation, imageLabel, blurContainer, premiumIconView, favouriteButton, pauseOverlayImageView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            videoContainer.topAnchor.constraint(equalTo: topAnchor),
+            videoContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
+            videoContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
+            videoContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            imageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            imageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            blurContainer.topAnchor.constraint(equalTo: topAnchor),
+            blurContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
+            blurContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
+            blurContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            blurredImageView.topAnchor.constraint(equalTo: topAnchor),
-            blurredImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            blurredImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            blurredImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            blurEffectView.topAnchor.constraint(equalTo: blurContainer.topAnchor),
+            blurEffectView.leadingAnchor.constraint(equalTo: blurContainer.leadingAnchor),
+            blurEffectView.trailingAnchor.constraint(equalTo: blurContainer.trailingAnchor),
+            blurEffectView.bottomAnchor.constraint(equalTo: blurContainer.bottomAnchor),
             
             premiumIconView.centerXAnchor.constraint(equalTo: centerXAnchor),
             premiumIconView.centerYAnchor.constraint(equalTo: centerYAnchor),
             premiumIconView.widthAnchor.constraint(equalToConstant: 60),
             premiumIconView.heightAnchor.constraint(equalToConstant: 60),
             
+            loadingAnimation.topAnchor.constraint(equalTo: topAnchor),
+            loadingAnimation.leadingAnchor.constraint(equalTo: leadingAnchor),
+            loadingAnimation.trailingAnchor.constraint(equalTo: trailingAnchor),
+            loadingAnimation.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            imageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            imageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            
             favouriteButton.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             favouriteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             favouriteButton.widthAnchor.constraint(equalToConstant: 22),
-            favouriteButton.heightAnchor.constraint(equalToConstant: 20)
+            favouriteButton.heightAnchor.constraint(equalToConstant: 20),
+            
+            pauseOverlayImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            pauseOverlayImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            pauseOverlayImageView.widthAnchor.constraint(equalToConstant: 80),
+            pauseOverlayImageView.heightAnchor.constraint(equalToConstant: 80)
         ])
     }
     
-    func configure(withModel model: VideoCardModel, customImage: UIImage? = nil) {
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        playerLayer.frame = videoContainer.bounds
+    }
+    
+    func configure(withModel model: VideoCardModel) {
         self.model = model
-            imageView.sd_setImage(with: URL(string: model.file)) { [weak self] image, _, _, _ in
-                if let image = image {
-                    self?.setImage(image)
-                }
+        
+        loadingAnimation.play()
+        
+        guard let videoURL = URL(string: model.file) else {
+            print("❌ Invalid video URL: \(model.file)")
+            return
+        }
+        
+        print("🎥 Attempting to load video from URL: \(videoURL)")
+        
+        let asset = AVAsset(url: videoURL)
+        let playerItem = AVPlayerItem(asset: asset)
+        
+        playerItemStatusObserver = playerItem.observe(\.status, options: [.new, .old]) { [weak self] playerItem, _ in
+            DispatchQueue.main.async {
+                self?.handlePlayerItemStatusChange(playerItem)
             }
+        }
+        
+        videoPlayer.replaceCurrentItem(with: playerItem)
+        playerLayer.player = videoPlayer
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(playerDidFinishPlaying),
+                                               name: .AVPlayerItemDidPlayToEndTime,
+                                               object: playerItem)
+        
         updateFavoriteButton(isFavorited: model.isFavorited)
         imageLabel.text = model.name
         
         if model.Premium {
-            blurredImageView.alpha = 1
+            UIView.animate(withDuration: 0.3) {
+                self.blurEffectView.alpha = 1
+            }
             premiumIconView.isHidden = false
+            pauseVideo()
+            pauseOverlayImageView.alpha = 0
         } else {
-            blurredImageView.alpha = 0
+            UIView.animate(withDuration: 0.3) {
+                self.blurEffectView.alpha = 0
+            }
             premiumIconView.isHidden = true
+            pauseVideo()
         }
+        
         favouriteButton.isHidden = false
     }
     
-    private func setImage(_ image: UIImage) {
-        imageView.image = image
-        if let blurredImage = applyGaussianBlur(to: image) {
-            blurredImageView.image = blurredImage
+    private func handlePlayerItemStatusChange(_ playerItem: AVPlayerItem) {
+        switch playerItem.status {
+        case .readyToPlay:
+            loadingAnimation.stop()
+            loadingAnimation.isHidden = true
+            isPlaying = false
+            pauseOverlayImageView.alpha = 1
+            
+        case .failed:
+            print("❌ Video failed to load: \(String(describing: playerItem.error))")
+            
+        case .unknown:
+            print("⚠️ Video status unknown")
+            
+        @unknown default:
+            print("⚠️ Unexpected video status")
         }
     }
     
-    private func applyGaussianBlur(to image: UIImage) -> UIImage? {
-        guard let ciImage = CIImage(image: image) else { return nil }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        playerItemStatusObserver?.invalidate()
+        videoPlayer.pause()
+    }
+    
+    @objc private func handleVideoTap() {
+        guard let model = model else { return }
         
-        let filter = CIFilter(name: "CIGaussianBlur")
-        filter?.setValue(ciImage, forKey: kCIInputImageKey)
-        filter?.setValue(50, forKey: kCIInputRadiusKey)
-        guard let outputImage = filter?.outputImage else { return nil }
-        
-        let context = CIContext(options: nil)
-        guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else { return nil }
-        
-        return UIImage(cgImage: cgImage)
+        if model.Premium {
+            onPremiumContentTapped?()
+        } else {
+            toggleePlayPause()
+        }
+    }
+    
+    func toggleePlayPause() {
+        if isPlaying {
+            videoPlayer.pause()
+            UIView.animate(withDuration: 0.3) {
+                self.pauseOverlayImageView.alpha = 1
+            }
+        } else {
+            videoPlayer.play()
+            UIView.animate(withDuration: 0.3) {
+                self.pauseOverlayImageView.alpha = 0
+            }
+        }
+        isPlaying = !isPlaying
+    }
+    
+    @objc private func playerDidFinishPlaying() {
+        videoPlayer.seek(to: .zero)
+        videoPlayer.play()
     }
     
     @objc private func favouriteButtonTapped() {
@@ -143,6 +269,23 @@ class VideoCardPreview: SwipeCard {
         let heartImage = isFavorited ? "Heart_Fill" : "Heart"
         favouriteButton.setImage(UIImage(named: heartImage), for: .normal)
     }
+    
+    func playVideo() {
+        videoPlayer.play()
+        isPlaying = true
+        self.pauseOverlayImageView.alpha = 0
+    }
+    
+    func pauseVideo() {
+        videoPlayer.pause()
+        isPlaying = false
+    }
+    
+    func togglePlayPause() {
+        if isPlaying {
+            pauseVideo()
+        } else {
+            playVideo()
+        }
+    }
 }
-
-

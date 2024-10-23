@@ -7,6 +7,7 @@
 
 import UIKit
 import Shuffle_iOS
+import AVKit
 
 class VideoPreviewViewController: UIViewController, SwipeCardStackDataSource, SwipeCardStackDelegate {
     
@@ -21,6 +22,7 @@ class VideoPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
     
     private var currentCardIndex: Int = 0
     private var visibleCards: [VideoCardPreview] = []
+    private var currentPlayer: AVPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,16 @@ class VideoPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
         allSwipedImageView.alpha = 0
         
         self.selectButton.layer.cornerRadius = 13
+        currentCardIndex = initialIndex
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        visibleCards.forEach { card in
+            if let videoCard = card as? VideoCardPreview {
+                videoCard.pauseVideo()
+            }
+        }
     }
     
     private func setupCardStack() {
@@ -61,16 +73,34 @@ class VideoPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
         return imageData.count
     }
     
-    
     func cardStack(_ cardStack: SwipeCardStack, cardForIndexAt index: Int) -> SwipeCard {
         let card = VideoCardPreview()
         let coverPageData = imageData[index]
         
-        let cardModel = VideoCardModel(file: coverPageData.file!, name: coverPageData.name, isFavorited: coverPageData.isFavorite, itemId: coverPageData.itemID, categoryId: 3, Premium: coverPageData.premium)
-        card.configure(withModel: cardModel)
+        print("➡️ DEBUG INFO FOR CARD \(index):")
+        print("📱 Name: \(coverPageData.name)")
+        print("🔗 File URL: \(coverPageData.file ?? "No URL found")")
+        print("🎥 Premium Status: \(coverPageData.premium)")
+        print("❤️ Favorite Status: \(coverPageData.isFavorite)")
+        print("🆔 Item ID: \(coverPageData.itemID)")
+        print("------------------")
         
+        let cardModel = VideoCardModel(
+            file: coverPageData.file ?? "",
+            name: coverPageData.name,
+            isFavorited: coverPageData.isFavorite,
+            itemId: coverPageData.itemID,
+            categoryId: 2,
+            Premium: coverPageData.premium
+        )
+        
+        card.configure(withModel: cardModel)
         card.swipeDirections = [.left, .right]
         visibleCards.append(card)
+        
+        card.onPremiumContentTapped = { [weak self] in
+            self?.presentPremiumViewController()
+        }
         
         card.onFavoriteButtonTapped = { [weak self] itemId, isFavorite, categoryId in
             self?.handleFavoriteButtonTapped(itemId: itemId, isFavorite: isFavorite, categoryId: categoryId)
@@ -78,6 +108,7 @@ class VideoPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
         
         return card
     }
+    
     
     // MARK: - SwipeCardStackDelegate
     func didSwipeAllCards(_ cardStack: SwipeCardStack) {
@@ -99,11 +130,30 @@ class VideoPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
     
     func cardStack(_ cardStack: SwipeCardStack, didSwipeCardAt index: Int, with direction: SwipeDirection) {
         if index < visibleCards.count {
+            let swipedCard = visibleCards[index]
+            swipedCard.pauseVideo()
             visibleCards.remove(at: index)
         }
         
         currentCardIndex = index + 1
+        
         updateSelectButtonState()
+    }
+    
+    func cardStack(_ cardStack: SwipeCardStack, didSelectCardAt index: Int) {
+        guard currentCardIndex < imageData.count else { return }
+        
+        let selectedData = imageData[currentCardIndex]
+        
+        if selectedData.premium {
+            print("Premium")
+            presentPremiumViewController()
+        } else {
+            print("Start")
+            if let selectedCard = visibleCards.first {
+                selectedCard.togglePlayPause()
+            }
+        }
     }
     
     private func updateSelectButtonState() {
@@ -121,7 +171,7 @@ class VideoPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
                         
                         if let visibleCard = self.visibleCards.first(where: { $0.model?.itemId == itemId }) {
                             let updatedModel = VideoCardModel(
-                                file: self.imageData[index].file!,
+                                file: self.imageData[index].file ?? "",
                                 name: self.imageData[index].name,
                                 isFavorited: isFavorite,
                                 itemId: itemId,
@@ -147,11 +197,11 @@ class VideoPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
             
             if let cardToUpdate = visibleCards.first(where: { $0.model?.itemId == itemId }) {
                 let updatedModel = VideoCardModel(
-                    file: imageData[index].file!,
+                    file: imageData[index].file ?? "",
                     name: imageData[index].name,
                     isFavorited: !currentStatus,
                     itemId: itemId,
-                    categoryId: 3,
+                    categoryId: 2,
                     Premium: imageData[index].premium
                 )
                 cardToUpdate.configure(withModel: updatedModel)
@@ -160,29 +210,29 @@ class VideoPreviewViewController: UIViewController, SwipeCardStackDataSource, Sw
     }
     
     @IBAction func btnSelectTapped(_ sender: UIButton) {
-            guard currentCardIndex < imageData.count else { return }
-
-            let selectedCoverData = imageData[currentCardIndex]
-
-            if selectedCoverData.premium {
-                presentPremiumViewController()
-            } else {
-                if let navigationController = self.presentingViewController as? UINavigationController {
-                    self.dismiss(animated: false) {
-                        if let imageVC = navigationController.viewControllers.first(where: { $0 is VideoViewController }) as? VideoViewController {
-                         //   imageVC.updateSelectedImage(with: selectedCoverData)
-                            navigationController.popToViewController(imageVC, animated: true)
-                        } else {
-                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                            if let imageVC = storyboard.instantiateViewController(withIdentifier: "VideoViewController") as? VideoViewController {
-                              //  imageVC.updateSelectedImage(with: selectedCoverData)
-                                navigationController.pushViewController(imageVC, animated: true)
-                            }
+        guard currentCardIndex < imageData.count else { return }
+        
+        let selectedCoverData = imageData[currentCardIndex]
+        
+        if selectedCoverData.premium {
+            presentPremiumViewController()
+        } else {
+            if let navigationController = self.presentingViewController as? UINavigationController {
+                self.dismiss(animated: false) {
+                    if let videoVC = navigationController.viewControllers.first(where: { $0 is VideoViewController }) as? VideoViewController {
+                        videoVC.updateSelectedVideo(with: selectedCoverData)
+                        navigationController.popToViewController(videoVC, animated: true)
+                    } else {
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        if let videoVC = storyboard.instantiateViewController(withIdentifier: "VideoViewController") as? VideoViewController {
+                            videoVC.updateSelectedVideo(with: selectedCoverData)
+                            navigationController.pushViewController(videoVC, animated: true)
                         }
                     }
                 }
             }
         }
+    }
     
     private func presentPremiumViewController() {
         let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumViewController") as! PremiumViewController

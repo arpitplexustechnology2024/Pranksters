@@ -299,6 +299,8 @@ class ImageViewController: UIViewController {
     @IBAction func btnFavouriteTapped(_ sender: UIButton) {
         animate(toggel: false)
         floatingButton.setImage(plusImage, for: .normal)
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "FavouriteViewController") as! FavouriteViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func btnPremiumTapped(_ sender: UIButton) {
@@ -599,7 +601,6 @@ extension ImageViewController: UIImagePickerControllerDelegate, UINavigationCont
                 
                 print("📱 New Custom Cover Image Added:")
                 print("=====================================")
-                print("Image Size: \(selectedImage.size)")
                 print("Source: \(picker.sourceType == .camera ? "Camera" : "Gallery")")
                 print("Image URL: \(fileURL.absoluteString)")
                 print("=====================================")

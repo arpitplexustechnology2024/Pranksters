@@ -24,4 +24,15 @@ class FavoriteViewModel {
             }
         }
     }
+    
+    func setAllFavourite(categoryId: Int, completion: @escaping (Bool, String?) -> Void) {
+        apiService.setAllFavorite(categoryId: categoryId) { result in
+            switch result {
+            case .success(let response):
+                completion(true, response.message)
+            case .failure(let error):
+                completion(false, error.localizedDescription)
+            }
+        }
+    }
 }

@@ -167,6 +167,15 @@ extension CustomCoverAllViewController: CoverPreviewViewControllerDelegate {
         let selectedImage = allCustomCovers[actualIndex]
         coverViewControllerDelegate?.coverPreviewViewController(viewController, didSelectCoverAt: actualIndex, coverData: coverData)
         delegate?.didSelectCustomCover(image: selectedImage, at: actualIndex)
+        let temporaryDirectory = NSTemporaryDirectory()
+        let fileName = "\(UUID().uuidString).jpg"
+        let fileURL = URL(fileURLWithPath: temporaryDirectory).appendingPathComponent(fileName)
+        
+        print("📱 Selected Cover Data:")
+        print("=====================================")
+        print("Image URL: \(fileURL.absoluteString)")
+        print("Is Favorite: \(coverData.isFavorite)")
+        
         viewController.dismiss(animated: true) { [weak self] in
             self?.navigationController?.popViewController(animated: true)
         }
@@ -179,5 +188,7 @@ extension CustomCoverAllViewController: CoverPreviewViewControllerDelegate {
         saveFavoriteStatus()
         customeCoverAllCollectionView.reloadItems(at: [IndexPath(item: actualIndex, section: 0)])
         delegate?.didUpdateFavoriteStatus(at: actualIndex, isFavorite: isFavorite)
+        
+ 
     }
 }
