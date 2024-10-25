@@ -54,6 +54,9 @@ class AudioViewController: UIViewController {
     let plusImage = UIImage(named: "Plus")
     let cancelImage = UIImage(named: "Cancel")
     
+    private let favoriteViewModel = FavoriteViewModel()
+    private var selectedAudioData: CharacterAllData?
+    
     private var audioPlayer: AVAudioPlayer?
     private var timer: Timer?
     private var isPlaying = false
@@ -175,13 +178,15 @@ class AudioViewController: UIViewController {
     func setupViewModel() {
         viewModel.reloadData = { [weak self] in
             DispatchQueue.main.async {
-                self?.hideSkeletonLoader()
-                self?.noDataView.isHidden = true
-                self?.audioCharacterCollectionView.reloadData()
-                
+                if self?.viewModel.characters.isEmpty ?? true {
+                    self?.noDataView.isHidden = false
+                } else {
+                    self?.hideSkeletonLoader()
+                    self?.noDataView.isHidden = true
+                    self?.audioCharacterCollectionView.reloadData()
+                }
             }
         }
-        
         viewModel.onError = { error in
             self.hideSkeletonLoader()
             self.noDataView.isHidden = false
@@ -203,10 +208,8 @@ class AudioViewController: UIViewController {
             noDataView.topAnchor.constraint(equalTo: audioImageView.bottomAnchor, constant: 16),
             noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
         noDataView.layer.cornerRadius = 28
         noDataView.layer.masksToBounds = true
-        
         noDataView.layoutIfNeeded()
     }
     
@@ -224,10 +227,8 @@ class AudioViewController: UIViewController {
             noInternetView.topAnchor.constraint(equalTo: audioImageView.bottomAnchor, constant: 16),
             noInternetView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
         noInternetView.layer.cornerRadius = 28
         noInternetView.layer.masksToBounds = true
-        
         noInternetView.layoutIfNeeded()
     }
     
@@ -373,12 +374,31 @@ class AudioViewController: UIViewController {
     }
     
     @IBAction func btnFavouriteSetTapped(_ sender: UIButton) {
-        guard let selectedIndex = selectedAudioIndex else { return }
+        if let customAudioIndex = selectedAudioIndex {
+            currentAudioIsFavorite.toggle()
+            customAudios[customAudioIndex].isFavorite = currentAudioIsFavorite
+            saveCustomAudiosToUserDefaults()
+            audioCustomCollectionView.reloadItems(at: [IndexPath(item: customAudioIndex + 1, section: customAudioIndex + 1)])
+        } else if let audioData = selectedAudioData {
+            let newFavoriteStatus = !currentAudioIsFavorite
+            favoriteViewModel.setFavorite(itemId: audioData.itemID, isFavorite: newFavoriteStatus, categoryId: 1) { [weak self] success, message in
+                guard let self = self else { return }
+                
+                DispatchQueue.main.async {
+                    if success {
+                        self.currentAudioIsFavorite = newFavoriteStatus
+                        self.selectedAudioData?.isFavorite = newFavoriteStatus
+                        self.updateFavoriteButtonImage()
+                        print("\(message ?? "Favorite status updated successfully")")
+                    } else {
+                        print("Failed to update favorite status: \(message ?? "Unknown error")")
+                        self.currentAudioIsFavorite = !newFavoriteStatus
+                        self.updateFavoriteButtonImage()
+                    }
+                }
+            }
+        }
         updateFavoriteButtonImage()
-        currentAudioIsFavorite.toggle()
-        customAudios[selectedIndex].isFavorite = currentAudioIsFavorite
-        saveCustomAudiosToUserDefaults()
-        audioCustomCollectionView.reloadItems(at: [IndexPath(item: selectedIndex + 1, section: 0)])
     }
     
     @IBAction func playPauseButtonTapped(_ sender: UIButton) {
@@ -710,7 +730,12 @@ extension AudioViewController {
         print("Audio Name:", audioData.name)
         print("Audio File:", audioData.file ?? "No File")
         print("Audio Image URL:", audioData.image)
+        print("Audio Item ID:", audioData.itemID)
+        print("Audio favourite:", audioData.isFavorite)
+        print("Audio premium:", audioData.premium)
         print("=====================================")
+        
+        self.selectedAudioData = audioData
         
         showLottieLoader()
         if let url = URL(string: audioData.image) {

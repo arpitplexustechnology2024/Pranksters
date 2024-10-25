@@ -32,6 +32,9 @@ class ImageViewController: UIViewController {
     @IBOutlet weak var imageCustomHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageCharacterHeightConstraint: NSLayoutConstraint!
     
+    private let favoriteViewModel = FavoriteViewModel()
+    private var selectedImageData: CharacterAllData?
+    
     var favoriteCustomImages: [Bool] = []
     var userSelectedImages: [UIImage] = []
     
@@ -94,6 +97,10 @@ class ImageViewController: UIViewController {
         setupFloatingButtons()
         checkInternetAndFetchData()
         addBottomShadow(to: navigationbarView)
+        
+        ImageImageView.loadGif(name: "CoverGIF")
+        self.favouriteButton.isHidden = true
+        
     }
     
     func checkInternetAndFetchData() {
@@ -145,13 +152,15 @@ class ImageViewController: UIViewController {
     func setupViewModel() {
         viewModel.reloadData = { [weak self] in
             DispatchQueue.main.async {
-                self?.hideSkeletonLoader()
-                self?.noDataView.isHidden = true
-                self?.imageCharacterCollectionView.reloadData()
-                
+                if self?.viewModel.characters.isEmpty ?? true {
+                    self?.noDataView.isHidden = false
+                } else {
+                    self?.hideSkeletonLoader()
+                    self?.noDataView.isHidden = true
+                    self?.imageCharacterCollectionView.reloadData()
+                }
             }
         }
-        
         viewModel.onError = { error in
             self.hideSkeletonLoader()
             self.noDataView.isHidden = false
@@ -173,10 +182,8 @@ class ImageViewController: UIViewController {
             noDataView.topAnchor.constraint(equalTo: ImageImageView.bottomAnchor, constant: 16),
             noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
         noDataView.layer.cornerRadius = 28
         noDataView.layer.masksToBounds = true
-        
         noDataView.layoutIfNeeded()
     }
     
@@ -194,10 +201,8 @@ class ImageViewController: UIViewController {
             noInternetView.topAnchor.constraint(equalTo: ImageImageView.bottomAnchor, constant: 16),
             noInternetView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
         noInternetView.layer.cornerRadius = 28
         noInternetView.layer.masksToBounds = true
-        
         noInternetView.layoutIfNeeded()
     }
     
@@ -335,16 +340,45 @@ class ImageViewController: UIViewController {
     }
     
     @IBAction func btnFavouriteSetTapped(_ sender: UIButton) {
-        guard let selectedIndex = selectedAudioIndex else { return }
-        currentAudioIsFavorite.toggle()
-        updateFavoriteButton(isFavorite: currentAudioIsFavorite)
-        customImages[selectedIndex].isFavorite = currentAudioIsFavorite
-        imageCustomCollectionView.reloadItems(at: [IndexPath(item: selectedIndex + 1, section: 0)])
-        saveImages()
+        if let selectedData = selectedImageData {
+            let newFavoriteStatus = !currentAudioIsFavorite
+            
+            favoriteViewModel.setFavorite(itemId: selectedData.itemID,
+                                          isFavorite: newFavoriteStatus,
+                                          categoryId: 3) { [weak self] success, message in
+                guard let self = self else { return }
+                
+                DispatchQueue.main.async {
+                    if success {
+                        self.currentAudioIsFavorite = newFavoriteStatus
+                        self.updateFavoriteButton(isFavorite: newFavoriteStatus)
+                        self.selectedImageData?.isFavorite = newFavoriteStatus
+                        
+                        print("=== Favorite Status Updated ===")
+                        print("Item ID: \(selectedData.itemID)")
+                        print("New Favorite Status: \(newFavoriteStatus)")
+                        print("\(message ?? "Success")")
+                        print("==============================")
+                    } else {
+                        print("Failed to update favorite status: \(message ?? "Unknown error")")
+                        self.updateFavoriteButton(isFavorite: self.currentAudioIsFavorite)
+                    }
+                }
+            }
+        } else {
+            guard let selectedIndex = selectedAudioIndex else { return }
+            currentAudioIsFavorite.toggle()
+            updateFavoriteButton(isFavorite: currentAudioIsFavorite)
+            customImages[selectedIndex].isFavorite = currentAudioIsFavorite
+            imageCustomCollectionView.reloadItems(at: [IndexPath(item: selectedIndex + 1, section: selectedIndex + 1)])
+            saveImages()
+        }
     }
     
     func updateSelectedImage(with coverData: CharacterAllData) {
         showLottieLoader()
+        selectedImageData = coverData
+        
         if let url = URL(string: coverData.image) {
             ImageImageView.sd_setImage(with: url, completed: { [weak self] (image, error, cacheType, imageURL) in
                 self?.hideLottieLoader()
@@ -358,7 +392,7 @@ class ImageViewController: UIViewController {
                     print("Item ID: \(coverData.itemID)")
                     print("Premium: \(coverData.premium)")
                     print("=====================================")
-                    
+                    self?.favouriteButton.isHidden = false
                     self?.currentAudioIsFavorite = coverData.isFavorite
                     self?.updateFavoriteButton(isFavorite: coverData.isFavorite)
                 }
@@ -436,7 +470,7 @@ extension ImageViewController: UICollectionViewDelegate, UICollectionViewDataSou
                 print("Image URL: \(fileURL.absoluteString)")
                 print("Is Favorite: \(customImage.isFavorite)")
                 print("==============================")
-                
+                self.favouriteButton.isHidden = false
                 hideLottieLoader()
             }
         } else if collectionView == imageCharacterCollectionView {
@@ -641,15 +675,7 @@ extension ImageViewController: UIImagePickerControllerDelegate, UINavigationCont
                 if let decodedImages = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(savedImagesData) as? [UIImage] {
                     customImages = zip(decodedImages, savedFavorites).map { (image: $0, isFavorite: $1) }
                     imageCustomCollectionView.reloadData()
-                    
-                    if let firstCustomImage = customImages.first {
-                        ImageImageView.image = firstCustomImage.image
-                        updateFavoriteButton(isFavorite: firstCustomImage.isFavorite)
-                        currentAudioIsFavorite = firstCustomImage.isFavorite
-                        selectedAudioIndex = 0
-                    } else {
-                        updateFavoriteButton(isFavorite: false)
-                    }
+                    updateFavoriteButton(isFavorite: false)
                 }
             } catch {
                 print("Error decoding saved images: \(error)")

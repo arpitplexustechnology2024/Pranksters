@@ -15,6 +15,7 @@
 		BD19D0A32CC0664A00F04C35 /* NoDataBottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD19D09B2CC0664A00F04C35 /* NoDataBottomBarView.swift */; };
 		BD19D0A52CC0771D00F04C35 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD19D0A42CC0771D00F04C35 /* UIImage+Gif.swift */; };
 		BD19D0A72CC0772800F04C35 /* Boy.gif in Resources */ = {isa = PBXBuildFile; fileRef = BD19D0A62CC0772800F04C35 /* Boy.gif */; };
+		BD1B6FEA2CCAF61200466024 /* CoverGIF.gif in Resources */ = {isa = PBXBuildFile; fileRef = BD1B6FE92CCAF61200466024 /* CoverGIF.gif */; };
 		BD2F1E272CB459320017A963 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F1E1B2CB459320017A963 /* AppDelegate.swift */; };
 		BD2F1E282CB459320017A963 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F1E1C2CB459320017A963 /* SceneDelegate.swift */; };
 		BD2F1E2A2CB459320017A963 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD2F1E1F2CB459320017A963 /* LaunchScreen.storyboard */; };
@@ -84,6 +85,8 @@
 		BDD883AA2CB85910004C6908 /* CoverPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD883A92CB85910004C6908 /* CoverPageViewModel.swift */; };
 		BDD883AC2CB86790004C6908 /* EmojiCoverAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD883AB2CB86790004C6908 /* EmojiCoverAllViewController.swift */; };
 		BDD883AE2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD883AD2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift */; };
+		BDF960802CC97A7600A60A24 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF9607F2CC97A7600A60A24 /* CategoryViewController.swift */; };
+		BDF960842CC9A4AB00A60A24 /* FavCoverPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF960832CC9A4AB00A60A24 /* FavCoverPageViewController.swift */; };
 		BDFF9B1B2CC6BDB300D36508 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFF9B1A2CC6BDB300D36508 /* VideoCollectionViewCell.swift */; };
 		BDFF9B1D2CC6BDCB00D36508 /* VideoCharacterAllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFF9B1C2CC6BDCB00D36508 /* VideoCharacterAllCollectionViewCell.swift */; };
 		BDFF9B1F2CC6E0BC00D36508 /* VideoCardPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFF9B1E2CC6E0BC00D36508 /* VideoCardPreview.swift */; };
@@ -122,6 +125,7 @@
 		BD19D09E2CC0664A00F04C35 /* NoInternetBottombarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoInternetBottombarView.xib; sourceTree = "<group>"; };
 		BD19D0A42CC0771D00F04C35 /* UIImage+Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
 		BD19D0A62CC0772800F04C35 /* Boy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Boy.gif; sourceTree = "<group>"; };
+		BD1B6FE92CCAF61200466024 /* CoverGIF.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = CoverGIF.gif; sourceTree = "<group>"; };
 		BD2F1DE52CB458130017A963 /* Pranksters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pranksters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD2F1DFB2CB458150017A963 /* PrankstersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrankstersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD2F1E052CB458150017A963 /* PrankstersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrankstersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,6 +199,8 @@
 		BDD883A92CB85910004C6908 /* CoverPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverPageViewModel.swift; sourceTree = "<group>"; };
 		BDD883AB2CB86790004C6908 /* EmojiCoverAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCoverAllViewController.swift; sourceTree = "<group>"; };
 		BDD883AD2CB86885004C6908 /* EmojiCoverAllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCoverAllCollectionViewCell.swift; sourceTree = "<group>"; };
+		BDF9607F2CC97A7600A60A24 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		BDF960832CC9A4AB00A60A24 /* FavCoverPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavCoverPageViewController.swift; sourceTree = "<group>"; };
 		BDFF9B1A2CC6BDB300D36508 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		BDFF9B1C2CC6BDCB00D36508 /* VideoCharacterAllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCharacterAllCollectionViewCell.swift; sourceTree = "<group>"; };
 		BDFF9B1E2CC6E0BC00D36508 /* VideoCardPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCardPreview.swift; sourceTree = "<group>"; };
@@ -309,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				BD19D0A62CC0772800F04C35 /* Boy.gif */,
+				BD1B6FE92CCAF61200466024 /* CoverGIF.gif */,
 				BDACA2592CB712DC00B3C2E2 /* Extension */,
 				BD2F1E1D2CB459320017A963 /* Delegate */,
 				BD3B42A92CB4AD4800634A2E /* Lottie json */,
@@ -357,6 +364,8 @@
 				BD96FEA42CC4126F00F60FAB /* Audio */,
 				BD96FEA52CC4127800F60FAB /* Video */,
 				BD96FEAA2CC4128600F60FAB /* Image */,
+				BDF9607F2CC97A7600A60A24 /* CategoryViewController.swift */,
+				BDF960832CC9A4AB00A60A24 /* FavCoverPageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -608,6 +617,7 @@
 				BD19D0A72CC0772800F04C35 /* Boy.gif in Resources */,
 				BDC578DE2CBDA47600811602 /* Loader.json in Resources */,
 				BD2F1E2B2CB459320017A963 /* Main.storyboard in Resources */,
+				BD1B6FEA2CCAF61200466024 /* CoverGIF.gif in Resources */,
 				BD2F1E402CB4A6870017A963 /* Color.xcassets in Resources */,
 				BD2F1E3C2CB470B20017A963 /* Loading.json in Resources */,
 				BD19D0A02CC0664A00F04C35 /* NoDataBottomBarView.xib in Resources */,
@@ -766,6 +776,7 @@
 				BDACA25B2CB712ED00B3C2E2 /* Skeleton.swift in Sources */,
 				BDA87ED62CB5E9B100C25C50 /* MoreAppViewModel.swift in Sources */,
 				BDA87ECD2CB5C12900C25C50 /* MoreAppViewController.swift in Sources */,
+				BDF960802CC97A7600A60A24 /* CategoryViewController.swift in Sources */,
 				BD96FEAB2CC4128600F60FAB /* ImageCharacterAllViewController.swift in Sources */,
 				BD96FEAC2CC4128600F60FAB /* ImagePreviewViewController.swift in Sources */,
 				BD96FEAD2CC4128600F60FAB /* ImageViewController.swift in Sources */,
@@ -797,6 +808,7 @@
 				BDC9ACB32CB6F89D00183146 /* NoDataView.swift in Sources */,
 				BDA87EB32CB5AB2E00C25C50 /* SideMenuViewController.swift in Sources */,
 				BD3094652CC1BCE900753247 /* CharacterAllAPI.swift in Sources */,
+				BDF960842CC9A4AB00A60A24 /* FavCoverPageViewController.swift in Sources */,
 				BD6B5CED2CB9B71100E768ED /* RealisticCoverAllCollectionViewCell.swift in Sources */,
 				BD3568ED2CC3372900A72F73 /* VideoViewController.swift in Sources */,
 				BD487C912CBF161E00874560 /* CoverPreviewViewController.swift in Sources */,

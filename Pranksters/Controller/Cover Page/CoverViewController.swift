@@ -14,48 +14,46 @@ import Lottie
 
 class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
     
-    @IBOutlet weak var navigationbarView: UIView!
-    @IBOutlet weak var bottomScrollView: UIScrollView!
+    // MARK: - outlet
     @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var AudioShowView: UIView!
+    @IBOutlet weak var coverView: UIView!
+    @IBOutlet weak var oneTimeBlurView: UIView!
     @IBOutlet weak var floatingButton: UIButton!
-    @IBOutlet var floatingCollectionButton: [UIButton]!
-    @IBOutlet weak var coverImageView: UIImageView!
+    @IBOutlet weak var navigationbarView: UIView!
     @IBOutlet weak var favouriteButton: UIButton!
-    
-    var favoriteCustomImages: [Bool] = []
-    
-    @IBOutlet weak var coverImageViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var coverImageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var coverImageView: UIImageView!
+    @IBOutlet weak var bottomScrollView: UIScrollView!
+    @IBOutlet var floatingCollectionButton: [UIButton]!
+    @IBOutlet weak var lottieLoader: LottieAnimationView!
+    @IBOutlet weak var coverPage1CollectionView: UICollectionView!
+    @IBOutlet weak var coverPage2CollectionView: UICollectionView!
+    @IBOutlet weak var coverPage3CollectionView: UICollectionView!
     @IBOutlet weak var scrollViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var coverPage1HeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var coverPage2HeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var coverPage3HeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var coverPage1CollectionView: UICollectionView!
-    @IBOutlet weak var coverPage2CollectionView: UICollectionView!
-    @IBOutlet weak var coverPage3CollectionView: UICollectionView!
+    @IBOutlet weak var coverImageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var coverImageViewWidthConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var lottieLoader: LottieAnimationView!
-    
-    @IBOutlet weak var oneTimeBlurView: UIView!
-    
+    // MARK: - variable
+    var isLoading = true
+    var viewType: CoverViewType = .audio
+    var favoriteCustomImages: [Bool] = []
+    var userSelectedImages: [UIImage] = []
+    private let maxVisibleCustomCovers = 9
     var selectedCoverPage1Index: IndexPath?
     var selectedCoverPage2Index: IndexPath?
     var selectedCoverPage3Index: IndexPath?
-    var userSelectedImages: [UIImage] = []
-    private let maxVisibleCustomCovers = 9
-    
-    var viewType: CoverViewType = .audio
-    
-    var isLoading = true
-    private var noDataView: NoDataBottomBarView!
-    private var noInternetView: NoInternetBottombarView!
-    let emojiViewModel = EmojiViewModel()
-    let realisticViewModel = RealisticViewModel()
     
     let plusImage = UIImage(named: "Plus")
     let cancelImage = UIImage(named: "Cancel")
     
+    let emojiViewModel = EmojiViewModel()
+    private var noDataView: NoDataBottomBarView!
+    let realisticViewModel = RealisticViewModel()
+    private var noInternetView: NoInternetBottombarView!
+    
+    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.revealViewController()?.gestureEnabled = false
@@ -66,11 +64,13 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         selectedCoverPage1Index = nil
     }
     
+    // MARK: - viewWillDisappear
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.revealViewController()?.gestureEnabled = true
     }
     
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -80,42 +80,9 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         checkInternetAndFetchData()
         loadSavedImages()
         setupLottieLoader()
+        setupFloatingButtons()
         applyBlurEffect()
-        self.oneTimeBlurView.isHidden = true
-        
-        if isFirstLaunch() {
-            self.oneTimeBlurView.isHidden = false
-        } else {
-            self.oneTimeBlurView.isHidden = true
-        }
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        oneTimeBlurView.addGestureRecognizer(tapGesture)
-        oneTimeBlurView.isUserInteractionEnabled = true
-        self.coverPage2CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
-        self.coverPage3CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
-        self.favouriteButton.isHidden = true
-        coverImageView.loadGif(name: "Boy")
-        updateFavoriteButton(isFavorite: false)
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            // Set heights for iPad
-            coverImageViewHeightConstraint.constant = 280
-            coverImageViewWidthConstraint.constant = 245
-            scrollViewHeightConstraint.constant = 750
-            coverPage1HeightConstraint.constant = 180
-            coverPage2HeightConstraint.constant = 180
-            coverPage3HeightConstraint.constant = 180
-        } else {
-            // Set heights for iPhone
-            coverImageViewHeightConstraint.constant = 240
-            coverImageViewWidthConstraint.constant = 205
-            scrollViewHeightConstraint.constant = 600
-            coverPage1HeightConstraint.constant = 140
-            coverPage2HeightConstraint.constant = 140
-            coverPage3HeightConstraint.constant = 140
-        }
-        
-        self.view.layoutIfNeeded()
+        addBottomShadow(to: navigationbarView)
     }
     
     func applyBlurEffect() {
@@ -157,7 +124,6 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
     }
     
     func setupUI() {
-        addBottomShadow(to: navigationbarView)
         bottomView.layer.shadowColor = UIColor.black.cgColor
         bottomView.layer.shadowOpacity = 0.5
         bottomView.layer.shadowOffset = CGSize(width: 0, height: 5)
@@ -168,9 +134,13 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         bottomScrollView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         floatingButton.setImage(plusImage, for: .normal)
         floatingButton.layer.cornerRadius = 19
-        setupFloatingButtons()
+        
         coverImageView.layer.cornerRadius = 8
-        AudioShowView.layer.cornerRadius = 8
+        coverView.layer.cornerRadius = 8
+        coverView.layer.shadowColor = UIColor.black.cgColor
+        coverView.layer.shadowOpacity = 0.1
+        coverView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        coverView.layer.shadowRadius = 12
         
         coverPage1CollectionView.delegate = self
         coverPage1CollectionView.dataSource = self
@@ -180,6 +150,39 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         
         coverPage3CollectionView.delegate = self
         coverPage3CollectionView.dataSource = self
+        
+        self.oneTimeBlurView.isHidden = true
+        
+        if isFirstLaunch() {
+            self.oneTimeBlurView.isHidden = false
+        } else {
+            self.oneTimeBlurView.isHidden = true
+        }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        oneTimeBlurView.addGestureRecognizer(tapGesture)
+        oneTimeBlurView.isUserInteractionEnabled = true
+        self.coverPage2CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
+        self.coverPage3CollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
+        self.favouriteButton.isHidden = true
+        coverImageView.loadGif(name: "CoverGIF")
+        updateFavoriteButton(isFavorite: false)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            coverImageViewHeightConstraint.constant = 280
+            coverImageViewWidthConstraint.constant = 245
+            scrollViewHeightConstraint.constant = 750
+            coverPage1HeightConstraint.constant = 180
+            coverPage2HeightConstraint.constant = 180
+            coverPage3HeightConstraint.constant = 180
+        } else {
+            coverImageViewHeightConstraint.constant = 240
+            coverImageViewWidthConstraint.constant = 205
+            scrollViewHeightConstraint.constant = 600
+            coverPage1HeightConstraint.constant = 140
+            coverPage2HeightConstraint.constant = 140
+            coverPage3HeightConstraint.constant = 140
+        }
+        self.view.layoutIfNeeded()
     }
     
     private func setupFloatingButtons() {
@@ -269,16 +272,31 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         
         switch viewType {
         case .audio:
-            let vc = storyboard.instantiateViewController(identifier: "AudioViewController") as! AudioViewController
-            self.navigationController?.pushViewController(vc, animated: true)
+            if isConnectedToInternet() {
+                let vc = storyboard.instantiateViewController(identifier: "AudioViewController") as! AudioViewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: .snackbar)
+                snackbar.show(in: self.view, duration: 3.0)
+            }
             
         case .video:
-            let vc = storyboard.instantiateViewController(identifier: "VideoViewController") as! VideoViewController
-            self.navigationController?.pushViewController(vc, animated: true)
+            if isConnectedToInternet() {
+                let vc = storyboard.instantiateViewController(identifier: "VideoViewController") as! VideoViewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: .snackbar)
+                snackbar.show(in: self.view, duration: 3.0)
+            }
             
         case .image:
-            let vc = storyboard.instantiateViewController(identifier: "ImageViewController") as! ImageViewController
-            self.navigationController?.pushViewController(vc, animated: true)
+            if isConnectedToInternet() {
+                let vc = storyboard.instantiateViewController(identifier: "ImageViewController") as! ImageViewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: .snackbar)
+                snackbar.show(in: self.view, duration: 3.0)
+            }
         }
     }
     
@@ -331,9 +349,13 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         emojiViewModel.fetchEmojiCoverPages { [weak self] success in
             guard let self = self else { return }
             if success {
-                self.hideSkeletonLoader()
-                self.noDataView.isHidden = true
-                self.coverPage2CollectionView.reloadData()
+                if self.emojiViewModel.emojiCoverPages.isEmpty {
+                    self.noDataView.isHidden = false
+                } else {
+                    self.hideSkeletonLoader()
+                    self.noDataView.isHidden = true
+                    self.coverPage2CollectionView.reloadData()
+                }
             } else if let errorMessage = self.emojiViewModel.errorMessage {
                 self.hideSkeletonLoader()
                 self.noDataView.isHidden = false
@@ -347,9 +369,13 @@ class CoverViewController: UIViewController, CoverCustomViewControllerDelegate {
         realisticViewModel.fetchRealisticCoverPages { [weak self] success in
             guard let self = self else { return }
             if success {
-                self.hideSkeletonLoader()
-                self.noDataView.isHidden = true
-                self.coverPage3CollectionView.reloadData()
+                if self.emojiViewModel.emojiCoverPages.isEmpty {
+                    self.noDataView.isHidden = false
+                } else {
+                    self.hideSkeletonLoader()
+                    self.noDataView.isHidden = true
+                    self.coverPage3CollectionView.reloadData()
+                }
             } else if let errorMessage = self.emojiViewModel.errorMessage {
                 self.hideSkeletonLoader()
                 self.noDataView.isHidden = false
@@ -739,7 +765,6 @@ extension CoverViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
     }
     
-    
     // MARK: - Existing methods
     private func presentImageSourceOptions(sender: UIView) {
         let titleString = NSAttributedString(string: "Select Image", attributes: [
@@ -879,7 +904,6 @@ extension CoverViewController: UIImagePickerControllerDelegate, UINavigationCont
                 userSelectedImages.insert(selectedImage, at: 0)
                 favoriteCustomImages.insert(false, at: 0)
             }
-            
             coverImageView.image = selectedImage
             coverPage1CollectionView.reloadData()
             self.favouriteButton.isHidden = false
@@ -888,9 +912,7 @@ extension CoverViewController: UIImagePickerControllerDelegate, UINavigationCont
             let indexPath = IndexPath(item: 1, section: 0)
             coverPage1CollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
             selectedCoverPage1Index = indexPath
-            
             deselectCellsInOtherCollectionViews(except: coverPage1CollectionView)
-            
             updateFavoriteButton(isFavorite: false)
         }
         dismiss(animated: true, completion: nil)
@@ -904,13 +926,6 @@ extension CoverViewController: UIImagePickerControllerDelegate, UINavigationCont
 extension CoverViewController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         return CustomPresentationController(presentedViewController: presented, presenting: presenting)
-    }
-}
-
-class CustomPresentationController: UIPresentationController {
-    override var frameOfPresentedViewInContainerView: CGRect {
-        guard let containerView = containerView else { return .zero }
-        return CGRect(x: 0, y: containerView.bounds.height / 2, width: containerView.bounds.width, height: containerView.bounds.height / 2)
     }
 }
 
@@ -929,7 +944,6 @@ extension CoverViewController: CoverPreviewViewControllerDelegate {
     }
     
     func coverPreviewViewController(_ viewController: CoverPreviewViewController, didSelectCoverAt index: Int, coverData: CoverPageData) {
-        
         print("📱 Selected Cover Data:")
         print("=====================================")
         print("Cover URL: \(coverData.coverURL)")

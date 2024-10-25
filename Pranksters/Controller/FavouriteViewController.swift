@@ -13,11 +13,10 @@ class FavouriteViewController: UIViewController {
     @IBOutlet weak var navigationbarView: UIView!
     @IBOutlet weak var favouriteAllCollectionView: UICollectionView!
     @IBOutlet weak var segment: UISegmentedControl!
+    @IBOutlet weak var DoneButton: UIButton!
     private var noDataView: NoDataView!
     private var noInternetView: NoInternetView!
-    private var favoriteViewModel = FavoriteViewModel()
-    
-    private var favouriteData: [FavouriteAllData] = []
+    private var viewModel = FavoriteViewModel()
     var isLoading = true
     
     // MARK: - Lifecycle Methods
@@ -27,18 +26,21 @@ class FavouriteViewController: UIViewController {
         addBottomShadow(to: navigationbarView)
         setupNoDataView()
         setupNoInternetView()
+        setupSegmentControl()
         checkInternetAndFetchData()
+        setupViewModel()
         self.favouriteAllCollectionView.register(SkeletonBoxCollectionViewCell.self, forCellWithReuseIdentifier: "SkeletonCell")
+        self.DoneButton.layer.cornerRadius = 15
     }
     
     init(viewModel: FavoriteViewModel) {
-        self.favoriteViewModel = viewModel
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.favoriteViewModel = FavoriteViewModel(apiService: FavoriteAPIService.shared)
+        self.viewModel = FavoriteViewModel(apiService: FavoriteAPIService.shared)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,6 +54,15 @@ class FavouriteViewController: UIViewController {
     }
     
     // MARK: - UI Setup Methods
+    private func setupSegmentControl() {
+        segment.removeAllSegments()
+        segment.insertSegment(withTitle: "Cover Page", at: 0, animated: false)
+        segment.insertSegment(withTitle: "Audio", at: 1, animated: false)
+        segment.insertSegment(withTitle: "Video", at: 2, animated: false)
+        segment.insertSegment(withTitle: "Image", at: 3, animated: false)
+        segment.selectedSegmentIndex = 0
+    }
+    
     func addBottomShadow(to view: UIView) {
         view.layer.masksToBounds = false
         view.layer.shadowColor = UIColor.black.cgColor
@@ -64,17 +75,72 @@ class FavouriteViewController: UIViewController {
                                                           height: 4)).cgPath
     }
     
+    func checkInternetAndFetchData() {
+        if isConnectedToInternet() {
+            let categoryId = getCategoryIdForSelectedSegment()
+            viewModel.setAllFavourite(categoryId: categoryId)
+            self.noInternetView?.isHidden = true
+        } else {
+            self.showNoInternetView()
+            self.hideSkeletonLoader()
+        }
+    }
+    
+    private func getCategoryIdForSelectedSegment() -> Int {
+        switch segment.selectedSegmentIndex {
+        case 0:
+            return 4 // Cover page category
+        case 1:
+            return 1 // Audio category
+        case 2:
+            return 2 // Video category
+        case 3:
+            return 3 // Image category
+        default:
+            return 0
+        }
+    }
+    
     private func setupCollectionView() {
         favouriteAllCollectionView.delegate = self
         favouriteAllCollectionView.dataSource = self
-        favouriteAllCollectionView.register(UINib(nibName: "FavouriteCollectionViewCell", bundle: nil),
-                                            forCellWithReuseIdentifier: "FavouriteCollectionViewCell")
         
         if let layout = favouriteAllCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.minimumInteritemSpacing = 16
             layout.minimumLineSpacing = 16
             layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         }
+    }
+    
+    private func setupViewModel() {
+        viewModel.reloadData = { [weak self] in
+            DispatchQueue.main.async {
+                self?.hideSkeletonLoader()
+                if self?.viewModel.favourites.isEmpty ?? true {
+                    self?.showNoDataView()
+                } else {
+                    self?.hideNoDataView()
+                    self?.favouriteAllCollectionView.reloadData()
+                }
+                self?.favouriteAllCollectionView.reloadData()
+            }
+        }
+        
+        viewModel.onError = { [weak self] error in
+            self?.hideSkeletonLoader()
+            self?.showNoDataView()
+            print("Error: \(error)")
+        }
+    }
+    
+    func showSkeletonLoader() {
+        isLoading = true
+        favouriteAllCollectionView.reloadData()
+    }
+    
+    func hideSkeletonLoader() {
+        isLoading = false
+        favouriteAllCollectionView.reloadData()
     }
     
     private func setupNoDataView() {
@@ -87,12 +153,12 @@ class FavouriteViewController: UIViewController {
         NSLayoutConstraint.activate([
             noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noDataView.topAnchor.constraint(equalTo: navigationbarView.bottomAnchor, constant: 30),
+            noDataView.topAnchor.constraint(equalTo: segment.bottomAnchor),
             noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
-    private func setupNoInternetView() {
+    func setupNoInternetView() {
         noInternetView = NoInternetView()
         noInternetView.retryButton.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
         noInternetView.isHidden = true
@@ -107,69 +173,21 @@ class FavouriteViewController: UIViewController {
         ])
     }
     
-    // MARK: - Loading State Methods
-    func showSkeletonLoader() {
-        isLoading = true
-        favouriteAllCollectionView.reloadData()
-    }
-    
-    func hideSkeletonLoader() {
-        isLoading = false
-        favouriteAllCollectionView.reloadData()
-    }
-    
-    func checkInternetAndFetchData() {
+    @objc func retryButtonTapped() {
         if isConnectedToInternet() {
-            showSkeletonLoader()
-            let categoryId = getCategoryIdForSegment(segment.selectedSegmentIndex)
-            
-            favoriteViewModel.setAllFavourite(categoryId: categoryId) { [weak self] success, message in
-                guard let self = self else { return }
-                
-                DispatchQueue.main.async {
-                    self.hideSkeletonLoader()
-                    
-                    if success {
-                        if let response = try? JSONDecoder().decode(FavouriteAllResponse.self, from: Data()) {
-                            self.favouriteData = response.data
-                            self.favouriteAllCollectionView.reloadData()
-                            
-                            if self.favouriteData.isEmpty {
-                                self.showNoDataView()
-                            } else {
-                                self.hideNoDataView()
-                            }
-                        }
-                    } else {
-                        print(message ?? "something be wrong")
-                    }
-                }
-            }
-            self.noInternetView?.isHidden = true
+            noInternetView.isHidden = true
+            noDataView.isHidden = true
+            segment.isHidden = false
+            checkInternetAndFetchData()
         } else {
-            self.showNoInternetView()
-            self.hideSkeletonLoader()
+            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: .snackbar)
+            snackbar.show(in: self.view, duration: 3.0)
         }
-    }
-    
-    private func getCategoryIdForSegment(_ index: Int) -> Int {
-        switch index {
-        case 0: return 4
-        case 1: return 1
-        case 2: return 2
-        case 3: return 4
-        default: return 0
-        }
-    }
-    
-    // MARK: - Helper Methods
-    private func isConnectedToInternet() -> Bool {
-        let networkManager = NetworkReachabilityManager()
-        return networkManager?.isReachable ?? false
     }
     
     func showNoInternetView() {
         self.noInternetView.isHidden = false
+        self.segment.isHidden = true
     }
     
     func showNoDataView() {
@@ -180,31 +198,36 @@ class FavouriteViewController: UIViewController {
         noDataView.isHidden = true
     }
     
+    private func isConnectedToInternet() -> Bool {
+        let networkManager = NetworkReachabilityManager()
+        return networkManager?.isReachable ?? false
+    }
+    
     // MARK: - Actions
     @IBAction func segmentValueChanged(_ sender: UISegmentedControl) {
-        checkInternetAndFetchData()
+        showSkeletonLoader()
+        if isConnectedToInternet() {
+            let categoryId = getCategoryIdForSelectedSegment()
+            viewModel.setAllFavourite(categoryId: categoryId)
+        } else {
+            self.showNoInternetView()
+            self.hideSkeletonLoader()
+        }
     }
     
     @IBAction func btnBackTapped(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func retryButtonTapped() {
-        if isConnectedToInternet() {
-            noInternetView.isHidden = true
-            noDataView.isHidden = true
-            checkInternetAndFetchData()
-        } else {
-            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: .snackbar)
-            snackbar.show(in: self.view, duration: 3.0)
-        }
+    @IBAction func btnDoneTapped(_ sender: UIButton) {
     }
+    
 }
 
 // MARK: - CollectionView Delegate & DataSource
 extension FavouriteViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return isLoading ? 6 : favouriteData.count
+        return isLoading ? 6 : viewModel.favourites.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -214,7 +237,7 @@ extension FavouriteViewController: UICollectionViewDelegate, UICollectionViewDat
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteCollectionViewCell", for: indexPath) as! FavouriteCollectionViewCell
-            let data = favouriteData[indexPath.item]
+            let data = viewModel.favourites[indexPath.item]
             cell.configure(with: data)
             cell.onFavoriteButtonTapped = { [weak self] isFavorite in
                 self?.handleFavoriteButtonTapped(for: data, isFavorite: isFavorite)
@@ -233,19 +256,19 @@ extension FavouriteViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     private func handleFavoriteButtonTapped(for data: FavouriteAllData, isFavorite: Bool) {
-        let categoryId = getCategoryIdForSegment(segment.selectedSegmentIndex)
-        favoriteViewModel.setFavorite(itemId: data.itemID, isFavorite: isFavorite, categoryId: categoryId) { [weak self] success, message in
+        let categoryId = getCategoryIdForSelectedSegment()
+        viewModel.setFavorite(itemId: data.itemID, isFavorite: isFavorite, categoryId: categoryId) { [weak self] success, message in
             guard let self = self else { return }
             
             DispatchQueue.main.async {
                 if success {
-                    if let index = self.favouriteData.firstIndex(where: { $0.itemID == data.itemID }) {
-                        self.favouriteData[index].isFavorite = isFavorite
+                    if let index = self.viewModel.favourites.firstIndex(where: { $0.itemID == data.itemID }) {
+                        self.viewModel.favourites[index].isFavorite = isFavorite
                     }
                     print(message ?? "Favorite status updated successfully")
                 } else {
                     print("Failed to update favorite status: \(message ?? "Unknown error")")
-                    if let cell = self.favouriteAllCollectionView.cellForItem(at: IndexPath(item: self.favouriteData.firstIndex(where: { $0.itemID == data.itemID }) ?? 0, section: 0)) as? FavouriteCollectionViewCell {
+                    if let cell = self.favouriteAllCollectionView.cellForItem(at: IndexPath(item: self.viewModel.favourites.firstIndex(where: { $0.itemID == data.itemID }) ?? 0, section: 0)) as? FavouriteCollectionViewCell {
                         cell.configure(with: data)
                     }
                 }

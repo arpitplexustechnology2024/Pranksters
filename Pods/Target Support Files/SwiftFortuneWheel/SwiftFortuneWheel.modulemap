@@ -1,0 +1,6 @@
+framework module SwiftFortuneWheel {
+  umbrella header "SwiftFortuneWheel-umbrella.h"
+
+  export *
+  module * { export * }
+}

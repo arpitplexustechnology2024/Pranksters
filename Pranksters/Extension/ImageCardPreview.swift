@@ -43,7 +43,8 @@ class ImageCardPreview: SwipeCard {
     }
     
     private func configureCard() {
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.backgroundColor = UIColor.black.cgColor
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 12
         addSubview(imageView)

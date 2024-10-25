@@ -33,6 +33,8 @@ class VideoViewController: UIViewController {
     @IBOutlet weak var videoCustomHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var videoCharacterHeightConstraint: NSLayoutConstraint!
     
+    private let favoriteViewModel = FavoriteViewModel()
+    private var selectedVideoData: CharacterAllData?
     
     var shouldAutoPlayVideo = false
     private let selectedVideosKey = "SelectedVideos"
@@ -219,10 +221,13 @@ class VideoViewController: UIViewController {
     func setupViewModel() {
         viewModel.reloadData = { [weak self] in
             DispatchQueue.main.async {
-                self?.hideSkeletonLoader()
-                self?.noDataView.isHidden = true
-                self?.videoCharacterCollectionView.reloadData()
-                
+                if self?.viewModel.characters.isEmpty ?? true {
+                    self?.noDataView.isHidden = false
+                } else {
+                    self?.hideSkeletonLoader()
+                    self?.noDataView.isHidden = true
+                    self?.videoCharacterCollectionView.reloadData()
+                }
             }
         }
         
@@ -774,6 +779,9 @@ extension VideoViewController: UIImagePickerControllerDelegate, UINavigationCont
     
     func updateSelectedVideo(with coverData: CharacterAllData) {
         showLottieLoader()
+        
+        // Store the current video data
+        self.selectedVideoData = coverData
         
         // Print all data
         print("=== Selected Video from Preview ===")

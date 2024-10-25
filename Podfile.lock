@@ -5,6 +5,7 @@ PODS:
     - SDWebImage/Core (= 5.19.7)
   - SDWebImage/Core (5.19.7)
   - Shuffle-iOS (0.5.0)
+  - SwiftFortuneWheel (1.4.4)
   - TTGSnackbar (1.12.0)
 
 DEPENDENCIES:
@@ -12,6 +13,7 @@ DEPENDENCIES:
   - lottie-ios
   - SDWebImage
   - Shuffle-iOS
+  - SwiftFortuneWheel
   - TTGSnackbar
 
 SPEC REPOS:
@@ -20,6 +22,7 @@ SPEC REPOS:
     - lottie-ios
     - SDWebImage
     - Shuffle-iOS
+    - SwiftFortuneWheel
     - TTGSnackbar
 
 SPEC CHECKSUMS:
@@ -27,8 +30,9 @@ SPEC CHECKSUMS:
   lottie-ios: a881093fab623c467d3bce374367755c272bdd59
   SDWebImage: 8a6b7b160b4d710e2a22b6900e25301075c34cb3
   Shuffle-iOS: ff33658fb1e5eebd6a4724c156473e63754be9cb
+  SwiftFortuneWheel: f69e99359cdef05bad3aa3d1db297bd3da8d324c
   TTGSnackbar: 8e7650b9b1f5f44e40228473455986f5c12213c7
 
-PODFILE CHECKSUM: 543620b902e33773f34e953e97a9a21850136f24
+PODFILE CHECKSUM: 0d175d5fea3c51b2b300700d3c5b1fd2d8ba26f5
 
 COCOAPODS: 1.15.2

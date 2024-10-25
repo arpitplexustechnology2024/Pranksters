@@ -29,7 +29,7 @@ class FavoriteViewModel {
         }
     }
     
-    func setAllFavourite(categoryId: Int, completion: @escaping (Bool, String?) -> Void) {
+    func setAllFavourite(categoryId: Int) {
         apiService.setAllFavorite(categoryId: categoryId) { result in
             switch result {
             case .success(let response):

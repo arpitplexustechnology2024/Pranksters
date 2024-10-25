@@ -11,6 +11,7 @@ target 'Pranksters' do
   pod "TTGSnackbar"
   pod 'SDWebImage'
   pod 'Shuffle-iOS'
+  pod 'SwiftFortuneWheel'
   
   target 'PrankstersTests' do
     inherit! :search_paths

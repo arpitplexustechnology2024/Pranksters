@@ -115,10 +115,10 @@ extension MainViewController: SideMenuViewControllerDelegate {
     
     func selectedMenuItem(_ index: Int) {
         switch index {
-        case 0: break
+        case 0:
             // Spinner View Controller
-            //            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SpinnerViewController") as! SpinnerViewController
-            //            self.navigationController?.pushViewController(vc, animated: true)
+                        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SpinnerViewController") as! SpinnerViewController
+                        self.navigationController?.pushViewController(vc, animated: true)
         case 1:
             // Favorite list
             
