@@ -34,7 +34,7 @@
         <!--LaunchVC-->
         <scene sceneID="B0z-8c-k2n">
             <objects>
-                <viewController storyboardIdentifier="LaunchVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sGp-Is-rHW" customClass="LaunchVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LaunchVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sGp-Is-rHW" customClass="LaunchVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mrj-Vf-dd1">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -71,7 +71,7 @@
         <!--Home-->
         <scene sceneID="2mD-7X-fEl">
             <objects>
-                <viewController storyboardIdentifier="HomeVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="V1T-Nu-vEz" customClass="HomeVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="V1T-Nu-vEz" customClass="HomeVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lmo-O5-r4F">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -395,7 +395,7 @@
         <!--More AppVC-->
         <scene sceneID="vgv-mP-Efi">
             <objects>
-                <viewController storyboardIdentifier="MoreAppVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ehN-G3-nTG" customClass="MoreAppVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MoreAppVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ehN-G3-nTG" customClass="MoreAppVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jvd-Eu-ubE">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -410,7 +410,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MoreAppCollectionViewCell" id="1tv-U1-3fE" customClass="MoreAppCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MoreAppCollectionViewCell" id="1tv-U1-3fE" customClass="MoreAppCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="157" height="245"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="flT-eZ-UdI">
@@ -525,7 +525,7 @@
         <!--PremiumVC-->
         <scene sceneID="Ys0-pa-0mL">
             <objects>
-                <viewController storyboardIdentifier="PremiumVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZJN-CM-Oag" customClass="PremiumVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PremiumVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZJN-CM-Oag" customClass="PremiumVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ofl-Gp-SRe">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -598,7 +598,7 @@
         <!--Emoji Cover PageVC-->
         <scene sceneID="yUP-aK-hKL">
             <objects>
-                <viewController storyboardIdentifier="EmojiCoverPageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zxF-9I-AvT" customClass="EmojiCoverPageVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EmojiCoverPageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zxF-9I-AvT" customClass="EmojiCoverPageVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Egm-S5-4AR">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -662,7 +662,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EmojiCoverAllCollectionViewCell" id="xM6-nk-sbK" customClass="EmojiCoverAllCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EmojiCoverAllCollectionViewCell" id="xM6-nk-sbK" customClass="EmojiCoverAllCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                         <rect key="frame" x="16" y="0.0" width="361" height="363"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Mpg-z8-Moq">
@@ -750,7 +750,7 @@
         <!--Cover PageVC-->
         <scene sceneID="S6c-Gq-GDL">
             <objects>
-                <viewController storyboardIdentifier="CoverPageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2eJ-5h-dMn" customClass="CoverPageVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CoverPageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2eJ-5h-dMn" customClass="CoverPageVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2Md-SA-v4w">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -833,7 +833,7 @@
                                                             <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddCoverPageCollectionCell" id="CDL-5A-Joe" customClass="AddCoverPageCollectionCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddCoverPageCollectionCell" id="CDL-5A-Joe" customClass="AddCoverPageCollectionCell" customModule="Prankster" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="0.0" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xsB-10-x4I">
@@ -870,7 +870,7 @@
                                                                     <outlet property="imageView" destination="gG2-8m-Z8a" id="ojZ-Jd-ZXt"/>
                                                                 </connections>
                                                             </collectionViewCell>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="CoverPage1CollectionCell" id="ny1-3B-gce" customClass="CoverPage1CollectionCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="CoverPage1CollectionCell" id="ny1-3B-gce" customClass="CoverPage1CollectionCell" customModule="Prankster" customModuleProvider="target">
                                                                 <rect key="frame" x="141" y="0.0" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xHe-CV-tZo">
@@ -913,7 +913,7 @@
                                                             <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CoverPage2CollectionCell" id="biG-Cn-hbh" customClass="CoverPage2CollectionCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CoverPage2CollectionCell" id="biG-Cn-hbh" customClass="CoverPage2CollectionCell" customModule="Prankster" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="0.0" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="KVO-o1-beO">
@@ -956,7 +956,7 @@
                                                             <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CoverPage3CollectionCell" id="mRm-aw-SPc" customClass="CoverPage3CollectionCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CoverPage3CollectionCell" id="mRm-aw-SPc" customClass="CoverPage3CollectionCell" customModule="Prankster" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="0.0" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="09J-n0-KyT">
@@ -1145,7 +1145,7 @@
         <!--AudioVC-->
         <scene sceneID="T0K-GY-rU9">
             <objects>
-                <viewController storyboardIdentifier="AudioVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sVh-Cd-Xdy" customClass="AudioVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AudioVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sVh-Cd-Xdy" customClass="AudioVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fwg-tU-8QU">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1228,7 +1228,7 @@
                                                             <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddAudioCollectionCell" id="bAM-0W-vWA" customClass="AddAudioCollectionCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddAudioCollectionCell" id="bAM-0W-vWA" customClass="AddAudioCollectionCell" customModule="Prankster" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="0.0" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="VbH-Kf-brH">
@@ -1265,7 +1265,7 @@
                                                                     <outlet property="imageView" destination="5DT-Ax-BBg" id="gqN-UK-1rl"/>
                                                                 </connections>
                                                             </collectionViewCell>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="AudioCustomCollectionCell" id="ysd-Q0-8BU" customClass="AudioCustomCollectionCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="AudioCustomCollectionCell" id="ysd-Q0-8BU" customClass="AudioCustomCollectionCell" customModule="Prankster" customModuleProvider="target">
                                                                 <rect key="frame" x="141" y="0.0" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="dgM-Wy-wiL">
@@ -1308,7 +1308,7 @@
                                                             <inset key="sectionInset" minX="16" minY="10" maxX="16" maxY="10"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AudioCharacterCollectionCell" id="IdV-mZ-L11" customClass="AudioCharacterCollectionCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AudioCharacterCollectionCell" id="IdV-mZ-L11" customClass="AudioCharacterCollectionCell" customModule="Prankster" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="10" width="125" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mvk-bN-JrO">
@@ -1462,7 +1462,7 @@
         <!--Custom RecoderVC-->
         <scene sceneID="xNA-0P-azc">
             <objects>
-                <viewController storyboardIdentifier="CustomRecoderVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hBB-wf-SpH" customClass="CustomRecoderVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CustomRecoderVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hBB-wf-SpH" customClass="CustomRecoderVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8as-Tp-gTi">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1477,7 +1477,7 @@
         <!--ImageVC-->
         <scene sceneID="mSL-em-LDk">
             <objects>
-                <viewController storyboardIdentifier="ImageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JUK-Yf-WwC" customClass="ImageVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JUK-Yf-WwC" customClass="ImageVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f0C-7P-3Ga">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1560,7 +1560,7 @@
                                                             <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddImageCollectionViewCell" id="woj-81-TB5" customClass="AddImageCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddImageCollectionViewCell" id="woj-81-TB5" customClass="AddImageCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="0.0" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="o8W-DH-OPB">
@@ -1597,7 +1597,7 @@
                                                                     <outlet property="imageView" destination="FPi-l9-EZi" id="LfL-ka-s55"/>
                                                                 </connections>
                                                             </collectionViewCell>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="ImageCustomCollectionViewCell" id="wm9-gv-YeL" customClass="ImageCustomCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="ImageCustomCollectionViewCell" id="wm9-gv-YeL" customClass="ImageCustomCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                                                 <rect key="frame" x="141" y="0.0" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="KRi-D4-VzT">
@@ -1640,7 +1640,7 @@
                                                             <inset key="sectionInset" minX="16" minY="10" maxX="16" maxY="10"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCharacterCollectionViewCell" id="WnV-nd-Glj" customClass="ImageCharacterCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCharacterCollectionViewCell" id="WnV-nd-Glj" customClass="ImageCharacterCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="10" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9jm-VQ-PJq">
@@ -1782,7 +1782,7 @@
         <!--VideoVC-->
         <scene sceneID="Fs4-k9-wNs">
             <objects>
-                <viewController storyboardIdentifier="VideoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XFS-ZS-6ue" customClass="VideoVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XFS-ZS-6ue" customClass="VideoVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="J7n-jj-Kuq">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1865,7 +1865,7 @@
                                                             <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddVideoCollectionViewCell" id="o6z-mC-ZSX" customClass="AddVideoCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddVideoCollectionViewCell" id="o6z-mC-ZSX" customClass="AddVideoCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="0.0" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="g0F-IL-e1Y">
@@ -1902,7 +1902,7 @@
                                                                     <outlet property="imageView" destination="n8G-WZ-sBF" id="kjA-0Z-sgK"/>
                                                                 </connections>
                                                             </collectionViewCell>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="VideoCustomCollectionViewCell" id="cXc-Q3-Rcn" customClass="VideoCustomCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="VideoCustomCollectionViewCell" id="cXc-Q3-Rcn" customClass="VideoCustomCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                                                 <rect key="frame" x="141" y="0.0" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="K0s-0b-3Nc">
@@ -1945,7 +1945,7 @@
                                                             <inset key="sectionInset" minX="16" minY="10" maxX="16" maxY="10"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VideoCharacterCollectionViewCell" id="y9P-xw-eCE" customClass="VideoCharacterCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VideoCharacterCollectionViewCell" id="y9P-xw-eCE" customClass="VideoCharacterCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="10" width="115" height="125"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="IpQ-ey-tte">
@@ -2114,7 +2114,7 @@
         <!--Custom Cover PageVC-->
         <scene sceneID="yNb-de-n5j">
             <objects>
-                <viewController storyboardIdentifier="CustomCoverPageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ni0-TO-EwF" customClass="CustomCoverPageVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CustomCoverPageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ni0-TO-EwF" customClass="CustomCoverPageVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g2K-7h-TS3">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2163,7 +2163,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CustomCoverAllCollectionViewCell" id="cB2-4f-VWo" customClass="CustomCoverAllCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CustomCoverAllCollectionViewCell" id="cB2-4f-VWo" customClass="CustomCoverAllCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                         <rect key="frame" x="16" y="0.0" width="361" height="363"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="t4t-JV-vpK">
@@ -2238,7 +2238,7 @@
         <!--Realistic Cover PageVC-->
         <scene sceneID="hJv-fH-TTW">
             <objects>
-                <viewController storyboardIdentifier="RealisticCoverPageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="r8H-Yk-smh" customClass="RealisticCoverPageVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RealisticCoverPageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="r8H-Yk-smh" customClass="RealisticCoverPageVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="N3K-mD-7g3">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2287,7 +2287,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RealisticCoverAllCollectionViewCell" id="v2l-QE-pDl" customClass="RealisticCoverAllCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RealisticCoverAllCollectionViewCell" id="v2l-QE-pDl" customClass="RealisticCoverAllCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                         <rect key="frame" x="16" y="0.0" width="361" height="363"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="tHp-hL-GV1">
@@ -2387,7 +2387,7 @@
         <!--Audio Category AllVC-->
         <scene sceneID="shC-Zf-CD2">
             <objects>
-                <viewController storyboardIdentifier="AudioCategoryAllVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2IJ-ki-hNT" customClass="AudioCategoryAllVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AudioCategoryAllVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2IJ-ki-hNT" customClass="AudioCategoryAllVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TAp-Wz-xUP">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2436,7 +2436,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AudioCharacterAllCollectionViewCell" id="2eH-Tr-qH2" customClass="AudioCharacterAllCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AudioCharacterAllCollectionViewCell" id="2eH-Tr-qH2" customClass="AudioCharacterAllCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                         <rect key="frame" x="16" y="0.0" width="361" height="363"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pGK-5Z-8wQ">
@@ -2546,7 +2546,7 @@
         <!--Premium PopupVC-->
         <scene sceneID="VO3-gu-CJi">
             <objects>
-                <viewController storyboardIdentifier="PremiumPopupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OWF-XK-o1x" customClass="PremiumPopupVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PremiumPopupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OWF-XK-o1x" customClass="PremiumPopupVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="R6H-ll-cbp">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2639,7 +2639,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
         <!--Save Recording Popup-->
         <scene sceneID="E1g-k2-AFQ">
             <objects>
-                <viewController storyboardIdentifier="SaveRecordingPopup" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NwI-n9-j8P" customClass="SaveRecordingPopup" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SaveRecordingPopup" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NwI-n9-j8P" customClass="SaveRecordingPopup" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0A1-C4-71x">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2735,7 +2735,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
         <!--Share LinkVC-->
         <scene sceneID="8uc-sH-owF">
             <objects>
-                <viewController storyboardIdentifier="ShareLinkVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Gkh-Pe-kJb" customClass="ShareLinkVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShareLinkVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Gkh-Pe-kJb" customClass="ShareLinkVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fFx-CG-bKU">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2865,7 +2865,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
         <!--Image Category AllVC-->
         <scene sceneID="zFm-mx-wtn">
             <objects>
-                <viewController storyboardIdentifier="ImageCategoryAllVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4Xb-vM-FLU" customClass="ImageCategoryAllVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImageCategoryAllVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4Xb-vM-FLU" customClass="ImageCategoryAllVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1HC-ke-dnA">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2926,7 +2926,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCharacterAllCollectionViewCell" id="m7q-wV-3cp" customClass="ImageCharacterAllCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCharacterAllCollectionViewCell" id="m7q-wV-3cp" customClass="ImageCharacterAllCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                         <rect key="frame" x="17" y="0.0" width="359" height="363"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -3014,7 +3014,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
         <!--Video Category AllVC-->
         <scene sceneID="kpu-Sd-JT7">
             <objects>
-                <viewController storyboardIdentifier="VideoCategoryAllVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mq2-db-UFb" customClass="VideoCategoryAllVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoCategoryAllVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mq2-db-UFb" customClass="VideoCategoryAllVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BTM-fu-EBl">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3063,7 +3063,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VideoCharacterAllCollectionViewCell" id="cJk-DZ-qDj" customClass="VideoCharacterAllCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VideoCharacterAllCollectionViewCell" id="cJk-DZ-qDj" customClass="VideoCharacterAllCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                         <rect key="frame" x="16" y="0.0" width="361" height="363"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="lNr-DE-D7K">
@@ -3188,7 +3188,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
         <!--Spinner PreviewVC-->
         <scene sceneID="jRu-w9-616">
             <objects>
-                <viewController storyboardIdentifier="SpinnerPreviewVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qfw-kU-Hap" customClass="SpinnerPreviewVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SpinnerPreviewVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qfw-kU-Hap" customClass="SpinnerPreviewVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H5F-mX-PJ0">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3289,7 +3289,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
         <!--View LinkVC-->
         <scene sceneID="Kn6-Ss-ydG">
             <objects>
-                <viewController storyboardIdentifier="ViewLinkVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Clv-bn-ieq" customClass="ViewLinkVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewLinkVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Clv-bn-ieq" customClass="ViewLinkVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aDV-9u-8Et">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3339,7 +3339,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ViewLinkCollectionViewCell" id="9tQ-ka-rhn" customClass="ViewLinkCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ViewLinkCollectionViewCell" id="9tQ-ka-rhn" customClass="ViewLinkCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                         <rect key="frame" x="93" y="0.0" width="207" height="205"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="XWO-L6-xix">
@@ -3401,7 +3401,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
         <!--Share Link Popup-->
         <scene sceneID="Hnm-H0-URu">
             <objects>
-                <viewController storyboardIdentifier="ShareLinkPopup" useStoryboardIdentifierAsRestorationIdentifier="YES" id="glG-RQ-BP0" customClass="ShareLinkPopup" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShareLinkPopup" useStoryboardIdentifierAsRestorationIdentifier="YES" id="glG-RQ-BP0" customClass="ShareLinkPopup" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="k8a-S3-gXE">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3467,7 +3467,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
         <!--SpinnerVC-->
         <scene sceneID="3AH-wO-5Kz">
             <objects>
-                <viewController storyboardIdentifier="SpinnerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ARF-fV-TJX" customClass="SpinnerVC" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SpinnerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ARF-fV-TJX" customClass="SpinnerVC" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tWK-hv-GtN">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3623,12 +3623,12 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lka-zl-mUj">
                                         <rect key="frame" x="0.0" y="0.0" width="299" height="70"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="reword"/>
+                                        <state key="normal" image="reward"/>
                                         <connections>
                                             <action selector="btnShowReward:" destination="ARF-fV-TJX" eventType="touchUpInside" id="2jn-Be-M1Q"/>
                                         </connections>
                                     </button>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gift" translatesAutoresizingMaskIntoConstraints="NO" id="dME-7w-UnH">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dME-7w-UnH">
                                         <rect key="frame" x="16" y="3" width="109" height="64"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="109" id="HKA-rV-sMG"/>
@@ -3704,7 +3704,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
         <!--Spinner History View Controller-->
         <scene sceneID="vrP-b0-3Kf">
             <objects>
-                <viewController storyboardIdentifier="SpinnerHistoryViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aNP-30-nxm" customClass="SpinnerHistoryViewController" customModule="Pranksters" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SpinnerHistoryViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aNP-30-nxm" customClass="SpinnerHistoryViewController" customModule="Prankster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0JB-B3-Aty">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3719,7 +3719,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                                     <inset key="sectionInset" minX="0.0" minY="26" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="SpinnerCollectionViewCell" id="6mM-ko-Yaa" customClass="SpinnerCollectionViewCell" customModule="Pranksters" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="SpinnerCollectionViewCell" id="6mM-ko-Yaa" customClass="SpinnerCollectionViewCell" customModule="Prankster" customModuleProvider="target">
                                         <rect key="frame" x="12" y="26" width="369" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rhE-eC-Wuo">
@@ -3831,10 +3831,9 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
         <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="circleGradient" width="2887" height="2887"/>
         <image name="editButton" width="480" height="480"/>
-        <image name="gift" width="109" height="68"/>
         <image name="menu" width="25" height="25"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="reword" width="290" height="73"/>
+        <image name="reward" width="290" height="73"/>
         <image name="selectButton" width="320" height="320"/>
         <image name="yes" width="421" height="421"/>
         <namedColor name="Icon">
