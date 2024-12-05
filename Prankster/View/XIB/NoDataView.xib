@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoDataView" customModule="Pranksters" customModuleProvider="target">
+            <connections>
+                <outlet property="labelTopConstraint" destination="LRM-CF-lE2" id="BcU-cV-SqP"/>
+                <outlet property="lottieView" destination="VIq-Ny-d2c" id="vnn-hE-8C3"/>
+                <outlet property="lottieViewHeightConstraint" destination="RpE-yw-n4K" id="mhz-UA-VFM"/>
+                <outlet property="lottieViewTopConstraint" destination="SfF-2A-bai" id="tbR-MV-7Rk"/>
+                <outlet property="messageLabel" destination="XR3-MH-1ot" id="HGJ-K9-sTi"/>
+                <outlet property="titleLabel" destination="z5D-XC-TkX" id="zPc-eh-hvZ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="8Rf-4Q-1Nn">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No data found." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5D-XC-TkX">
+                    <rect key="frame" x="114.66666666666669" y="466" width="164" height="31.666666666666686"/>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XR3-MH-1ot">
+                    <rect key="frame" x="54.333333333333343" y="505.66666666666669" width="284.66666666666663" height="54.666666666666686"/>
+                    <string key="text">Request failed! Please try again 
+after some time.</string>
+                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
+                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VIq-Ny-d2c" customClass="LottieAnimationView" customModule="Lottie">
+                    <rect key="frame" x="53" y="129" width="287" height="287"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="287" id="RpE-yw-n4K"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="4wa-EH-lQO"/>
+            <color key="backgroundColor" name="comman"/>
+            <constraints>
+                <constraint firstItem="VIq-Ny-d2c" firstAttribute="leading" secondItem="4wa-EH-lQO" secondAttribute="leading" constant="53" id="41O-13-Wc9"/>
+                <constraint firstItem="z5D-XC-TkX" firstAttribute="top" secondItem="VIq-Ny-d2c" secondAttribute="bottom" constant="50" id="LRM-CF-lE2"/>
+                <constraint firstItem="XR3-MH-1ot" firstAttribute="centerX" secondItem="8Rf-4Q-1Nn" secondAttribute="centerX" id="NJC-D8-yN1"/>
+                <constraint firstItem="VIq-Ny-d2c" firstAttribute="top" secondItem="4wa-EH-lQO" secondAttribute="top" constant="70" id="SfF-2A-bai"/>
+                <constraint firstItem="4wa-EH-lQO" firstAttribute="trailing" secondItem="VIq-Ny-d2c" secondAttribute="trailing" constant="53" id="fcK-tH-qgb"/>
+                <constraint firstItem="z5D-XC-TkX" firstAttribute="centerX" secondItem="8Rf-4Q-1Nn" secondAttribute="centerX" id="rTD-4o-vAu"/>
+                <constraint firstItem="XR3-MH-1ot" firstAttribute="top" secondItem="z5D-XC-TkX" secondAttribute="bottom" constant="8" id="tH0-9M-B31"/>
+            </constraints>
+            <point key="canvasLocation" x="806.87022900763361" y="-6.3380281690140849"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="comman">
+            <color red="0.96862745098039216" green="0.94901960784313721" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

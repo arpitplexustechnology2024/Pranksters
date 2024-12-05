@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoInternetView" customModule="Pranksters" customModuleProvider="target">
+            <connections>
+                <outlet property="labelTopConstraint" destination="rvH-Og-iH6" id="erI-wH-bGt"/>
+                <outlet property="lottieView" destination="tSt-5D-mCL" id="ONK-q2-20P"/>
+                <outlet property="lottieViewHeightConstraint" destination="lvu-HO-bXs" id="TJU-JF-gzf"/>
+                <outlet property="lottieViewTopConstraint" destination="riR-8L-Pft" id="GOe-Zo-2E6"/>
+                <outlet property="messageLabel" destination="7d1-e8-eYz" id="NxC-JA-G6Z"/>
+                <outlet property="retryButton" destination="9AT-lE-uDB" id="3zT-kX-gOo"/>
+                <outlet property="retryButtonTopConstraint" destination="Wsv-iR-XCx" id="mZu-OR-scX"/>
+                <outlet property="titleLabel" destination="RyX-eb-ATe" id="pfi-8Z-vtK"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RyX-eb-ATe">
+                    <rect key="frame" x="68" y="466" width="257" height="63"/>
+                    <string key="text">Oops...
+No internet connection!</string>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please turn on internet connection!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7d1-e8-eYz">
+                    <rect key="frame" x="40.333333333333343" y="537" width="312.66666666666663" height="27.333333333333371"/>
+                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9AT-lE-uDB">
+                    <rect key="frame" x="171.66666666666666" y="624.33333333333337" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="VwC-QT-iZf"/>
+                        <constraint firstAttribute="width" constant="50" id="fLn-7c-2Nc"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="restore"/>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tSt-5D-mCL" customClass="LottieAnimationView" customModule="Lottie">
+                    <rect key="frame" x="53" y="129" width="287" height="287"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="287" id="lvu-HO-bXs"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" name="comman"/>
+            <constraints>
+                <constraint firstItem="RyX-eb-ATe" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4NQ-0Z-HEL"/>
+                <constraint firstItem="7d1-e8-eYz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4ql-2G-FRD"/>
+                <constraint firstItem="tSt-5D-mCL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="53" id="5wp-2g-946"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="tSt-5D-mCL" secondAttribute="trailing" constant="53" id="6OH-TD-Zsp"/>
+                <constraint firstItem="7d1-e8-eYz" firstAttribute="top" secondItem="RyX-eb-ATe" secondAttribute="bottom" constant="8" id="NDz-gh-M3w"/>
+                <constraint firstItem="9AT-lE-uDB" firstAttribute="top" secondItem="7d1-e8-eYz" secondAttribute="bottom" constant="60" id="Wsv-iR-XCx"/>
+                <constraint firstItem="tSt-5D-mCL" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="70" id="riR-8L-Pft"/>
+                <constraint firstItem="RyX-eb-ATe" firstAttribute="top" secondItem="tSt-5D-mCL" secondAttribute="bottom" constant="50" id="rvH-Og-iH6"/>
+                <constraint firstItem="9AT-lE-uDB" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="vZu-8H-bv5"/>
+            </constraints>
+            <point key="canvasLocation" x="118" y="-27"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="restore" width="500" height="500"/>
+        <namedColor name="comman">
+            <color red="0.96862745098039216" green="0.94901960784313721" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
