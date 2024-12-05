@@ -3,8 +3,27 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 56;
 	objects = {
+
+/* Begin PBXBuildFile section */
+		A027E7D7198CE8E461B45460 /* Pods_PranksterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 584D1AE8DB89788FE60542E6 /* Pods_PranksterTests.framework */; };
+		A46A2E8BC3FBF35C5C52F872 /* Pods_OneSignalPushNotificationExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A521BA97626B1DC131AF3A /* Pods_OneSignalPushNotificationExtension.framework */; };
+		BBD601D787D4F1939EC42421 /* Pods_Prankster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C81F81C61EF6E2150889DF /* Pods_Prankster.framework */; };
+		BD9E4D752D015557001B0F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD9E4D6C2D015557001B0F58 /* Assets.xcassets */; };
+		BD9E4D772D015557001B0F58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD9E4D6F2D015557001B0F58 /* LaunchScreen.storyboard */; };
+		BD9E4D782D015557001B0F58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD9E4D712D015557001B0F58 /* Main.storyboard */; };
+		BD9E4D792D015557001B0F58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9E4D6B2D015557001B0F58 /* AppDelegate.swift */; };
+		BD9E4D7A2D015557001B0F58 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9E4D722D015557001B0F58 /* SceneDelegate.swift */; };
+		BD9E4D7B2D015557001B0F58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9E4D732D015557001B0F58 /* ViewController.swift */; };
+		BD9E4D7E2D015559001B0F58 /* PranksterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9E4D7C2D015559001B0F58 /* PranksterTests.swift */; };
+		BD9E4D822D01555C001B0F58 /* PranksterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9E4D7F2D01555C001B0F58 /* PranksterUITests.swift */; };
+		BD9E4D832D01555C001B0F58 /* PranksterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9E4D802D01555C001B0F58 /* PranksterUITestsLaunchTests.swift */; };
+		BD9E4D8F2D015608001B0F58 /* OneSignalPushNotificationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BD9E4D882D015608001B0F58 /* OneSignalPushNotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BD9E4D982D01560D001B0F58 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9E4D962D01560D001B0F58 /* NotificationService.swift */; };
+		BD9E4D9C2D0157C4001B0F58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD9E4D9B2D0157C4001B0F58 /* GoogleService-Info.plist */; };
+		C97F96366B5FEFDEE9FFAE93 /* Pods_Prankster_PranksterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2F386536D4DD55FA8FBFBA3 /* Pods_Prankster_PranksterUITests.framework */; };
+/* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		BD9E4D4E2D015553001B0F58 /* PBXContainerItemProxy */ = {
@@ -21,50 +40,67 @@
 			remoteGlobalIDString = BD9E4D362D015550001B0F58;
 			remoteInfo = Prankster;
 		};
+		BD9E4D8D2D015608001B0F58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BD9E4D2F2D015550001B0F58 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD9E4D872D015608001B0F58;
+			remoteInfo = OneSignalPushNotificationExtension;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		BD9E4D902D015608001B0F58 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BD9E4D8F2D015608001B0F58 /* OneSignalPushNotificationExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		05C81F81C61EF6E2150889DF /* Pods_Prankster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Prankster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E35DAC713AB274E69C2097F /* Pods-Prankster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prankster.debug.xcconfig"; path = "Target Support Files/Pods-Prankster/Pods-Prankster.debug.xcconfig"; sourceTree = "<group>"; };
+		2B55F5CD0FC10C6B32A7534D /* Pods-Prankster-PranksterUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prankster-PranksterUITests.release.xcconfig"; path = "Target Support Files/Pods-Prankster-PranksterUITests/Pods-Prankster-PranksterUITests.release.xcconfig"; sourceTree = "<group>"; };
+		584D1AE8DB89788FE60542E6 /* Pods_PranksterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PranksterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		61A521BA97626B1DC131AF3A /* Pods_OneSignalPushNotificationExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneSignalPushNotificationExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65CE6E944F0FA174BB455D6A /* Pods-PranksterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PranksterTests.release.xcconfig"; path = "Target Support Files/Pods-PranksterTests/Pods-PranksterTests.release.xcconfig"; sourceTree = "<group>"; };
+		75071A31ADC3B45055879804 /* Pods-PranksterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PranksterTests.debug.xcconfig"; path = "Target Support Files/Pods-PranksterTests/Pods-PranksterTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9A81AB1557380DA331E4A6CA /* Pods-Prankster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prankster.release.xcconfig"; path = "Target Support Files/Pods-Prankster/Pods-Prankster.release.xcconfig"; sourceTree = "<group>"; };
+		A4E59631301AE7E0D84ED8CB /* Pods-OneSignalPushNotificationExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalPushNotificationExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalPushNotificationExtension/Pods-OneSignalPushNotificationExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		BD9E4D372D015550001B0F58 /* Prankster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Prankster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9E4D4D2D015553001B0F58 /* PranksterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PranksterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9E4D572D015553001B0F58 /* PranksterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PranksterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD9E4D6B2D015557001B0F58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BD9E4D6C2D015557001B0F58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BD9E4D6D2D015557001B0F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BD9E4D6E2D015557001B0F58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BD9E4D702D015557001B0F58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BD9E4D722D015557001B0F58 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		BD9E4D732D015557001B0F58 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BD9E4D7C2D015559001B0F58 /* PranksterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranksterTests.swift; sourceTree = "<group>"; };
+		BD9E4D7F2D01555C001B0F58 /* PranksterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranksterUITests.swift; sourceTree = "<group>"; };
+		BD9E4D802D01555C001B0F58 /* PranksterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranksterUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BD9E4D882D015608001B0F58 /* OneSignalPushNotificationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalPushNotificationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD9E4D952D01560D001B0F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BD9E4D962D01560D001B0F58 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		BD9E4D9B2D0157C4001B0F58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C9E5DE42C1582CC6F12FFEA4 /* Pods-Prankster-PranksterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prankster-PranksterUITests.debug.xcconfig"; path = "Target Support Files/Pods-Prankster-PranksterUITests/Pods-Prankster-PranksterUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		DC340F686E4FBF078D71B1A1 /* Pods-OneSignalPushNotificationExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalPushNotificationExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalPushNotificationExtension/Pods-OneSignalPushNotificationExtension.release.xcconfig"; sourceTree = "<group>"; };
+		F2F386536D4DD55FA8FBFBA3 /* Pods_Prankster_PranksterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Prankster_PranksterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BD9E4D5F2D015553001B0F58 /* Exceptions for "Prankster" folder in "Prankster" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = BD9E4D362D015550001B0F58 /* Prankster */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		BD9E4D392D015550001B0F58 /* Prankster */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				BD9E4D5F2D015553001B0F58 /* Exceptions for "Prankster" folder in "Prankster" target */,
-			);
-			path = Prankster;
-			sourceTree = "<group>";
-		};
-		BD9E4D502D015553001B0F58 /* PranksterTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = PranksterTests;
-			sourceTree = "<group>";
-		};
-		BD9E4D5A2D015553001B0F58 /* PranksterUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = PranksterUITests;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		BD9E4D342D015550001B0F58 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBD601D787D4F1939EC42421 /* Pods_Prankster.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A027E7D7198CE8E461B45460 /* Pods_PranksterTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,19 +116,42 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C97F96366B5FEFDEE9FFAE93 /* Pods_Prankster_PranksterUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD9E4D852D015608001B0F58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A46A2E8BC3FBF35C5C52F872 /* Pods_OneSignalPushNotificationExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2349DCD1B87E5ED9AD7E18F4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				05C81F81C61EF6E2150889DF /* Pods_Prankster.framework */,
+				F2F386536D4DD55FA8FBFBA3 /* Pods_Prankster_PranksterUITests.framework */,
+				584D1AE8DB89788FE60542E6 /* Pods_PranksterTests.framework */,
+				61A521BA97626B1DC131AF3A /* Pods_OneSignalPushNotificationExtension.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BD9E4D2E2D015550001B0F58 = {
 			isa = PBXGroup;
 			children = (
-				BD9E4D392D015550001B0F58 /* Prankster */,
-				BD9E4D502D015553001B0F58 /* PranksterTests */,
-				BD9E4D5A2D015553001B0F58 /* PranksterUITests */,
+				BD9E4D742D015557001B0F58 /* Prankster */,
+				BD9E4D7D2D015559001B0F58 /* PranksterTests */,
+				BD9E4D812D01555C001B0F58 /* PranksterUITests */,
+				BD9E4D972D01560D001B0F58 /* OneSignalPushNotificationExtension */,
 				BD9E4D382D015550001B0F58 /* Products */,
+				D2C26FFD19B2BAC98176D155 /* Pods */,
+				2349DCD1B87E5ED9AD7E18F4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,8 +161,65 @@
 				BD9E4D372D015550001B0F58 /* Prankster.app */,
 				BD9E4D4D2D015553001B0F58 /* PranksterTests.xctest */,
 				BD9E4D572D015553001B0F58 /* PranksterUITests.xctest */,
+				BD9E4D882D015608001B0F58 /* OneSignalPushNotificationExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		BD9E4D742D015557001B0F58 /* Prankster */ = {
+			isa = PBXGroup;
+			children = (
+				BD9E4D6B2D015557001B0F58 /* AppDelegate.swift */,
+				BD9E4D6C2D015557001B0F58 /* Assets.xcassets */,
+				BD9E4D6D2D015557001B0F58 /* Info.plist */,
+				BD9E4D9B2D0157C4001B0F58 /* GoogleService-Info.plist */,
+				BD9E4D6F2D015557001B0F58 /* LaunchScreen.storyboard */,
+				BD9E4D712D015557001B0F58 /* Main.storyboard */,
+				BD9E4D722D015557001B0F58 /* SceneDelegate.swift */,
+				BD9E4D732D015557001B0F58 /* ViewController.swift */,
+			);
+			path = Prankster;
+			sourceTree = "<group>";
+		};
+		BD9E4D7D2D015559001B0F58 /* PranksterTests */ = {
+			isa = PBXGroup;
+			children = (
+				BD9E4D7C2D015559001B0F58 /* PranksterTests.swift */,
+			);
+			path = PranksterTests;
+			sourceTree = "<group>";
+		};
+		BD9E4D812D01555C001B0F58 /* PranksterUITests */ = {
+			isa = PBXGroup;
+			children = (
+				BD9E4D7F2D01555C001B0F58 /* PranksterUITests.swift */,
+				BD9E4D802D01555C001B0F58 /* PranksterUITestsLaunchTests.swift */,
+			);
+			path = PranksterUITests;
+			sourceTree = "<group>";
+		};
+		BD9E4D972D01560D001B0F58 /* OneSignalPushNotificationExtension */ = {
+			isa = PBXGroup;
+			children = (
+				BD9E4D952D01560D001B0F58 /* Info.plist */,
+				BD9E4D962D01560D001B0F58 /* NotificationService.swift */,
+			);
+			path = OneSignalPushNotificationExtension;
+			sourceTree = "<group>";
+		};
+		D2C26FFD19B2BAC98176D155 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1E35DAC713AB274E69C2097F /* Pods-Prankster.debug.xcconfig */,
+				9A81AB1557380DA331E4A6CA /* Pods-Prankster.release.xcconfig */,
+				C9E5DE42C1582CC6F12FFEA4 /* Pods-Prankster-PranksterUITests.debug.xcconfig */,
+				2B55F5CD0FC10C6B32A7534D /* Pods-Prankster-PranksterUITests.release.xcconfig */,
+				75071A31ADC3B45055879804 /* Pods-PranksterTests.debug.xcconfig */,
+				65CE6E944F0FA174BB455D6A /* Pods-PranksterTests.release.xcconfig */,
+				A4E59631301AE7E0D84ED8CB /* Pods-OneSignalPushNotificationExtension.debug.xcconfig */,
+				DC340F686E4FBF078D71B1A1 /* Pods-OneSignalPushNotificationExtension.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,20 +229,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD9E4D602D015553001B0F58 /* Build configuration list for PBXNativeTarget "Prankster" */;
 			buildPhases = (
+				E80A8CBFBA58DDDF7723EDC0 /* [CP] Check Pods Manifest.lock */,
 				BD9E4D332D015550001B0F58 /* Sources */,
 				BD9E4D342D015550001B0F58 /* Frameworks */,
 				BD9E4D352D015550001B0F58 /* Resources */,
+				BD9E4D902D015608001B0F58 /* Embed Foundation Extensions */,
+				10DBA297478773851F0E6877 /* [CP] Embed Pods Frameworks */,
+				E2BBA98AE36E21FC37949D5C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				BD9E4D392D015550001B0F58 /* Prankster */,
+				BD9E4D8E2D015608001B0F58 /* PBXTargetDependency */,
 			);
 			name = Prankster;
-			packageProductDependencies = (
-			);
 			productName = Prankster;
 			productReference = BD9E4D372D015550001B0F58 /* Prankster.app */;
 			productType = "com.apple.product-type.application";
@@ -134,6 +251,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD9E4D652D015553001B0F58 /* Build configuration list for PBXNativeTarget "PranksterTests" */;
 			buildPhases = (
+				EC9E4CFD16FE8230A52DC144 /* [CP] Check Pods Manifest.lock */,
 				BD9E4D492D015553001B0F58 /* Sources */,
 				BD9E4D4A2D015553001B0F58 /* Frameworks */,
 				BD9E4D4B2D015553001B0F58 /* Resources */,
@@ -143,12 +261,7 @@
 			dependencies = (
 				BD9E4D4F2D015553001B0F58 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				BD9E4D502D015553001B0F58 /* PranksterTests */,
-			);
 			name = PranksterTests;
-			packageProductDependencies = (
-			);
 			productName = PranksterTests;
 			productReference = BD9E4D4D2D015553001B0F58 /* PranksterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -157,24 +270,40 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD9E4D682D015553001B0F58 /* Build configuration list for PBXNativeTarget "PranksterUITests" */;
 			buildPhases = (
+				F5721142022A0CE36B3B49CB /* [CP] Check Pods Manifest.lock */,
 				BD9E4D532D015553001B0F58 /* Sources */,
 				BD9E4D542D015553001B0F58 /* Frameworks */,
 				BD9E4D552D015553001B0F58 /* Resources */,
+				6AAF871501813739852F8DE3 /* [CP] Embed Pods Frameworks */,
+				9CEF8496DD27C0D446EF71A3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				BD9E4D592D015553001B0F58 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				BD9E4D5A2D015553001B0F58 /* PranksterUITests */,
-			);
 			name = PranksterUITests;
-			packageProductDependencies = (
-			);
 			productName = PranksterUITests;
 			productReference = BD9E4D572D015553001B0F58 /* PranksterUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		BD9E4D872D015608001B0F58 /* OneSignalPushNotificationExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD9E4D942D015608001B0F58 /* Build configuration list for PBXNativeTarget "OneSignalPushNotificationExtension" */;
+			buildPhases = (
+				E25D190AF115141E4E74D5B9 /* [CP] Check Pods Manifest.lock */,
+				BD9E4D842D015608001B0F58 /* Sources */,
+				BD9E4D852D015608001B0F58 /* Frameworks */,
+				BD9E4D862D015608001B0F58 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OneSignalPushNotificationExtension;
+			productName = OneSignalPushNotificationExtension;
+			productReference = BD9E4D882D015608001B0F58 /* OneSignalPushNotificationExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -197,9 +326,13 @@
 						CreatedOnToolsVersion = 16.1;
 						TestTargetID = BD9E4D362D015550001B0F58;
 					};
+					BD9E4D872D015608001B0F58 = {
+						CreatedOnToolsVersion = 16.1;
+					};
 				};
 			};
 			buildConfigurationList = BD9E4D322D015550001B0F58 /* Build configuration list for PBXProject "Prankster" */;
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -207,8 +340,6 @@
 				Base,
 			);
 			mainGroup = BD9E4D2E2D015550001B0F58;
-			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
 			productRefGroup = BD9E4D382D015550001B0F58 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -216,6 +347,7 @@
 				BD9E4D362D015550001B0F58 /* Prankster */,
 				BD9E4D4C2D015553001B0F58 /* PranksterTests */,
 				BD9E4D562D015553001B0F58 /* PranksterUITests */,
+				BD9E4D872D015608001B0F58 /* OneSignalPushNotificationExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -225,6 +357,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD9E4D752D015557001B0F58 /* Assets.xcassets in Resources */,
+				BD9E4D9C2D0157C4001B0F58 /* GoogleService-Info.plist in Resources */,
+				BD9E4D772D015557001B0F58 /* LaunchScreen.storyboard in Resources */,
+				BD9E4D782D015557001B0F58 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,13 +378,182 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BD9E4D862D015608001B0F58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		10DBA297478773851F0E6877 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Prankster/Pods-Prankster-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Prankster/Pods-Prankster-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Prankster/Pods-Prankster-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6AAF871501813739852F8DE3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Prankster-PranksterUITests/Pods-Prankster-PranksterUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Prankster-PranksterUITests/Pods-Prankster-PranksterUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Prankster-PranksterUITests/Pods-Prankster-PranksterUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9CEF8496DD27C0D446EF71A3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Prankster-PranksterUITests/Pods-Prankster-PranksterUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Prankster-PranksterUITests/Pods-Prankster-PranksterUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Prankster-PranksterUITests/Pods-Prankster-PranksterUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E25D190AF115141E4E74D5B9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OneSignalPushNotificationExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E2BBA98AE36E21FC37949D5C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Prankster/Pods-Prankster-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Prankster/Pods-Prankster-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Prankster/Pods-Prankster-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E80A8CBFBA58DDDF7723EDC0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Prankster-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EC9E4CFD16FE8230A52DC144 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PranksterTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5721142022A0CE36B3B49CB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Prankster-PranksterUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BD9E4D332D015550001B0F58 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD9E4D792D015557001B0F58 /* AppDelegate.swift in Sources */,
+				BD9E4D7A2D015557001B0F58 /* SceneDelegate.swift in Sources */,
+				BD9E4D7B2D015557001B0F58 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +561,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD9E4D7E2D015559001B0F58 /* PranksterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +569,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD9E4D822D01555C001B0F58 /* PranksterUITests.swift in Sources */,
+				BD9E4D832D01555C001B0F58 /* PranksterUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD9E4D842D015608001B0F58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD9E4D982D01560D001B0F58 /* NotificationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,17 +595,43 @@
 			target = BD9E4D362D015550001B0F58 /* Prankster */;
 			targetProxy = BD9E4D582D015553001B0F58 /* PBXContainerItemProxy */;
 		};
+		BD9E4D8E2D015608001B0F58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BD9E4D872D015608001B0F58 /* OneSignalPushNotificationExtension */;
+			targetProxy = BD9E4D8D2D015608001B0F58 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BD9E4D6F2D015557001B0F58 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BD9E4D6E2D015557001B0F58 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		BD9E4D712D015557001B0F58 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BD9E4D702D015557001B0F58 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		BD9E4D612D015553001B0F58 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E35DAC713AB274E69C2097F /* Pods-Prankster.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 32BBNXD889;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Prankster/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -312,12 +654,14 @@
 		};
 		BD9E4D622D015553001B0F58 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A81AB1557380DA331E4A6CA /* Pods-Prankster.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 32BBNXD889;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Prankster/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -459,6 +803,7 @@
 		};
 		BD9E4D662D015553001B0F58 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75071A31ADC3B45055879804 /* Pods-PranksterTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -478,6 +823,7 @@
 		};
 		BD9E4D672D015553001B0F58 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65CE6E944F0FA174BB455D6A /* Pods-PranksterTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -497,6 +843,7 @@
 		};
 		BD9E4D692D015553001B0F58 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9E5DE42C1582CC6F12FFEA4 /* Pods-Prankster-PranksterUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -514,6 +861,7 @@
 		};
 		BD9E4D6A2D015553001B0F58 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B55F5CD0FC10C6B32A7534D /* Pods-Prankster-PranksterUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -526,6 +874,58 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Prankster;
+			};
+			name = Release;
+		};
+		BD9E4D912D015608001B0F58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4E59631301AE7E0D84ED8CB /* Pods-OneSignalPushNotificationExtension.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 32BBNXD889;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OneSignalPushNotificationExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OneSignalPushNotificationExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.plexustechnology.Prankster.OneSignalPushNotificationExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BD9E4D922D015608001B0F58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC340F686E4FBF078D71B1A1 /* Pods-OneSignalPushNotificationExtension.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 32BBNXD889;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OneSignalPushNotificationExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OneSignalPushNotificationExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.plexustechnology.Prankster.OneSignalPushNotificationExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -564,6 +964,15 @@
 			buildConfigurations = (
 				BD9E4D692D015553001B0F58 /* Debug */,
 				BD9E4D6A2D015553001B0F58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD9E4D942D015608001B0F58 /* Build configuration list for PBXNativeTarget "OneSignalPushNotificationExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD9E4D912D015608001B0F58 /* Debug */,
+				BD9E4D922D015608001B0F58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
