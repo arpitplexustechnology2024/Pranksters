@@ -22,6 +22,8 @@
 		BD9E4D8F2D015608001B0F58 /* OneSignalPushNotificationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BD9E4D882D015608001B0F58 /* OneSignalPushNotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BD9E4D982D01560D001B0F58 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9E4D962D01560D001B0F58 /* NotificationService.swift */; };
 		BD9E4D9C2D0157C4001B0F58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD9E4D9B2D0157C4001B0F58 /* GoogleService-Info.plist */; };
+		BD9E4D9E2D0159DE001B0F58 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD9E4D9D2D0159DE001B0F58 /* Color.xcassets */; };
+		BD9E4DA12D015B63001B0F58 /* KLEPHON.otf in Resources */ = {isa = PBXBuildFile; fileRef = BD9E4DA02D015B63001B0F58 /* KLEPHON.otf */; };
 		C97F96366B5FEFDEE9FFAE93 /* Pods_Prankster_PranksterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2F386536D4DD55FA8FBFBA3 /* Pods_Prankster_PranksterUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +92,8 @@
 		BD9E4D952D01560D001B0F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD9E4D962D01560D001B0F58 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		BD9E4D9B2D0157C4001B0F58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BD9E4D9D2D0159DE001B0F58 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
+		BD9E4DA02D015B63001B0F58 /* KLEPHON.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KLEPHON.otf; sourceTree = "<group>"; };
 		C9E5DE42C1582CC6F12FFEA4 /* Pods-Prankster-PranksterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prankster-PranksterUITests.debug.xcconfig"; path = "Target Support Files/Pods-Prankster-PranksterUITests/Pods-Prankster-PranksterUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DC340F686E4FBF078D71B1A1 /* Pods-OneSignalPushNotificationExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalPushNotificationExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalPushNotificationExtension/Pods-OneSignalPushNotificationExtension.release.xcconfig"; sourceTree = "<group>"; };
 		F2F386536D4DD55FA8FBFBA3 /* Pods_Prankster_PranksterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Prankster_PranksterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,13 +173,13 @@
 		BD9E4D742D015557001B0F58 /* Prankster */ = {
 			isa = PBXGroup;
 			children = (
-				BD9E4D6B2D015557001B0F58 /* AppDelegate.swift */,
+				BD9E4DA22D015BA6001B0F58 /* Delegate */,
+				BD9E4DA02D015B63001B0F58 /* KLEPHON.otf */,
 				BD9E4D6C2D015557001B0F58 /* Assets.xcassets */,
+				BD9E4D9D2D0159DE001B0F58 /* Color.xcassets */,
 				BD9E4D6D2D015557001B0F58 /* Info.plist */,
 				BD9E4D9B2D0157C4001B0F58 /* GoogleService-Info.plist */,
-				BD9E4D6F2D015557001B0F58 /* LaunchScreen.storyboard */,
-				BD9E4D712D015557001B0F58 /* Main.storyboard */,
-				BD9E4D722D015557001B0F58 /* SceneDelegate.swift */,
+				BD9E4D9F2D015B10001B0F58 /* View */,
 				BD9E4D732D015557001B0F58 /* ViewController.swift */,
 			);
 			path = Prankster;
@@ -205,6 +209,24 @@
 				BD9E4D962D01560D001B0F58 /* NotificationService.swift */,
 			);
 			path = OneSignalPushNotificationExtension;
+			sourceTree = "<group>";
+		};
+		BD9E4D9F2D015B10001B0F58 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD9E4D6F2D015557001B0F58 /* LaunchScreen.storyboard */,
+				BD9E4D712D015557001B0F58 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BD9E4DA22D015BA6001B0F58 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				BD9E4D6B2D015557001B0F58 /* AppDelegate.swift */,
+				BD9E4D722D015557001B0F58 /* SceneDelegate.swift */,
+			);
+			path = Delegate;
 			sourceTree = "<group>";
 		};
 		D2C26FFD19B2BAC98176D155 /* Pods */ = {
@@ -359,6 +381,8 @@
 			files = (
 				BD9E4D752D015557001B0F58 /* Assets.xcassets in Resources */,
 				BD9E4D9C2D0157C4001B0F58 /* GoogleService-Info.plist in Resources */,
+				BD9E4D9E2D0159DE001B0F58 /* Color.xcassets in Resources */,
+				BD9E4DA12D015B63001B0F58 /* KLEPHON.otf in Resources */,
 				BD9E4D772D015557001B0F58 /* LaunchScreen.storyboard in Resources */,
 				BD9E4D782D015557001B0F58 /* Main.storyboard in Resources */,
 			);
