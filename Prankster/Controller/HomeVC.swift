@@ -46,6 +46,7 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         self.setupUI()
         self.seupViewAction()
+        self.requestNotificationPermission()
         self.navigationbarView.addBottomShadow()
     }
     
@@ -374,8 +375,7 @@ extension HomeVC {
         content.sound = UNNotificationSound.default
         
         var dateComponents = DateComponents()
-        dateComponents.hour = 10
-        dateComponents.minute = 20
+        dateComponents.hour = 17
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         

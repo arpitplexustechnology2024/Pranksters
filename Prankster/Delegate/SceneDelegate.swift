@@ -6,17 +6,30 @@
 //
 
 import UIKit
+import FBSDKCoreKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    
+    enum ActionType: String {
+        case prankAction     = "PrankAction"
+        case spinnerAction   = "SpinnerAction"
+        case moreAction      = "MoreAction"
+    }
 
     var window: UIWindow?
-
+    var savedShortCutItem: UIApplicationShortcutItem!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        if let shortcutItem = connectionOptions.shortcutItem {
+            savedShortCutItem = shortcutItem
+        }
         guard let _ = (scene as? UIWindowScene) else { return }
+    }
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        for urlContext in URLContexts {
+         //   ApplicationDelegate.shared.application(UIApplication.shared, open: urlContext.url, options: [:])
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -27,8 +40,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        if savedShortCutItem != nil {
+            _ = handleShortCutItem(shortcutItem: savedShortCutItem)
+            savedShortCutItem = nil
+        }
+        // Call checkForUpdate when the scene becomes active
+      //  (UIApplication.shared.delegate as? AppDelegate)?.checkForUpdate()
+    }
+    
+    func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        let handled = handleShortCutItem(shortcutItem: shortcutItem)
+        completionHandler(handled)
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -47,6 +69,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
+    func handleShortCutItem(shortcutItem: UIApplicationShortcutItem) -> Bool {
+        if let actionTypeValue = ActionType(rawValue: shortcutItem.type) {
+            switch actionTypeValue {
+            case .prankAction:
+                self.navigateToLaunchVC(actionKey: "PrankActionKey")
+            case .spinnerAction:
+                self.navigateToLaunchVC(actionKey: "SpinnerActionKey")
+            case .moreAction:
+                self.navigateToLaunchVC(actionKey: "MoreActionKey")
+            }
+        }
+        return true
+    }
+    
+    func navigateToLaunchVC(actionKey: String) {
+        if let navVC = window?.rootViewController as? UINavigationController,
+           let launchVC = navVC.viewControllers.first as? LaunchVC {
+            launchVC.passedActionKey = actionKey
+        }
+    }
 }
-
