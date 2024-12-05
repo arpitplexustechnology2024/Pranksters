@@ -374,8 +374,8 @@ extension HomeVC {
         content.sound = UNNotificationSound.default
         
         var dateComponents = DateComponents()
-        dateComponents.hour = 18
-        dateComponents.minute = 12
+        dateComponents.hour = 10
+        dateComponents.minute = 20
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
