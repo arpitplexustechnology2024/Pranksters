@@ -149,7 +149,11 @@ class HomeVC: UIViewController {
             hideDropdown()
         } else {
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "PremiumVC") as! PremiumVC
-            self.navigationController?.pushViewController(vc, animated: true)
+            if let sheet = vc.sheetPresentationController {
+                sheet.detents = [.large()]
+                sheet.prefersGrabberVisible = true
+            }
+            self.present(vc, animated: true)
         }
     }
     
