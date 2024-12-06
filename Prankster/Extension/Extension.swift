@@ -79,3 +79,48 @@ extension UIView {
         self.subviews.filter { $0 is ShimmerView }.forEach { $0.removeFromSuperview() }
     }
 }
+
+extension UIView {
+    func setHorizontalGradientBackground(colorLeft: UIColor, colorRight: UIColor) {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [colorLeft.cgColor, colorRight.cgColor]
+        gradientLayer.locations = [0.0, 1.0]
+        gradientLayer.frame = self.bounds
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+        self.layer.sublayers?.filter { $0 is CAGradientLayer }.forEach { $0.removeFromSuperlayer() }
+        self.layer.insertSublayer(gradientLayer, at: 0)
+    }
+}
+
+import UIKit
+
+extension UIView {
+    func addGradientBorder(colors: [UIColor], width: CGFloat = 2.0, cornerRadius: CGFloat = 8.0) {
+        self.layer.sublayers?.filter { $0.name == "GradientBorderLayer" }.forEach { $0.removeFromSuperlayer() }
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.name = "GradientBorderLayer"
+        gradientLayer.colors = colors.map { $0.cgColor }
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
+
+        let maskLayer = CAShapeLayer()
+        maskLayer.lineWidth = width
+        maskLayer.path = UIBezierPath(roundedRect: self.bounds, cornerRadius: cornerRadius).cgPath
+        maskLayer.fillColor = UIColor.clear.cgColor
+        maskLayer.strokeColor = UIColor.white.cgColor
+
+        let borderLayer = CAShapeLayer()
+        borderLayer.path = maskLayer.path
+        borderLayer.lineWidth = width
+        borderLayer.fillColor = UIColor.clear.cgColor
+
+        gradientLayer.mask = maskLayer
+
+        self.layer.addSublayer(gradientLayer)
+        self.layer.cornerRadius = cornerRadius
+        self.layer.masksToBounds = true
+    }
+}

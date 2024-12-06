@@ -67,7 +67,7 @@ extension SFWConfiguration {
 // MARK: - Preferences Extensions
 extension ImagePreferences {
     static var prizeImagePreferences: ImagePreferences {
-        let preferences = ImagePreferences(preferredSize: CGSize(width: 50, height: 50),
+        let preferences = ImagePreferences(preferredSize: CGSize(width: 45, height: 45),
                                            verticalOffset: 18)
         return preferences
     }

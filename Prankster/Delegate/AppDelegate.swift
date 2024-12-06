@@ -80,14 +80,92 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {}
+    
+    // MARK: - Update Check
+    func fetchAppStoreVersion(completion: @escaping (String?) -> Void) {
+        let appID = "6670788272"
+        let urlString = "https://itunes.apple.com/lookup?id=\(appID)"
+        
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                completion(nil)
+                return
+            }
+            
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let results = json["results"] as? [[String: Any]],
+                   let appStoreVersion = results.first?["version"] as? String {
+                    completion(appStoreVersion)
+                } else {
+                    completion(nil)
+                }
+            } catch {
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func getCurrentAppVersion() -> String? {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            return version
+        }
+        return nil
+    }
+    
+    func checkForUpdate() {
+        fetchAppStoreVersion { appStoreVersion in
+            guard let appStoreVersion = appStoreVersion,
+                  let currentVersion = self.getCurrentAppVersion() else {
+                return
+            }
+            
+            if appStoreVersion.compare(currentVersion, options: .numeric) == .orderedDescending {
+                DispatchQueue.main.async {
+                    self.promptUserToUpdate()
+                }
+            }
+        }
+    }
+    
+    func promptUserToUpdate() {
+        let alert = UIAlertController(
+            title: "Update Available",
+            message: "A newer version of the app is available. Please update to the latest version.",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { _ in
+            self.openAppStoreForUpdate()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Later", style: .cancel, handler: nil))
+        
+        if let topController = UIApplication.shared.keyWindow?.rootViewController {
+            topController.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func openAppStoreForUpdate() {
+        let appID = "6670788272"
+        if let url = URL(string: "https://apps.apple.com/app/id\(appID)") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         checkNotificationAuthorization()
+        checkForUpdate()
     }
 }
 

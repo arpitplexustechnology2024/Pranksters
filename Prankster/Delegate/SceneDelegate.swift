@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         for urlContext in URLContexts {
-         //   ApplicationDelegate.shared.application(UIApplication.shared, open: urlContext.url, options: [:])
+            ApplicationDelegate.shared.application(UIApplication.shared, open: urlContext.url, options: [:])
         }
     }
 
@@ -45,7 +45,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             savedShortCutItem = nil
         }
         // Call checkForUpdate when the scene becomes active
-      //  (UIApplication.shared.delegate as? AppDelegate)?.checkForUpdate()
+        (UIApplication.shared.delegate as? AppDelegate)?.checkForUpdate()
     }
     
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {

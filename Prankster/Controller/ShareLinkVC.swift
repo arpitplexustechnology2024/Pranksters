@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 import AVFAudio
+import StoreKit
 import AVFoundation
 
 class ShareLinkVC: UIViewController, UITextViewDelegate {
@@ -56,6 +57,7 @@ class ShareLinkVC: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
+        self.rateUs()
         self.setupNoDataView()
         self.setupScrollView()
         self.setupSwipeGesture()
@@ -63,6 +65,16 @@ class ShareLinkVC: UIViewController, UITextViewDelegate {
         self.addContentToStackView()
         self.setupKeyboardObservers()
         self.hideKeyboardTappedAround()
+    }
+    
+    func rateUs() {
+        if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            DispatchQueue.main.async {
+                SKStoreReviewController.requestReview(in: scene)
+            }
+        } else {
+            print(" - - - - - - Rating view in not present - - - -")
+        }
     }
     
     // MARK: - setupUI

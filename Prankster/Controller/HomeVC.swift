@@ -149,7 +149,7 @@ class HomeVC: UIViewController {
             hideDropdown()
         } else {
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "PremiumVC") as! PremiumVC
-            self.present(vc, animated: true)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     

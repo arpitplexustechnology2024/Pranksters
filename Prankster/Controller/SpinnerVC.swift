@@ -9,6 +9,7 @@ import UIKit
 import SwiftFortuneWheel
 import SDWebImage
 import Alamofire
+import StoreKit
 
 // MARK: - Spinner Struct
 struct Spinner {
@@ -35,7 +36,6 @@ class SpinnerVC: UIViewController {
     @IBOutlet weak var spinnerbuttonHeightConstraints: NSLayoutConstraint!
     @IBOutlet weak var spinTextHeightConstraints: NSLayoutConstraint!
     @IBOutlet weak var rewardWidthConstraits: NSLayoutConstraint!
-    
     
     @IBOutlet weak var rewardShowButton: UIButton!
     @IBOutlet weak var spinnerCountLabel: UILabel!
@@ -313,7 +313,6 @@ class SpinnerVC: UIViewController {
             remainingSpins = 4
             currentSpinButtonState = .spin
             updateSpinButtonState()
-            
             spinLabel.text = "Spin"
             spinLabel.font = UIFont(name: "Avenir Heavy", size: 24)
             UserDefaults.standard.removeObject(forKey: "savedSpinnerData")
@@ -341,6 +340,7 @@ class SpinnerVC: UIViewController {
             case .spin:
                 if remainingSpins > 0 {
                     proceedWithSpinning()
+                    self.rateUs()
                 }
             case .watchAd:
                 rewardAdUtility.showRewardedAd()
@@ -382,5 +382,15 @@ class SpinnerVC: UIViewController {
             sheet.prefersGrabberVisible = true
         }
         self.present(vc, animated: true)
+    }
+    
+    func rateUs() {
+        if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            DispatchQueue.main.async {
+                SKStoreReviewController.requestReview(in: scene)
+            }
+        } else {
+            print(" - - - - - - Rating view in not present - - - -")
+        }
     }
 }
