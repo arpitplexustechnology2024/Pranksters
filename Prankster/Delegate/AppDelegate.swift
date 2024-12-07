@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         OneSignal.initialize("d8e64d76-dc16-444f-af2d-1bb802f7bc44", withLaunchOptions: launchOptions)
         checkNotificationAuthorization()
         setupAppLifecycleObservers()
+      //  PremiumManager.shared.checkAndClearExpiredPremium()
         return true
     }
     

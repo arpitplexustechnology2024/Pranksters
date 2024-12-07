@@ -14,11 +14,8 @@ class PremiumVC: UIViewController, SKPaymentTransactionObserver, SKProductsReque
     @IBOutlet weak var premiumImage: UIImageView!
     @IBOutlet weak var premiumButton: UIButton!
     @IBOutlet weak var premiumView: UIView!
-    @IBOutlet weak var weeklyPremiumView: UIView!
     @IBOutlet weak var bestofferView: UIView!
-    @IBOutlet weak var monthlyPremiumView: UIView!
     @IBOutlet weak var topratedView: UIView!
-    @IBOutlet weak var lifetimePremiumView: UIView!
     @IBOutlet weak var popularView: UIView!
     @IBOutlet weak var emojiStarckView: UIStackView!
     @IBOutlet weak var featurstext01: UILabel!
@@ -32,8 +29,8 @@ class PremiumVC: UIViewController, SKPaymentTransactionObserver, SKProductsReque
     @IBOutlet weak var monthlyLabel: UILabel!
     @IBOutlet weak var monthlyPriceLabel: UILabel!
     @IBOutlet weak var populareLabel: UILabel!
-    @IBOutlet weak var lifetimeLabel: UILabel!
-    @IBOutlet weak var lifetimePriceLabel: UILabel!
+    @IBOutlet weak var yearlyLabel: UILabel!
+    @IBOutlet weak var yearlyPriceLabel: UILabel!
     @IBOutlet weak var premiumViewHeightConstraints: NSLayoutConstraint!
     @IBOutlet weak var bestOfferViewHeightConstraints: NSLayoutConstraint!
     @IBOutlet weak var bestOfferViewWidthConstraints: NSLayoutConstraint!
@@ -65,11 +62,6 @@ class PremiumVC: UIViewController, SKPaymentTransactionObserver, SKProductsReque
     @IBOutlet weak var premiumMonthlyView: UIView!
     @IBOutlet weak var premiumLifeTimeView: UIView!
     
-    let productID = "com.prank.memes"
-    
-    private var product: SKProduct?
-    private var isRestoringPurchases = false
-    
     @IBOutlet weak var weekStrikethrought: UILabel! {
         didSet {
             let attributedString = NSAttributedString(
@@ -100,56 +92,155 @@ class PremiumVC: UIViewController, SKPaymentTransactionObserver, SKProductsReque
         }
     }
     
+    enum PremiumOption {
+        case weekly
+        case monthly
+        case yearly
+    }
+    
+    private var selectedPremiumOption: PremiumOption?
+    
+    // Product IDs for auto-renewable subscriptions
+    let weeklySubscriptionID = "com.prank.memes.week"
+    let monthlySubscriptionID = "com.prank.memes.month"
+    let yearlySubscriptionID = "com.prank.memes.year"
+    
+    // Product variables
+    private var weeklySubscription: SKProduct?
+    private var monthlySubscription: SKProduct?
+    private var yearlySubscription: SKProduct?
+    
+    private var isRestoringPurchases = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchProductInfo()
         setupUI()
+        setupPremiumViewTapGestures()
         SKPaymentQueue.default().add(self)
+    }
+    
+    deinit {
+        SKPaymentQueue.default().remove(self)
+    }
+    
+    private func setupPremiumViewTapGestures() {
+        let weeklyTapGesture = UITapGestureRecognizer(target: self, action: #selector(weeklyViewTapped))
+        premiumWeeklyView.addGestureRecognizer(weeklyTapGesture)
+        
+        let monthlyTapGesture = UITapGestureRecognizer(target: self, action: #selector(monthlyViewTapped))
+        premiumMonthlyView.addGestureRecognizer(monthlyTapGesture)
+        
+        let lifetimeTapGesture = UITapGestureRecognizer(target: self, action: #selector(lifetimeViewTapped))
+        premiumLifeTimeView.addGestureRecognizer(lifetimeTapGesture)
+        
+        doneImage01.isHidden = true
+        doneImage02.isHidden = true
+        doneImage03.isHidden = true
+    }
+    
+    @objc private func weeklyViewTapped() {
+        updateSelectedPremiumView(view: premiumWeeklyView, option: .weekly)
+    }
+    
+    @objc private func monthlyViewTapped() {
+        updateSelectedPremiumView(view: premiumMonthlyView, option: .monthly)
+    }
+    
+    @objc private func lifetimeViewTapped() {
+        updateSelectedPremiumView(view: premiumLifeTimeView, option: .yearly)
+    }
+    
+    private func updateSelectedPremiumView(view: UIView, option: PremiumOption) {
+        doneImage01.isHidden = true
+        doneImage02.isHidden = true
+        doneImage03.isHidden = true
+        switch option {
+        case .weekly:
+            doneImage01.isHidden = false
+        case .monthly:
+            doneImage02.isHidden = false
+        case .yearly:
+            doneImage03.isHidden = false
+        }
+        selectedPremiumOption = option
     }
     
     private func fetchProductInfo() {
         if SKPaymentQueue.canMakePayments() {
-            let request = SKProductsRequest(productIdentifiers: Set([productID]))
+            let request = SKProductsRequest(productIdentifiers: Set([
+                weeklySubscriptionID,
+                monthlySubscriptionID,
+                yearlySubscriptionID
+            ]))
             request.delegate = self
             request.start()
         }
     }
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        if let product = response.products.first {
-            self.product = product
-            DispatchQueue.main.async {
-                self.updateProFeaturesLabel()
+        let products = response.products
+        
+        for product in products {
+            switch product.productIdentifier {
+            case weeklySubscriptionID:
+                weeklySubscription = product
+                updatePriceLabel(weeklyPriceLabel, with: product)
+            case monthlySubscriptionID:
+                monthlySubscription = product
+                updatePriceLabel(monthlyPriceLabel, with: product)
+            case yearlySubscriptionID:
+                yearlySubscription = product
+                updatePriceLabel(yearlyPriceLabel, with: product)
+            default:
+                break
             }
         }
     }
     
-    private func updateProFeaturesLabel() {
-        if let product = self.product {
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .currency
-            numberFormatter.locale = product.priceLocale
-            if let formattedPrice = numberFormatter.string(from: product.price) {
-                let localizedFormat = NSLocalizedString("PremiumFeaturesKey", comment: "Format string for pro features with price for lifetime")
-                let attributedString = NSMutableAttributedString(string: String(format: localizedFormat, formattedPrice))
-                if let range = attributedString.string.range(of: formattedPrice) {
-                    let nsRange = NSRange(range, in: attributedString.string)
-                    attributedString.addAttribute(.foregroundColor, value: UIColor.red, range: nsRange)
-                }
-                self.lifetimePriceLabel.attributedText = attributedString
-            }
+    private func updatePriceLabel(_ label: UILabel, with product: SKProduct) {
+        DispatchQueue.main.async {
+            label.text = "\(self.formatPrice(product))/-"
         }
+    }
+    
+    private func formatPrice(_ product: SKProduct) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        numberFormatter.locale = product.priceLocale
+        return numberFormatter.string(from: product.price) ?? ""
     }
     
     @IBAction func btnPremiumTapped(_ sender: UIButton) {
+        if PremiumManager.shared.isContentUnlocked(itemID: -1) {
+            showPremiumSuccessAlert()
+            return
+        }
+        
+        guard let selectedOption = selectedPremiumOption else {
+            let snackbar = CustomSnackbar(message: "Please select a plan", backgroundColor: .snackbar)
+            snackbar.show(in: self.view, duration: 3.0)
+            return
+        }
+        
         if !isConnectedToInternet() {
             let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: .snackbar)
             snackbar.show(in: self.view, duration: 3.0)
             return
         }
+        
         if SKPaymentQueue.canMakePayments() {
             let paymentRequest = SKMutablePayment()
-            paymentRequest.productIdentifier = productID
+            
+            switch selectedOption {
+            case .weekly:
+                paymentRequest.productIdentifier = weeklySubscriptionID
+            case .monthly:
+                paymentRequest.productIdentifier = monthlySubscriptionID
+            case .yearly:
+                paymentRequest.productIdentifier = yearlySubscriptionID
+            }
+            
             SKPaymentQueue.default().add(paymentRequest)
         } else {
             print("User unable to make payments")
@@ -174,22 +265,47 @@ class PremiumVC: UIViewController, SKPaymentTransactionObserver, SKProductsReque
     
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
-            if transaction.transactionState == .purchased {
-                print("Purchase Successfully")
-                SKPaymentQueue.default().finishTransaction(transaction)
-                showPremiumSuccessAlert()
+            switch transaction.transactionState {
+            case .purchased:
+                handlePurchasedTransaction(transaction)
                 
-            } else if transaction.transactionState == .failed {
+            case .failed:
                 print("Purchase or Restore Failed")
                 SKPaymentQueue.default().finishTransaction(transaction)
                 handleFailedPurchaseOrRestore(transaction: transaction)
                 
-            } else if transaction.transactionState == .restored {
-                print("Restore Successful")
-                SKPaymentQueue.default().finishTransaction(transaction)
-                handleSuccessfulRestore(transaction: transaction)
+            case .restored:
+                handleRestoredTransaction(transaction)
+                
+            case .deferred, .purchasing:
+                break
+            @unknown default:
+                break
             }
         }
+    }
+    
+    private func handlePurchasedTransaction(_ transaction: SKPaymentTransaction) {
+        switch transaction.payment.productIdentifier {
+        case weeklySubscriptionID:
+            PremiumManager.shared.unlockWeeklyContent()
+            SKPaymentQueue.default().finishTransaction(transaction)
+            showPremiumSuccessAlert()
+            
+        case monthlySubscriptionID:
+            PremiumManager.shared.unlockMonthlyContent()
+            SKPaymentQueue.default().finishTransaction(transaction)
+            showPremiumSuccessAlert()
+            
+        case yearlySubscriptionID:
+            PremiumManager.shared.unlockAllContent()
+            SKPaymentQueue.default().finishTransaction(transaction)
+            showPremiumSuccessAlert()
+            
+        default:
+            break
+        }
+        NotificationCenter.default.post(name: NSNotification.Name("PremiumContentUnlocked"), object: nil)
     }
     
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
@@ -199,7 +315,6 @@ class PremiumVC: UIViewController, SKPaymentTransactionObserver, SKProductsReque
             snackbar.show(in: self.view, duration: 3.0)
             self.dismiss(animated: true)
         }
-        
     }
     
     func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
@@ -207,9 +322,28 @@ class PremiumVC: UIViewController, SKPaymentTransactionObserver, SKProductsReque
         showFailureAlert()
     }
     
-    private func handleSuccessfulRestore(transaction: SKPaymentTransaction) {
-        if isRestoringPurchases {
+    private func handleRestoredTransaction(_ transaction: SKPaymentTransaction) {
+        switch transaction.payment.productIdentifier {
+        case weeklySubscriptionID:
+            print("Weekly Subscription Restored")
+            PremiumManager.shared.unlockWeeklyContent()
+            SKPaymentQueue.default().finishTransaction(transaction)
             showPremiumSuccessAlert()
+            
+        case monthlySubscriptionID:
+            print("Monthly Subscription Restored")
+            PremiumManager.shared.unlockMonthlyContent()
+            SKPaymentQueue.default().finishTransaction(transaction)
+            showPremiumSuccessAlert()
+            
+        case yearlySubscriptionID:
+            print("Lifetime Product Restored")
+            PremiumManager.shared.unlockAllContent()
+            SKPaymentQueue.default().finishTransaction(transaction)
+            showPremiumSuccessAlert()
+            
+        default:
+            break
         }
     }
     
@@ -223,7 +357,9 @@ class PremiumVC: UIViewController, SKPaymentTransactionObserver, SKProductsReque
     
     // MARK: - Show Premium Successfully Alert
     private func showPremiumSuccessAlert() {
-        DispatchQueue.main.async { [self] in
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
             let customAlertVC = CustomAlertViewController()
             customAlertVC.modalPresentationStyle = .overFullScreen
             customAlertVC.modalTransitionStyle = .crossDissolve
@@ -235,17 +371,16 @@ class PremiumVC: UIViewController, SKPaymentTransactionObserver, SKProductsReque
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     customAlertVC.animateDismissal {
                         customAlertVC.dismiss(animated: false, completion: nil)
-                        self.dismiss(animated: true)
                     }
                 }
             }
-            PremiumManager.shared.unlockAllContent()
-            NotificationCenter.default.post(name: NSNotification.Name("PremiumContentUnlocked"), object: nil)
         }
     }
     
     private func showFailureAlert() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
             let customAlertVC = AlertViewController()
             customAlertVC.modalPresentationStyle = .overFullScreen
             customAlertVC.modalTransitionStyle = .crossDissolve
@@ -257,7 +392,6 @@ class PremiumVC: UIViewController, SKPaymentTransactionObserver, SKProductsReque
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     customAlertVC.animateDismissal {
                         customAlertVC.dismiss(animated: false, completion: nil)
-                        self.dismiss(animated: true)
                     }
                 }
             }
@@ -269,24 +403,23 @@ class PremiumVC: UIViewController, SKPaymentTransactionObserver, SKProductsReque
     }
 }
 
-
 extension PremiumVC {
     func setupUI() {
         self.premiumButton.layer.cornerRadius = 13
-        self.weeklyPremiumView.layer.cornerRadius = 10
-        self.weeklyPremiumView.addGradientBorder(colors: [UIColor(hex: "#01B4D8"),UIColor(hex: "#8FE0EF")],width: 3.0,cornerRadius: 10)
+        self.premiumWeeklyView.layer.cornerRadius = 10
+        self.premiumWeeklyView.addGradientBorder(colors: [UIColor(hex: "#01B4D8"),UIColor(hex: "#8FE0EF")],width: 3.0,cornerRadius: 10)
         bestofferView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         bestofferView.layer.cornerRadius = 10
         bestofferView.clipsToBounds = true
         bestofferView.setHorizontalGradientBackground( colorLeft: UIColor(hex: "#01B4D8"), colorRight: UIColor(hex: "#8FE0EF"))
-        self.monthlyPremiumView.layer.cornerRadius = 10
-        self.monthlyPremiumView.addGradientBorder(colors: [UIColor(hex: "#FC6D70"),UIColor(hex: "#FEA3A4")],width: 3.0,cornerRadius: 10)
+        self.premiumMonthlyView.layer.cornerRadius = 10
+        self.premiumMonthlyView.addGradientBorder(colors: [UIColor(hex: "#FC6D70"),UIColor(hex: "#FEA3A4")],width: 3.0,cornerRadius: 10)
         topratedView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         topratedView.layer.cornerRadius = 10
         topratedView.clipsToBounds = true
         topratedView.setHorizontalGradientBackground( colorLeft: UIColor(hex: "#FC6D70"), colorRight: UIColor(hex: "#FEA3A4"))
-        self.lifetimePremiumView.layer.cornerRadius = 10
-        self.lifetimePremiumView.addGradientBorder(colors: [UIColor(hex: "#B094E0"),UIColor(hex: "#CAA3FD")],width: 4.0,cornerRadius: 10)
+        self.premiumLifeTimeView.layer.cornerRadius = 10
+        self.premiumLifeTimeView.addGradientBorder(colors: [UIColor(hex: "#B094E0"),UIColor(hex: "#CAA3FD")],width: 4.0,cornerRadius: 10)
         popularView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         popularView.layer.cornerRadius = 10
         popularView.clipsToBounds = true
@@ -323,10 +456,10 @@ extension PremiumVC {
             self.populareLabel.font = UIFont(name: "Avenir-Heavy", size: 12)
             self.weeklyLabel.font = UIFont(name: "Avenir-Heavy", size: 12)
             self.monthlyLabel.font = UIFont(name: "Avenir-Heavy", size: 12)
-            self.lifetimeLabel.font = UIFont(name: "Avenir-Heavy", size: 12)
+            self.yearlyLabel.font = UIFont(name: "Avenir-Heavy", size: 12)
             self.weeklyPriceLabel.font = UIFont(name: "Avenir-Heavy", size: 23)
             self.monthlyPriceLabel.font = UIFont(name: "Avenir-Heavy", size: 23)
-            self.lifetimePriceLabel.font = UIFont(name: "Avenir-Heavy", size: 23)
+            self.yearlyPriceLabel.font = UIFont(name: "Avenir-Heavy", size: 23)
             self.weekStrikethrought.font = UIFont(name: "Avenir-Heavy", size: 10)
             self.monthlyStrikethrought.font = UIFont(name: "Avenir-Heavy", size: 10)
             self.ligetimeStrikethrounght.font = UIFont(name: "Avenir-Heavy", size: 10)
@@ -405,10 +538,10 @@ extension PremiumVC {
             self.populareLabel.font = UIFont(name: "Avenir-Heavy", size: 22)
             self.weeklyLabel.font = UIFont(name: "Avenir-Heavy", size: 22)
             self.monthlyLabel.font = UIFont(name: "Avenir-Heavy", size: 22)
-            self.lifetimeLabel.font = UIFont(name: "Avenir-Heavy", size: 22)
+            self.yearlyLabel.font = UIFont(name: "Avenir-Heavy", size: 22)
             self.weeklyPriceLabel.font = UIFont(name: "Avenir-Heavy", size: 41)
             self.monthlyPriceLabel.font = UIFont(name: "Avenir-Heavy", size: 41)
-            self.lifetimePriceLabel.font = UIFont(name: "Avenir-Heavy", size: 41)
+            self.yearlyPriceLabel.font = UIFont(name: "Avenir-Heavy", size: 41)
             self.weekStrikethrought.font = UIFont(name: "Avenir-Heavy", size: 20)
             self.monthlyStrikethrought.font = UIFont(name: "Avenir-Heavy", size: 20)
             self.ligetimeStrikethrounght.font = UIFont(name: "Avenir-Heavy", size: 20)

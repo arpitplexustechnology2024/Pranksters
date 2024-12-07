@@ -6,19 +6,16 @@
 //
 
 import UIKit
+import StoreKit
+import Alamofire
 
-class PremiumBottomVC: UIViewController {
-    
-    //    @IBOutlet weak var unlockAllButton: UIButton!
+class PremiumBottomVC: UIViewController, SKPaymentTransactionObserver, SKProductsRequestDelegate {
     
     @IBOutlet weak var premiumImage: UIImageView!
     @IBOutlet weak var premiumButton: UIButton!
     @IBOutlet weak var premiumView: UIView!
-    @IBOutlet weak var weeklyPremiumView: UIView!
     @IBOutlet weak var bestofferView: UIView!
-    @IBOutlet weak var monthlyPremiumView: UIView!
     @IBOutlet weak var topratedView: UIView!
-    @IBOutlet weak var lifetimePremiumView: UIView!
     @IBOutlet weak var popularView: UIView!
     @IBOutlet weak var premiymBottomConstraints: NSLayoutConstraint!
     @IBOutlet weak var emojiBottomConstraints: NSLayoutConstraint!
@@ -59,6 +56,13 @@ class PremiumBottomVC: UIViewController {
     @IBOutlet weak var featurs04WidthConstraints: NSLayoutConstraint!
     @IBOutlet weak var bGImageHeightConstraints: NSLayoutConstraint!
     
+    @IBOutlet weak var doneImage01: UIImageView!
+    @IBOutlet weak var doneImage02: UIImageView!
+    @IBOutlet weak var doneImage03: UIImageView!
+    
+    @IBOutlet weak var premiumWeeklyView: UIView!
+    @IBOutlet weak var premiumMonthlyView: UIView!
+    @IBOutlet weak var premiumLifeTimeView: UIView!
     
     @IBOutlet weak var weekStrikethrought: UILabel! {
         didSet {
@@ -90,45 +94,324 @@ class PremiumBottomVC: UIViewController {
         }
     }
     
+    enum PremiumOption {
+        case weekly
+        case monthly
+        case lifetime
+    }
+    
+    private var selectedPremiumOption: PremiumOption?
+    
+    let weeklyProductID = "com.prank.memes.week"
+    let monthlyProductID = "com.prank.memes.month"
+    let lifetimeProductID = "com.prank.memes"
+    
+    private var weeklyProduct: SKProduct?
+    private var monthlyProduct: SKProduct?
+    private var lifetimeProduct: SKProduct?
+    
+    private var isRestoringPurchases = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchProductInfo()
         setupUI()
-        //  setupUnlockAllButton()
+        setupPremiumViewTapGestures()
+        SKPaymentQueue.default().add(self)
     }
     
-
-
+    deinit {
+        SKPaymentQueue.default().remove(self)
+    }
     
-
+    private func setupPremiumViewTapGestures() {
+        let weeklyTapGesture = UITapGestureRecognizer(target: self, action: #selector(weeklyViewTapped))
+        premiumWeeklyView.addGestureRecognizer(weeklyTapGesture)
+        
+        let monthlyTapGesture = UITapGestureRecognizer(target: self, action: #selector(monthlyViewTapped))
+        premiumMonthlyView.addGestureRecognizer(monthlyTapGesture)
+        
+        let lifetimeTapGesture = UITapGestureRecognizer(target: self, action: #selector(lifetimeViewTapped))
+        premiumLifeTimeView.addGestureRecognizer(lifetimeTapGesture)
+        
+        doneImage01.isHidden = true
+        doneImage02.isHidden = true
+        doneImage03.isHidden = true
+    }
     
-    //    private func setupUnlockAllButton() {
-    //        unlockAllButton.addTarget(self, action: #selector(unlockAllButtonTapped), for: .touchUpInside)
-    //    }
-    //
-    //    @objc private func unlockAllButtonTapped() {
-    //        PremiumManager.shared.unlockAllContent()
-    //
-    //        NotificationCenter.default.post(name: NSNotification.Name("PremiumContentUnlocked"), object: nil)
-    //
-    //        let snackbar = CustomSnackbar(message: "Premium access activated!", backgroundColor: .snackbar)
-    //        snackbar.show(in: view, duration: 2.0)
-    //
-    //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-    //            self.dismiss(animated: true)
-    //        }
-    //    }
+    @objc private func weeklyViewTapped() {
+        updateSelectedPremiumView(view: premiumWeeklyView, option: .weekly)
+    }
     
+    @objc private func monthlyViewTapped() {
+        updateSelectedPremiumView(view: premiumMonthlyView, option: .monthly)
+    }
+    
+    @objc private func lifetimeViewTapped() {
+        updateSelectedPremiumView(view: premiumLifeTimeView, option: .lifetime)
+    }
+    
+    private func updateSelectedPremiumView(view: UIView, option: PremiumOption) {
+        doneImage01.isHidden = true
+        doneImage02.isHidden = true
+        doneImage03.isHidden = true
+        switch option {
+        case .weekly:
+            doneImage01.isHidden = false
+        case .monthly:
+            doneImage02.isHidden = false
+        case .lifetime:
+            doneImage03.isHidden = false
+        }
+        selectedPremiumOption = option
+    }
+    
+    private func fetchProductInfo() {
+        if SKPaymentQueue.canMakePayments() {
+            let request = SKProductsRequest(productIdentifiers: Set([
+                weeklyProductID,
+                monthlyProductID,
+                lifetimeProductID
+            ]))
+            request.delegate = self
+            request.start()
+        }
+    }
+    
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        let products = response.products
+        
+        for product in products {
+            switch product.productIdentifier {
+            case weeklyProductID:
+                weeklyProduct = product
+                updatePriceLabel(weeklyPriceLabel, with: product)
+            case monthlyProductID:
+                monthlyProduct = product
+                updatePriceLabel(monthlyPriceLabel, with: product)
+            case lifetimeProductID:
+                lifetimeProduct = product
+                updatePriceLabel(lifetimePriceLabel, with: product)
+            default:
+                break
+            }
+        }
+    }
+    
+    private func updatePriceLabel(_ label: UILabel, with product: SKProduct) {
+        DispatchQueue.main.async {
+            label.text = "\(self.formatPrice(product))/-"
+        }
+    }
+    
+    private func formatPrice(_ product: SKProduct) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        numberFormatter.locale = product.priceLocale
+        return numberFormatter.string(from: product.price) ?? ""
+    }
     
     @IBAction func btnPremiumTapped(_ sender: UIButton) {
+        
+        if PremiumManager.shared.isContentUnlocked(itemID: -1) {
+            showPremiumSuccessAlert()
+            return
+        }
+        
+        guard let selectedOption = selectedPremiumOption else {
+            let snackbar = CustomSnackbar(message: "Please select a plan", backgroundColor: .snackbar)
+            snackbar.show(in: self.view, duration: 3.0)
+            return
+        }
+        
+        if !isConnectedToInternet() {
+            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: .snackbar)
+            snackbar.show(in: self.view, duration: 3.0)
+            return
+        }
+        
+        if SKPaymentQueue.canMakePayments() {
+            let paymentRequest = SKMutablePayment()
+            
+            switch selectedOption {
+            case .weekly:
+                paymentRequest.productIdentifier = weeklyProductID
+            case .monthly:
+                paymentRequest.productIdentifier = monthlyProductID
+            case .lifetime:
+                paymentRequest.productIdentifier = lifetimeProductID
+            }
+            SKPaymentQueue.default().add(paymentRequest)
+        } else {
+            print("User unable to make payments")
+        }
     }
     
+    private func isConnectedToInternet() -> Bool {
+        let networkManager = NetworkReachabilityManager()
+        return networkManager?.isReachable ?? false
+    }
     
     @IBAction func btnRestoreTapped(_ sender: UIButton) {
+        if !isConnectedToInternet() {
+            let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: .snackbar)
+            snackbar.show(in: self.view, duration: 3.0)
+            return
+        }
+        
+        isRestoringPurchases = true
+        SKPaymentQueue.default().restoreCompletedTransactions()
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .purchased:
+                handlePurchasedTransaction(transaction)
+                
+            case .failed:
+                print("Purchase or Restore Failed")
+                SKPaymentQueue.default().finishTransaction(transaction)
+                handleFailedPurchaseOrRestore(transaction: transaction)
+                
+            case .restored:
+                handleRestoredTransaction(transaction)
+                
+            case .deferred, .purchasing:
+                break
+            @unknown default:
+                break
+            }
+        }
+    }
+    
+    private func handlePurchasedTransaction(_ transaction: SKPaymentTransaction) {
+        switch transaction.payment.productIdentifier {
+        case weeklyProductID:
+            PremiumManager.shared.unlockWeeklyContent()
+            SKPaymentQueue.default().finishTransaction(transaction)
+            showPremiumSuccessAlert()
+            
+        case monthlyProductID:
+            PremiumManager.shared.unlockMonthlyContent()
+            SKPaymentQueue.default().finishTransaction(transaction)
+            showPremiumSuccessAlert()
+            
+        case lifetimeProductID:
+            PremiumManager.shared.unlockAllContent()
+            SKPaymentQueue.default().finishTransaction(transaction)
+            showPremiumSuccessAlert()
+            
+        default:
+            break
+        }
+        NotificationCenter.default.post(name: NSNotification.Name("PremiumContentUnlocked"), object: nil)
+    }
+    
+    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        isRestoringPurchases = false
+        if queue.transactions.isEmpty {
+            let snackbar = CustomSnackbar(message: "You have not purchased this item yet. Please purchase to proceed.", backgroundColor: .snackbar)
+            snackbar.show(in: self.view, duration: 3.0)
+            self.dismiss(animated: true)
+        }
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+        isRestoringPurchases = false
+        showFailureAlert()
+    }
+    
+    private func handleRestoredTransaction(_ transaction: SKPaymentTransaction) {
+        switch transaction.payment.productIdentifier {
+        case lifetimeProductID:
+            print("Lifetime Product Restored")
+            PremiumManager.shared.unlockAllContent()
+            NotificationCenter.default.post(name: NSNotification.Name("PremiumContentUnlocked"), object: nil)
+            SKPaymentQueue.default().finishTransaction(transaction)
+            showPremiumSuccessAlert()
+            
+        default:
+            break
+        }
+    }
+    
+    private func handleFailedPurchaseOrRestore(transaction: SKPaymentTransaction) {
+        if isRestoringPurchases {
+            showFailureAlert()
+        } else {
+            showFailureAlert()
+        }
+    }
+    
+    // MARK: - Show Premium Successfully Alert
+    private func showPremiumSuccessAlert() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            let customAlertVC = CustomAlertViewController()
+            customAlertVC.modalPresentationStyle = .overFullScreen
+            customAlertVC.modalTransitionStyle = .crossDissolve
+            customAlertVC.message = NSLocalizedString("Congratulation...", comment: "")
+            customAlertVC.link = NSLocalizedString("You're all set.", comment: "")
+            customAlertVC.image = UIImage(named: "CopyLink")
+            
+            self.present(customAlertVC, animated: true) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    customAlertVC.animateDismissal {
+                        customAlertVC.dismiss(animated: false, completion: nil)
+                        self.dismiss(animated: true)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func showFailureAlert() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            let customAlertVC = AlertViewController()
+            customAlertVC.modalPresentationStyle = .overFullScreen
+            customAlertVC.modalTransitionStyle = .crossDissolve
+            customAlertVC.message = NSLocalizedString("Failed!", comment: "")
+            customAlertVC.link = NSLocalizedString("Request failed. Please try again after some time!", comment: "")
+            customAlertVC.image = UIImage(named: "PurchaseFailed")
+            
+            self.present(customAlertVC, animated: true) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    customAlertVC.animateDismissal {
+                        customAlertVC.dismiss(animated: false, completion: nil)
+                        self.dismiss(animated: true)
+                    }
+                }
+            }
+        }
     }
 }
 
 extension PremiumBottomVC {
     func setupUI() {
+        
+        self.premiumButton.layer.cornerRadius = 13
+        self.premiumWeeklyView.layer.cornerRadius = 10
+        self.premiumWeeklyView.addGradientBorder(colors: [UIColor(hex: "#01B4D8"),UIColor(hex: "#8FE0EF")],width: 3.0,cornerRadius: 10)
+        bestofferView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+        bestofferView.layer.cornerRadius = 10
+        bestofferView.clipsToBounds = true
+        bestofferView.setHorizontalGradientBackground( colorLeft: UIColor(hex: "#01B4D8"), colorRight: UIColor(hex: "#8FE0EF"))
+        self.premiumMonthlyView.layer.cornerRadius = 10
+        self.premiumMonthlyView.addGradientBorder(colors: [UIColor(hex: "#FC6D70"),UIColor(hex: "#FEA3A4")],width: 3.0,cornerRadius: 10)
+        topratedView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+        topratedView.layer.cornerRadius = 10
+        topratedView.clipsToBounds = true
+        topratedView.setHorizontalGradientBackground( colorLeft: UIColor(hex: "#FC6D70"), colorRight: UIColor(hex: "#FEA3A4"))
+        self.premiumLifeTimeView.layer.cornerRadius = 10
+        self.premiumLifeTimeView.addGradientBorder(colors: [UIColor(hex: "#B094E0"),UIColor(hex: "#CAA3FD")],width: 4.0,cornerRadius: 10)
+        popularView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+        popularView.layer.cornerRadius = 10
+        popularView.clipsToBounds = true
+        popularView.setHorizontalGradientBackground( colorLeft: UIColor(hex: "#B094E0"), colorRight: UIColor(hex: "#CAA3FD"))
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             premiumImage.image = UIImage(named: "PremiumBottom")
@@ -138,26 +421,6 @@ extension PremiumBottomVC {
         
         let screenHeight = UIScreen.main.nativeBounds.height
         if UIDevice.current.userInterfaceIdiom == .phone {
-            
-            self.premiumButton.layer.cornerRadius = 13
-            self.weeklyPremiumView.layer.cornerRadius = 10
-            self.weeklyPremiumView.addGradientBorder(colors: [UIColor(hex: "#01B4D8"),UIColor(hex: "#8FE0EF")],width: 3.0,cornerRadius: 10)
-            bestofferView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
-            bestofferView.layer.cornerRadius = 10
-            bestofferView.clipsToBounds = true
-            bestofferView.setHorizontalGradientBackground( colorLeft: UIColor(hex: "#01B4D8"), colorRight: UIColor(hex: "#8FE0EF"))
-            self.monthlyPremiumView.layer.cornerRadius = 10
-            self.monthlyPremiumView.addGradientBorder(colors: [UIColor(hex: "#FC6D70"),UIColor(hex: "#FEA3A4")],width: 3.0,cornerRadius: 10)
-            topratedView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
-            topratedView.layer.cornerRadius = 10
-            topratedView.clipsToBounds = true
-            topratedView.setHorizontalGradientBackground( colorLeft: UIColor(hex: "#FC6D70"), colorRight: UIColor(hex: "#FEA3A4"))
-            self.lifetimePremiumView.layer.cornerRadius = 10
-            self.lifetimePremiumView.addGradientBorder(colors: [UIColor(hex: "#B094E0"),UIColor(hex: "#CAA3FD")],width: 4.0,cornerRadius: 10)
-            popularView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
-            popularView.layer.cornerRadius = 10
-            popularView.clipsToBounds = true
-            popularView.setHorizontalGradientBackground( colorLeft: UIColor(hex: "#B094E0"), colorRight: UIColor(hex: "#CAA3FD"))
             
             self.featurs01HeightConstraints.constant = 80
             self.featurs01WidthConstraints.constant = 60
@@ -249,25 +512,6 @@ extension PremiumBottomVC {
                 self.featurstext04Constraints.constant = 47.33
             }
         } else {
-            self.premiumButton.layer.cornerRadius = 13
-            self.weeklyPremiumView.layer.cornerRadius = 10
-            self.weeklyPremiumView.addGradientBorder(colors: [UIColor(hex: "#01B4D8"),UIColor(hex: "#8FE0EF")],width: 3.0,cornerRadius: 10)
-            bestofferView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
-            bestofferView.layer.cornerRadius = 10
-            bestofferView.clipsToBounds = true
-            bestofferView.setHorizontalGradientBackground( colorLeft: UIColor(hex: "#01B4D8"), colorRight: UIColor(hex: "#8FE0EF"))
-            self.monthlyPremiumView.layer.cornerRadius = 10
-            self.monthlyPremiumView.addGradientBorder(colors: [UIColor(hex: "#FC6D70"),UIColor(hex: "#FEA3A4")],width: 3.0,cornerRadius: 10)
-            topratedView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
-            topratedView.layer.cornerRadius = 10
-            topratedView.clipsToBounds = true
-            topratedView.setHorizontalGradientBackground( colorLeft: UIColor(hex: "#FC6D70"), colorRight: UIColor(hex: "#FEA3A4"))
-            self.lifetimePremiumView.layer.cornerRadius = 10
-            self.lifetimePremiumView.addGradientBorder(colors: [UIColor(hex: "#B094E0"),UIColor(hex: "#CAA3FD")],width: 4.0,cornerRadius: 10)
-            popularView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
-            popularView.layer.cornerRadius = 10
-            popularView.clipsToBounds = true
-            popularView.setHorizontalGradientBackground( colorLeft: UIColor(hex: "#B094E0"), colorRight: UIColor(hex: "#CAA3FD"))
             
             self.emojiStarckView.spacing = -10
             self.emojiBottomConstraints.constant = 10

@@ -744,8 +744,8 @@
                                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Life time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVl-jT-4Q9">
-                                                                        <rect key="frame" x="64.666666666666686" y="43.666666666666629" width="49.333333333333343" height="16.666666666666671"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yearly" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVl-jT-4Q9">
+                                                                        <rect key="frame" x="64.666666666666686" y="43.666666666666629" width="34" height="16.666666666666671"/>
                                                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="12"/>
                                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -924,12 +924,8 @@
                         <outlet property="featurstext03Constraints" destination="KCl-4T-Drj" id="Caf-bm-deC"/>
                         <outlet property="featurstext04" destination="by5-6u-cdj" id="zMH-RG-kna"/>
                         <outlet property="featurstext04Constraints" destination="XZD-zy-rrw" id="uwj-EE-jyI"/>
-                        <outlet property="lifetimeLabel" destination="uVl-jT-4Q9" id="zVg-QG-90S"/>
-                        <outlet property="lifetimePremiumView" destination="XvN-7D-nTL" id="9vE-Je-b6b"/>
-                        <outlet property="lifetimePriceLabel" destination="pLd-pZ-iQk" id="6jX-VY-M2I"/>
                         <outlet property="ligetimeStrikethrounght" destination="SXe-9V-Ny9" id="3YA-CY-d9K"/>
                         <outlet property="monthlyLabel" destination="p7G-Zi-jwZ" id="8lz-Vt-uef"/>
-                        <outlet property="monthlyPremiumView" destination="8Ke-Xo-iCB" id="SNK-cv-UeF"/>
                         <outlet property="monthlyPriceLabel" destination="v9z-v8-2VC" id="5pK-rS-VNj"/>
                         <outlet property="monthlyStrikethrought" destination="QLn-LX-U7F" id="kwk-de-2Hc"/>
                         <outlet property="popularView" destination="LLb-cp-n89" id="EpK-lC-cwZ"/>
@@ -950,8 +946,9 @@
                         <outlet property="topratedView" destination="mvI-sQ-tn7" id="sZk-Ik-uKr"/>
                         <outlet property="weekStrikethrought" destination="lCc-GX-LMx" id="bB8-oy-MJs"/>
                         <outlet property="weeklyLabel" destination="h2U-l2-R7D" id="EeD-2f-Q6s"/>
-                        <outlet property="weeklyPremiumView" destination="Dvp-1O-nqg" id="p3L-OE-JMZ"/>
                         <outlet property="weeklyPriceLabel" destination="IKn-Nw-6Lm" id="faO-0c-8a2"/>
+                        <outlet property="yearlyLabel" destination="uVl-jT-4Q9" id="zVg-QG-90S"/>
+                        <outlet property="yearlyPriceLabel" destination="pLd-pZ-iQk" id="6jX-VY-M2I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FIf-zP-4BS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -4227,19 +4224,19 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bJP-2X-RRH">
-                                <rect key="frame" x="8" y="604" width="386" height="170"/>
+                                <rect key="frame" x="8" y="674" width="386" height="100"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k9K-rX-ULq">
-                                        <rect key="frame" x="0.0" y="0.0" width="386" height="170"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="386" height="100"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9CD-XM-8fy">
-                                                <rect key="frame" x="0.0" y="0.0" width="500" height="170"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="500" height="100"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="dbO-jg-jTa">
-                                                        <rect key="frame" x="0.0" y="0.0" width="500" height="170"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="500" height="100"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ulp-ig-ULa">
-                                                                <rect key="frame" x="0.0" y="0.0" width="158" height="170"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="158" height="100"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EqG-61-1u2">
                                                                         <rect key="frame" x="0.0" y="0.0" width="87" height="30"/>
@@ -4260,19 +4257,19 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                                                                         </constraints>
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$800.00/-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yXe-2O-6my">
-                                                                        <rect key="frame" x="8" y="116.66666666666663" width="45.666666666666664" height="13.666666666666657"/>
+                                                                        <rect key="frame" x="8" y="46.666666666666629" width="45.666666666666664" height="13.666666666666664"/>
                                                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="10"/>
                                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$500.00/-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FsP-WP-Bbw">
-                                                                        <rect key="frame" x="8" y="130.33333333333337" width="105" height="31.666666666666657"/>
+                                                                        <rect key="frame" x="8" y="60.333333333333364" width="105" height="31.666666666666664"/>
                                                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
                                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weekly" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCx-vw-H9W">
-                                                                        <rect key="frame" x="58.666666666666671" y="113.66666666666663" width="41.333333333333329" height="16.666666666666657"/>
+                                                                        <rect key="frame" x="58.666666666666671" y="43.666666666666629" width="41.333333333333329" height="16.666666666666671"/>
                                                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="12"/>
                                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -4300,7 +4297,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F30-nk-zsu">
-                                                                <rect key="frame" x="171" y="0.0" width="158" height="170"/>
+                                                                <rect key="frame" x="171" y="0.0" width="158" height="100"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-Q5-u2D">
                                                                         <rect key="frame" x="0.0" y="0.0" width="87" height="30"/>
@@ -4321,19 +4318,19 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                                                                         </constraints>
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1500.00/-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUs-J6-kE2">
-                                                                        <rect key="frame" x="7.9999999999999964" y="116.66666666666663" width="51.666666666666657" height="13.666666666666657"/>
+                                                                        <rect key="frame" x="7.9999999999999964" y="46.666666666666629" width="51.666666666666657" height="13.666666666666664"/>
                                                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="10"/>
                                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEm-LM-3qo">
-                                                                        <rect key="frame" x="64.666666666666657" y="113.66666666666663" width="46.333333333333343" height="16.666666666666657"/>
+                                                                        <rect key="frame" x="64.666666666666657" y="43.666666666666629" width="46.333333333333343" height="16.666666666666671"/>
                                                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="12"/>
                                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$999.00/-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CLs-9Q-Dtm">
-                                                                        <rect key="frame" x="8" y="130.33333333333337" width="105" height="31.666666666666657"/>
+                                                                        <rect key="frame" x="8" y="60.333333333333364" width="105" height="31.666666666666664"/>
                                                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
                                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -4362,7 +4359,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tV7-as-lsP">
-                                                                <rect key="frame" x="342" y="0.0" width="158" height="170"/>
+                                                                <rect key="frame" x="342" y="0.0" width="158" height="100"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qON-JL-vEv">
                                                                         <rect key="frame" x="0.0" y="0.0" width="87" height="30"/>
@@ -4383,19 +4380,19 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                                                                         </constraints>
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$6000.00/-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85l-CN-dzs">
-                                                                        <rect key="frame" x="7.9999999999999964" y="116.66666666666663" width="51.666666666666657" height="13.666666666666657"/>
+                                                                        <rect key="frame" x="7.9999999999999964" y="46.666666666666629" width="51.666666666666657" height="13.666666666666664"/>
                                                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="10"/>
                                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Life time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsB-KW-FU2">
-                                                                        <rect key="frame" x="64.666666666666686" y="113.66666666666663" width="49.333333333333343" height="16.666666666666657"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yearly" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsB-KW-FU2">
+                                                                        <rect key="frame" x="64.666666666666686" y="43.666666666666629" width="34" height="16.666666666666671"/>
                                                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="12"/>
                                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$3000.00/-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="toD-VJ-XI1">
-                                                                        <rect key="frame" x="7.9999999999999929" y="130.33333333333337" width="118.33333333333331" height="31.666666666666657"/>
+                                                                        <rect key="frame" x="7.9999999999999929" y="60.333333333333364" width="118.33333333333331" height="31.666666666666664"/>
                                                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
                                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -4448,7 +4445,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="170" id="9fi-rP-ETx"/>
+                                    <constraint firstAttribute="height" constant="100" id="9fi-rP-ETx"/>
                                     <constraint firstAttribute="bottom" secondItem="k9K-rX-ULq" secondAttribute="bottom" id="O22-P0-y9K"/>
                                     <constraint firstAttribute="trailing" secondItem="k9K-rX-ULq" secondAttribute="trailing" id="Zsw-8z-oxG"/>
                                     <constraint firstItem="k9K-rX-ULq" firstAttribute="leading" secondItem="bJP-2X-RRH" secondAttribute="leading" id="cw5-gy-zgP"/>
@@ -4456,7 +4453,7 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-15" translatesAutoresizingMaskIntoConstraints="NO" id="fA8-gD-9Vz">
-                                <rect key="frame" x="40" y="348" width="60" height="248"/>
+                                <rect key="frame" x="40" y="418" width="60" height="248"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="4" translatesAutoresizingMaskIntoConstraints="NO" id="fmY-24-2jA">
                                         <rect key="frame" x="0.0" y="0.0" width="60" height="80"/>
@@ -4489,25 +4486,25 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Funny artist video" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YJ4-Zu-GRX">
-                                <rect key="frame" x="110" y="557.66666666666663" width="143" height="23.333333333333371"/>
+                                <rect key="frame" x="110" y="627.66666666666663" width="143" height="23.333333333333371"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unwatched Roasting memes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z7A-2L-xOj">
-                                <rect key="frame" x="110" y="493" width="226" height="23.333333333333371"/>
+                                <rect key="frame" x="110" y="563" width="226" height="23.333333333333371"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trending memes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGj-fc-yWU">
-                                <rect key="frame" x="110.00000000000001" y="428.33333333333331" width="131.33333333333337" height="23.333333333333314"/>
+                                <rect key="frame" x="110.00000000000001" y="498.33333333333331" width="131.33333333333337" height="23.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View Lorem Ipsum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlb-TG-MSN">
-                                <rect key="frame" x="110" y="363.66666666666669" width="147" height="23.333333333333314"/>
+                                <rect key="frame" x="110" y="433.66666666666669" width="147" height="23.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -4547,6 +4544,9 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                         <outlet property="bestOfferViewHeightConstraints" destination="YXp-Wx-Iw0" id="hft-bm-PbX"/>
                         <outlet property="bestOfferViewWidthConstraints" destination="gtc-8U-Bp9" id="hJr-CT-o1S"/>
                         <outlet property="bestofferView" destination="EqG-61-1u2" id="KjM-RQ-q6F"/>
+                        <outlet property="doneImage01" destination="2Ob-cj-bJW" id="wKM-G1-AOf"/>
+                        <outlet property="doneImage02" destination="fLH-US-tpz" id="zqk-r7-63p"/>
+                        <outlet property="doneImage03" destination="VYB-gB-LwT" id="t8A-fm-ChX"/>
                         <outlet property="emojiBottomConstraints" destination="HOB-Wn-QzO" id="BPE-El-qRs"/>
                         <outlet property="emojiStarckView" destination="fA8-gD-9Vz" id="vlv-NZ-2Rk"/>
                         <outlet property="featurs01HeightConstraints" destination="c0P-39-9qd" id="4bk-sh-3zo"/>
@@ -4566,11 +4566,9 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                         <outlet property="featurstext04" destination="zlb-TG-MSN" id="IC1-lD-das"/>
                         <outlet property="featurstext04Constraints" destination="HoR-Sx-PsB" id="xfB-hS-cSd"/>
                         <outlet property="lifetimeLabel" destination="jsB-KW-FU2" id="NGj-0z-y7f"/>
-                        <outlet property="lifetimePremiumView" destination="tV7-as-lsP" id="RHh-vh-eEL"/>
                         <outlet property="lifetimePriceLabel" destination="toD-VJ-XI1" id="7Dy-aw-lVa"/>
                         <outlet property="ligetimeStrikethrounght" destination="85l-CN-dzs" id="ofW-ST-iXn"/>
                         <outlet property="monthlyLabel" destination="bEm-LM-3qo" id="j3n-BP-Ct4"/>
-                        <outlet property="monthlyPremiumView" destination="F30-nk-zsu" id="ulU-l5-iVd"/>
                         <outlet property="monthlyPriceLabel" destination="CLs-9Q-Dtm" id="DYx-Ai-Jcb"/>
                         <outlet property="monthlyStrikethrought" destination="rUs-J6-kE2" id="DYY-Kb-fd3"/>
                         <outlet property="popularView" destination="qON-JL-vEv" id="3nV-D5-xmg"/>
@@ -4579,8 +4577,11 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                         <outlet property="populareViewWidthConstraints" destination="a62-LS-uer" id="DgA-z9-tHM"/>
                         <outlet property="premiumButton" destination="dxZ-fO-Xvc" id="CEj-1I-gZ9"/>
                         <outlet property="premiumImage" destination="Uhg-E0-F0H" id="R3Y-3o-m2J"/>
+                        <outlet property="premiumLifeTimeView" destination="tV7-as-lsP" id="z2x-QT-RCJ"/>
+                        <outlet property="premiumMonthlyView" destination="F30-nk-zsu" id="o9k-Ea-IOo"/>
                         <outlet property="premiumView" destination="bJP-2X-RRH" id="kfN-1w-DUZ"/>
                         <outlet property="premiumViewHeightConstraints" destination="9fi-rP-ETx" id="zXk-j4-3j5"/>
+                        <outlet property="premiumWeeklyView" destination="ulp-ig-ULa" id="ipQ-Pu-4t5"/>
                         <outlet property="premiymBottomConstraints" destination="7kv-WI-izJ" id="Q2W-vx-z8a"/>
                         <outlet property="topRatedLabel" destination="01i-ay-5zQ" id="dpm-Vd-J2C"/>
                         <outlet property="topRatedViewHeightConstraints" destination="pRg-EU-nYe" id="1n3-f4-hhK"/>
@@ -4588,7 +4589,6 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                         <outlet property="topratedView" destination="s5V-Q5-u2D" id="WhR-hq-UAB"/>
                         <outlet property="weekStrikethrought" destination="yXe-2O-6my" id="lAX-wL-aIX"/>
                         <outlet property="weeklyLabel" destination="fCx-vw-H9W" id="1kH-Fg-c9w"/>
-                        <outlet property="weeklyPremiumView" destination="ulp-ig-ULa" id="W4R-vK-qDH"/>
                         <outlet property="weeklyPriceLabel" destination="FsP-WP-Bbw" id="xLa-UT-QMR"/>
                     </connections>
                 </viewController>
