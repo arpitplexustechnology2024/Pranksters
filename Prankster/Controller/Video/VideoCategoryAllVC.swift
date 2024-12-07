@@ -41,15 +41,28 @@ class VideoCategoryAllVC: UIViewController {
         self.autoplayFirstVisibleVideo()
         self.filteredImages = viewModel.audioData
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(handlePremiumContentUnlocked),
+                name: NSNotification.Name("PremiumContentUnlocked"),
+                object: nil
+            )
+    }
+    
+    @objc private func handlePremiumContentUnlocked() {
+        DispatchQueue.main.async {
+            self.videoCharacterAllCollectionView.reloadData()
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         stopPlayingVideo()
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     @objc private func appDidEnterBackground() {
@@ -366,7 +379,7 @@ extension VideoCategoryAllVC: VideoCharacterAllCollectionViewCellDelegate {
         VideoPlaybackManager.shared.stopCurrentPlayback()
         
         if categoryAllData.premium && !PremiumManager.shared.isContentUnlocked(itemID: categoryAllData.itemID) {
-            presentPremiumViewController()
+            presentPremiumViewController(for: categoryAllData)
         } else {
             if isConnectedToInternet() {
                 if let navigationController = self.navigationController {
@@ -382,8 +395,11 @@ extension VideoCategoryAllVC: VideoCharacterAllCollectionViewCellDelegate {
         }
     }
     
-    private func presentPremiumViewController() {
-        let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumVC") as! PremiumVC
+    private func presentPremiumViewController(for categoryAllData: CategoryAllData) {
+        let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumPopupVC") as! PremiumPopupVC
+        premiumVC.setItemIDToUnlock(categoryAllData.itemID)
+        premiumVC.modalTransitionStyle = .crossDissolve
+        premiumVC.modalPresentationStyle = .overCurrentContext
         present(premiumVC, animated: true, completion: nil)
     }
 }

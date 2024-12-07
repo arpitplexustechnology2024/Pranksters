@@ -36,6 +36,23 @@ class RealisticCoverPageVC: UIViewController {
         self.self.hideKeyboardTappedAround()
         self.self.checkInternetAndFetchData()
         self.self.filteredRealisticCoverPages = viewModel.realisticCoverPages
+        
+        NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(handlePremiumContentUnlocked),
+                name: NSNotification.Name("PremiumContentUnlocked"),
+                object: nil
+            )
+    }
+    
+    @objc private func handlePremiumContentUnlocked() {
+        DispatchQueue.main.async {
+            self.realisticCoverAllCollectionView.reloadData()
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     private func setupSearchBar() {
@@ -288,7 +305,7 @@ extension RealisticCoverPageVC: UICollectionViewDelegate, UICollectionViewDataSo
 extension RealisticCoverPageVC: RealisticCoverAllCollectionViewCellDelegate {
     func didTapDoneButton(for coverPageData: CoverPageData) {
         if coverPageData.coverPremium && !PremiumManager.shared.isContentUnlocked(itemID: coverPageData.itemID) {
-            presentPremiumViewController()
+            presentPremiumViewController(for: coverPageData)
         } else {
             if let navigationController = self.navigationController {
                 if let coverPageVC = navigationController.viewControllers.first(where: { $0 is CoverPageVC }) as? CoverPageVC {
@@ -299,8 +316,11 @@ extension RealisticCoverPageVC: RealisticCoverAllCollectionViewCellDelegate {
         }
     }
     
-    private func presentPremiumViewController() {
-        let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumVC") as! PremiumVC
+    private func presentPremiumViewController(for coverPageData: CoverPageData) {
+        let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumPopupVC") as! PremiumPopupVC
+        premiumVC.setItemIDToUnlock(coverPageData.itemID)
+        premiumVC.modalTransitionStyle = .crossDissolve
+        premiumVC.modalPresentationStyle = .overCurrentContext
         present(premiumVC, animated: true, completion: nil)
     }
 }

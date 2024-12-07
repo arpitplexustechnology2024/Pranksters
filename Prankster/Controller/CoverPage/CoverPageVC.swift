@@ -65,6 +65,24 @@ class CoverPageVC: UIViewController {
         self.setupNoInternetView()
         self.checkInternetAndFetchData()
         self.navigationbarView.addBottomShadow()
+        
+        NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(handlePremiumContentUnlocked),
+                name: NSNotification.Name("PremiumContentUnlocked"),
+                object: nil
+            )
+    }
+    
+    @objc private func handlePremiumContentUnlocked() {
+        DispatchQueue.main.async {
+            self.realisticCollectionView.reloadData()
+            self.emojiCollectionView.reloadData()
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - checkInternetAndFetchData
@@ -499,7 +517,7 @@ extension CoverPageVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     private func handleCellSelection(coverPageData: CoverPageData, collectionView: UICollectionView, indexPath: IndexPath) {
         if coverPageData.coverPremium && !PremiumManager.shared.isContentUnlocked(itemID: coverPageData.itemID) {
-            presentPremiumViewController()
+            presentPremiumViewController(for: coverPageData)
             collectionView.deselectItem(at: indexPath, animated: false)
             
             if collectionView == emojiCollectionView, let previousIndex = selectedEmojiCoverIndex {
@@ -554,8 +572,11 @@ extension CoverPageVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
         }
     }
     
-    private func presentPremiumViewController() {
-        let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumVC") as! PremiumVC
+    private func presentPremiumViewController(for coverPageData: CoverPageData) {
+        let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PremiumPopupVC") as! PremiumPopupVC
+        premiumVC.setItemIDToUnlock(coverPageData.itemID)
+        premiumVC.modalTransitionStyle = .crossDissolve
+        premiumVC.modalPresentationStyle = .overCurrentContext
         present(premiumVC, animated: true, completion: nil)
     }
     

@@ -51,6 +51,87 @@ class CustomPresentationController: UIPresentationController {
     }
 }
 
+class CustomePresentationController: UIPresentationController {
+    var heightPercentage: CGFloat = 0.8
+    private var dimView: UIView?
+    private var panGestureRecognizer: UIPanGestureRecognizer?
+    
+    override var frameOfPresentedViewInContainerView: CGRect {
+        guard let containerView = containerView else { return .zero }
+        
+        let height = containerView.bounds.height * heightPercentage
+        return CGRect(
+            x: 0,
+            y: containerView.bounds.height - height,
+            width: containerView.bounds.width,
+            height: height
+        )
+    }
+    
+    override func presentationTransitionWillBegin() {
+        guard let containerView = containerView,
+              let presentedView = presentedView else { return }
+        
+        let dimView = UIView(frame: containerView.bounds)
+        dimView.backgroundColor = .black.withAlphaComponent(0.5)
+        dimView.tag = 999
+        containerView.insertSubview(dimView, at: 0)
+        self.dimView = dimView
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissPresentedView))
+        dimView.addGestureRecognizer(tapGesture)
+
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        presentedView.addGestureRecognizer(panGesture)
+        self.panGestureRecognizer = panGesture
+
+        presentedView.layer.cornerRadius = 20
+        presentedView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        presentedView.clipsToBounds = true
+    }
+    
+    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        guard let presentedView = presentedView,
+              let containerView = containerView else { return }
+        
+        let translation = gesture.translation(in: containerView)
+        let velocity = gesture.velocity(in: containerView)
+        
+        switch gesture.state {
+        case .changed:
+            if translation.y > 0 {
+                presentedView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+
+                let progress = min(translation.y / (containerView.bounds.height * heightPercentage), 1.0)
+                dimView?.alpha = 1 - progress
+            }
+            
+        case .ended:
+            let dismissThreshold = containerView.bounds.height * 0.2
+            
+            if translation.y > dismissThreshold || velocity.y > 500 {
+                presentedViewController.dismiss(animated: true)
+            } else {
+                UIView.animate(withDuration: 0.3) {
+                    presentedView.transform = .identity
+                    self.dimView?.alpha = 1
+                }
+            }
+            
+        default:
+            break
+        }
+    }
+    
+    override func dismissalTransitionWillBegin() {
+        dimView?.removeFromSuperview()
+    }
+    
+    @objc private func dismissPresentedView() {
+        presentedViewController.dismiss(animated: true)
+    }
+}
+
 
 // MARK: - UIViewController extension
 extension UIViewController {
@@ -85,30 +166,37 @@ extension UIView {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [colorLeft.cgColor, colorRight.cgColor]
         gradientLayer.locations = [0.0, 1.0]
-        gradientLayer.frame = self.bounds
+        
+        // Use bounds that adjust to the current view's size dynamically
+        gradientLayer.frame = bounds
         gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
-        self.layer.sublayers?.filter { $0 is CAGradientLayer }.forEach { $0.removeFromSuperlayer() }
-        self.layer.insertSublayer(gradientLayer, at: 0)
+        
+        // Remove any existing gradient layers first
+        layer.sublayers?.filter { $0 is CAGradientLayer }.forEach { $0.removeFromSuperlayer() }
+        
+        // Insert the new gradient layer at the bottom of the layer stack
+        layer.insertSublayer(gradientLayer, at: 0)
     }
-}
-
-import UIKit
-
-extension UIView {
+    
     func addGradientBorder(colors: [UIColor], width: CGFloat = 2.0, cornerRadius: CGFloat = 8.0) {
-        self.layer.sublayers?.filter { $0.name == "GradientBorderLayer" }.forEach { $0.removeFromSuperlayer() }
+        // Remove any existing gradient border layers
+        layer.sublayers?.filter { $0.name == "GradientBorderLayer" }.forEach { $0.removeFromSuperlayer() }
         
         let gradientLayer = CAGradientLayer()
         gradientLayer.name = "GradientBorderLayer"
         gradientLayer.colors = colors.map { $0.cgColor }
         gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
-        gradientLayer.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
+        
+        // Dynamically adjust frame to current view's bounds
+        gradientLayer.frame = bounds
 
         let maskLayer = CAShapeLayer()
         maskLayer.lineWidth = width
-        maskLayer.path = UIBezierPath(roundedRect: self.bounds, cornerRadius: cornerRadius).cgPath
+        
+        // Use the current bounds and corner radius
+        maskLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
         maskLayer.fillColor = UIColor.clear.cgColor
         maskLayer.strokeColor = UIColor.white.cgColor
 
@@ -119,8 +207,8 @@ extension UIView {
 
         gradientLayer.mask = maskLayer
 
-        self.layer.addSublayer(gradientLayer)
-        self.layer.cornerRadius = cornerRadius
-        self.layer.masksToBounds = true
+        layer.addSublayer(gradientLayer)
+        layer.cornerRadius = cornerRadius
+        layer.masksToBounds = true
     }
 }

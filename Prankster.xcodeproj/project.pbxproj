@@ -23,6 +23,7 @@
 		BD9E4D9C2D0157C4001B0F58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD9E4D9B2D0157C4001B0F58 /* GoogleService-Info.plist */; };
 		BD9E4D9E2D0159DE001B0F58 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD9E4D9D2D0159DE001B0F58 /* Color.xcassets */; };
 		BD9E4DA12D015B63001B0F58 /* KLEPHON.otf in Resources */ = {isa = PBXBuildFile; fileRef = BD9E4DA02D015B63001B0F58 /* KLEPHON.otf */; };
+		BDA3B2A72D039B1600DBE599 /* PremiumBottomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA3B2A62D039B1600DBE599 /* PremiumBottomVC.swift */; };
 		BDB6609C2D02208F0038D40D /* CoverGIF.gif in Resources */ = {isa = PBXBuildFile; fileRef = BDB6609B2D02208F0038D40D /* CoverGIF.gif */; };
 		BDB660A92D0220940038D40D /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB660A52D0220940038D40D /* Snackbar.swift */; };
 		BDB660AA2D0220940038D40D /* BannerAdUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB6609D2D0220940038D40D /* BannerAdUtility.swift */; };
@@ -101,6 +102,7 @@
 		BDB661402D0224EC0038D40D /* NoInternet.json in Resources */ = {isa = PBXBuildFile; fileRef = BDB6613B2D0224EC0038D40D /* NoInternet.json */; };
 		BDB661412D0224EC0038D40D /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = BDB661392D0224EC0038D40D /* Loading.json */; };
 		BDB661442D0232850038D40D /* Auto-Update.json in Resources */ = {isa = PBXBuildFile; fileRef = BDB661432D0232850038D40D /* Auto-Update.json */; };
+		BDC1D71A2D03E19E00A74629 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC1D7192D03E19E00A74629 /* Alert.swift */; };
 		C97F96366B5FEFDEE9FFAE93 /* Pods_Prankster_PranksterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2F386536D4DD55FA8FBFBA3 /* Pods_Prankster_PranksterUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -170,6 +172,7 @@
 		BD9E4D9B2D0157C4001B0F58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BD9E4D9D2D0159DE001B0F58 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		BD9E4DA02D015B63001B0F58 /* KLEPHON.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KLEPHON.otf; sourceTree = "<group>"; };
+		BDA3B2A62D039B1600DBE599 /* PremiumBottomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumBottomVC.swift; sourceTree = "<group>"; };
 		BDB660982D021DE60038D40D /* Prankster.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Prankster.entitlements; sourceTree = "<group>"; };
 		BDB6609B2D02208F0038D40D /* CoverGIF.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = CoverGIF.gif; sourceTree = "<group>"; };
 		BDB6609D2D0220940038D40D /* BannerAdUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdUtility.swift; sourceTree = "<group>"; };
@@ -249,6 +252,7 @@
 		BDB6613A2D0224EC0038D40D /* Nodata.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Nodata.json; sourceTree = "<group>"; };
 		BDB6613B2D0224EC0038D40D /* NoInternet.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NoInternet.json; sourceTree = "<group>"; };
 		BDB661432D0232850038D40D /* Auto-Update.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "Auto-Update.json"; sourceTree = "<group>"; };
+		BDC1D7192D03E19E00A74629 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		C9E5DE42C1582CC6F12FFEA4 /* Pods-Prankster-PranksterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prankster-PranksterUITests.debug.xcconfig"; path = "Target Support Files/Pods-Prankster-PranksterUITests/Pods-Prankster-PranksterUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DC340F686E4FBF078D71B1A1 /* Pods-OneSignalPushNotificationExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalPushNotificationExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalPushNotificationExtension/Pods-OneSignalPushNotificationExtension.release.xcconfig"; sourceTree = "<group>"; };
 		F2F386536D4DD55FA8FBFBA3 /* Pods_Prankster_PranksterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Prankster_PranksterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -424,6 +428,7 @@
 				BDB660A62D0220940038D40D /* StaticFunction.swift */,
 				BDB660A72D0220940038D40D /* UIImage+GIF.swift */,
 				BDB661432D0232850038D40D /* Auto-Update.json */,
+				BDC1D7192D03E19E00A74629 /* Alert.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -566,6 +571,7 @@
 				BDB6611B2D0223090038D40D /* SpinnerPreviewVC.swift */,
 				BDB6611C2D0223090038D40D /* ViewLinkVC.swift */,
 				BDB661352D0223AB0038D40D /* SpinnerVC.swift */,
+				BDA3B2A62D039B1600DBE599 /* PremiumBottomVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1001,6 +1007,7 @@
 				BDB661252D0223090038D40D /* PremiumPopupVC.swift in Sources */,
 				BDB661262D0223090038D40D /* VideoCategoryAllVC.swift in Sources */,
 				BDB661272D0223090038D40D /* MoreAppVC.swift in Sources */,
+				BDA3B2A72D039B1600DBE599 /* PremiumBottomVC.swift in Sources */,
 				BDB661282D0223090038D40D /* VideoVC.swift in Sources */,
 				BDB661292D0223090038D40D /* HomeVC.swift in Sources */,
 				BDB6612A2D0223090038D40D /* SaveRecordingPopup.swift in Sources */,
@@ -1010,6 +1017,7 @@
 				BDB6612E2D0223090038D40D /* AudioVC.swift in Sources */,
 				BDB6612F2D0223090038D40D /* ShareLinkPopup.swift in Sources */,
 				BDB661302D0223090038D40D /* CustomCoverPageVC.swift in Sources */,
+				BDC1D71A2D03E19E00A74629 /* Alert.swift in Sources */,
 				BDB661312D0223090038D40D /* ViewLinkVC.swift in Sources */,
 				BDB661322D0223090038D40D /* SpinnerPreviewVC.swift in Sources */,
 				BDB661332D0223090038D40D /* ImageVC.swift in Sources */,
@@ -1113,18 +1121,22 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Prankster/Info.plist;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "We need audio recording access to save and process audio files";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need to access to your camera to use the set profile picture.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need microphone access to record audio";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to use the set profile picture.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.plexustechnology.Prankster;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prank.memes.fun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1145,18 +1157,22 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Prankster/Info.plist;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "We need audio recording access to save and process audio files";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need to access to your camera to use the set profile picture.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need microphone access to record audio";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to use the set profile picture.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.plexustechnology.Prankster;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prank.memes.fun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1294,7 +1310,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.plexustechnology.PranksterTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prank.memes.funTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -1314,7 +1330,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.plexustechnology.PranksterTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prank.memes.funTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -1332,7 +1348,7 @@
 				DEVELOPMENT_TEAM = 32BBNXD889;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.plexustechnology.PranksterUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prank.memes.funUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -1350,7 +1366,7 @@
 				DEVELOPMENT_TEAM = 32BBNXD889;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.plexustechnology.PranksterUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prank.memes.funUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -1376,7 +1392,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.plexustechnology.Prankster.OneSignalPushNotificationExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prank.memes.fun.OneSignalPushNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1402,7 +1418,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.plexustechnology.Prankster.OneSignalPushNotificationExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prank.memes.fun.OneSignalPushNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

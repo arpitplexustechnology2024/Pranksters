@@ -144,17 +144,9 @@ class HomeVC: UIViewController {
         }
     }
     
-    @objc func btnPremiumTapped(_ sender: UITapGestureRecognizer) {
-        if isDropdownVisible {
-            hideDropdown()
-        } else {
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "PremiumVC") as! PremiumVC
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [.large()]
-                sheet.prefersGrabberVisible = true
-            }
-            self.present(vc, animated: true)
-        }
+    @objc func btnPremiumTapped(_ sender: UIButton) {
+        let premiumVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "PremiumVC") as! PremiumVC
+        self.navigationController?.pushViewController(premiumVC, animated: true)
     }
     
     @objc func btnViewLinkTapped(_ sender: UITapGestureRecognizer) {

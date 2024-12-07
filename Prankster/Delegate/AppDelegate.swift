@@ -22,7 +22,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         OneSignal.Debug.setLogLevel(.LL_VERBOSE)
         OneSignal.initialize("d8e64d76-dc16-444f-af2d-1bb802f7bc44", withLaunchOptions: launchOptions)
         checkNotificationAuthorization()
+        setupAppLifecycleObservers()
         return true
+    }
+    
+    private func setupAppLifecycleObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+    
+    @objc private func appDidEnterBackground() {
+        PremiumManager.shared.clearTemporaryUnlocks()
+    }
+    
+    @objc private func appWillEnterForeground() {
+        PremiumManager.shared.clearTemporaryUnlocks()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Notification Authorization
