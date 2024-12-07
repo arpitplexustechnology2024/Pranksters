@@ -298,7 +298,7 @@ class PremiumVC: UIViewController, SKPaymentTransactionObserver, SKProductsReque
             showPremiumSuccessAlert()
             
         case yearlySubscriptionID:
-            PremiumManager.shared.unlockAllContent()
+            PremiumManager.shared.unlockYearlyContent()
             SKPaymentQueue.default().finishTransaction(transaction)
             showPremiumSuccessAlert()
             
@@ -311,7 +311,7 @@ class PremiumVC: UIViewController, SKPaymentTransactionObserver, SKProductsReque
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         isRestoringPurchases = false
         if queue.transactions.isEmpty {
-            let snackbar = CustomSnackbar(message: "You have not purchased this item yet. Please purchase to proceed.", backgroundColor: .snackbar)
+            let snackbar = CustomSnackbar(message: "You have not Subscription.", backgroundColor: .snackbar)
             snackbar.show(in: self.view, duration: 3.0)
             self.dismiss(animated: true)
         }
@@ -337,8 +337,8 @@ class PremiumVC: UIViewController, SKPaymentTransactionObserver, SKProductsReque
             showPremiumSuccessAlert()
             
         case yearlySubscriptionID:
-            print("Lifetime Product Restored")
-            PremiumManager.shared.unlockAllContent()
+            print("Yearly Subscription Restored")
+            PremiumManager.shared.unlockYearlyContent()
             SKPaymentQueue.default().finishTransaction(transaction)
             showPremiumSuccessAlert()
             

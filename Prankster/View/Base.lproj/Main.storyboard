@@ -4565,8 +4565,6 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                         <outlet property="featurstext03Constraints" destination="82i-UW-55Q" id="0QU-Au-LNZ"/>
                         <outlet property="featurstext04" destination="zlb-TG-MSN" id="IC1-lD-das"/>
                         <outlet property="featurstext04Constraints" destination="HoR-Sx-PsB" id="xfB-hS-cSd"/>
-                        <outlet property="lifetimeLabel" destination="jsB-KW-FU2" id="NGj-0z-y7f"/>
-                        <outlet property="lifetimePriceLabel" destination="toD-VJ-XI1" id="7Dy-aw-lVa"/>
                         <outlet property="ligetimeStrikethrounght" destination="85l-CN-dzs" id="ofW-ST-iXn"/>
                         <outlet property="monthlyLabel" destination="bEm-LM-3qo" id="j3n-BP-Ct4"/>
                         <outlet property="monthlyPriceLabel" destination="CLs-9Q-Dtm" id="DYx-Ai-Jcb"/>
@@ -4590,6 +4588,8 @@ bGUgdG8gZWRpdCB0aGlzIHBvc3QgYW5kIHJlcHVibGlzaCBjaGFuZ2VzLg
                         <outlet property="weekStrikethrought" destination="yXe-2O-6my" id="lAX-wL-aIX"/>
                         <outlet property="weeklyLabel" destination="fCx-vw-H9W" id="1kH-Fg-c9w"/>
                         <outlet property="weeklyPriceLabel" destination="FsP-WP-Bbw" id="xLa-UT-QMR"/>
+                        <outlet property="yearlyLabel" destination="jsB-KW-FU2" id="NGj-0z-y7f"/>
+                        <outlet property="yearlyPriceLabel" destination="toD-VJ-XI1" id="7Dy-aw-lVa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EWG-Xy-w8s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
