@@ -27,9 +27,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        for urlContext in URLContexts {
-            ApplicationDelegate.shared.application(UIApplication.shared, open: urlContext.url, options: [:])
+        guard let url = URLContexts.first?.url else {
+            return
         }
+
+        ApplicationDelegate.shared.application(UIApplication.shared, open: url, sourceApplication: nil, annotation: [UIApplication.OpenURLOptionsKey.annotation])
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

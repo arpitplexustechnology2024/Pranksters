@@ -103,9 +103,9 @@ class PremiumBottomVC: UIViewController, SKPaymentTransactionObserver, SKProduct
     private var selectedPremiumOption: PremiumOption?
     
     // Product IDs for auto-renewable subscriptions
-    let weeklySubscriptionID = "com.prank.memes.week"
-    let monthlySubscriptionID = "com.prank.memes.month"
-    let yearlySubscriptionID = "com.prank.memes.year"
+    private let weeklySubscriptionID = "com.prank.memes.week"
+    private let monthlySubscriptionID = "com.prank.memes.month"
+    private let yearlySubscriptionID = "com.prank.memes.year"
     
     // Product variables
     private var weeklySubscription: SKProduct?
@@ -118,12 +118,17 @@ class PremiumBottomVC: UIViewController, SKPaymentTransactionObserver, SKProduct
         super.viewDidLoad()
         fetchProductInfo()
         setupUI()
+        checkSubscriptionStatus()
         setupPremiumViewTapGestures()
         SKPaymentQueue.default().add(self)
     }
     
     deinit {
         SKPaymentQueue.default().remove(self)
+    }
+    
+    func checkSubscriptionStatus() {
+        PremiumManager.shared.checkSubscriptionStatus()
     }
     
     private func setupPremiumViewTapGestures() {
@@ -254,6 +259,10 @@ class PremiumBottomVC: UIViewController, SKPaymentTransactionObserver, SKProduct
         return networkManager?.isReachable ?? false
     }
     
+    func isSubscriptionActive() -> Bool {
+        return UserDefaults.standard.bool(forKey: "isSubscriptionActive")
+    }
+    
     @IBAction func btnRestoreTapped(_ sender: UIButton) {
         if !isConnectedToInternet() {
             let snackbar = CustomSnackbar(message: "Please turn on internet connection!", backgroundColor: .snackbar)
@@ -269,7 +278,9 @@ class PremiumBottomVC: UIViewController, SKPaymentTransactionObserver, SKProduct
         for transaction in transactions {
             switch transaction.transactionState {
             case .purchased:
-                handlePurchasedTransaction(transaction)
+                handleSuccessfulPurchase(transaction)
+                showPremiumSuccessAlert()
+                SKPaymentQueue.default().finishTransaction(transaction)
                 
             case .failed:
                 print("Purchase or Restore Failed")
@@ -277,7 +288,8 @@ class PremiumBottomVC: UIViewController, SKPaymentTransactionObserver, SKProduct
                 handleFailedPurchaseOrRestore(transaction: transaction)
                 
             case .restored:
-                handleRestoredTransaction(transaction)
+                handleRestored(transaction)
+                showPremiumSuccessAlert()
                 
             case .deferred, .purchasing:
                 break
@@ -287,33 +299,55 @@ class PremiumBottomVC: UIViewController, SKPaymentTransactionObserver, SKProduct
         }
     }
     
-    private func handlePurchasedTransaction(_ transaction: SKPaymentTransaction) {
+    private func handleSuccessfulPurchase(_ transaction: SKPaymentTransaction) {
+        let calendar = Calendar.current
+        var expirationDate: Date?
+        
         switch transaction.payment.productIdentifier {
         case weeklySubscriptionID:
-            PremiumManager.shared.unlockWeeklyContent()
-            SKPaymentQueue.default().finishTransaction(transaction)
-            showPremiumSuccessAlert()
-            
+            expirationDate = calendar.date(byAdding: .weekOfYear, value: 1, to: Date())
         case monthlySubscriptionID:
-            PremiumManager.shared.unlockMonthlyContent()
-            SKPaymentQueue.default().finishTransaction(transaction)
-            showPremiumSuccessAlert()
-            
+            expirationDate = calendar.date(byAdding: .month, value: 1, to: Date())
         case yearlySubscriptionID:
-            PremiumManager.shared.unlockYearlyContent()
-            SKPaymentQueue.default().finishTransaction(transaction)
-            showPremiumSuccessAlert()
-            
+            expirationDate = calendar.date(byAdding: .year, value: 1, to: Date())
         default:
             break
         }
+        
         NotificationCenter.default.post(name: NSNotification.Name("PremiumContentUnlocked"), object: nil)
+        
+        if let expirationDate = expirationDate {
+            PremiumManager.shared.setSubscription(expirationDate: expirationDate)
+        }
+        
+        if let receiptURL = Bundle.main.appStoreReceiptURL,
+           let receiptData = try? Data(contentsOf: receiptURL) {
+            let receiptString = receiptData.base64EncodedString()
+        }
+    }
+    
+    private func handleRestored(_ transaction: SKPaymentTransaction) {
+        let calendar = Calendar.current
+        var expirationDate: Date?
+        
+        switch transaction.payment.productIdentifier {
+        case weeklySubscriptionID:
+            expirationDate = calendar.date(byAdding: .weekOfYear, value: 1, to: Date())
+        case monthlySubscriptionID:
+            expirationDate = calendar.date(byAdding: .month, value: 1, to: Date())
+        case yearlySubscriptionID:
+            expirationDate = calendar.date(byAdding: .year, value: 1, to: Date())
+        default:
+            break
+        }
+        
+        PremiumManager.shared.setSubscription(expirationDate: expirationDate!)
     }
     
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         isRestoringPurchases = false
         if queue.transactions.isEmpty {
-            let snackbar = CustomSnackbar(message: "You have not purchased this item yet. Please purchase to proceed.", backgroundColor: .snackbar)
+            let snackbar = CustomSnackbar(message: "You have not Subscription.", backgroundColor: .snackbar)
             snackbar.show(in: self.view, duration: 3.0)
             self.dismiss(animated: true)
         }
@@ -322,31 +356,6 @@ class PremiumBottomVC: UIViewController, SKPaymentTransactionObserver, SKProduct
     func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
         isRestoringPurchases = false
         showFailureAlert()
-    }
-    
-    private func handleRestoredTransaction(_ transaction: SKPaymentTransaction) {
-        switch transaction.payment.productIdentifier {
-        case weeklySubscriptionID:
-            print("Weekly Subscription Restored")
-            PremiumManager.shared.unlockWeeklyContent()
-            SKPaymentQueue.default().finishTransaction(transaction)
-            showPremiumSuccessAlert()
-            
-        case monthlySubscriptionID:
-            print("Monthly Subscription Restored")
-            PremiumManager.shared.unlockMonthlyContent()
-            SKPaymentQueue.default().finishTransaction(transaction)
-            showPremiumSuccessAlert()
-            
-        case yearlySubscriptionID:
-            print("Yearly Subscription Restored")
-            PremiumManager.shared.unlockYearlyContent()
-            SKPaymentQueue.default().finishTransaction(transaction)
-            showPremiumSuccessAlert()
-            
-        default:
-            break
-        }
     }
     
     private func handleFailedPurchaseOrRestore(transaction: SKPaymentTransaction) {
@@ -373,6 +382,7 @@ class PremiumBottomVC: UIViewController, SKPaymentTransactionObserver, SKProduct
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     customAlertVC.animateDismissal {
                         customAlertVC.dismiss(animated: false, completion: nil)
+                        self.dismiss(animated: true)
                     }
                 }
             }
@@ -394,20 +404,16 @@ class PremiumBottomVC: UIViewController, SKPaymentTransactionObserver, SKProduct
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     customAlertVC.animateDismissal {
                         customAlertVC.dismiss(animated: false, completion: nil)
+                        self.dismiss(animated: true)
                     }
                 }
             }
         }
     }
-    
-    @IBAction func btnBackTapped(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
-    }
 }
 
 extension PremiumBottomVC {
     func setupUI() {
-        
         self.premiumButton.layer.cornerRadius = 13
         self.premiumWeeklyView.layer.cornerRadius = 10
         self.premiumWeeklyView.addGradientBorder(colors: [UIColor(hex: "#01B4D8"),UIColor(hex: "#8FE0EF")],width: 3.0,cornerRadius: 10)

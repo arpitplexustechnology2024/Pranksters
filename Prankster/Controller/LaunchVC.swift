@@ -6,6 +6,8 @@
 //
 
 import UIKit
+//import AppTrackingTransparency
+import FBSDKCoreKit
 
 class LaunchVC: UIViewController {
     
@@ -18,6 +20,21 @@ class LaunchVC: UIViewController {
         super.viewDidLoad()
         self.setupUI()
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        
+//        if #available(iOS 14, *) {
+//            ATTrackingManager.requestTrackingAuthorization { status in
+//                switch status {
+//                case .authorized:
+//                    AppEvents.shared.logEvent(AppEvents.Name("fb_mobile_first_app_launch"))
+//                default:
+//                    break
+//                }
+//            }
+//        }
+//    }
     
     func setupUI() {
         if UIDevice.current.userInterfaceIdiom == .phone {

@@ -104,6 +104,7 @@
 		BDB661412D0224EC0038D40D /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = BDB661392D0224EC0038D40D /* Loading.json */; };
 		BDB661442D0232850038D40D /* Auto-Update.json in Resources */ = {isa = PBXBuildFile; fileRef = BDB661432D0232850038D40D /* Auto-Update.json */; };
 		BDC1D71A2D03E19E00A74629 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC1D7192D03E19E00A74629 /* Alert.swift */; };
+		BDEED1E52D0781CE00A2517F /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEED1E42D0781CE00A2517F /* SubscriptionManager.swift */; };
 		C97F96366B5FEFDEE9FFAE93 /* Pods_Prankster_PranksterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2F386536D4DD55FA8FBFBA3 /* Pods_Prankster_PranksterUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -255,6 +256,7 @@
 		BDB6613B2D0224EC0038D40D /* NoInternet.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NoInternet.json; sourceTree = "<group>"; };
 		BDB661432D0232850038D40D /* Auto-Update.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "Auto-Update.json"; sourceTree = "<group>"; };
 		BDC1D7192D03E19E00A74629 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		BDEED1E42D0781CE00A2517F /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		C9E5DE42C1582CC6F12FFEA4 /* Pods-Prankster-PranksterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prankster-PranksterUITests.debug.xcconfig"; path = "Target Support Files/Pods-Prankster-PranksterUITests/Pods-Prankster-PranksterUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DC340F686E4FBF078D71B1A1 /* Pods-OneSignalPushNotificationExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalPushNotificationExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalPushNotificationExtension/Pods-OneSignalPushNotificationExtension.release.xcconfig"; sourceTree = "<group>"; };
 		F2F386536D4DD55FA8FBFBA3 /* Pods_Prankster_PranksterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Prankster_PranksterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -433,6 +435,7 @@
 				BDB660A72D0220940038D40D /* UIImage+GIF.swift */,
 				BDB661432D0232850038D40D /* Auto-Update.json */,
 				BDC1D7192D03E19E00A74629 /* Alert.swift */,
+				BDEED1E42D0781CE00A2517F /* SubscriptionManager.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -990,6 +993,7 @@
 				BDB660AE2D0220940038D40D /* LoadingFooterView.swift in Sources */,
 				BDB660AF2D0220940038D40D /* RewardAdUtility.swift in Sources */,
 				BDB661362D0223AB0038D40D /* SpinnerVC.swift in Sources */,
+				BDEED1E52D0781CE00A2517F /* SubscriptionManager.swift in Sources */,
 				BDB660B02D0220940038D40D /* premiumManager.swift in Sources */,
 				BDB660CE2D02210C0038D40D /* CustomCoverAllCollectionViewCell.swift in Sources */,
 				BDB660CF2D02210C0038D40D /* NoInternetBottombarView.swift in Sources */,

@@ -13,17 +13,19 @@ import FBSDKCoreKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        Settings.shared.isAutoLogAppEventsEnabled = true
+       // AppEvents.shared.logEvent(AppEvents.Name("fb_mobile_activate_app"))
         FirebaseApp.configure()
         getAndStoreOneSignalPlayerId()
         OneSignal.Debug.setLogLevel(.LL_VERBOSE)
         OneSignal.initialize("d8e64d76-dc16-444f-af2d-1bb802f7bc44", withLaunchOptions: launchOptions)
         checkNotificationAuthorization()
         setupAppLifecycleObservers()
-      //  PremiumManager.shared.checkAndClearExpiredPremium()
         return true
     }
     
@@ -67,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }, fallbackToSettings: true)
     }
     
+    
     // MARK: - Core Functionality
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -90,21 +93,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return ApplicationDelegate.shared.application(app, open: url, options: options)
+        return ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation])
     }
-
+    
     // MARK: UISceneSession Lifecycle
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-
+    
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {}
     
     // MARK: - Update Check
     func fetchAppStoreVersion(completion: @escaping (String?) -> Void) {
-        let appID = "6670788272"
+        let appID = "6739135275"
         let urlString = "https://itunes.apple.com/lookup?id=\(appID)"
         
         guard let url = URL(string: urlString) else {
@@ -175,7 +178,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func openAppStoreForUpdate() {
-        let appID = "6670788272"
+        let appID = "6739135275"
         if let url = URL(string: "https://apps.apple.com/app/id\(appID)") {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -186,6 +189,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         checkNotificationAuthorization()
         checkForUpdate()
+        Settings.shared.isAutoLogAppEventsEnabled = true
     }
 }
 
