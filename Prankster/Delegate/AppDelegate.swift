@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         Settings.shared.isAutoLogAppEventsEnabled = true
-       // AppEvents.shared.logEvent(AppEvents.Name("fb_mobile_activate_app"))
+        // AppEvents.shared.logEvent(AppEvents.Name("fb_mobile_activate_app"))
         FirebaseApp.configure()
         getAndStoreOneSignalPlayerId()
         OneSignal.Debug.setLogLevel(.LL_VERBOSE)

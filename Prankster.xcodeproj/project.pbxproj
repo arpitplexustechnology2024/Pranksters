@@ -21,7 +21,6 @@
 		BD9E4D832D01555C001B0F58 /* PranksterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9E4D802D01555C001B0F58 /* PranksterUITestsLaunchTests.swift */; };
 		BD9E4D8F2D015608001B0F58 /* OneSignalPushNotificationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BD9E4D882D015608001B0F58 /* OneSignalPushNotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BD9E4D982D01560D001B0F58 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9E4D962D01560D001B0F58 /* NotificationService.swift */; };
-		BD9E4D9C2D0157C4001B0F58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD9E4D9B2D0157C4001B0F58 /* GoogleService-Info.plist */; };
 		BD9E4D9E2D0159DE001B0F58 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD9E4D9D2D0159DE001B0F58 /* Color.xcassets */; };
 		BD9E4DA12D015B63001B0F58 /* KLEPHON.otf in Resources */ = {isa = PBXBuildFile; fileRef = BD9E4DA02D015B63001B0F58 /* KLEPHON.otf */; };
 		BDA3B2A72D039B1600DBE599 /* PremiumBottomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA3B2A62D039B1600DBE599 /* PremiumBottomVC.swift */; };
@@ -104,7 +103,8 @@
 		BDB661412D0224EC0038D40D /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = BDB661392D0224EC0038D40D /* Loading.json */; };
 		BDB661442D0232850038D40D /* Auto-Update.json in Resources */ = {isa = PBXBuildFile; fileRef = BDB661432D0232850038D40D /* Auto-Update.json */; };
 		BDC1D71A2D03E19E00A74629 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC1D7192D03E19E00A74629 /* Alert.swift */; };
-		BDEED1E52D0781CE00A2517F /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEED1E42D0781CE00A2517F /* SubscriptionManager.swift */; };
+		BDEED1E72D07A53600A2517F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDEED1E62D07A53600A2517F /* GoogleService-Info.plist */; };
+		BDEED1E92D07AC0900A2517F /* SnapchatEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEED1E82D07AC0900A2517F /* SnapchatEventTracker.swift */; };
 		C97F96366B5FEFDEE9FFAE93 /* Pods_Prankster_PranksterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2F386536D4DD55FA8FBFBA3 /* Pods_Prankster_PranksterUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -172,7 +172,6 @@
 		BD9E4D882D015608001B0F58 /* OneSignalPushNotificationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalPushNotificationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9E4D952D01560D001B0F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD9E4D962D01560D001B0F58 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		BD9E4D9B2D0157C4001B0F58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BD9E4D9D2D0159DE001B0F58 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		BD9E4DA02D015B63001B0F58 /* KLEPHON.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KLEPHON.otf; sourceTree = "<group>"; };
 		BDA3B2A62D039B1600DBE599 /* PremiumBottomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumBottomVC.swift; sourceTree = "<group>"; };
@@ -256,7 +255,8 @@
 		BDB6613B2D0224EC0038D40D /* NoInternet.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NoInternet.json; sourceTree = "<group>"; };
 		BDB661432D0232850038D40D /* Auto-Update.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "Auto-Update.json"; sourceTree = "<group>"; };
 		BDC1D7192D03E19E00A74629 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
-		BDEED1E42D0781CE00A2517F /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
+		BDEED1E62D07A53600A2517F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BDEED1E82D07AC0900A2517F /* SnapchatEventTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapchatEventTracker.swift; sourceTree = "<group>"; };
 		C9E5DE42C1582CC6F12FFEA4 /* Pods-Prankster-PranksterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prankster-PranksterUITests.debug.xcconfig"; path = "Target Support Files/Pods-Prankster-PranksterUITests/Pods-Prankster-PranksterUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DC340F686E4FBF078D71B1A1 /* Pods-OneSignalPushNotificationExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalPushNotificationExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalPushNotificationExtension/Pods-OneSignalPushNotificationExtension.release.xcconfig"; sourceTree = "<group>"; };
 		F2F386536D4DD55FA8FBFBA3 /* Pods_Prankster_PranksterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Prankster_PranksterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -352,7 +352,7 @@
 				BD9E4D6C2D015557001B0F58 /* Assets.xcassets */,
 				BD9E4D9D2D0159DE001B0F58 /* Color.xcassets */,
 				BD9E4D6D2D015557001B0F58 /* Info.plist */,
-				BD9E4D9B2D0157C4001B0F58 /* GoogleService-Info.plist */,
+				BDEED1E62D07A53600A2517F /* GoogleService-Info.plist */,
 			);
 			path = Prankster;
 			sourceTree = "<group>";
@@ -435,7 +435,7 @@
 				BDB660A72D0220940038D40D /* UIImage+GIF.swift */,
 				BDB661432D0232850038D40D /* Auto-Update.json */,
 				BDC1D7192D03E19E00A74629 /* Alert.swift */,
-				BDEED1E42D0781CE00A2517F /* SubscriptionManager.swift */,
+				BDEED1E82D07AC0900A2517F /* SnapchatEventTracker.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -747,7 +747,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD9E4D752D015557001B0F58 /* Assets.xcassets in Resources */,
-				BD9E4D9C2D0157C4001B0F58 /* GoogleService-Info.plist in Resources */,
 				BD9E4D9E2D0159DE001B0F58 /* Color.xcassets in Resources */,
 				BD9E4DA12D015B63001B0F58 /* KLEPHON.otf in Resources */,
 				BDB660E02D02210C0038D40D /* ShareView.xib in Resources */,
@@ -758,6 +757,7 @@
 				BD9E4D772D015557001B0F58 /* LaunchScreen.storyboard in Resources */,
 				BD9E4D782D015557001B0F58 /* Main.storyboard in Resources */,
 				BDB6613D2D0224EC0038D40D /* LoadData.json in Resources */,
+				BDEED1E72D07A53600A2517F /* GoogleService-Info.plist in Resources */,
 				BDB6613E2D0224EC0038D40D /* Loader.json in Resources */,
 				BDB661442D0232850038D40D /* Auto-Update.json in Resources */,
 				BDB6613F2D0224EC0038D40D /* Nodata.json in Resources */,
@@ -981,6 +981,7 @@
 				BDB660A92D0220940038D40D /* Snackbar.swift in Sources */,
 				BDB660FC2D0221680038D40D /* CategoryAPI.swift in Sources */,
 				BDB660FD2D0221680038D40D /* PrankAPI.swift in Sources */,
+				BDEED1E92D07AC0900A2517F /* SnapchatEventTracker.swift in Sources */,
 				BDB660FE2D0221680038D40D /* SpinnerAPI.swift in Sources */,
 				BDB660FF2D0221680038D40D /* MoreAppAPI.swift in Sources */,
 				BDB661002D0221680038D40D /* CategoryAllAPI.swift in Sources */,
@@ -993,7 +994,6 @@
 				BDB660AE2D0220940038D40D /* LoadingFooterView.swift in Sources */,
 				BDB660AF2D0220940038D40D /* RewardAdUtility.swift in Sources */,
 				BDB661362D0223AB0038D40D /* SpinnerVC.swift in Sources */,
-				BDEED1E52D0781CE00A2517F /* SubscriptionManager.swift in Sources */,
 				BDB660B02D0220940038D40D /* premiumManager.swift in Sources */,
 				BDB660CE2D02210C0038D40D /* CustomCoverAllCollectionViewCell.swift in Sources */,
 				BDB660CF2D02210C0038D40D /* NoInternetBottombarView.swift in Sources */,
